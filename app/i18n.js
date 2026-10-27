@@ -5,7 +5,7 @@ export const LANGUAGES = [
 ];
 export const languageKey = language => LANGUAGES.find(x=>x.id===language)?.key || 'zhCN';
 const phrases = {
-  brand:['80亿分之1','80億分之1','1 in 8 Billion'],
+  brand:['14亿分之一','14億分之一','1 in 1.4 Billion'],
   brandSub:['城市人生','城市人生','A city. A lifetime.'],
   home:['开始','開始','Begin'],
   archive:['追思馆','追思館','Memorial hall'],
@@ -13,8 +13,8 @@ const phrases = {
   cities:['城市名录','城市名錄','Birthplace directory'],
   theme:['切换明暗','切換明暗','Toggle theme'],
   kicker:['一场关于出身、选择与相遇的人生模拟','一場關於出身、選擇與相遇的人生模擬','A life shaped by circumstance, choice and connection'],
-  heroTitle:['80亿分之<span>1</span>','80億分之<span>1</span>','1 in <span>8 Billion</span>'],
-  heroText:['80亿人之中，你会在哪里出生、成为谁？你那只有一次的人生，会从哪座中国城市开始？','80億人之中，你會在哪裡出生、成為誰？你那只有一次的人生，會從哪座中國城市開始？','Where in China will your one life begin, and who will you become?'],
+  heroTitle:['14亿分之<span>一</span>','14億分之<span>一</span>','1 in <span>1.4 Billion</span>'],
+  heroText:['14亿人之中，你会在哪里出生、成为谁？你那只有一次的人生，会从哪座中国城市开始？','14億人之中，你會在哪裡出生、成為誰？你那只有一次的人生，會從哪座中國城市開始？','Among 1.4 billion people, where in China will your one life begin, and who will you become?'],
   cityCount:['个出生地点','個出生地點','birthplaces'],
   regionsCount:['个地区','個地區','regions'],
   languagesCount:['种语言','種語言','languages'],
@@ -52,8 +52,7 @@ const phrases = {
   chapter2text:['每一年选择重心，在求学、事业、感情和健康之间寻找自己的平衡。','每一年選擇重心，在求學、事業、感情和健康之間尋找自己的平衡。','Choose a focus each year. Find your balance between learning, work, relationships and health.'],
   chapter3text:['与同一刻出生的人并肩前行。最后，留下一份回顾、一张卡片与一句话。','與同一刻出生的人並肩前行。最後，留下一份回顧、一張卡片與一句話。','Travel alongside others born at the same moment. Leave a story, a card and a few words.'],
   modelNote:['本作是原创模拟游戏。行政区名录有公开来源，教育、收入、健康、寿命等城市参数为游戏模型，不用于现实预测。','本作是原創模擬遊戲。行政區名錄有公開來源，教育、收入、健康、壽命等城市參數為遊戲模型，不用於現實預測。','An original simulation. Administrative names have public sources; city-level education, income, health and lifespan parameters are game models, not real-world predictions.'],
-  contentNote:['15岁以上 · 包含疾病、离别与死亡等人生经历，可开启温和叙事。','15歲以上 · 包含疾病、離別與死亡等人生經歷，可開啟溫和敘事。','Ages 15+ · Includes illness, loss and death. Gentle narration is available.'],
-  gentle:['温和叙事','溫和敘事','Gentle narration'],
+  contentNote:['15岁以上 · 包含疾病、离别与死亡等人生经历。','15歲以上 · 包含疾病、離別與死亡等人生經歷。','Ages 15+ · Includes illness, loss and death.'],
   export:['导出存档','匯出存檔','Export saves'],
   import:['导入存档','匯入存檔','Import saves'],
   localNote:['人生保存在当前浏览器；清理网站数据会移除记录，请定期导出。','人生儲存在目前瀏覽器；清除網站資料會移除紀錄，請定期匯出。','Lives stay in this browser. Clearing site data removes them. Export a backup regularly.'],
@@ -181,7 +180,7 @@ const phrases = {
   guide4:['保存与隐私','儲存與隱私','Saves & privacy'],
   guide4text:['不需要账户，也不发送人生到服务器。网页托管方可能记录普通访问日志。不同浏览器、不同域名和单文件版之间，请用导出/导入转移存档。','不需要帳戶，也不傳送人生到伺服器。網頁託管方可能記錄一般存取日誌。不同瀏覽器、不同網域和單檔版之間，請用匯出／匯入轉移存檔。','No account is needed and lives are not sent to a server. A web host may keep ordinary access logs. Use export/import between browsers, domains and the standalone edition.'],
   sourceSummary:['名录使用公开行政区资料；人口未填值。出生权重、城市发展指数和人生参数为可配置模拟值。详细来源与覆盖范围见项目 data-sources.md。','名錄使用公開行政區資料；人口未填值。出生權重、城市發展指數和人生參數為可設定模擬值。詳細來源與涵蓋範圍見專案 data-sources.md。','The directory uses public administrative data; population is intentionally unset. Birth weights, development indices and life parameters are configurable simulations. See data-sources.md for provenance and coverage.'],
-  footer:['80亿分之1 · 在每一座城，看见一个人。','80億分之1 · 在每一座城，看見一個人。','1 in 8 Billion · In every city, a person.'],
+  footer:['14亿分之一 · 在每一座城，看见一个人。','14億分之一 · 在每一座城，看見一個人。','1 in 1.4 Billion · In every city, a person.'],
   modelLabel:['模拟参数','模擬參數','Modeled parameters'],
   urban:['城区生活','城區生活','Urban home'],
   rural:['乡间生活','鄉間生活','Rural home'],
