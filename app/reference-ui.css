@@ -374,3 +374,94 @@ body{background:var(--memorial-bg)}
  .life-layout{margin-top:12px}
  .life-right{display:grid;grid-template-columns:1fr;width:auto;margin:12px 18px 0}
 }
+
+/* Compact living overview, visible pacing, and collected pixel moments. */
+.life-overview{box-shadow:0 7px 24px #3f382014}
+.overview-person{padding-bottom:14px}
+.overview-person h1{font-size:clamp(22px,2.8vw,29px)}
+.overview-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:13px 24px;border-top:1px solid var(--memorial-line)}
+.overview-stat-line{display:flex;flex-direction:column;align-items:flex-start;gap:0;font-size:10px}
+.overview-stat-line strong{font-size:16px;line-height:1.25}
+.overview-finances{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0;padding:13px 24px;border-top:1px solid var(--memorial-line)}
+.overview-finances strong{font-size:15px;line-height:1.4}
+.overview-household{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;border-top:1px solid var(--memorial-line);padding:12px 24px}
+.overview-household>span{color:var(--jade);font-size:11px;font-weight:700;white-space:nowrap}
+.overview-household p{font-family:var(--sans);color:var(--muted);font-size:11px;line-height:1.5;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.overview-details{border-top:1px solid var(--memorial-line)}
+.overview-details summary{min-height:44px;padding:11px 24px;color:var(--jade);font-size:11px;font-family:var(--sans);font-weight:700;cursor:pointer;list-style:none}
+.overview-details summary::-webkit-details-marker{display:none}
+.overview-details summary:after{content:"⌄";float:right;font-size:16px;line-height:1}
+.overview-details[open] summary:after{transform:rotate(180deg)}
+.overview-detail-content{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;border-top:1px solid var(--memorial-line);padding:17px 24px 20px}
+.overview-detail-content>div{min-width:0}
+.overview-detail-content h2{font-size:15px;margin:0 0 12px}
+.overview-detail-content .overview-facts{gap:10px}
+.overview-detail-content .overview-family-content{max-height:270px}
+.life-focus-top,.life-moments{margin-top:12px;padding:15px 20px;background:var(--memorial-card);border:1px solid var(--memorial-line);border-radius:13px}
+.life-focus-heading,.moments-heading{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.life-focus-heading strong,.moments-heading h2{font-size:15px;font-weight:700;line-height:1.3}
+.moments-heading h2{margin:0}
+.life-focus-heading span,.moments-heading span{font-family:var(--sans);font-size:10px;color:var(--muted)}
+.life-focus-options{display:flex;gap:7px;overflow-x:auto;scrollbar-width:thin;scroll-snap-type:x proximity;padding:10px 1px 2px}
+.life-focus-options .focus-chip{flex:none;min-height:34px;padding:7px 11px;white-space:nowrap;font-size:11px;scroll-snap-align:start}
+.moments-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin;margin-top:13px;padding-bottom:4px}
+.moment-card{flex:0 0 210px;min-width:0;border:1px solid var(--memorial-line);border-radius:9px;overflow:hidden;background:var(--memorial-bg);scroll-snap-align:start}
+.moment-card canvas{display:block;width:100%;height:auto;aspect-ratio:2.9;image-rendering:pixelated}
+.moment-card>div{padding:10px}
+.moment-card small{display:block;color:var(--jade);font-family:var(--sans);font-size:10px}
+.moment-card p{font-size:11px;line-height:1.5;margin:5px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.moments-empty{color:var(--muted);font-size:11px;line-height:1.5;margin:7px 0 0}
+.memorial-highlights>h2{font-size:22px;margin:16px 0}
+.year-progress-block{margin:12px 0 0}
+.year-progress-label{display:flex;justify-content:space-between;gap:12px;font-family:var(--sans);font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}
+.year-progress-label strong{display:flex;gap:9px;color:var(--ink);font-weight:700}
+.game-toolbar .year-progress{position:static;height:7px;margin-top:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.game-toolbar .year-progress>span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#3f997b,#d0a04e,#a22d52);transition:width .06s linear}
+.modal-overlay:has(.decision-option){z-index:110}
+@media(max-width:700px){
+ .life-overview{margin-top:9px}
+ .overview-header{padding:14px 15px 0}
+ .overview-person{padding:9px 15px 12px;gap:6px 10px}
+ .overview-avatar{width:42px;height:42px}
+ .overview-person h1{font-size:22px}
+ .overview-person p{font-size:10px;line-height:1.4}
+ .overview-stats{gap:7px;padding:11px 15px}
+ .overview-stat-line{font-size:9px}
+ .overview-stat-line strong{font-size:14px}
+ .overview-finances{gap:5px;padding:10px 15px}
+ .overview-finances span{font-size:9px}
+ .overview-finances strong{font-size:13px}
+ .overview-household{display:block;padding:10px 15px}
+ .overview-household p{margin-top:3px}
+ .overview-details summary{padding:11px 15px}
+ .overview-detail-content{display:block;padding:8px 15px 18px}
+ .overview-detail-content>div+div{border-top:1px solid var(--memorial-line);margin-top:16px;padding-top:16px}
+ .overview-detail-content .overview-family-content{max-height:none}
+ .life-focus-top,.life-moments{margin:10px 16px 0;padding:12px 14px}
+ .life-focus-heading{display:block}
+ .life-focus-heading span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+ .life-focus-options{padding-top:8px;scrollbar-width:none}
+ .life-focus-options::-webkit-scrollbar,.moments-track::-webkit-scrollbar{display:none}
+ .life-focus-options .focus-chip{font-size:10px;padding:7px 10px}
+ .moments-track{scrollbar-width:none}
+ .game-shell{padding-bottom:calc(176px + env(safe-area-inset-bottom))}
+ .game-toolbar .year-progress-block{order:-1;margin:0 auto 9px;width:100%;max-width:680px}
+ .game-toolbar .year-progress-label{color:#bdb9b0}
+ .game-toolbar .year-progress-label strong{color:#f0e8d8}
+ .game-toolbar .year-progress{position:static;left:auto;right:auto;top:auto;height:7px;margin:6px 0 0;background:#41423f}
+ .game-toolbar .year-progress>span{background:linear-gradient(90deg,#59b898,#d4ad60,#ca6680)}
+ .game-toolbar{display:flex;flex-direction:column}
+ .game-toolbar .control-status{order:0;width:100%}
+ .game-toolbar .time-controls{order:1;width:100%}
+ .modal-overlay{padding:14px}
+ .modal-overlay .modal{width:100%;max-height:calc(100dvh - 28px);border-radius:15px}
+ .modal-overlay .modal-body{padding:18px}
+ .modal-overlay .modal-body h2{font-size:21px}
+ .modal-overlay .decision-options{gap:7px;margin-top:16px}
+ .modal-overlay .decision-option{padding:12px;min-height:50px}
+}
+@media(max-width:370px){
+ .overview-household p{font-size:10px}
+ .overview-finances strong{font-size:12px}
+ .life-focus-heading span{display:none}
+}

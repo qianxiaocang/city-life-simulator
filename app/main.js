@@ -2,7 +2,7 @@ import { referencesFor } from './references.js';
 import { drawHighlightScene } from './highlight-scenes.js';
 import { locations } from './data/locations.js';
 import { LANGUAGES, t, valueText, money, educationText } from './i18n.js';
-import { createLife, startLife, advanceYear, choose, autoChoose, setFocus, setAutopilot, runAutopilot, AUTOPILOT_STRATEGIES, getFocusOptions, summarize, generateCompanions, configureLocations, netWorth, processTimeline, ensureModelState } from './engine.js';
+import { createLife, startLife, advanceYear, choose, autoChoose, setFocus, setAutopilot, runAutopilot, getFocusOptions, summarize, generateCompanions, configureLocations, netWorth, processTimeline, ensureModelState } from './engine.js';
 
 configureLocations(locations);
 const app = document.querySelector('#app'), modalRoot = document.querySelector('#modal-root');
@@ -15,7 +15,7 @@ try { const old = JSON.parse(localStorage.getItem(SAVE_KEY)); if (old?.version =
 if (!LANGUAGES.some(language => language.id === store.settings.language)) store.settings.language = 'zh-CN';
 if (!regions.includes(store.settings.scope) && store.settings.scope !== 'all') store.settings.scope = 'all';
 if(store.current&&store.current.phase!=='dead')ensureModelState(store.current);
-let view = 'home', viewedLife = null, modal = null, lastFocus = null, minimizedDecision = null, advancedOpen = false;
+let view = 'home', viewedLife = null, modal = null, lastFocus = null, minimizedDecision = null, advancedOpen = false, overviewExpanded = false;
 let paused = true, speed = 1, fast = false, automatic = !!store.current?.autopilot?.enabled, progress = 0, logLimit = 12, autoDeadline = 0, toastTimer, lastFrame = 0;
 let audioState = null;
 const L = value => valueText(value, store.settings.language);
@@ -55,7 +55,7 @@ function render() {
   if (view === 'life' && currentLife()?.phase === 'dead') view = 'report';
   if (view === 'home') renderHome(); else if (view === 'certificate') renderCertificate(); else if (view === 'life') renderLife(); else if (view === 'archive') renderArchive(); else if (view === 'report') renderReport();;
   drawAll();
-  if (view === 'life' && store.current?.pending && minimizedDecision !== store.current.pending.id && !window.matchMedia('(max-width: 700px)').matches) openDecision();
+  if (view === 'life' && store.current?.pending && minimizedDecision !== store.current.pending.id) openDecision();
 }
 function pool() { return locations.filter(place => (store.settings.scope === 'all' || place.region === store.settings.scope) && (store.settings.province === 'all' || place.province.id === store.settings.province)); }
 function provinceOptions() { const map = new Map(); for (const place of locations.filter(place => store.settings.scope === 'all' || place.region === store.settings.scope)) map.set(place.province.id, place.province); return [...map.values()].sort((a, b) => L(a).localeCompare(L(b), store.settings.language)); }
@@ -106,24 +106,52 @@ function lifeOverview(life) {
     ...(life.temperament ? [[tx('气质', '氣質', 'Temperament'), L(life.temperament)]] : [])
   ];
   const stats = Object.entries(life.stats).map(([key, value]) => `<div class="overview-stat ${key}"><div class="overview-stat-line"><span>${tr(key)}</span><strong>${Math.round(value)}</strong></div><div class="overview-track" aria-hidden="true"><span style="width:${Math.max(0, Math.min(100, value))}%"></span></div></div>`).join('');
+  const assets = [
+    [tx('现金', '現金', 'Cash'), life.money],
+    [tx('住房', '住房', 'Home'), life.assets?.house],
+    [tx('车辆', '車輛', 'Car'), life.assets?.car],
+    [tx('退休账户', '退休帳戶', 'Retirement'), life.assets?.retirement],
+    ...[
+      ['furniture', tx('家具', '家具', 'Furniture')],
+      ['appliances', tx('家电', '家電', 'Appliances')],
+      ['phone', tx('通信设备', '通訊設備', 'Communication device')],
+      ['computer', tx('电脑', '電腦', 'Computer')],
+      ['bicycle', tx('自行车', '自行車', 'Bicycle')]
+    ].filter(([key]) => (life.assets?.[key] || 0) > 0).map(([key, label]) => [label, life.assets[key]]),
+    [tx('负债', '負債', 'Debt'), life.debt]
+  ];
+  const family = [life.family.mother && `${tr('mother')} ${L(life.family.mother.name)}`, life.family.father && `${tr('father')} ${L(life.family.father.name)}`].filter(Boolean);
+  const familyExtra = [
+    life.family.partner ? `${tr('partner')} ${L(life.family.partner.name)}` : null,
+    life.family.children.length ? `${tr('children')} ${life.family.children.length}` : null,
+    life.family.siblings.length ? `${tr('siblings')} ${life.family.siblings.length}` : null
+  ].filter(Boolean);
   return `<section class="life-overview" aria-labelledby="life-overview-title">
     <div class="overview-header"><span class="overview-eyebrow" id="life-overview-title">${tx('人生总览', '人生總覽', 'Life overview')}</span><span class="overview-date">${life.year} · ${ageLabel(life.age)}</span></div>
-    <div class="overview-person"><div class="overview-avatar" aria-hidden="true">${esc(Array.from(L(life.name))[0] || '·')}</div><div class="overview-person-copy"><h1>${esc(L(life.name))}</h1><p>${esc(placeLabel(life.location))} · ${tr(life.urban ? 'urban' : 'rural')} · ${life.birthYear}</p></div><span class="overview-career">${tr('career')} · ${esc(career)}</span></div>
-    <div class="overview-sections"><section class="overview-section overview-identity"><h2>${tr('identity')}</h2><dl class="overview-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl></section>
-      <section class="overview-section overview-status"><h2>${tr('stats')}</h2><div class="overview-stats">${stats}</div><div class="overview-finances"><div><span>${tr('wealth')}</span><strong>${formatMoney(netWorth(life))}</strong></div><div><span>${tr('income')}</span><strong>${formatMoney(life.income)}</strong></div></div><p class="overview-note">${tr('moneyUnit')}</p></section>
-      <section class="overview-section overview-family"><h2>${tr('family')}</h2><div class="overview-family-content">${familyHTML(life)}</div></section></div>
+    <div class="overview-person"><div class="overview-avatar" aria-hidden="true">${esc(Array.from(L(life.name))[0] || '·')}</div><div class="overview-person-copy"><h1>${esc(L(life.name))}</h1><p>${esc(placeLabel(life.location))} · ${tr(life.urban ? 'urban' : 'rural')} · ${esc(career)}</p></div></div>
+    <div class="overview-stats" aria-label="${tr('stats')}">${stats}</div>
+    <div class="overview-finances"><div><span>${tr('wealth')}</span><strong>${formatMoney(netWorth(life))}</strong></div><div><span>${tx('现金', '現金', 'Cash')}</span><strong>${formatMoney(life.money)}</strong></div><div><span>${tr('income')}</span><strong>${formatMoney(life.income)}</strong></div></div>
+    <div class="overview-household"><span>${tx('身份与家人', '身份與家人', 'Identity & family')}</span><p>${esc(`${tr(life.sex)} · ${educationText(life.education, store.settings.language)} · ${family.join(' · ')}${familyExtra.length ? ` · ${familyExtra.join(' · ')}` : ''}`)}</p></div>
+    <details class="overview-details" ${overviewExpanded ? 'open' : ''}><summary>${tx('查看身份、家人与资产明细', '查看身份、家人與資產明細', 'View identity, family & assets')}</summary><div class="overview-detail-content"><div><h2>${tr('identity')}</h2><dl class="overview-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl></div><div><h2>${tr('family')}</h2><div class="overview-family-content">${familyHTML(life)}</div></div><div><h2>${tx('资产明细', '資產明細', 'Assets')}</h2><dl class="overview-facts">${assets.map(([label, value]) => `<div><dt>${label}</dt><dd>${formatMoney(value || 0)}</dd></div>`).join('')}</dl><p class="overview-note">${tr('moneyUnit')}</p></div></div></details>
     ${life.autopilot?.enabled || automatic ? button('take-control', tx('抉择已交给自动 · 点此恢复手动','抉擇已交給自動 · 點此恢復手動','Choices are automatic · Take control'), 'class="overview-auto"') : ''}
   </section>`;
 }
-function inlineDecision(life) {
-  const pending=life.pending;
-  if(!pending || minimizedDecision===pending.id) return '';
-  return `<section class="mobile-decision"><div class="decision-kicker">${ageLabel(life.age)} · ${life.year}</div><h3>${esc(L(pending.title))}</h3><p>${esc(L(pending.description))}</p>${pending.input ? `<textarea id="reflection-input" maxlength="200" aria-label="${tr('reflection')}" placeholder="${tr('reflectionPlaceholder')}"></textarea>` : ''}<div class="choice-panel">${pending.options.map(option=>button('choose',`<b>${esc(L(option.label))}</b>${L(option.description)?`<small>${esc(L(option.description))}</small>`:''}`,`data-value="${option.id}" class="choice-opt"`)).join('')}</div></section>`;
+function lifeFocus(life, choices) {
+  return `<section class="life-focus-top" aria-label="${tr('focus')}"><div class="life-focus-heading"><strong>${tr('focus')}</strong><span>${choices.length ? tr('focusHint') : tr('babyFocus')}</span></div>${choices.length ? `<div class="life-focus-options">${choices.map(choice => button('focus', esc(L(choice.label)), `data-value="${choice.id}" class="focus-chip ${choice.id === life.focus ? 'selected' : ''}" title="${esc(L(choice.description))}" aria-pressed="${choice.id === life.focus}"`)).join('')}</div>` : ''}</section>`;
+}
+function lifeMoments(life) {
+  const byId = new Map(life.log.map(event => [event.id, event]));
+  const events = (life.stars || []).slice().reverse().map(id => byId.get(id)).filter(Boolean);
+  return `<section class="life-moments" aria-labelledby="life-moments-title"><div class="moments-heading"><h2 id="life-moments-title">${tx('人生瞬间', '人生瞬間', 'Life moments')}</h2><span>${events.length}</span></div>${events.length ? `<div class="moments-track">${events.map(event => `<article class="moment-card"><canvas data-memory-event="${esc(event.id)}" width="640" height="220" role="img" aria-label="${esc(displayEventText(event))}"></canvas><div><small>${ageLabel(event.age)} · ${event.year}</small><p>${esc(displayEventText(event))}</p></div></article>`).join('')}</div>` : `<p class="moments-empty">${tx('点亮人生记录旁的星标，瞬间会带着像素画收藏在这里。', '點亮人生記錄旁的星標，瞬間會帶著像素畫收藏在這裡。', 'Star a life record to keep it here with a pixel scene.')}</p>`}</section>`;
+}
+function yearProgress(life) {
+  const percent = Math.round(progress * 100);
+  return `<div class="year-progress-block"><div class="year-progress-label"><span>${tx('这一年', '這一年', 'This year')} · ${life.year}</span><strong><span id="year-progress-value">${percent}%</span><span>${fast ? tx('快转', '快轉', 'Fast forward') + ' · ' : ''}${speed}×</span></strong></div><div class="year-progress" role="progressbar" aria-label="${tx('年度进度', '年度進度', 'Year progress')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percent}"><span id="year-progress" style="width:${progress * 100}%"></span></div></div>`;
 }
 function renderLife() {
   const life = store.current; if (!life) return navigate('home');
   const choices = getFocusOptions(life);
-  app.innerHTML = `<main class="game-shell"><div class="life-nav">${button('leave','‹',`aria-label="${tr('back')}"`)}<span>${tx('正在活着','正在活著','Living')}</span>${button('music','♪',`aria-label="${tr('music')}"`)}</div><header class="game-toolbar"><div class="game-toolbar-top"><div class="toolbar-brand">${tr('brand')}</div><div class="age-display">${life.age}<small>${ageUnit(life.age)}</small></div><div class="toolbar-person">${life.year} · ${esc(L(life.name))}<br>${esc(placeLabel(life.location))}</div><div class="toolbar-tools">${button('music', `♪ ${tr('music')}`, `aria-pressed="${!!audioState}"`)}${button('leave', tr('exit'))}</div></div><div class="control-status"><span>${esc(life.job ? L(life.job.name) : life.retired ? tx('已退休','已退休','Retired') : tr('noJob'))}</span><span>${formatMoney(life.income)} / ${tx('年','年','yr')}</span></div><div class="time-controls">${button('pause', paused ? tr('play') : tr('pause'), `id="pause-control" class="${paused ? 'active' : ''}" aria-pressed="${paused}"`)}<div class="speed-controls">${[1, 2, 4, 8, 12, 16].map(value => button('speed', `${value}×`, `data-value="${value}" class="${speed === value ? 'active' : ''}" aria-pressed="${speed === value}"`)).join('')}</div><span class="control-divider"></span>${button('next', `${tr('next')} »`, `class="${fast ? 'active' : ''}"`)}${button('year', tr('oneYear'))}${button('auto', tr('auto'), `class="${automatic&&!life.autopilot?.enabled ? 'active' : ''}" aria-pressed="${automatic&&!life.autopilot?.enabled}"`)}${button('autopilot', tr('autopilot'), `class="${life.autopilot?.enabled ? 'active' : ''}" aria-pressed="${!!life.autopilot?.enabled}"`)}<select data-autopilot-strategy aria-label="${tx('托管策略','託管策略','Life strategy')}">${AUTOPILOT_STRATEGIES.map((name,index)=>`<option value="${name}" ${(life.autopilot?.strategy||'balanced')===name?'selected':''}>${[tx('奋斗','奮鬥','Strive'),tx('平衡','平衡','Balance'),tx('健康','健康','Health'),tx('家庭','家庭','Family'),tx('学业','學業','Study')][index]}</option>`).join('')}</select>${life.pending && minimizedDecision === life.pending.id ? button('pending', tr('majorChoice'), 'class="primary"') : ''}</div><div class="year-progress" aria-hidden="true"><span id="year-progress" style="width:${progress * 100}%"></span></div></header>${lifeOverview(life)}<div class="life-layout"><section class="life-center"><section class="panel life-scene"><canvas id="life-scene" width="640" height="220" role="img" aria-label="${esc(`${placeLabel(life.location)} · ${tr(life.urban ? 'urban' : 'rural')}`)}"></canvas><div class="scene-caption"><span>${esc(placeLabel(life.location))} · ${tr(life.urban ? 'urban' : 'rural')}</span><span>${life.year}</span></div></section><section class="panel panel-pad focus-panel"><div class="panel-header"><h3>${tr('focus')}</h3><span>${tr('focusHint')}</span></div>${choices.length ? `<div class="focus-options">${choices.map(choice => button('focus', `${esc(L(choice.label))}<span>${esc(L(choice.description))}</span>`, `data-value="${choice.id}" class="focus-chip ${choice.id === life.focus ? 'selected' : ''}" aria-pressed="${choice.id === life.focus}"`)).join('')}</div>` : `<p class="small-text muted" style="margin-bottom:0">${tr('babyFocus')}</p>`}</section><section class="panel feed-panel"><div class="panel-header panel-pad" style="margin-bottom:0"><h3>${tr('lifeLog')}</h3><span>${tr('newestFirst')}</span></div><div class="life-feed">${inlineDecision(life)}${logHTML(life, logLimit)}</div>${life.log.length > logLimit ? `<div class="panel-pad">${button('earlier', tr('earlier'), 'class="full small"')}</div>` : ''}</section></section><aside class="life-right"><section class="panel panel-pad companions-panel"><h3>${tr('sameMoment')}</h3><div class="companions-stack">${companionsHTML(life)}</div><p class="tiny muted" style="margin:17px 0 0">${tr('companionHint')}</p></section><section class="panel panel-pad"><h3>${tr('lifeMap')}</h3>${yearGrid(life)}<p class="tiny muted" style="margin:12px 0 0">${tr('lifeMapHint')}</p></section><section class="panel panel-pad"><h3>${tr('survival')}</h3><canvas id="survival" class="survival-canvas" width="480" height="300" role="img" aria-label="${tr('survival')}"></canvas><p class="tiny muted" style="margin:10px 0 0">${tr('survivalHint')}</p></section></aside></div></main>`;
+  app.innerHTML = `<main class="game-shell"><div class="life-nav">${button('leave','‹',`aria-label="${tr('back')}"`)}<span>${tx('正在活着','正在活著','Living')}</span>${button('music','♪',`aria-label="${tr('music')}"`)}</div><header class="game-toolbar"><div class="game-toolbar-top"><div class="toolbar-brand">${tr('brand')}</div><div class="age-display">${life.age}<small>${ageUnit(life.age)}</small></div><div class="toolbar-person">${life.year} · ${esc(L(life.name))}<br>${esc(placeLabel(life.location))}</div><div class="toolbar-tools">${button('music', `♪ ${tr('music')}`, `aria-pressed="${!!audioState}"`)}${button('leave', tr('exit'))}</div></div>${yearProgress(life)}<div class="control-status"><span>${esc(life.job ? L(life.job.name) : life.retired ? tx('已退休','已退休','Retired') : tr('noJob'))}</span><span>${formatMoney(life.income)} / ${tx('年','年','yr')}</span></div><div class="time-controls">${button('pause', paused ? tr('play') : tr('pause'), `id="pause-control" class="${paused ? 'active' : ''}" aria-pressed="${paused}"`)}<div class="speed-controls">${[1, 2, 4, 8, 12, 16].map(value => button('speed', `${value}×`, `data-value="${value}" class="${speed === value ? 'active' : ''}" aria-pressed="${speed === value}"`)).join('')}</div><span class="control-divider"></span>${button('next', `${tr('next')} »`, `class="${fast ? 'active' : ''}"`)}${button('year', tr('oneYear'))}${button('auto', tr('auto'), `class="${automatic&&!life.autopilot?.enabled ? 'active' : ''}" aria-pressed="${automatic&&!life.autopilot?.enabled}"`)}${button('autopilot', tr('autopilot'), `class="${life.autopilot?.enabled ? 'active' : ''}" aria-pressed="${!!life.autopilot?.enabled}"`)}${life.pending && minimizedDecision === life.pending.id ? button('pending', tr('majorChoice'), 'class="primary"') : ''}</div></header>${lifeOverview(life)}${lifeFocus(life, choices)}${lifeMoments(life)}<div class="life-layout"><section class="life-center"><section class="panel life-scene"><canvas id="life-scene" width="640" height="220" role="img" aria-label="${esc(`${placeLabel(life.location)} · ${tr(life.urban ? 'urban' : 'rural')}`)}"></canvas><div class="scene-caption"><span>${esc(placeLabel(life.location))} · ${tr(life.urban ? 'urban' : 'rural')}</span><span>${life.year}</span></div></section><section class="panel feed-panel"><div class="panel-header panel-pad" style="margin-bottom:0"><h3>${tr('lifeLog')}</h3><span>${tr('newestFirst')}</span></div><div class="life-feed">${logHTML(life, logLimit)}</div>${life.log.length > logLimit ? `<div class="panel-pad">${button('earlier', tr('earlier'), 'class="full small"')}</div>` : ''}</section></section><aside class="life-right"><section class="panel panel-pad companions-panel"><h3>${tr('sameMoment')}</h3><div class="companions-stack">${companionsHTML(life)}</div><p class="tiny muted" style="margin:17px 0 0">${tr('companionHint')}</p></section><section class="panel panel-pad"><h3>${tr('lifeMap')}</h3>${yearGrid(life)}<p class="tiny muted" style="margin:12px 0 0">${tr('lifeMapHint')}</p></section><section class="panel panel-pad"><h3>${tr('survival')}</h3><canvas id="survival" class="survival-canvas" width="480" height="300" role="img" aria-label="${tr('survival')}"></canvas><p class="tiny muted" style="margin:10px 0 0">${tr('survivalHint')}</p></section></aside></div></main>`;
 }
 function familyHTML(life) {
   const row = (kind, person) => person ? `<div class="family-row"><span class="muted">${kind}</span><span class="family-name">${esc(L(person.name))}<small>${person.alive ? ageLabel(person.age) : tr('passed')}</small></span></div>` : '';
@@ -162,6 +190,8 @@ function reportHighlights(life) {
       if(second)chosen.push(second);
     }
   }
+  const byId=new Map(life.log.map(event=>[event.id,event]));
+  for(const id of life.stars||[]){const event=byId.get(id);if(event&&!chosen.some(item=>item.id===id))chosen.push(event);}
   return chosen.sort((a,b)=>a.age-b.age);
 }
 function memorialDecade(age){
@@ -176,7 +206,7 @@ function renderReport() {
   const groups=new Map();for(const event of highlights){const decade=Math.floor(event.age/10);if(!groups.has(decade))groups.set(decade,[]);groups.get(decade).push(event);}
   const allEvents=life.log.slice().reverse();
   app.innerHTML=`<div class="wrap page-report">${header()}<main class="memorial-detail"><article class="detail-person"><canvas data-memory-cover="${life.id}" width="640" height="220" aria-hidden="true"></canvas><div class="detail-person-body"><h1>${esc(L(life.name))}</h1><p class="muted">${life.birthYear}–${life.year} · ${esc(placeLabel(life.born))}</p><p class="detail-summary">${esc(memorialTagline(life))}</p><p class="detail-meta">${tr(life.sex)} · ${tx('活了','活了','Lived')} ${ageLabel(life.age)} · ${life.family.partner?.married?tx('已婚','已婚','Married'):tr('single')} · ${life.family.children.length} ${tr('children')}</p>${button('candle',`${life.candleLit??(life.candles>0)?'🕯️':'🕯'} <span>${life.candles||0}</span>`,`data-value="${life.id}" class="detail-candle" aria-label="${(life.candleLit??(life.candles>0))?tx('收起烛光','收起燭光','Put out candle'):tx('点亮烛光','點亮燭光','Light a candle')}" aria-pressed="${!!(life.candleLit??(life.candles>0))}"`)}</div></article>
-  <div class="memorial-highlights">${[...groups].map(([decade,events])=>`<section class="decade-group"><div class="decade-title"><strong>${memorialDecade(events[0].age)}</strong><span>${events.length===1?events[0].year:`${events[0].year}–${events.at(-1).year}`}</span></div><div class="decade-events">${events.map(event=>`<article class="memory-moment"><canvas data-memory-event="${event.id}" width="640" height="220" aria-hidden="true"></canvas><div><strong>${ageLabel(event.age)}</strong><span>${event.year}</span></div><p>${esc(displayEventText(event))}</p></article>`).join('')}</div></section>`).join('')}</div>
+  <div class="memorial-highlights"><h2>${tx('人生瞬间', '人生瞬間', 'Life moments')}</h2>${[...groups].map(([decade,events])=>`<section class="decade-group"><div class="decade-title"><strong>${memorialDecade(events[0].age)}</strong><span>${events.length===1?events[0].year:`${events[0].year}–${events.at(-1).year}`}</span></div><div class="decade-events">${events.map(event=>`<article class="memory-moment"><canvas data-memory-event="${event.id}" width="640" height="220" aria-hidden="true"></canvas><div><strong>${ageLabel(event.age)}</strong><span>${event.year}</span></div><p>${esc(displayEventText(event))}</p></article>`).join('')}</div></section>`).join('')}</div>
   <section class="whole-life" id="life-record"><h2>${tx('这一生','這一生','This life')}</h2><div class="life-record-list">${allEvents.map(event=>`<div class="record-row ${event.type}"><span class="record-age">${event.age}</span><p>${esc(displayEventText(event))}</p></div>`).join('')}</div></section><section class="memorial-message"><h2>${tx('留下一句话','留下一句話','Leave a thought')}</h2><textarea id="farewell-note" maxlength="300" aria-label="${tr('farewell')}" placeholder="${tr('reflectionPlaceholder')}">${esc(life.farewell||'')}</textarea>${button('farewell',tr('saveNote'),'class="full"')}</section><div class="detail-bottom">${button('archive',tx('回到追思馆','回到追思館','Back to the memorial hall'),'class="full"')}${button('home',tr('home'),'class="full"')}</div></main></div>`;
 }
 function openModal(type, title, contents, wide = false) {
@@ -202,7 +232,7 @@ function completeYear() { const life = store.current; if (!life || life.pending 
 function makeChoice(optionId, isAutomatic = false) { const life = store.current; if (!life?.pending) return; const text = document.querySelector('#reflection-input')?.value || ''; if (isAutomatic) autoChoose(life); else choose(life, optionId, text); closeModal(); minimizedDecision = null; autoDeadline = 0; if(life.autopilot?.enabled)runAutopilot(life); persist(); render(); }
 function finishLife() { const life = store.current; paused = true; fast = false; closeModal(); store.history = [life, ...store.history.filter(item => item.id !== life.id)].slice(0, 12); persist(); view = 'report'; viewedLife = null; render(); const ending = document.createElement('section'); ending.className = 'ending'; ending.setAttribute('role', 'dialog'); ending.setAttribute('aria-modal', 'true'); ending.setAttribute('aria-label', tr('endingTitle')); ending.innerHTML = `<canvas id="ending-scene" width="640" height="220" aria-hidden="true"></canvas><h1>${esc(L(life.name))}</h1><p class="date">${life.birthYear} — ${life.year}</p><p>${tr('endingTitle')}<br>${tr('endingText')}</p>${button('end-done', tr('viewReport'))}`; document.body.append(ending); drawScene(ending.querySelector('canvas'), life, true); ending.querySelector('button').focus(); }
 function toggleAuto() { automatic = !automatic; if(!automatic&&store.current?.autopilot?.enabled)setAutopilot(store.current,false,store.current.autopilot.strategy); if (automatic) paused = false; autoDeadline = 0; if (modal?.type === 'decision') closeModal(); persist(); render(); toast(tr(automatic ? 'autoOn' : 'autoOff')); }
-function toggleAutopilot(){const life=store.current;if(!life||life.phase!=='life')return;const enable=!life.autopilot?.enabled;const strategy=document.querySelector('[data-autopilot-strategy]')?.value||life.autopilot?.strategy||'balanced';setAutopilot(life,enable,strategy);automatic=enable;paused=!enable?paused:false;if(enable)runAutopilot(life);persist();render();toast(tr(enable?'autopilotOn':'autopilotOff'));}
+function toggleAutopilot(){const life=store.current;if(!life||life.phase!=='life')return;const enable=!life.autopilot?.enabled;const strategy=life.autopilot?.strategy||'balanced';setAutopilot(life,enable,strategy);automatic=enable;paused=!enable?paused:false;if(enable)runAutopilot(life);persist();render();toast(tr(enable?'autopilotOn':'autopilotOff'));}
 function updateFrame(timestamp) {
   const dt = Math.min(.2, Math.max(0, (timestamp - (lastFrame || timestamp)) / 1000)); lastFrame = timestamp;
   const life = store.current;
@@ -221,7 +251,7 @@ function updateFrame(timestamp) {
       const timeline=processTimeline(life,progress);
       if(life.phase==='dead'){persist();finishLife();requestAnimationFrame(updateFrame);return;}
       if(timeline.changed){persist();render();}
-      const bar = document.querySelector('#year-progress'); if (bar) bar.style.width = `${progress * 100}%`;
+      const bar = document.querySelector('#year-progress'); if (bar) { const percent=Math.round(progress*100); bar.style.width = `${progress * 100}%`; bar.parentElement.setAttribute('aria-valuenow',String(percent)); const label=document.querySelector('#year-progress-value');if(label)label.textContent=`${percent}%`; }
       if (progress >= 1) completeYear();
     }
   }
@@ -229,8 +259,9 @@ function updateFrame(timestamp) {
 }
 
 app.addEventListener('change', settingsChanged);
-function settingsChanged(event) { const input = event.target;if(input.dataset.autopilotStrategy){const life=store.current;if(life?.autopilot?.enabled){setAutopilot(life,true,input.value);runAutopilot(life);persist();render();}return;} const key = input.dataset.setting; if (!key) return; advancedOpen = !!input.closest('details.advanced-settings')?.open; store.settings[key] = key === 'gentle' ? input.checked : ['pace', 'birthYear'].includes(key) ? Number(input.value) : input.value; if (key === 'scope') store.settings.province = 'all'; persist(); if (key === 'language' && modal) closeModal(); render(); }
+function settingsChanged(event) { const input = event.target; const key = input.dataset.setting; if (!key) return; advancedOpen = !!input.closest('details.advanced-settings')?.open; store.settings[key] = key === 'gentle' ? input.checked : ['pace', 'birthYear'].includes(key) ? Number(input.value) : input.value; if (key === 'scope') store.settings.province = 'all'; persist(); if (key === 'language' && modal) closeModal(); render(); }
 document.addEventListener('toggle', event => { if (event.target.matches?.('details.advanced-settings')) advancedOpen = event.target.open; }, true);
+document.addEventListener('toggle', event => { if (event.target.matches?.('details.overview-details')) overviewExpanded = event.target.open; }, true);
 document.addEventListener('click', async event => {
   const target = event.target.closest('button[data-action]'); if (!target || target.disabled) return;
   const action = target.dataset.action, value = target.dataset.value;
@@ -256,7 +287,7 @@ document.addEventListener('click', async event => {
     if (action === 'pending') { minimizedDecision = null; return openDecision(); }
     if (action === 'close-modal') { if (modal?.type === 'decision') { minimizedDecision = store.current.pending.id; automatic = false; } closeModal(); if (view === 'life') render(); return; }
     if (action === 'earlier') { logLimit += 20; return render(); }
-    if (action === 'star') { const life = currentLife(); life.stars ||= []; life.stars = life.stars.includes(value) ? life.stars.filter(id => id !== value) : [...life.stars, value]; persist(); return render(); }
+    if (action === 'star') { const life = currentLife(); life.stars ||= []; const removing=life.stars.includes(value); life.stars = removing ? life.stars.filter(id => id !== value) : [...life.stars, value]; persist(); render(); toast(removing?tx('已从人生瞬间移除','已從人生瞬間移除','Removed from life moments'):tx('已收藏到人生瞬间','已收藏到人生瞬間','Saved to life moments')); return; }
     if (action === 'review') return navigate('report', store.history.find(life => life.id === value));
     if (action === 'farewell') { currentLife().farewell = document.querySelector('#farewell-note').value.trim().slice(0, 300); persist(); return toast(tr('saved')); }
     if (action === 'end-done') { target.closest('.ending')?.remove(); return; }

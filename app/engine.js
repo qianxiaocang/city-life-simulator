@@ -107,7 +107,7 @@ const FOCUS = {
 };
 export function getFocusOptions(life) {
   if (life.age < 6 || life.phase === 'dead') return [];
-  const ids = life.school ? ['study', 'friends', 'family', 'sport', 'hobby'] : life.age < 16 ? ['friends', 'family', 'sport', 'hobby', 'learn'] : life.retired ? ['family', 'health', 'learn', 'hobby', 'volunteer', 'rest'] : life.job ? ['work', 'balance', 'family', 'health', 'learn', 'hobby'] : ['learn', 'family', 'health', 'hobby', 'rest'];
+  const ids = life.school ? ['study', 'balance', 'friends', 'family', 'sport', 'hobby'] : life.age < 16 ? ['balance', 'friends', 'family', 'sport', 'hobby', 'learn'] : life.retired ? ['balance', 'family', 'health', 'learn', 'hobby', 'volunteer', 'rest'] : life.job ? ['work', 'balance', 'family', 'health', 'learn', 'hobby'] : ['balance', 'learn', 'family', 'health', 'hobby', 'rest'];
   return ids.map(id => ({ id, label: FOCUS[id].label, description: FOCUS[id].description }));
 }
 export function setFocus(life, id) {
