@@ -2,6 +2,7 @@ import html2canvas from 'html2canvas';
 import { drawHighlightScene } from './highlight-scenes.js';
 import { selectLifeMoments } from './life-moments.js';
 import { memorialReview } from './memorial-review.js';
+import { lifeEndingNarrative } from './life-narrative.js';
 import { locations } from './data/locations.js';
 import { LANGUAGES, t, valueText, money, educationText } from './i18n.js';
 import { createLife, startLife, advanceYear, choose, autoChoose, setFocus, setAutopilot, runAutopilot, getFocusOptions, summarize, generateCompanions, configureLocations, netWorth, processTimeline, ensureModelState } from './engine.js';
@@ -106,7 +107,7 @@ setupMusicDrag();
 function header() {
   if (view === 'home') return '';
   const title = {certificate:tr('certificate'),archive:tr('archive'),report:tx('一段人生','一段人生','A lifetime')}[view] || tr('brand');
-  return `<header class="page-topbar">${button('back','‹',`class="page-back" aria-label="${tr('back')}"`)}<strong>${title}</strong>${button('home','⌂',`class="page-home-link" aria-label="${tr('home')}"`)}</header>`;
+  return `<header class="page-topbar">${button('back','‹',`class="page-back" aria-label="${tr('back')}"`)}<strong>${title}</strong><span class="page-topbar-spacer" aria-hidden="true"></span></header>`;
 }
 function footer() { return ''; }
 function navigate(next, life = null) { if (view === 'report' && next !== 'report') editableReviewLifeId = null; closeModal(); paused = true; fast = false; view = next; viewedLife = life; logLimit = 12; minimizedDecision = null; progress = Number(life?.uiProgress ?? store.current?.uiProgress ?? 0); render(); window.scrollTo({ top: 0, behavior: 'instant' }); }
@@ -229,7 +230,7 @@ function memorialPlaceCount(life) { return new Set((life.visited || []).map(plac
 function memorialReviewHTML(life) {
   const review = memorialReview(life, store.settings.language);
   const editable = view === 'report' && editableReviewLifeId === life.id && life.phase === 'dead';
-  return `<div class="memorial-review"><div class="memorial-review-top"><span>${tx('一生点评', '一生點評', 'Life reflection')}</span>${editable ? button('edit-review', `<span aria-hidden="true">✎</span> ${tx('写下你的话', '寫下你的話', 'Add your words')}`, 'class="edit-review"') : ''}</div><p>${esc(review.text)}</p></div>`;
+  return `<div class="memorial-review">${editable ? `<div class="memorial-review-top">${button('edit-review', `<span aria-hidden="true">✎</span> ${tx('写下你的话', '寫下你的話', 'Add your words')}`, 'class="edit-review"')}</div>` : ''}<p>${esc(review.text)}</p></div>`;
 }
 function memorialLifeFacts(life) {
   const summary = summarize(life);
@@ -293,7 +294,7 @@ function closeModal() { modalRoot.innerHTML = ''; document.body.classList.remove
 function openReviewEditor() {
   const life = currentLife();
   if (view !== 'report' || life?.phase !== 'dead' || editableReviewLifeId !== life.id) return;
-  openModal('review-editor', tx('一生点评', '一生點評', 'Life reflection'), `<div class="review-editor"><p>${tx('写下想留给这一生的话。离开本页后便不能修改；只有主动放入追思馆才会珍藏这段人生。', '寫下想留給這一生的話。離開本頁後便不能修改；只有主動放入追思館才會珍藏這段人生。', 'Write what you want to remember. Editing ends when you leave this page; this life enters the memorial hall only if you choose to save it.')}</p><label for="farewell-note">${tx('你的点评（可选）', '你的點評（可選）', 'Your reflection (optional)')}</label><textarea id="farewell-note" maxlength="300" placeholder="${tx('留空则使用系统生成的点评', '留空則使用系統生成的點評', 'Leave blank to use the generated reflection')}">${esc(life.farewell || '')}</textarea>${button('save-review', tx('保存点评', '儲存點評', 'Save reflection'), 'class="full"')}</div>`);
+  openModal('review-editor', tx('写下你的话', '寫下你的話', 'Add your words'), `<div class="review-editor"><p>${tx('写下想留给这一生的话。离开本页后便不能修改；只有主动放入追思馆才会珍藏这段人生。', '寫下想留給這一生的話。離開本頁後便不能修改；只有主動放入追思館才會珍藏這段人生。', 'Write what you want to remember. Editing ends when you leave this page; this life enters the memorial hall only if you choose to save it.')}</p><label for="farewell-note">${tx('你想写的话', '你想寫的話', 'What you want to say')}</label><textarea id="farewell-note" maxlength="300" placeholder="${tx('你想对这段人生说点什么吗？', '你想對這段人生說點什麼嗎？', 'Would you like to say something about this life?')}">${esc(life.farewell || '')}</textarea>${button('save-review', tx('保存', '儲存', 'Save'), 'class="full"')}</div>`);
   modalRoot.querySelector('#farewell-note')?.focus();
 }
 function openDecision() {
@@ -312,7 +313,7 @@ function finishLife() {
   persist(); view = 'report'; viewedLife = null; render();
   const ending = document.createElement('section');
   ending.className = 'ending'; ending.setAttribute('role', 'dialog'); ending.setAttribute('aria-modal', 'true'); ending.setAttribute('aria-label', tr('endingTitle'));
-  ending.innerHTML = `<div class="ending-content"><div class="ending-portrait"><canvas id="ending-scene" width="640" height="220" aria-hidden="true"></canvas><h1>${esc(L(life.name))}</h1><p class="date">${life.birthYear} — ${life.year}</p><p>${tr('endingTitle')}<br>${tr('endingText')}</p></div><div class="ending-actions">${button('capture-ending', tx('拍照纪念', '拍照紀念', 'Save a photo'))}${button('end-done', tr('viewReport'))}</div></div>`;
+  ending.innerHTML = `<div class="ending-content"><div class="ending-portrait"><canvas id="ending-scene" width="640" height="220" aria-hidden="true"></canvas><h1>${esc(L(life.name))}</h1><p class="date">${life.birthYear} — ${life.year}</p><p class="ending-summary">${esc(lifeEndingNarrative(life, store.settings.language))}</p></div><div class="ending-actions">${button('capture-ending', tx('拍照纪念', '拍照紀念', 'Save a photo'))}${button('end-done', tr('viewReport'))}</div></div>`;
   document.body.append(ending); drawScene(ending.querySelector('canvas'), life, true); ending.querySelector('[data-action="end-done"]')?.focus();
 }
 async function captureEnding(ending) {
@@ -370,7 +371,7 @@ document.addEventListener('click', async event => {
     if (action === 'language') { if (!LANGUAGES.some(language => language.id === value)) return; store.settings.language = value; persist(); return render(); }
     if (action === 'theme') { store.settings.theme = store.settings.theme === 'dark' ? 'light' : 'dark'; persist(); return render(); }
     if (action === 'born') return newLife();
-    if (action === 'replay') return newLife();
+    if (action === 'replay') return navigate('home');
     if (action === 'memorialize') { const life=currentLife(); if (view!=='report'||life?.phase!=='dead') return; if (!store.history.some(item=>item.id===life.id)) store.history=[life,...store.history].slice(0,12); persist(); render(); return toast(tx('这一生已放入追思馆', '這一生已放入追思館', 'This life is now in the memorial hall')); }
     if (action === 'resume') return navigate(store.current.phase === 'birth' ? 'certificate' : 'life');
     if (action === 'begin') { startLife(store.current); navigate('life'); paused = false; persist(); return render(); }

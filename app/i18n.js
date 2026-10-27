@@ -139,7 +139,6 @@ const phrases = {
   shareLife:['保存人生卡','儲存人生卡','Save life card'],
   memorial:['走进回忆的房间','走進回憶的房間','Enter the memory room'],
   endingTitle:['这段人生，已经走到了最后。','這段人生，已經走到了最後。','This life has reached its final moment.'],
-  endingText:['有人记得你的笑容，有些日常从此成为回忆。','有人記得你的笑容，有些日常從此成為回憶。','Someone remembers your smile. Ordinary days have become memories.'],
   viewReport:['查看这一生','查看這一生','Remember this life'],
   skip:['略过','略過','Skip'],
   noLives:['这里还没有过去的人生。','這裡還沒有過去的人生。','No past lives yet.'],
