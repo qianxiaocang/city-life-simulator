@@ -20,7 +20,7 @@ if (!regions.includes(store.settings.scope) && store.settings.scope !== 'all') s
 if (!['past', 'now'].includes(store.settings.world)) store.settings.world = 'now';
 delete store.settings.gentle;
 if(store.current&&store.current.phase!=='dead')ensureModelState(store.current);
-let view = 'home', viewedLife = null, modal = null, lastFocus = null, minimizedDecision = null, advancedOpen = false, overviewExpanded = false, editableReviewLifeId = null;
+let view = 'home', viewedLife = null, modal = null, lastFocus = null, minimizedDecision = null, advancedOpen = false, editableReviewLifeId = null, detailsWasPaused = null;
 let paused = true, speed = 1, fast = false, automatic = !!store.current?.autopilot?.enabled, progress = 0, logLimit = 12, autoDeadline = 0, toastTimer, lastFrame = 0;
 let audioState = null;
 const MUSIC_POSITION_KEY = 'this-life-city.music-position.v1';
@@ -110,7 +110,7 @@ function header() {
   return `<header class="page-topbar">${button('back','‹',`class="page-back" aria-label="${tr('back')}"`)}<strong>${title}</strong><span class="page-topbar-spacer" aria-hidden="true"></span></header>`;
 }
 function footer() { return ''; }
-function navigate(next, life = null) { if (view === 'report' && next !== 'report') editableReviewLifeId = null; closeModal(); paused = true; fast = false; view = next; viewedLife = life; logLimit = 12; minimizedDecision = null; progress = Number(life?.uiProgress ?? store.current?.uiProgress ?? 0); render(); window.scrollTo({ top: 0, behavior: 'instant' }); }
+function navigate(next, life = null) { if (view === 'report' && next !== 'report') editableReviewLifeId = null; closeModal(false); paused = true; fast = false; view = next; viewedLife = life; logLimit = 12; minimizedDecision = null; progress = Number(life?.uiProgress ?? store.current?.uiProgress ?? 0); render(); window.scrollTo({ top: 0, behavior: 'instant' }); }
 function render() {
   document.documentElement.lang = store.settings.language;
   document.documentElement.dataset.theme = store.settings.theme;
@@ -161,44 +161,42 @@ function renderCertificate() {
 }
 function lifeOverview(life) {
   const career = life.job ? L(life.job.name) : life.retired ? tx('已退休', '已退休', 'Retired') : tr('noJob');
+  const stats = Object.entries(life.stats).map(([key, value]) => `<div class="overview-stat ${key}"><div class="overview-stat-line"><span>${tr(key)}</span><strong>${Math.round(value)}</strong></div><div class="overview-track" aria-hidden="true"><span style="width:${Math.max(0, Math.min(100, value))}%"></span></div></div>`).join('');
+  return `<section class="life-overview" aria-labelledby="life-overview-title">
+    <div class="overview-header"><span class="overview-eyebrow" id="life-overview-title">${tx('人生总览', '人生總覽', 'Life overview')}</span><span class="overview-date">${life.year} · ${ageLabel(life.age)}</span></div>
+    <div class="overview-person"><div class="overview-avatar" aria-hidden="true">${esc(Array.from(L(life.name))[0] || '·')}</div><div class="overview-person-copy"><h1>${esc(L(life.name))}</h1><p>${tr(life.sex)} · ${esc(placeLabel(life.location))} · ${tr(life.urban ? 'urban' : 'rural')} · ${esc(career)}</p></div></div>
+    <div class="overview-stats" aria-label="${tr('stats')}">${stats}</div>
+    <div class="overview-finances"><div><span>${tr('wealth')}</span><strong>${formatMoney(netWorth(life))}</strong></div><div><span>${tx('现金', '現金', 'Cash')}</span><strong>${formatMoney(life.money)}</strong></div><div><span>${tr('income')}</span><strong>${formatMoney(life.income)}</strong></div></div>
+    ${button('life-details', `${tx('人生档案', '人生檔案', 'Life details')} <span aria-hidden="true">↗</span>`, `class="overview-details-button" aria-haspopup="dialog"`)}
+    ${life.autopilot?.enabled ? button('take-control', tx('抉择已交给自动 · 点此恢复手动','抉擇已交給自動 · 點此恢復手動','Choices are automatic · Take control'), 'class="overview-auto"') : ''}
+  </section>`;
+}
+function openLifeDetails() {
+  const life = store.current;
+  if (view !== 'life' || life?.phase !== 'life' || modal) return;
   const facts = [
-    [tr('sex'), tr(life.sex)],
-    [tr('birthplace'), placeLabel(life.born)],
-    [tr('currentCity'), placeLabel(life.location)],
-    [tr('familyClass'), tr(`class${life.classRank}`)],
+    [tr('sex'), tr(life.sex)], [tr('birthplace'), placeLabel(life.born)],
+    [tr('currentCity'), placeLabel(life.location)], [tr('familyClass'), tr(`class${life.classRank}`)],
     [tr('education'), educationText(life.education, store.settings.language)],
+    [tr('career'), life.job ? L(life.job.name) : life.retired ? tx('已退休', '已退休', 'Retired') : tr('noJob')],
     ...(life.temperament ? [[tx('气质', '氣質', 'Temperament'), L(life.temperament)]] : [])
   ];
-  const stats = Object.entries(life.stats).map(([key, value]) => `<div class="overview-stat ${key}"><div class="overview-stat-line"><span>${tr(key)}</span><strong>${Math.round(value)}</strong></div><div class="overview-track" aria-hidden="true"><span style="width:${Math.max(0, Math.min(100, value))}%"></span></div></div>`).join('');
   const assets = [
-    [tx('现金', '現金', 'Cash'), life.money],
-    [tx('住房', '住房', 'Home'), life.assets?.house],
-    [tx('车辆', '車輛', 'Car'), life.assets?.car],
-    [tx('退休账户', '退休帳戶', 'Retirement'), life.assets?.retirement],
+    [tx('现金', '現金', 'Cash'), life.money], [tx('住房', '住房', 'Home'), life.assets?.house],
+    [tx('车辆', '車輛', 'Car'), life.assets?.car], [tx('退休账户', '退休帳戶', 'Retirement'), life.assets?.retirement],
     ...[
-      ['furniture', tx('家具', '家具', 'Furniture')],
-      ['appliances', tx('家电', '家電', 'Appliances')],
-      ['phone', tx('通信设备', '通訊設備', 'Communication device')],
-      ['computer', tx('电脑', '電腦', 'Computer')],
+      ['furniture', tx('家具', '家具', 'Furniture')], ['appliances', tx('家电', '家電', 'Appliances')],
+      ['phone', tx('通信设备', '通訊設備', 'Communication device')], ['computer', tx('电脑', '電腦', 'Computer')],
       ['bicycle', tx('自行车', '自行車', 'Bicycle')]
     ].filter(([key]) => (life.assets?.[key] || 0) > 0).map(([key, label]) => [label, life.assets[key]]),
     [tx('负债', '負債', 'Debt'), life.debt]
   ];
-  const family = [life.family.mother && `${tr('mother')} ${L(life.family.mother.name)}`, life.family.father && `${tr('father')} ${L(life.family.father.name)}`].filter(Boolean);
-  const familyExtra = [
-    life.family.partner ? `${tr('partner')} ${L(life.family.partner.name)}` : null,
-    life.family.children.length ? `${tr('children')} ${life.family.children.length}` : null,
-    life.family.siblings.length ? `${tr('siblings')} ${life.family.siblings.length}` : null
-  ].filter(Boolean);
-  return `<section class="life-overview" aria-labelledby="life-overview-title">
-    <div class="overview-header"><span class="overview-eyebrow" id="life-overview-title">${tx('人生总览', '人生總覽', 'Life overview')}</span><span class="overview-date">${life.year} · ${ageLabel(life.age)}</span></div>
-    <div class="overview-person"><div class="overview-avatar" aria-hidden="true">${esc(Array.from(L(life.name))[0] || '·')}</div><div class="overview-person-copy"><h1>${esc(L(life.name))}</h1><p>${esc(placeLabel(life.location))} · ${tr(life.urban ? 'urban' : 'rural')} · ${esc(career)}</p></div></div>
-    <div class="overview-stats" aria-label="${tr('stats')}">${stats}</div>
-    <div class="overview-finances"><div><span>${tr('wealth')}</span><strong>${formatMoney(netWorth(life))}</strong></div><div><span>${tx('现金', '現金', 'Cash')}</span><strong>${formatMoney(life.money)}</strong></div><div><span>${tr('income')}</span><strong>${formatMoney(life.income)}</strong></div></div>
-    <div class="overview-household"><span>${tx('身份与家人', '身份與家人', 'Identity & family')}</span><p>${esc(`${tr(life.sex)} · ${educationText(life.education, store.settings.language)} · ${family.join(' · ')}${familyExtra.length ? ` · ${familyExtra.join(' · ')}` : ''}`)}</p></div>
-    <details class="overview-details" ${overviewExpanded ? 'open' : ''}><summary>${tx('查看身份、家人与资产明细', '查看身份、家人與資產明細', 'View identity, family & assets')}</summary><div class="overview-detail-content"><div><h2>${tr('identity')}</h2><dl class="overview-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl></div><div><h2>${tr('family')}</h2><div class="overview-family-content">${familyHTML(life)}</div></div><div><h2>${tx('资产明细', '資產明細', 'Assets')}</h2><dl class="overview-facts">${assets.map(([label, value]) => `<div><dt>${label}</dt><dd>${formatMoney(value || 0)}</dd></div>`).join('')}</dl><p class="overview-note">${tr('moneyUnit')}</p></div></div></details>
-    ${life.autopilot?.enabled ? button('take-control', tx('抉择已交给自动 · 点此恢复手动','抉擇已交給自動 · 點此恢復手動','Choices are automatic · Take control'), 'class="overview-auto"') : ''}
-  </section>`;
+  const content = `<div class="life-details"><div class="life-details-hero"><div class="overview-avatar" aria-hidden="true">${esc(Array.from(L(life.name))[0] || '·')}</div><div><h2>${esc(L(life.name))}</h2><p>${tr(life.sex)} · ${ageLabel(life.age)} · ${life.year} · ${esc(placeLabel(life.location))}</p></div></div><div class="life-details-sections"><section class="life-details-section"><h3>${tr('identity')}</h3><dl class="life-details-grid">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl></section><section class="life-details-section"><h3>${tr('family')}</h3><div class="life-details-family">${familyHTML(life)}</div></section><section class="life-details-section"><h3>${tx('资产明细', '資產明細', 'Assets')}</h3><div class="life-details-net"><span>${tr('wealth')}</span><strong>${formatMoney(netWorth(life))}</strong></div><dl class="life-details-grid assets">${assets.map(([label, value]) => `<div><dt>${label}</dt><dd>${formatMoney(value || 0)}</dd></div>`).join('')}</dl><p class="overview-note">${tr('moneyUnit')}</p></section></div></div>`;
+  detailsWasPaused = paused;
+  paused = true;
+  const pauseControl = document.querySelector('#pause-control');
+  if (pauseControl) { pauseControl.textContent = tr('play'); pauseControl.classList.add('active'); pauseControl.setAttribute('aria-pressed', 'true'); }
+  openModal('life-details', tx('人生档案', '人生檔案', 'Life details'), content, true);
 }
 function lifeFocus(life, choices) {
   return `<section class="life-focus-top" aria-label="${tr('focus')}"><div class="life-focus-heading"><strong>${tr('focus')}</strong><span>${choices.length ? tr('focusHint') : tr('babyFocus')}</span></div>${choices.length ? `<div class="life-focus-options">${choices.map(choice => button('focus', esc(L(choice.label)), `data-value="${choice.id}" class="focus-chip ${choice.id === life.focus ? 'selected' : ''}" title="${esc(L(choice.description))}" aria-pressed="${choice.id === life.focus}"`)).join('')}</div>` : ''}</section>`;
@@ -230,7 +228,7 @@ function memorialPlaceCount(life) { return new Set((life.visited || []).map(plac
 function memorialReviewHTML(life) {
   const review = memorialReview(life, store.settings.language);
   const editable = view === 'report' && editableReviewLifeId === life.id && life.phase === 'dead';
-  return `<div class="memorial-review">${editable ? `<div class="memorial-review-top">${button('edit-review', `<span aria-hidden="true">✎</span> ${tx('写下你的话', '寫下你的話', 'Add your words')}`, 'class="edit-review"')}</div>` : ''}<p>${esc(review.text)}</p></div>`;
+  return `<div class="memorial-review"><p>${esc(review.text)}</p>${editable ? `<div class="memorial-review-top">${button('edit-review', `<span aria-hidden="true">✎</span> ${tx('写下你的话', '寫下你的話', 'Add your words')}`, 'class="edit-review"')}</div>` : ''}</div>`;
 }
 function memorialLifeFacts(life) {
   const summary = summarize(life);
@@ -281,16 +279,16 @@ function renderReport() {
   const allEvents=life.log.slice().reverse();
   app.innerHTML=`<div class="wrap page-report">${header()}<main class="memorial-detail"><article class="detail-person"><canvas data-memory-cover="${life.id}" width="640" height="220" aria-hidden="true"></canvas><div class="detail-person-body"><h1>${esc(L(life.name))}</h1><p class="muted">${life.birthYear}–${life.year} · ${esc(placeLabel(life.born))}</p><p class="detail-summary">${esc(memorialTagline(life))}</p><p class="detail-meta">${tr(life.sex)} · ${tx('活了','活了','Lived')} ${ageLabel(life.age)} · ${life.family.partner?.married?tx('已婚','已婚','Married'):tr('single')} · ${life.family.children.length} ${tr('children')}</p>${memorialLifeFacts(life)}${memorialReviewHTML(life)}${button('candle',`${life.candleLit??(life.candles>0)?'🕯️':'🕯'} <span>${life.candles||0}</span>`,`data-value="${life.id}" class="detail-candle" aria-label="${(life.candleLit??(life.candles>0))?tx('收起烛光','收起燭光','Put out candle'):tx('点亮烛光','點亮燭光','Light a candle')}" aria-pressed="${!!(life.candleLit??(life.candles>0))}"`)}</div></article>
   <div class="memorial-highlights"><h2>${tx('人生瞬间', '人生瞬間', 'Life moments')}</h2>${[...groups].map(([decade,events])=>`<section class="decade-group"><div class="decade-title"><strong>${memorialDecade(events[0].age)}</strong><span>${events.length===1?events[0].year:`${events[0].year}–${events.at(-1).year}`}</span></div><div class="decade-events">${events.map(event=>`<article class="memory-moment"><canvas data-memory-event="${event.id}" width="640" height="220" aria-hidden="true"></canvas><div><strong>${ageLabel(event.age)}</strong><span>${event.year}</span></div><p>${esc(displayEventText(event))}</p></article>`).join('')}</div></section>`).join('')}</div>
-  <section class="whole-life" id="life-record"><h2>${tx('这一生','這一生','This life')}</h2><div class="life-record-list">${allEvents.map(event=>`<div class="record-row ${event.type}"><span class="record-age">${event.age}</span><p>${esc(displayEventText(event))}</p></div>`).join('')}</div></section><div class="detail-bottom">${store.history.some(item=>item.id===life.id)?`<p class="memorial-saved">✓ ${tx('已放入追思馆', '已放入追思館', 'Saved in the memorial hall')}</p>`:button('memorialize',tx('放入追思馆','放入追思館','Place in memorial hall'),'class="full memorialize-button"')}${button('replay',tx('重活一遍','重活一遍','Live again'),'class="full replay-button"')}</div></main></div>`;
+  <section class="whole-life" id="life-record"><h2>${tx('这一生','這一生','This life')}</h2><div class="life-record-list">${allEvents.map(event=>`<div class="record-row ${event.type}"><span class="record-age">${event.age}</span><p>${esc(displayEventText(event))}</p></div>`).join('')}</div></section>${viewedLife ? '' : `<div class="detail-bottom">${store.history.some(item=>item.id===life.id)?`<p class="memorial-saved">✓ ${tx('已放入追思馆', '已放入追思館', 'Saved in the memorial hall')}</p>`:button('memorialize',tx('放入追思馆','放入追思館','Place in memorial hall'),'class="full memorialize-button"')}${button('replay',tx('重活一遍','重活一遍','Live again'),'class="full replay-button"')}</div>`}</main></div>`;
 }
 function openModal(type, title, contents, wide = false) {
   if (!modal) lastFocus = document.activeElement;
   modal = { type, ...(modal?.type === type ? modal : {}) };
   document.body.classList.add('modal-open');
-  modalRoot.innerHTML = `<div class="modal-overlay"><section class="modal ${wide ? 'wide' : ''}" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header class="modal-top"><span id="modal-title">${title}</span>${button('close-modal', tr('close'), 'aria-label="'+tr('close')+'"')}</header><div class="modal-body">${contents}</div></section></div>`;
+  modalRoot.innerHTML = `<div class="modal-overlay modal-${type}"><section class="modal ${wide ? 'wide' : ''}" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header class="modal-top"><span id="modal-title">${title}</span>${button('close-modal', tr('close'), 'aria-label="'+tr('close')+'"')}</header><div class="modal-body">${contents}</div></section></div>`;
   modalRoot.querySelector('button, input, textarea')?.focus();
 }
-function closeModal() { modalRoot.innerHTML = ''; document.body.classList.remove('modal-open'); modal = null; autoDeadline = 0; if (lastFocus?.isConnected) lastFocus.focus(); }
+function closeModal(resumeDetails = true) { const wasDetails = modal?.type === 'life-details'; modalRoot.innerHTML = ''; document.body.classList.remove('modal-open'); modal = null; autoDeadline = 0; if (wasDetails) { if (resumeDetails && detailsWasPaused !== null) paused = detailsWasPaused; detailsWasPaused = null; lastFrame = performance.now(); } if (lastFocus?.isConnected) lastFocus.focus(); }
 function openReviewEditor() {
   const life = currentLife();
   if (view !== 'report' || life?.phase !== 'dead' || editableReviewLifeId !== life.id) return;
@@ -356,7 +354,6 @@ function updateFrame(timestamp) {
 app.addEventListener('change', settingsChanged);
 function settingsChanged(event) { const input = event.target; const key = input.dataset.setting; if (!key) return; advancedOpen = !!input.closest('details.advanced-settings')?.open; store.settings[key] = ['pace', 'birthYear'].includes(key) ? Number(input.value) : input.value; if (key === 'scope') store.settings.province = 'all'; persist(); render(); }
 document.addEventListener('toggle', event => { if (event.target.matches?.('details.advanced-settings')) advancedOpen = event.target.open; }, true);
-document.addEventListener('toggle', event => { if (event.target.matches?.('details.overview-details')) overviewExpanded = event.target.open; }, true);
 document.addEventListener('click', event => { const picker = document.querySelector('.language-picker[open]'); if (picker && !picker.contains(event.target)) picker.open = false; });
 document.addEventListener('click', async event => {
   const target = event.target.closest('button[data-action]'); if (!target || target.disabled) return;
@@ -374,6 +371,7 @@ document.addEventListener('click', async event => {
     if (action === 'replay') return navigate('home');
     if (action === 'memorialize') { const life=currentLife(); if (view!=='report'||life?.phase!=='dead') return; if (!store.history.some(item=>item.id===life.id)) store.history=[life,...store.history].slice(0,12); persist(); render(); return toast(tx('这一生已放入追思馆', '這一生已放入追思館', 'This life is now in the memorial hall')); }
     if (action === 'resume') return navigate(store.current.phase === 'birth' ? 'certificate' : 'life');
+    if (action === 'life-details') return openLifeDetails();
     if (action === 'begin') { startLife(store.current); navigate('life'); paused = false; persist(); return render(); }
     if (action === 'pause') { paused = !paused; autoDeadline = 0; return render(); }
     if (action === 'speed') { speed = Number(value); paused = false; return render(); }
