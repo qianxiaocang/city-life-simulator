@@ -69,14 +69,73 @@ const scenes = {
     for(let i=0;i<5;i++)p.px(6,25+i*1.8,52,.9,PAL.grassDark);
     p.px(50,18,7,7,'#4e7d46');p.px(52.5,25,1.8,6,'#7a5c3e');
   },
+  office(p) {
+    bands(p, [[0, 27, '#dce8e8'], [27, 2, '#927a60'], [29, 7, '#c8c4b6']]);
+    p.px(6, 4, 49, 16, '#93c7d5');
+    for (let x = 9; x < 54; x += 9) { p.px(x, 12, 5, 8, '#abc5c4'); p.px(x + 2, 7, 2, 5, '#abc5c4'); }
+    for (let x = 10; x < 55; x += 16) { p.px(x, 24, 11, 1.5, '#765f4c'); p.px(x + 1, 25, 1, 5, '#765f4c'); p.px(x + 9, 25, 1, 5, '#765f4c'); p.px(x + 3, 18, 6, 5, '#62798c'); p.person(x + 1, 23, '#4e8f8a'); }
+  },
+  park(p) {
+    bands(p, [[0, 22, '#b9dbe3'], [22, 7, '#8fb98b'], [29, 3, '#d8c49a'], [32, 4, '#79a36e']]);
+    p.px(49, 4, 6, 6, PAL.sun); p.px(13, 5, 9, 2, PAL.cloud);
+    for (const x of [7, 52]) { p.px(x, 12, 8, 11, '#5c956e'); p.px(x + 2, 21, 2, 7, '#7a5c3e'); }
+    p.px(25, 23, 16, 1.5, '#8f6e48'); p.px(27, 24, 1, 5, '#8f6e48'); p.px(38, 24, 1, 5, '#8f6e48');
+    p.person(30, 22, '#c05555'); p.person(37, 22, '#4e8f8a');
+  },
 };
+const momentWords = event => Object.values(event?.text || {}).join(' ').toLowerCase();
+const hashText = text => { let value = 2166136261; for (const char of text) value = Math.imul(value ^ char.codePointAt(0), 16777619) >>> 0; return value; };
+export function describeHighlight(event, life) {
+  const words = momentWords(event);
+  const type = event?.type || '';
+  let scene = life?.urban ? 'city' : 'field', motif = 'memory';
+  if (type === 'birth') { scene = 'hospital'; motif = 'baby'; }
+  else if (/地震|洪水|台风|颱風|earthquake|flood|typhoon/.test(words)) { motif = 'storm'; }
+  else if (/病|诊|診|医生|醫生|医院|醫院|健康|treatment|hospital|doctor|illness|health/.test(words) || ['health', 'death'].includes(type)) { scene = 'hospital'; motif = 'health'; }
+  else if (/生日|birthday/.test(words)) { scene = 'birthday'; motif = 'cake'; }
+  else if (/拍照|照片|摄影|攝影|photo|camera/.test(words)) { scene = 'home'; motif = 'camera'; }
+  else if (/画画|繪畫|绘画|painting|drawing/.test(words)) { scene = 'home'; motif = 'paint'; }
+  else if (/毕业|畢業|考试|考試|学校|學校|大学|大學|学位|學位|入学|入學|graduat|exam|school|college|university|degree/.test(words) || type === 'education') { scene = 'school'; motif = /毕业|畢業|学位|學位|graduat|degree/.test(words) ? 'graduate' : 'book'; }
+  else if (/结婚|結婚|婚礼|婚禮|married|wedding/.test(words)) { scene = 'home'; motif = 'wedding'; }
+  else if (/出生了|孩子|小生命|child|baby|grandparent/.test(words) || type === 'family') { scene = 'home'; motif = 'baby'; }
+  else if (/交往|伴侣|伴侶|恋|戀|love|relationship|partner/.test(words) || type === 'love') { scene = 'home'; motif = 'heart'; }
+  else if (/汽车|汽車|车辆|車輛|car|vehicle/.test(words)) { scene = 'city'; motif = 'car'; }
+  else if (/买房|買房|住房|房产|房產|新家|house|housing|home purchase/.test(words)) { scene = 'home'; motif = 'house'; }
+  else if (/投资|投資|存款|股票|基金|债券|債券|现金|現金|investment|stock|fund|bond|cash/.test(words) || ['asset', 'money'].includes(type)) { scene = 'office'; motif = 'coin'; }
+  else if (/搬到|搬家|迁|遷|旅|move|relocat|travel/.test(words) || type === 'move') { motif = 'suitcase'; }
+  else if (/工作|职业|職業|公务|公務|企业|企業|退休|job|work|career|retir/.test(words) || ['career', 'work'].includes(type)) { scene = 'office'; motif = 'work'; }
+  else if (/公园|公園|散步|朋友|邻居|鄰居|运动|運動|读书|讀書|park|walk|friend|neighbor|sport|read/.test(words) || type === 'warm') { scene = 'park'; motif = 'sun'; }
+  const sequence = Number(event?.id?.match(/-(\d+)$/)?.[1]);
+  return { scene, motif, variant: Number.isSafeInteger(sequence) ? sequence : hashText(`${event?.id || ''}|${words}`) };
+}
+function drawMotif(p, motif) {
+  const x = 52, y = 15;
+  if (motif === 'baby') { p.px(x, y + 4, 8, 5, PAL.bedWhite); p.px(x + 2, y + 2, 4, 4, PAL.skin); p.px(x + 1, y + 8, 6, 2, PAL.pink); }
+  else if (motif === 'heart' || motif === 'wedding') { p.px(x + 1, y + 2, 2, 2, PAL.heart); p.px(x + 5, y + 2, 2, 2, PAL.heart); p.px(x + 1, y + 4, 6, 2, PAL.heart); p.px(x + 2, y + 6, 4, 2, PAL.heart); p.px(x + 3, y + 8, 2, 2, PAL.heart); if (motif === 'wedding') p.px(x + 1, y + 11, 6, 1, PAL.sun); }
+  else if (motif === 'book' || motif === 'graduate') { p.px(x, y + 4, 8, 7, '#f7eee0'); p.px(x + 3.5, y + 4, 1, 7, PAL.cityDark); p.px(x + 1, y + 5, 2, 1, PAL.cityBlue); p.px(x + 5, y + 5, 2, 1, PAL.cityBlue); if (motif === 'graduate') { p.px(x - 1, y + 1, 10, 2, PAL.hair); p.px(x + 2, y, 4, 1, PAL.hair); } }
+  else if (motif === 'car') { p.px(x, y + 5, 9, 4, PAL.roofTeal); p.px(x + 2, y + 3, 5, 2, PAL.sky); p.px(x + 1, y + 9, 2, 2, PAL.hair); p.px(x + 6, y + 9, 2, 2, PAL.hair); }
+  else if (motif === 'house') { p.px(x + 1, y + 5, 8, 7, PAL.bedWhite); p.px(x, y + 3, 10, 2, PAL.roofRed); p.px(x + 4, y + 8, 2, 4, PAL.wallDark); }
+  else if (motif === 'coin') { p.px(x + 1, y + 2, 7, 9, PAL.sun); p.px(x + 3, y + 4, 3, 5, '#a8875f'); }
+  else if (motif === 'health') { p.px(x + 3, y + 2, 3, 10, PAL.red); p.px(x, y + 5, 9, 3, PAL.red); }
+  else if (motif === 'suitcase' || motif === 'work') { p.px(x + 1, y + 5, 8, 7, PAL.wallDark); p.px(x + 3, y + 3, 4, 2, PAL.wallDark); p.px(x + 2, y + 7, 6, 1, PAL.floor); }
+  else if (motif === 'storm') { p.px(x, y + 1, 8, 3, PAL.cityDark); p.px(x + 2, y + 5, 2, 4, PAL.sun); p.px(x + 4, y + 7, 2, 4, PAL.sun); }
+  else if (motif === 'cake') { p.px(x + 1, y + 6, 8, 5, PAL.bedWhite); p.px(x + 2, y + 4, 6, 2, PAL.pink); p.px(x + 4, y + 1, 1, 3, PAL.sun); }
+  else if (motif === 'camera') { p.px(x, y + 4, 10, 7, PAL.cityDark); p.px(x + 2, y + 2, 4, 2, PAL.cityDark); p.px(x + 4, y + 6, 3, 3, PAL.sky); }
+  else if (motif === 'paint') { p.px(x, y + 2, 9, 9, PAL.bedWhite); p.px(x + 2, y + 4, 2, 2, PAL.red); p.px(x + 5, y + 4, 2, 2, PAL.sun); p.px(x + 3, y + 7, 2, 2, PAL.roofTeal); }
+  else { p.px(x + 2, y + 2, 5, 5, PAL.sun); }
+}
 export function drawHighlightScene(canvas, event, life) {
   if (!canvas) return;
   const context = canvas.getContext('2d');
   context.clearRect(0, 0, canvas.width, canvas.height);
   context.imageSmoothingEnabled = false;
   const p = makePainter(context, canvas.width, canvas.height);
-  const type = event?.type;
-  const scene = type === 'birth' ? 'hospital' : type === 'education' ? 'school' : type === 'family' || type === 'love' ? 'home' : type === 'decision' ? 'birthday' : life?.urban ? 'city' : 'field';
+  const { scene, motif, variant } = describeHighlight(event, life);
   scenes[scene](p);
+  drawMotif(p, motif);
+  // The six colored date tiles encode each record's sequence (up to the save's
+  // 3,000-record limit), so repeated descriptions still have distinct art.
+  const colors = ['#d96c6c', '#f2c14e', '#7fb069', '#7fa8c9'];
+  for (let tile = 0; tile < 6; tile++) p.px(2 + tile * 2, 2, 1.6, 1.6, colors[Math.floor(variant / (4 ** tile)) % 4]);
+  p.person(39 + variant % 3 * 3, 24, colors[Math.floor(variant / 7) % 4]);
 }
