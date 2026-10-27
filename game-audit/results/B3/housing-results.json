@@ -1,0 +1,210 @@
+{
+  "policy": "actively buy affordable housing at ages24–38, then car; observations conditional on alive at39; not total population housing ownership",
+  "housing": {
+    "count": 1700,
+    "denominator": 2833,
+    "rate": 0.6000705965407696
+  },
+  "cars": {
+    "count": 1613,
+    "denominator": 2833,
+    "rate": 0.569361101306036
+  },
+  "checks": {
+    "TIMELINE": {
+      "passed": 244683,
+      "failed": 0,
+      "denominator": 244683,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "FINITE_STATE": {
+      "passed": 244683,
+      "failed": 0,
+      "denominator": 244683,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "STAT_BOUNDS": {
+      "passed": 244683,
+      "failed": 0,
+      "denominator": 244683,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "NONNEGATIVE_CASH": {
+      "passed": 244683,
+      "failed": 0,
+      "denominator": 244683,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "DECISION_NONEMPTY": {
+      "passed": 73944,
+      "failed": 0,
+      "denominator": 73944,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "DECISION_UNIQUE_OPTIONS": {
+      "passed": 73944,
+      "failed": 0,
+      "denominator": 73944,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "OPTION_DESCRIPTION": {
+      "passed": 122284,
+      "failed": 100500,
+      "denominator": 222784,
+      "unsupported": 0,
+      "status": "FAIL",
+      "failureRate": 0.4511095949439816,
+      "samples": [
+        {
+          "seed": "h0",
+          "action": "temperament",
+          "option": "curious"
+        },
+        {
+          "seed": "h0",
+          "action": "temperament",
+          "option": "caring"
+        },
+        {
+          "seed": "h0",
+          "action": "temperament",
+          "option": "resilient"
+        },
+        {
+          "seed": "h0",
+          "action": "temperament",
+          "option": "outgoing"
+        }
+      ]
+    },
+    "EMPLOYMENT_AGE": {
+      "passed": 5114,
+      "failed": 0,
+      "denominator": 5114,
+      "unsupported": 374,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_MIN_YEAR": {
+      "passed": 5488,
+      "failed": 0,
+      "denominator": 5488,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_MIN_AGE": {
+      "passed": 5488,
+      "failed": 0,
+      "denominator": 5488,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_EDUCATION": {
+      "passed": 5488,
+      "failed": 0,
+      "denominator": 5488,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "GAOKAO_SUSPENSION": {
+      "passed": 1604,
+      "failed": 0,
+      "denominator": 1604,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "FULLTIME_ENTRY_AGE": {
+      "passed": 1604,
+      "failed": 0,
+      "denominator": 1604,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "MARRIAGE_HAS_LAW": {
+      "passed": 2365,
+      "failed": 201,
+      "denominator": 2566,
+      "unsupported": 0,
+      "status": "FAIL",
+      "failureRate": 0.07833203429462197,
+      "samples": [
+        {
+          "seed": "h8",
+          "region": "taiwan",
+          "year": 2023
+        },
+        {
+          "seed": "h9",
+          "region": "macau",
+          "year": 2014
+        },
+        {
+          "seed": "h16",
+          "region": "taiwan",
+          "year": 2015
+        },
+        {
+          "seed": "h23",
+          "region": "taiwan",
+          "year": 2022
+        }
+      ]
+    },
+    "MARRIAGE_AGE": {
+      "passed": 2365,
+      "failed": 0,
+      "denominator": 2365,
+      "unsupported": 201,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "BIRTH_UNDER_50": {
+      "passed": 381,
+      "failed": 0,
+      "denominator": 381,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "BIRTH_AFTER_RELATIONSHIP": {
+      "passed": 381,
+      "failed": 0,
+      "denominator": 381,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    }
+  }
+}

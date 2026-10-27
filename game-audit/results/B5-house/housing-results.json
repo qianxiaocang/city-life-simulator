@@ -1,0 +1,168 @@
+{
+  "policy": "actively buy affordable housing at ages24–38, then car; observations conditional on alive at39; not total population housing ownership",
+  "housing": {
+    "count": 1610,
+    "denominator": 2788,
+    "rate": 0.5774748923959828
+  },
+  "cars": {
+    "count": 1476,
+    "denominator": 2788,
+    "rate": 0.5294117647058824
+  },
+  "checks": {
+    "TIMELINE": {
+      "passed": 243093,
+      "failed": 0,
+      "denominator": 243093,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "FINITE_STATE": {
+      "passed": 243093,
+      "failed": 0,
+      "denominator": 243093,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "STAT_BOUNDS": {
+      "passed": 243093,
+      "failed": 0,
+      "denominator": 243093,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "NONNEGATIVE_CASH": {
+      "passed": 243093,
+      "failed": 0,
+      "denominator": 243093,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "DECISION_NONEMPTY": {
+      "passed": 74774,
+      "failed": 0,
+      "denominator": 74774,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "DECISION_UNIQUE_OPTIONS": {
+      "passed": 74774,
+      "failed": 0,
+      "denominator": 74774,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "OPTION_DESCRIPTION": {
+      "passed": 220995,
+      "failed": 0,
+      "denominator": 220995,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "EMPLOYMENT_AGE": {
+      "passed": 5336,
+      "failed": 0,
+      "denominator": 5336,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_MIN_YEAR": {
+      "passed": 5336,
+      "failed": 0,
+      "denominator": 5336,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_MIN_AGE": {
+      "passed": 5336,
+      "failed": 0,
+      "denominator": 5336,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_EDUCATION": {
+      "passed": 5336,
+      "failed": 0,
+      "denominator": 5336,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "MARRIAGE_HAS_LAW": {
+      "passed": 2475,
+      "failed": 0,
+      "denominator": 2475,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "MARRIAGE_AGE": {
+      "passed": 2475,
+      "failed": 0,
+      "denominator": 2475,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "BIRTH_UNDER_50": {
+      "passed": 1651,
+      "failed": 0,
+      "denominator": 1651,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "BIRTH_AFTER_RELATIONSHIP": {
+      "passed": 1651,
+      "failed": 0,
+      "denominator": 1651,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "GAOKAO_SUSPENSION": {
+      "passed": 1634,
+      "failed": 0,
+      "denominator": 1634,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "FULLTIME_ENTRY_AGE": {
+      "passed": 1634,
+      "failed": 0,
+      "denominator": 1634,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    }
+  }
+}

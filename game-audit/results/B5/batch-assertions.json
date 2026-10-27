@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "auditLives": 60000,
+    "method": "local laws/metadata and 60k population/culture counters; missing population remains an explicit failure"
+  },
+  "checks": {
+    "CURRENT_LOCAL_EMPLOYMENT_RULE": {
+      "passed": 4,
+      "failed": 0,
+      "denominator": 4,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "CURRENT_LOCAL_MARRIAGE_RULE": {
+      "passed": 8,
+      "failed": 0,
+      "denominator": 8,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "TAIWAN_2023_MARRIAGE_CHANGE": {
+      "passed": 1,
+      "failed": 0,
+      "denominator": 1,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "REGIONAL_PENSION_THRESHOLDS": {
+      "passed": 1,
+      "failed": 0,
+      "denominator": 1,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "MODEL_METADATA_2026": {
+      "passed": 4,
+      "failed": 0,
+      "denominator": 4,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "CULTURAL_EXPOSURE_25_90": {
+      "passed": 12,
+      "failed": 0,
+      "denominator": 12,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "REAL_POPULATION_COVERAGE": {
+      "passed": 0,
+      "failed": 1,
+      "denominator": 1,
+      "unsupported": 0,
+      "status": "FAIL",
+      "failureRate": 1,
+      "samples": [
+        {
+          "recorded": 0,
+          "total": 1152,
+          "ratio": 0
+        }
+      ]
+    },
+    "REAL_POPULATION_UNIQUE_800": {
+      "passed": 0,
+      "failed": 1,
+      "denominator": 1,
+      "unsupported": 0,
+      "status": "FAIL",
+      "failureRate": 1,
+      "samples": [
+        {
+          "unique": 0,
+          "required": 800
+        }
+      ]
+    },
+    "POPULATION_TVD": {
+      "passed": 0,
+      "failed": 0,
+      "denominator": 0,
+      "unsupported": 1,
+      "status": "NOT_CHECKED",
+      "failureRate": null,
+      "samples": []
+    }
+  },
+  "aggregates": {},
+  "engineCalls": {},
+  "population": {
+    "recorded": 0,
+    "total": 1152,
+    "unique": 0,
+    "weightKind": 10,
+    "sourceStatus": "No 2020 population table for all leaf birthplaces in the supplied local research.",
+    "tvd": null
+  }
+}

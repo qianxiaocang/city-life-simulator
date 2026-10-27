@@ -1,0 +1,16 @@
+{
+  "name": "life-sim-fix-kit",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "人生模拟游戏 历史真实性与机制缺陷 修复工作区（含可运行引擎副本 + 回归校验器）",
+  "scripts": {
+    "smoke": "node run-audit.mjs",
+    "audit": "node run-audit.mjs",
+    "full": "node run-audit.mjs",
+    "law": "node verify.mjs",
+    "divergence": "node exp3-divergence.mjs",
+    "econ": "node econ2.mjs",
+    "house": "node probe-house.mjs"
+  }
+}

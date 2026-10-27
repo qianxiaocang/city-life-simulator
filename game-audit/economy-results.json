@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "lives": 3000,
+    "policy": "decisions-and-work-focus; no automatic purchases"
+  },
+  "checks": {
+    "TIMELINE": {
+      "passed": 569625,
+      "failed": 0,
+      "denominator": 569625,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "FINITE_STATE": {
+      "passed": 569625,
+      "failed": 0,
+      "denominator": 569625,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "STAT_BOUNDS": {
+      "passed": 569625,
+      "failed": 0,
+      "denominator": 569625,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "NONNEGATIVE_CASH": {
+      "passed": 569625,
+      "failed": 0,
+      "denominator": 569625,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "DECISION_NONEMPTY": {
+      "passed": 189189,
+      "failed": 0,
+      "denominator": 189189,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "DECISION_UNIQUE_OPTIONS": {
+      "passed": 189189,
+      "failed": 0,
+      "denominator": 189189,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "OPTION_DESCRIPTION": {
+      "passed": 559320,
+      "failed": 0,
+      "denominator": 559320,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "EMPLOYMENT_AGE": {
+      "passed": 7111,
+      "failed": 0,
+      "denominator": 7111,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_MIN_YEAR": {
+      "passed": 7111,
+      "failed": 0,
+      "denominator": 7111,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_MIN_AGE": {
+      "passed": 7111,
+      "failed": 0,
+      "denominator": 7111,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_EDUCATION": {
+      "passed": 7111,
+      "failed": 0,
+      "denominator": 7111,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "MARRIAGE_HAS_LAW": {
+      "passed": 2675,
+      "failed": 0,
+      "denominator": 2675,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "MARRIAGE_AGE": {
+      "passed": 2675,
+      "failed": 0,
+      "denominator": 2675,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "RETIREMENT_AGE": {
+      "passed": 1788,
+      "failed": 0,
+      "denominator": 1788,
+      "unsupported": 967,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "PENSION_MIN_CONTRIBUTIONS": {
+      "passed": 1848,
+      "failed": 0,
+      "denominator": 1848,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "PENSION_JURISDICTION": {
+      "passed": 1848,
+      "failed": 0,
+      "denominator": 1848,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "TERMINATED": {
+      "passed": 3000,
+      "failed": 0,
+      "denominator": 3000,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "ECONOMIC_RECONCILIATION": {
+      "passed": 3000,
+      "failed": 0,
+      "denominator": 3000,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "GAOKAO_SUSPENSION": {
+      "passed": 1669,
+      "failed": 0,
+      "denominator": 1669,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "FULLTIME_ENTRY_AGE": {
+      "passed": 1669,
+      "failed": 0,
+      "denominator": 1669,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "BIRTH_UNDER_50": {
+      "passed": 1898,
+      "failed": 0,
+      "denominator": 1898,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "BIRTH_AFTER_RELATIONSHIP": {
+      "passed": 1898,
+      "failed": 0,
+      "denominator": 1898,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    }
+  },
+  "netWorthOverLifetimeIncome": {
+    "n": 2863,
+    "mean": 0.6842921332865365,
+    "min": -0.08546509839751085,
+    "p10": 0.000024871379455011435,
+    "p50": 0.33959970367988884,
+    "p90": 1.336365708068036,
+    "p95": 2.161768733586867,
+    "max": 40.96991702195114
+  },
+  "cashOutflowsOverLifetimeIncome": {
+    "n": 2863,
+    "mean": 1.0590634974422415,
+    "min": 0.2166903262454992,
+    "p10": 0.5915808297124439,
+    "p50": 1.0705049396367534,
+    "p90": 1.467168755939094,
+    "p95": 1.6575521670953224,
+    "max": 3.7555099746234735
+  },
+  "takeHomeOverGross": {
+    "n": 2863,
+    "mean": 0.8581487949703192,
+    "min": 0.76,
+    "p10": 0.7999999999999999,
+    "p50": 0.84,
+    "p90": 0.96,
+    "p95": 0.96,
+    "max": 0.9600000000000001
+  },
+  "accountingErrors": {
+    "n": 2863,
+    "mean": 2.4485059456730688e-11,
+    "min": -3.5762786865234375e-7,
+    "p10": -7.450580596923828e-9,
+    "p50": 0,
+    "p90": 7.450580596923828e-9,
+    "p95": 1.4901161193847656e-8,
+    "max": 3.5762786865234375e-7
+  }
+}

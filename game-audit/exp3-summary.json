@@ -1,0 +1,495 @@
+{
+  "meta": {
+    "decisionPointsProbed": 1401,
+    "actionKinds": 3
+  },
+  "overall": {
+    "identicalEndOfLife": 1331,
+    "pctIdenticalEndOfLife": 95
+  },
+  "byAction": null,
+  "meaninglessExamples": [
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ]
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ]
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "options": [
+        "公办普通高中",
+        "中等职业教育"
+      ]
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ]
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ]
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ]
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ]
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ]
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ]
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ]
+    }
+  ],
+  "divergenceExamples": [
+    {
+      "seed": "expD-2",
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "identicalFinals": false,
+      "distinctOutcomes": 2,
+      "branches": [
+        {
+          "option": "school-0",
+          "label": "公办重点／高选拔性高中",
+          "result": {
+            "deathAge": 81,
+            "education": "high",
+            "finalJob": "delivery",
+            "earned": 6465,
+            "netWorth": 5896,
+            "children": 0,
+            "married": false,
+            "retired": true,
+            "happinessEnd": 96,
+            "healthEnd": 64
+          }
+        },
+        {
+          "option": "school-1",
+          "label": "公办普通高中",
+          "result": {
+            "deathAge": 81,
+            "education": "high",
+            "finalJob": "delivery",
+            "earned": 6465,
+            "netWorth": 5896,
+            "children": 0,
+            "married": false,
+            "retired": true,
+            "happinessEnd": 96,
+            "healthEnd": 64
+          }
+        },
+        {
+          "option": "school-2",
+          "label": "民办普通高中",
+          "result": {
+            "deathAge": 81,
+            "education": "high",
+            "finalJob": "delivery",
+            "earned": 6465,
+            "netWorth": 5896,
+            "children": 0,
+            "married": false,
+            "retired": true,
+            "happinessEnd": 96,
+            "healthEnd": 64
+          }
+        },
+        {
+          "option": "school-3",
+          "label": "中等职业教育",
+          "result": {
+            "deathAge": 81,
+            "education": "vocational",
+            "finalJob": "delivery",
+            "earned": 6465,
+            "netWorth": 5896,
+            "children": 0,
+            "married": false,
+            "retired": true,
+            "happinessEnd": 96,
+            "healthEnd": 64
+          }
+        }
+      ]
+    },
+    {
+      "seed": "expD-7",
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "identicalFinals": false,
+      "distinctOutcomes": 2,
+      "branches": [
+        {
+          "option": "school-0",
+          "label": "公办重点／高选拔性高中",
+          "result": {
+            "deathAge": 78,
+            "education": "university",
+            "finalJob": "office",
+            "earned": 11244,
+            "netWorth": 11093,
+            "children": 0,
+            "married": false,
+            "retired": true,
+            "happinessEnd": 97,
+            "healthEnd": 65
+          }
+        },
+        {
+          "option": "school-1",
+          "label": "公办普通高中",
+          "result": {
+            "deathAge": 78,
+            "education": "university",
+            "finalJob": "office",
+            "earned": 11244,
+            "netWorth": 11093,
+            "children": 0,
+            "married": false,
+            "retired": true,
+            "happinessEnd": 97,
+            "healthEnd": 65
+          }
+        },
+        {
+          "option": "school-2",
+          "label": "民办普通高中",
+          "result": {
+            "deathAge": 78,
+            "education": "university",
+            "finalJob": "office",
+            "earned": 11244,
+            "netWorth": 11093,
+            "children": 0,
+            "married": false,
+            "retired": true,
+            "happinessEnd": 97,
+            "healthEnd": 65
+          }
+        },
+        {
+          "option": "school-3",
+          "label": "中等职业教育",
+          "result": {
+            "deathAge": 78,
+            "education": "associate",
+            "finalJob": "nurse",
+            "earned": 13702,
+            "netWorth": 14004,
+            "children": 0,
+            "married": false,
+            "retired": true,
+            "happinessEnd": 97,
+            "healthEnd": 65
+          }
+        }
+      ]
+    },
+    {
+      "seed": "expD-26",
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "identicalFinals": false,
+      "distinctOutcomes": 2,
+      "branches": [
+        {
+          "option": "school-0",
+          "label": "公办重点／高选拔性高中",
+          "result": {
+            "deathAge": 101,
+            "education": "university",
+            "finalJob": "sales",
+            "earned": 17478,
+            "netWorth": 20022,
+            "children": 0,
+            "married": true,
+            "retired": true,
+            "happinessEnd": 97,
+            "healthEnd": 50
+          }
+        },
+        {
+          "option": "school-1",
+          "label": "公办普通高中",
+          "result": {
+            "deathAge": 101,
+            "education": "university",
+            "finalJob": "sales",
+            "earned": 17478,
+            "netWorth": 20022,
+            "children": 0,
+            "married": true,
+            "retired": true,
+            "happinessEnd": 97,
+            "healthEnd": 50
+          }
+        },
+        {
+          "option": "school-2",
+          "label": "民办普通高中",
+          "result": {
+            "deathAge": 101,
+            "education": "university",
+            "finalJob": "sales",
+            "earned": 17478,
+            "netWorth": 20022,
+            "children": 0,
+            "married": true,
+            "retired": true,
+            "happinessEnd": 97,
+            "healthEnd": 50
+          }
+        },
+        {
+          "option": "school-3",
+          "label": "中等职业教育",
+          "result": {
+            "deathAge": 55,
+            "education": "associate",
+            "finalJob": "postal-worker",
+            "earned": 7756,
+            "netWorth": 7222,
+            "children": 0,
+            "married": true,
+            "retired": true,
+            "happinessEnd": 84,
+            "healthEnd": 69
+          }
+        }
+      ]
+    },
+    {
+      "seed": "expD-28",
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "identicalFinals": false,
+      "distinctOutcomes": 2,
+      "branches": [
+        {
+          "option": "school-0",
+          "label": "公办普通高中",
+          "result": {
+            "deathAge": 76,
+            "education": "high",
+            "finalJob": "railway-worker",
+            "earned": 2536,
+            "netWorth": 1754,
+            "children": 0,
+            "married": true,
+            "retired": true,
+            "happinessEnd": 96,
+            "healthEnd": 68
+          }
+        },
+        {
+          "option": "school-1",
+          "label": "中等职业教育",
+          "result": {
+            "deathAge": 76,
+            "education": "vocational",
+            "finalJob": "railway-worker",
+            "earned": 2536,
+            "netWorth": 1754,
+            "children": 0,
+            "married": true,
+            "retired": true,
+            "happinessEnd": 96,
+            "healthEnd": 68
+          }
+        }
+      ]
+    },
+    {
+      "seed": "expD-48",
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "identicalFinals": false,
+      "distinctOutcomes": 2,
+      "branches": [
+        {
+          "option": "school-0",
+          "label": "公办普通高中",
+          "result": {
+            "deathAge": 86,
+            "education": "high",
+            "finalJob": "sales",
+            "earned": 2955,
+            "netWorth": 2009,
+            "children": 0,
+            "married": true,
+            "retired": true,
+            "happinessEnd": 96,
+            "healthEnd": 61
+          }
+        },
+        {
+          "option": "school-1",
+          "label": "中等职业教育",
+          "result": {
+            "deathAge": 86,
+            "education": "vocational",
+            "finalJob": "sales",
+            "earned": 2955,
+            "netWorth": 2009,
+            "children": 0,
+            "married": true,
+            "retired": true,
+            "happinessEnd": 96,
+            "healthEnd": 61
+          }
+        }
+      ]
+    },
+    {
+      "seed": "expD-59",
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "identicalFinals": false,
+      "distinctOutcomes": 2,
+      "branches": [
+        {
+          "option": "school-0",
+          "label": "公办重点／高选拔性高中",
+          "result": {
+            "deathAge": 67,
+            "education": "high",
+            "finalJob": "nurse",
+            "earned": 4540,
+            "netWorth": 3793,
+            "children": 2,
+            "married": true,
+            "retired": true,
+            "happinessEnd": 96,
+            "healthEnd": 46
+          }
+        },
+        {
+          "option": "school-1",
+          "label": "公办普通高中",
+          "result": {
+            "deathAge": 67,
+            "education": "high",
+            "finalJob": "nurse",
+            "earned": 4540,
+            "netWorth": 3793,
+            "children": 2,
+            "married": true,
+            "retired": true,
+            "happinessEnd": 96,
+            "healthEnd": 46
+          }
+        },
+        {
+          "option": "school-2",
+          "label": "民办普通高中",
+          "result": {
+            "deathAge": 67,
+            "education": "high",
+            "finalJob": "nurse",
+            "earned": 4540,
+            "netWorth": 3793,
+            "children": 2,
+            "married": true,
+            "retired": true,
+            "happinessEnd": 96,
+            "healthEnd": 46
+          }
+        },
+        {
+          "option": "school-3",
+          "label": "中等职业教育",
+          "result": {
+            "deathAge": 67,
+            "education": "vocational",
+            "finalJob": "nurse",
+            "earned": 4540,
+            "netWorth": 3793,
+            "children": 2,
+            "married": true,
+            "retired": true,
+            "happinessEnd": 96,
+            "healthEnd": 46
+          }
+        }
+      ]
+    }
+  ]
+}

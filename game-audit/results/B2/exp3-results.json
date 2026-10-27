@@ -1,0 +1,3873 @@
+{
+  "out": {
+    "meta": {
+      "decisionPointsProbed": 2504,
+      "lives": 900,
+      "watchActions": 17
+    },
+    "overall": {
+      "pctExactIdenticalWholeLife": 30.7,
+      "pctWithinToleranceIdenticalWholeLife": 32.5
+    },
+    "byAction": {
+      "reflect": {
+        "probed": 280,
+        "pctExactIdentical": 100,
+        "pctWithinToleranceIdentical": 100,
+        "meanMaxDeathAgeSpread": 0,
+        "p95DeathAgeSpread": 0,
+        "denominator": 280,
+        "meanMaxNetWorthSpreadPct": 0,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 0
+      },
+      "hobby": {
+        "probed": 280,
+        "pctExactIdentical": 100,
+        "pctWithinToleranceIdentical": 100,
+        "meanMaxDeathAgeSpread": 0,
+        "p95DeathAgeSpread": 0,
+        "denominator": 280,
+        "meanMaxNetWorthSpreadPct": 0,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 0
+      },
+      "edu-secondary": {
+        "probed": 280,
+        "pctExactIdentical": 13.6,
+        "pctWithinToleranceIdentical": 13.6,
+        "meanMaxDeathAgeSpread": 7.11,
+        "p95DeathAgeSpread": 31,
+        "denominator": 280,
+        "meanMaxNetWorthSpreadPct": 49.1,
+        "pctWhereEducationChanges": 85,
+        "pctWhereFinalJobChanges": 53.9
+      },
+      "career-offer": {
+        "probed": 279,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "meanMaxDeathAgeSpread": 17.22,
+        "p95DeathAgeSpread": 39,
+        "denominator": 279,
+        "meanMaxNetWorthSpreadPct": 278,
+        "pctWhereEducationChanges": 3.2,
+        "pctWhereFinalJobChanges": 95.7
+      },
+      "romance": {
+        "probed": 266,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 1.5,
+        "meanMaxDeathAgeSpread": 11.09,
+        "p95DeathAgeSpread": 34,
+        "denominator": 266,
+        "meanMaxNetWorthSpreadPct": 70.1,
+        "pctWhereEducationChanges": 0.8,
+        "pctWhereFinalJobChanges": 80.8
+      },
+      "marriage": {
+        "probed": 196,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "meanMaxDeathAgeSpread": 16.12,
+        "p95DeathAgeSpread": 39,
+        "denominator": 196,
+        "meanMaxNetWorthSpreadPct": 12434057.7,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 91.8
+      },
+      "move": {
+        "probed": 180,
+        "pctExactIdentical": 3.3,
+        "pctWithinToleranceIdentical": 3.3,
+        "meanMaxDeathAgeSpread": 8.19,
+        "p95DeathAgeSpread": 31,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 41.9,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 50
+      },
+      "familyhelp": {
+        "probed": 176,
+        "pctExactIdentical": 92,
+        "pctWithinToleranceIdentical": 98.9,
+        "meanMaxDeathAgeSpread": 0,
+        "p95DeathAgeSpread": 0,
+        "denominator": 176,
+        "meanMaxNetWorthSpreadPct": 0,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 0
+      },
+      "edu-funding": {
+        "probed": 131,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0.8,
+        "meanMaxDeathAgeSpread": 14.34,
+        "p95DeathAgeSpread": 35,
+        "denominator": 131,
+        "meanMaxNetWorthSpreadPct": 97.2,
+        "pctWhereEducationChanges": 55.7,
+        "pctWhereFinalJobChanges": 96.2
+      },
+      "edu-bridge": {
+        "probed": 114,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "meanMaxDeathAgeSpread": 11.25,
+        "p95DeathAgeSpread": 29,
+        "denominator": 114,
+        "meanMaxNetWorthSpreadPct": 69.7,
+        "pctWhereEducationChanges": 100,
+        "pctWhereFinalJobChanges": 97.4
+      },
+      "worklife": {
+        "probed": 114,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 11.4,
+        "meanMaxDeathAgeSpread": 0.08,
+        "p95DeathAgeSpread": 0,
+        "denominator": 114,
+        "meanMaxNetWorthSpreadPct": 4.4,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 0
+      },
+      "startup": {
+        "probed": 80,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "meanMaxDeathAgeSpread": 9.84,
+        "p95DeathAgeSpread": 29,
+        "denominator": 80,
+        "meanMaxNetWorthSpreadPct": 58,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 83.8
+      },
+      "child": {
+        "probed": 63,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 6.3,
+        "meanMaxDeathAgeSpread": 10.56,
+        "p95DeathAgeSpread": 30,
+        "denominator": 63,
+        "meanMaxNetWorthSpreadPct": 47.8,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 69.8
+      },
+      "edu-postgraduate": {
+        "probed": 45,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "meanMaxDeathAgeSpread": 12.51,
+        "p95DeathAgeSpread": 39,
+        "denominator": 45,
+        "meanMaxNetWorthSpreadPct": 144.9,
+        "pctWhereEducationChanges": 40,
+        "pctWhereFinalJobChanges": 86.7
+      },
+      "community": {
+        "probed": 14,
+        "pctExactIdentical": 21.4,
+        "pctWithinToleranceIdentical": 100,
+        "meanMaxDeathAgeSpread": 0,
+        "p95DeathAgeSpread": 0,
+        "denominator": 14,
+        "meanMaxNetWorthSpreadPct": 0,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 0
+      },
+      "edu-recommendation": {
+        "probed": 6,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "meanMaxDeathAgeSpread": 17.67,
+        "p95DeathAgeSpread": 65,
+        "denominator": 6,
+        "meanMaxNetWorthSpreadPct": 1510.2,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 100
+      }
+    },
+    "meaninglessExamples": [
+      {
+        "action": "reflect",
+        "age": 5,
+        "title": "暂停片刻",
+        "options": [
+          "写下来，继续生活",
+          "留在心里，继续生活"
+        ],
+        "finalNetWorth": 13584445,
+        "finalAge": 89
+      },
+      {
+        "action": "hobby",
+        "age": 7,
+        "title": "找到喜欢的事",
+        "options": [
+          "音乐",
+          "画画",
+          "球类运动",
+          "阅读"
+        ],
+        "finalNetWorth": 13584445,
+        "finalAge": 89
+      },
+      {
+        "action": "familyhelp",
+        "age": 14,
+        "title": "家里忙碌的一天",
+        "options": [
+          "分担一些家务",
+          "先完成学习任务"
+        ],
+        "finalNetWorth": 4548501,
+        "finalAge": 81
+      },
+      {
+        "action": "reflect",
+        "age": 5,
+        "title": "暂停片刻",
+        "options": [
+          "写下来，继续生活",
+          "留在心里，继续生活"
+        ],
+        "finalNetWorth": 3751892,
+        "finalAge": 76
+      },
+      {
+        "action": "hobby",
+        "age": 7,
+        "title": "找到喜欢的事",
+        "options": [
+          "音乐",
+          "画画",
+          "球类运动",
+          "阅读"
+        ],
+        "finalNetWorth": 3751892,
+        "finalAge": 76
+      },
+      {
+        "action": "edu-secondary",
+        "age": 15,
+        "title": "中考之后，选择下一段学业",
+        "options": [
+          "公办重点／高选拔性高中",
+          "公办普通高中",
+          "民办普通高中",
+          "中等职业教育"
+        ],
+        "finalNetWorth": 3751892,
+        "finalAge": 76
+      },
+      {
+        "action": "reflect",
+        "age": 5,
+        "title": "暂停片刻",
+        "options": [
+          "写下来，继续生活",
+          "留在心里，继续生活"
+        ],
+        "finalNetWorth": 5312254,
+        "finalAge": 84
+      },
+      {
+        "action": "hobby",
+        "age": 7,
+        "title": "找到喜欢的事",
+        "options": [
+          "音乐",
+          "画画",
+          "球类运动",
+          "阅读"
+        ],
+        "finalNetWorth": 5312254,
+        "finalAge": 84
+      },
+      {
+        "action": "familyhelp",
+        "age": 14,
+        "title": "家里忙碌的一天",
+        "options": [
+          "分担一些家务",
+          "先完成学习任务"
+        ],
+        "finalNetWorth": 5312254,
+        "finalAge": 84
+      },
+      {
+        "action": "reflect",
+        "age": 5,
+        "title": "暂停片刻",
+        "options": [
+          "写下来，继续生活",
+          "留在心里，继续生活"
+        ],
+        "finalNetWorth": 6358222,
+        "finalAge": 98
+      },
+      {
+        "action": "hobby",
+        "age": 7,
+        "title": "找到喜欢的事",
+        "options": [
+          "音乐",
+          "画画",
+          "球类运动",
+          "阅读"
+        ],
+        "finalNetWorth": 6358222,
+        "finalAge": 98
+      },
+      {
+        "action": "edu-secondary",
+        "age": 15,
+        "title": "选择下一段学业",
+        "options": [
+          "公办重点／高选拔性高中",
+          "公办普通高中",
+          "民办普通高中",
+          "中等职业教育"
+        ],
+        "finalNetWorth": 6358222,
+        "finalAge": 98
+      }
+    ]
+  },
+  "examples": [
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 13584445,
+      "finalAge": 89
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 13584445,
+      "finalAge": 89
+    },
+    {
+      "action": "familyhelp",
+      "age": 14,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4548501,
+      "finalAge": 81
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 3751892,
+      "finalAge": 76
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 3751892,
+      "finalAge": 76
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 3751892,
+      "finalAge": 76
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 5312254,
+      "finalAge": 84
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 5312254,
+      "finalAge": 84
+    },
+    {
+      "action": "familyhelp",
+      "age": 14,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 5312254,
+      "finalAge": 84
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 6358222,
+      "finalAge": 98
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 6358222,
+      "finalAge": 98
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 6358222,
+      "finalAge": 98
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 6939841,
+      "finalAge": 84
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 6939841,
+      "finalAge": 84
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 6939841,
+      "finalAge": 84
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 6939841,
+      "finalAge": 84
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 5383876,
+      "finalAge": 84
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 5383876,
+      "finalAge": 84
+    },
+    {
+      "action": "familyhelp",
+      "age": 9,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 5383876,
+      "finalAge": 84
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 6340577,
+      "finalAge": 79
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 6340577,
+      "finalAge": 79
+    },
+    {
+      "action": "familyhelp",
+      "age": 11,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 6340577,
+      "finalAge": 79
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 11468952,
+      "finalAge": 101
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 11468952,
+      "finalAge": 101
+    },
+    {
+      "action": "familyhelp",
+      "age": 16,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 6065224,
+      "finalAge": 79
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4103373,
+      "finalAge": 71
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4103373,
+      "finalAge": 71
+    },
+    {
+      "action": "familyhelp",
+      "age": 12,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 6716703,
+      "finalAge": 82
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4559167,
+      "finalAge": 74
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4559167,
+      "finalAge": 74
+    },
+    {
+      "action": "familyhelp",
+      "age": 12,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 7605351,
+      "finalAge": 77
+    },
+    {
+      "action": "child",
+      "age": 35,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 4012010,
+      "finalAge": 74
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 3184004,
+      "finalAge": 87
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 3184252,
+      "finalAge": 87
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 12994358,
+      "finalAge": 63
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 12994358,
+      "finalAge": 63
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4752350,
+      "finalAge": 92
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4752350,
+      "finalAge": 92
+    },
+    {
+      "action": "familyhelp",
+      "age": 11,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 2949434,
+      "finalAge": 68
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 2949434,
+      "finalAge": 68
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 8298256,
+      "finalAge": 86
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 8298256,
+      "finalAge": 86
+    },
+    {
+      "action": "familyhelp",
+      "age": 12,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 7071480,
+      "finalAge": 89
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 611742,
+      "finalAge": 93
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 611742,
+      "finalAge": 93
+    },
+    {
+      "action": "familyhelp",
+      "age": 12,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 1067971,
+      "finalAge": 79
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 13300201,
+      "finalAge": 76
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 13300201,
+      "finalAge": 76
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 10348696,
+      "finalAge": 71
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 10348696,
+      "finalAge": 71
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 6589266,
+      "finalAge": 92
+    },
+    {
+      "action": "familyhelp",
+      "age": 16,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 11022452,
+      "finalAge": 78
+    },
+    {
+      "action": "edu-funding",
+      "age": 18,
+      "title": "录取以后，先安排求学资金",
+      "options": [
+        "申请奖助与校内困难支持",
+        "暂缓入学，先工作并继续学习"
+      ],
+      "finalNetWorth": 6589266,
+      "finalAge": 92
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 2711239,
+      "finalAge": 84
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 2711239,
+      "finalAge": 84
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 2711239,
+      "finalAge": 84
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4576600,
+      "finalAge": 63
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4576600,
+      "finalAge": 63
+    },
+    {
+      "action": "familyhelp",
+      "age": 14,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 3522603,
+      "finalAge": 80
+    },
+    {
+      "action": "community",
+      "age": 56,
+      "title": "社区里的一点小事",
+      "options": [
+        "报名，尽一份力",
+        "把时间留给自己"
+      ],
+      "finalNetWorth": 2336678,
+      "finalAge": 71
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 17597494,
+      "finalAge": 80
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 17669732,
+      "finalAge": 80
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 6883150,
+      "finalAge": 62
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 6883150,
+      "finalAge": 62
+    },
+    {
+      "action": "familyhelp",
+      "age": 13,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 5173108,
+      "finalAge": 73
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 5845402,
+      "finalAge": 79
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 10075486,
+      "finalAge": 87
+    },
+    {
+      "action": "familyhelp",
+      "age": 14,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 5430253,
+      "finalAge": 88
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4580262,
+      "finalAge": 91
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4580262,
+      "finalAge": 91
+    },
+    {
+      "action": "familyhelp",
+      "age": 9,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4580262,
+      "finalAge": 91
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 2078771,
+      "finalAge": 76
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4515235,
+      "finalAge": 84
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4515235,
+      "finalAge": 84
+    },
+    {
+      "action": "move",
+      "age": 22,
+      "title": "去另一座城市生活",
+      "options": [
+        "留在熟悉的地方",
+        "葫芦岛市",
+        "邵东市",
+        "烟台市"
+      ],
+      "finalNetWorth": 8260724,
+      "finalAge": 94
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4509918,
+      "finalAge": 86
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4509918,
+      "finalAge": 86
+    },
+    {
+      "action": "familyhelp",
+      "age": 14,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4330899,
+      "finalAge": 96
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 9109183,
+      "finalAge": 81
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 9109183,
+      "finalAge": 81
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 5064034,
+      "finalAge": 91
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 5064034,
+      "finalAge": 91
+    },
+    {
+      "action": "familyhelp",
+      "age": 11,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4684331,
+      "finalAge": 85
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4820770,
+      "finalAge": 77
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4820770,
+      "finalAge": 77
+    },
+    {
+      "action": "worklife",
+      "age": 22,
+      "title": "工作的边界",
+      "options": [
+        "投入项目，争取机会",
+        "沟通安排，留住周末"
+      ],
+      "finalNetWorth": 3933516,
+      "finalAge": 62
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4898376,
+      "finalAge": 76
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4898376,
+      "finalAge": 76
+    },
+    {
+      "action": "familyhelp",
+      "age": 12,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 8453881,
+      "finalAge": 80
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 10354407,
+      "finalAge": 74
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 10354407,
+      "finalAge": 74
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 1340456,
+      "finalAge": 66
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 1340456,
+      "finalAge": 66
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 592501,
+      "finalAge": 68
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 6146667,
+      "finalAge": 73
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 6146667,
+      "finalAge": 73
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 2652084,
+      "finalAge": 86
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 13013899,
+      "finalAge": 86
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 13013899,
+      "finalAge": 86
+    },
+    {
+      "action": "familyhelp",
+      "age": 11,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 13013899,
+      "finalAge": 86
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 16
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 13785966,
+      "finalAge": 76
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 13785966,
+      "finalAge": 76
+    },
+    {
+      "action": "familyhelp",
+      "age": 14,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 13787306,
+      "finalAge": 76
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 8544638,
+      "finalAge": 99
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 8544638,
+      "finalAge": 99
+    },
+    {
+      "action": "familyhelp",
+      "age": 11,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4589676,
+      "finalAge": 65
+    },
+    {
+      "action": "romance",
+      "age": 23,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 4582509,
+      "finalAge": 65
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 5921915,
+      "finalAge": 85
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 5921915,
+      "finalAge": 85
+    },
+    {
+      "action": "familyhelp",
+      "age": 9,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 5921915,
+      "finalAge": 85
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4175226,
+      "finalAge": 89
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4175226,
+      "finalAge": 89
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 7381486,
+      "finalAge": 94
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 7381486,
+      "finalAge": 94
+    },
+    {
+      "action": "familyhelp",
+      "age": 11,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 7381486,
+      "finalAge": 94
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 8294689,
+      "finalAge": 98
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 8294689,
+      "finalAge": 98
+    },
+    {
+      "action": "community",
+      "age": 64,
+      "title": "社区里的一点小事",
+      "options": [
+        "报名，尽一份力",
+        "把时间留给自己"
+      ],
+      "finalNetWorth": 4311868,
+      "finalAge": 98
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4807411,
+      "finalAge": 63
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4807411,
+      "finalAge": 63
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 8836685,
+      "finalAge": 76
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 8836685,
+      "finalAge": 76
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 3807956,
+      "finalAge": 75
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 3807956,
+      "finalAge": 75
+    },
+    {
+      "action": "familyhelp",
+      "age": 9,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 3807956,
+      "finalAge": 75
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 3573960,
+      "finalAge": 95
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 3573960,
+      "finalAge": 95
+    },
+    {
+      "action": "familyhelp",
+      "age": 13,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 9896711,
+      "finalAge": 83
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 9896711,
+      "finalAge": 83
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4731963,
+      "finalAge": 87
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4731963,
+      "finalAge": 87
+    },
+    {
+      "action": "familyhelp",
+      "age": 12,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4731963,
+      "finalAge": 87
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 5522878,
+      "finalAge": 82
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 5522878,
+      "finalAge": 82
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 5522878,
+      "finalAge": 82
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 12387990,
+      "finalAge": 71
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 12387990,
+      "finalAge": 71
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 3702227,
+      "finalAge": 76
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 3702227,
+      "finalAge": 76
+    },
+    {
+      "action": "familyhelp",
+      "age": 11,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 3702227,
+      "finalAge": 76
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4534583,
+      "finalAge": 51
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4534583,
+      "finalAge": 51
+    },
+    {
+      "action": "familyhelp",
+      "age": 11,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 6485741,
+      "finalAge": 83
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 2393084,
+      "finalAge": 95
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 2393084,
+      "finalAge": 95
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 2006023,
+      "finalAge": 91
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 16269695,
+      "finalAge": 95
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 16269695,
+      "finalAge": 95
+    },
+    {
+      "action": "familyhelp",
+      "age": 13,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 17834679,
+      "finalAge": 85
+    },
+    {
+      "action": "child",
+      "age": 37,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 4204263,
+      "finalAge": 77
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 11037771,
+      "finalAge": 84
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 11037771,
+      "finalAge": 84
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 15364782,
+      "finalAge": 87
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 15364782,
+      "finalAge": 87
+    },
+    {
+      "action": "familyhelp",
+      "age": 13,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4619093,
+      "finalAge": 81
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 3166782,
+      "finalAge": 74
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 3166782,
+      "finalAge": 74
+    },
+    {
+      "action": "familyhelp",
+      "age": 16,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 3826987,
+      "finalAge": 79
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 3571206,
+      "finalAge": 74
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 3571206,
+      "finalAge": 74
+    },
+    {
+      "action": "community",
+      "age": 73,
+      "title": "社区里的一点小事",
+      "options": [
+        "报名，尽一份力",
+        "把时间留给自己"
+      ],
+      "finalNetWorth": 3112682,
+      "finalAge": 87
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 7094104,
+      "finalAge": 65
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 7094104,
+      "finalAge": 65
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 8192395,
+      "finalAge": 89
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4314713,
+      "finalAge": 73
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4314713,
+      "finalAge": 73
+    },
+    {
+      "action": "familyhelp",
+      "age": 17,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 6786264,
+      "finalAge": 86
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 5911579,
+      "finalAge": 67
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 5911579,
+      "finalAge": 67
+    },
+    {
+      "action": "familyhelp",
+      "age": 16,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 5911579,
+      "finalAge": 67
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 6192395,
+      "finalAge": 87
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 6192395,
+      "finalAge": 87
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4298357,
+      "finalAge": 92
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4298357,
+      "finalAge": 92
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 8656838,
+      "finalAge": 84
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 8656838,
+      "finalAge": 84
+    },
+    {
+      "action": "familyhelp",
+      "age": 14,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 8656838,
+      "finalAge": 84
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 746797,
+      "finalAge": 90
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 746797,
+      "finalAge": 90
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 746797,
+      "finalAge": 90
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 6084454,
+      "finalAge": 79
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 6084454,
+      "finalAge": 79
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4148796,
+      "finalAge": 98
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4929711,
+      "finalAge": 75
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4929711,
+      "finalAge": 75
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 12248101,
+      "finalAge": 79
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 12248101,
+      "finalAge": 79
+    },
+    {
+      "action": "familyhelp",
+      "age": 13,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 6343146,
+      "finalAge": 94
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 6343146,
+      "finalAge": 94
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 6754311,
+      "finalAge": 81
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 7947076,
+      "finalAge": 84
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4146715,
+      "finalAge": 55
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4146715,
+      "finalAge": 55
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4287411,
+      "finalAge": 90
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4287411,
+      "finalAge": 90
+    },
+    {
+      "action": "familyhelp",
+      "age": 9,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4287411,
+      "finalAge": 90
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4355410,
+      "finalAge": 83
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4355410,
+      "finalAge": 83
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 9544387,
+      "finalAge": 99
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 9544387,
+      "finalAge": 99
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 2790680,
+      "finalAge": 73
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4659719,
+      "finalAge": 51
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4659719,
+      "finalAge": 51
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 12698559,
+      "finalAge": 82
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 12698559,
+      "finalAge": 82
+    },
+    {
+      "action": "familyhelp",
+      "age": 9,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 5566127,
+      "finalAge": 83
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 7380229,
+      "finalAge": 73
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 7380229,
+      "finalAge": 73
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 2335011,
+      "finalAge": 55
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 2335011,
+      "finalAge": 55
+    },
+    {
+      "action": "familyhelp",
+      "age": 13,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 6105406,
+      "finalAge": 86
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 6105406,
+      "finalAge": 86
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 14126058,
+      "finalAge": 64
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 14126058,
+      "finalAge": 64
+    },
+    {
+      "action": "familyhelp",
+      "age": 17,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 5153182,
+      "finalAge": 69
+    },
+    {
+      "action": "worklife",
+      "age": 26,
+      "title": "工作的边界",
+      "options": [
+        "投入项目，争取机会",
+        "沟通安排，留住周末"
+      ],
+      "finalNetWorth": 8294074,
+      "finalAge": 94
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 3215987,
+      "finalAge": 80
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 3215987,
+      "finalAge": 80
+    },
+    {
+      "action": "familyhelp",
+      "age": 9,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 3215987,
+      "finalAge": 80
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 8324132,
+      "finalAge": 73
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 8324132,
+      "finalAge": 73
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 935171,
+      "finalAge": 85
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 935171,
+      "finalAge": 85
+    },
+    {
+      "action": "familyhelp",
+      "age": 9,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 681737,
+      "finalAge": 42
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 5468621,
+      "finalAge": 81
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 5468621,
+      "finalAge": 81
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 3630777,
+      "finalAge": 61
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 3630777,
+      "finalAge": 61
+    },
+    {
+      "action": "familyhelp",
+      "age": 9,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4406468,
+      "finalAge": 94
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 9863710,
+      "finalAge": 73
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 9863710,
+      "finalAge": 73
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 2463082,
+      "finalAge": 66
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 5340214,
+      "finalAge": 95
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 5340214,
+      "finalAge": 95
+    },
+    {
+      "action": "familyhelp",
+      "age": 9,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 5340214,
+      "finalAge": 95
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 7265251,
+      "finalAge": 82
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 7265251,
+      "finalAge": 82
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 15552159,
+      "finalAge": 77
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4214815,
+      "finalAge": 81
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4214815,
+      "finalAge": 81
+    },
+    {
+      "action": "familyhelp",
+      "age": 14,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 1529416,
+      "finalAge": 96
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 16484848,
+      "finalAge": 86
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 16484848,
+      "finalAge": 86
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 5639311,
+      "finalAge": 90
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 5639311,
+      "finalAge": 90
+    },
+    {
+      "action": "familyhelp",
+      "age": 14,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 6969193,
+      "finalAge": 91
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 7304768,
+      "finalAge": 87
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 7304768,
+      "finalAge": 87
+    },
+    {
+      "action": "familyhelp",
+      "age": 9,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 6548016,
+      "finalAge": 83
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 6548016,
+      "finalAge": 83
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 6219125,
+      "finalAge": 93
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 6219125,
+      "finalAge": 93
+    },
+    {
+      "action": "worklife",
+      "age": 31,
+      "title": "工作的边界",
+      "options": [
+        "投入项目，争取机会",
+        "沟通安排，留住周末"
+      ],
+      "finalNetWorth": 5075111,
+      "finalAge": 78
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 11503430,
+      "finalAge": 76
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 11503430,
+      "finalAge": 76
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 5794540,
+      "finalAge": 85
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 5794540,
+      "finalAge": 85
+    },
+    {
+      "action": "familyhelp",
+      "age": 16,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4358299,
+      "finalAge": 82
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 11861711,
+      "finalAge": 101
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 11861711,
+      "finalAge": 101
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 12935076,
+      "finalAge": 79
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 12935076,
+      "finalAge": 79
+    },
+    {
+      "action": "familyhelp",
+      "age": 14,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4709872,
+      "finalAge": 90
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 3246874,
+      "finalAge": 79
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 3246874,
+      "finalAge": 79
+    },
+    {
+      "action": "familyhelp",
+      "age": 11,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4496578,
+      "finalAge": 82
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 9229241,
+      "finalAge": 85
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 9229241,
+      "finalAge": 85
+    },
+    {
+      "action": "familyhelp",
+      "age": 13,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 1391547,
+      "finalAge": 39
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 5723011,
+      "finalAge": 73
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 5723011,
+      "finalAge": 73
+    },
+    {
+      "action": "familyhelp",
+      "age": 14,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 5723011,
+      "finalAge": 73
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 9921515,
+      "finalAge": 80
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 9921515,
+      "finalAge": 80
+    },
+    {
+      "action": "familyhelp",
+      "age": 13,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 6010164,
+      "finalAge": 77
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 1960322,
+      "finalAge": 92
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 1960322,
+      "finalAge": 92
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 10417390,
+      "finalAge": 83
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 10417390,
+      "finalAge": 83
+    },
+    {
+      "action": "familyhelp",
+      "age": 11,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 24380143,
+      "finalAge": 93
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 3315952,
+      "finalAge": 77
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 3315952,
+      "finalAge": 77
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 3743565,
+      "finalAge": 86
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 3743565,
+      "finalAge": 86
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 3743565,
+      "finalAge": 86
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 6643336,
+      "finalAge": 87
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 6643336,
+      "finalAge": 87
+    },
+    {
+      "action": "familyhelp",
+      "age": 10,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 6643336,
+      "finalAge": 87
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 7894451,
+      "finalAge": 73
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 7894451,
+      "finalAge": 73
+    },
+    {
+      "action": "familyhelp",
+      "age": 9,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 7894451,
+      "finalAge": 73
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 4874474,
+      "finalAge": 88
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 4874474,
+      "finalAge": 88
+    },
+    {
+      "action": "familyhelp",
+      "age": 13,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 5141631,
+      "finalAge": 78
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 6504282,
+      "finalAge": 99
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 6504282,
+      "finalAge": 99
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 2362341,
+      "finalAge": 52
+    },
+    {
+      "action": "hobby",
+      "age": 7,
+      "title": "找到喜欢的事",
+      "options": [
+        "音乐",
+        "画画",
+        "球类运动",
+        "阅读"
+      ],
+      "finalNetWorth": 2362341,
+      "finalAge": 52
+    },
+    {
+      "action": "reflect",
+      "age": 5,
+      "title": "暂停片刻",
+      "options": [
+        "写下来，继续生活",
+        "留在心里，继续生活"
+      ],
+      "finalNetWorth": 7533337,
+      "finalAge": 92
+    }
+  ]
+}

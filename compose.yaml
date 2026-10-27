@@ -1,0 +1,6 @@
+services:
+  city-life:
+    build: .
+    ports:
+      - "8080:80"
+    restart: unless-stopped

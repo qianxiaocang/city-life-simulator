@@ -1,0 +1,79 @@
+{
+  "batch": "B1",
+  "checks": {
+    "D01_EARLY_LIFESPAN": {
+      "passed": 1,
+      "failed": 0,
+      "denominator": 1,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "D01_HISTORICAL_TROUGH": {
+      "passed": 3,
+      "failed": 0,
+      "denominator": 3,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "PROTECTED_MODERN_LIFESPAN": {
+      "passed": 1,
+      "failed": 0,
+      "denominator": 1,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "D04_EARLY_REGIONAL_LIFESPAN": {
+      "passed": 3,
+      "failed": 0,
+      "denominator": 3,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "D04_REGIONAL_DEVELOPMENT": {
+      "passed": 3,
+      "failed": 0,
+      "denominator": 3,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "D02_EARLY_UNDER5": {
+      "passed": 1,
+      "failed": 0,
+      "denominator": 1,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "D02_CURRENT_UNDER5": {
+      "passed": 1,
+      "failed": 0,
+      "denominator": 1,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "D03_SUSPENDED_ADMISSION": {
+      "passed": 240,
+      "failed": 0,
+      "denominator": 240,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    }
+  },
+  "aggregates": {},
+  "engineCalls": {}
+}

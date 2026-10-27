@@ -1,0 +1,313 @@
+{
+  "meta": {
+    "lives": 3000,
+    "policy": "decisions-and-work-focus; no automatic purchases"
+  },
+  "checks": {
+    "TIMELINE": {
+      "passed": 501137,
+      "failed": 0,
+      "denominator": 501137,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "FINITE_STATE": {
+      "passed": 501137,
+      "failed": 0,
+      "denominator": 501137,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "STAT_BOUNDS": {
+      "passed": 501137,
+      "failed": 0,
+      "denominator": 501137,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "NONNEGATIVE_CASH": {
+      "passed": 501137,
+      "failed": 0,
+      "denominator": 501137,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "DECISION_NONEMPTY": {
+      "passed": 145010,
+      "failed": 0,
+      "denominator": 145010,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "DECISION_UNIQUE_OPTIONS": {
+      "passed": 145010,
+      "failed": 0,
+      "denominator": 145010,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "OPTION_DESCRIPTION": {
+      "passed": 234080,
+      "failed": 172566,
+      "denominator": 406646,
+      "unsupported": 0,
+      "status": "FAIL",
+      "failureRate": 0.42436418899976885,
+      "samples": [
+        {
+          "seed": "q0",
+          "action": "temperament",
+          "option": "curious"
+        },
+        {
+          "seed": "q0",
+          "action": "temperament",
+          "option": "caring"
+        },
+        {
+          "seed": "q0",
+          "action": "temperament",
+          "option": "resilient"
+        },
+        {
+          "seed": "q0",
+          "action": "temperament",
+          "option": "outgoing"
+        }
+      ]
+    },
+    "GAOKAO_SUSPENSION": {
+      "passed": 1613,
+      "failed": 0,
+      "denominator": 1613,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "FULLTIME_ENTRY_AGE": {
+      "passed": 1613,
+      "failed": 0,
+      "denominator": 1613,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "EMPLOYMENT_AGE": {
+      "passed": 7660,
+      "failed": 0,
+      "denominator": 7660,
+      "unsupported": 872,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_MIN_YEAR": {
+      "passed": 8532,
+      "failed": 0,
+      "denominator": 8532,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_MIN_AGE": {
+      "passed": 8532,
+      "failed": 0,
+      "denominator": 8532,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_EDUCATION": {
+      "passed": 8532,
+      "failed": 0,
+      "denominator": 8532,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "MARRIAGE_HAS_LAW": {
+      "passed": 2499,
+      "failed": 220,
+      "denominator": 2719,
+      "unsupported": 0,
+      "status": "FAIL",
+      "failureRate": 0.08091210003677823,
+      "samples": [
+        {
+          "seed": "q74",
+          "region": "hongkong",
+          "year": 2014
+        },
+        {
+          "seed": "q117",
+          "region": "taiwan",
+          "year": 2018
+        },
+        {
+          "seed": "q142",
+          "region": "taiwan",
+          "year": 2024
+        },
+        {
+          "seed": "q164",
+          "region": "taiwan",
+          "year": 2025
+        }
+      ]
+    },
+    "MARRIAGE_AGE": {
+      "passed": 2499,
+      "failed": 0,
+      "denominator": 2499,
+      "unsupported": 220,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "RETIREMENT_AGE": {
+      "passed": 1561,
+      "failed": 1,
+      "denominator": 1562,
+      "unsupported": 1019,
+      "status": "FAIL",
+      "failureRate": 0.0006402048655569782,
+      "samples": [
+        {
+          "seed": "q901",
+          "age": 55,
+          "month": 672,
+          "rule": {
+            "ageMonths": 696,
+            "baseAgeMonths": 660,
+            "delayMonths": 36,
+            "retirementYear": 2048,
+            "retirementMonth": 1,
+            "category": "female55",
+            "sourceIds": [
+              "retirement-1978",
+              "retirement-2024"
+            ],
+            "modelOnly": false,
+            "pensionEligibilitySeparate": true,
+            "note": {
+              "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+              "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+              "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+            }
+          }
+        }
+      ]
+    },
+    "TERMINATED": {
+      "passed": 3000,
+      "failed": 0,
+      "denominator": 3000,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "ECONOMIC_RECONCILIATION": {
+      "passed": 3000,
+      "failed": 0,
+      "denominator": 3000,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "BIRTH_UNDER_50": {
+      "passed": 396,
+      "failed": 0,
+      "denominator": 396,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "BIRTH_AFTER_RELATIONSHIP": {
+      "passed": 396,
+      "failed": 0,
+      "denominator": 396,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "PENSION_MIN_CONTRIBUTIONS": {
+      "passed": 1408,
+      "failed": 0,
+      "denominator": 1408,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "PENSION_JURISDICTION": {
+      "passed": 1408,
+      "failed": 0,
+      "denominator": 1408,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    }
+  },
+  "netWorthOverLifetimeIncome": {
+    "n": 2842,
+    "mean": 0.3122515316358759,
+    "min": -0.042978828471709175,
+    "p10": 0,
+    "p50": 0.288869670725493,
+    "p90": 0.6631641598094646,
+    "p95": 0.7189969475249588,
+    "max": 0.9588588175246747
+  },
+  "cashOutflowsOverLifetimeIncome": {
+    "n": 2842,
+    "mean": 0.9555591770602132,
+    "min": 0.2733170537804756,
+    "p10": 0.5312463748004613,
+    "p50": 0.9719061335011879,
+    "p90": 1.3377323460070771,
+    "p95": 1.4417483207925519,
+    "max": 4.657100341627323
+  },
+  "takeHomeOverGross": {
+    "n": 2842,
+    "mean": 0.859394792399729,
+    "min": 0.76,
+    "p10": 0.7999999999999999,
+    "p50": 0.84,
+    "p90": 0.96,
+    "p95": 0.96,
+    "max": 0.9600000000000001
+  },
+  "accountingErrors": {
+    "n": 2842,
+    "mean": -2.0498832907130514e-12,
+    "min": -7.078051567077637e-8,
+    "p10": -4.190951585769653e-9,
+    "p50": 0,
+    "p90": 4.190951585769653e-9,
+    "p95": 7.450580596923828e-9,
+    "max": 1.6391277313232422e-7
+  }
+}

@@ -1,0 +1,712 @@
+{
+  "meta": {
+    "directedEvents": 100,
+    "autopilotLivesPerStrategy": 150,
+    "method": "directed event year/location fixture plus matched-seed headless managed lives"
+  },
+  "checks": {
+    "EVENT_HAS_MATCHING_RESIDENCE": {
+      "passed": 100,
+      "failed": 0,
+      "denominator": 100,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "EVENT_DIRECTED_REACHABLE": {
+      "passed": 100,
+      "failed": 0,
+      "denominator": 100,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "EVENT_RECORDED_RESIDENCE": {
+      "passed": 100,
+      "failed": 0,
+      "denominator": 100,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "EVENT_DIRECTED_MECHANICAL": {
+      "passed": 65,
+      "failed": 35,
+      "denominator": 100,
+      "unsupported": 0,
+      "status": "FAIL",
+      "failureRate": 0.35,
+      "samples": [
+        {
+          "event": "first-five-year"
+        },
+        {
+          "event": "industrial-transform"
+        },
+        {
+          "event": "stockholm1972"
+        },
+        {
+          "event": "oil1973"
+        }
+      ]
+    },
+    "AUTOPILOT_TERMINATES": {
+      "passed": 5,
+      "failed": 0,
+      "denominator": 5,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "AUTOPILOT_HOUSING": {
+      "passed": 5,
+      "failed": 0,
+      "denominator": 5,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "AUTOPILOT_INCOME_SPREAD": {
+      "passed": 1,
+      "failed": 0,
+      "denominator": 1,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    }
+  },
+  "aggregates": {},
+  "engineCalls": {},
+  "directed": [
+    {
+      "id": "land-reform",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "smallpox-vaccine",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "first-five-year",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "geneva1954",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "wuhan-flood1954",
+      "place": "cn-420100",
+      "changed": true
+    },
+    {
+      "id": "constitution1954",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "bandung1955",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "industrial-transform",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "great-leap",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "difficult-years",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "economic-adjustment",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "un-development1965",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "xingtai1966",
+      "place": "cn-130500",
+      "changed": true
+    },
+    {
+      "id": "education-disruption",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "educated-youth",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "stockholm1972",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "oil1973",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "haicheng1975",
+      "place": "cn-210800",
+      "changed": true
+    },
+    {
+      "id": "tangshan1976",
+      "place": "cn-130200",
+      "changed": true
+    },
+    {
+      "id": "reform-turning-point",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "gaokao-restored",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "reform-opening",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "oil1979",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "sez-xiamen",
+      "place": "cn-350200",
+      "changed": false
+    },
+    {
+      "id": "smallpox1980",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "sez-shantou",
+      "place": "cn-440500",
+      "changed": false
+    },
+    {
+      "id": "sez-shenzhen",
+      "place": "cn-440300",
+      "changed": false
+    },
+    {
+      "id": "sez-zhuhai",
+      "place": "cn-440400",
+      "changed": false
+    },
+    {
+      "id": "rural-responsibility",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "coastal-opening",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "chernobyl1986",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "compulsory-education",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "montreal1987",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "housing-reform",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "hainan-province",
+      "place": "cn-460100",
+      "changed": false
+    },
+    {
+      "id": "pudong-development",
+      "place": "cn-310000",
+      "changed": false
+    },
+    {
+      "id": "stock-market",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "market-reform",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "rio1992",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "internet-china",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "labour-law",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "lijiang1996",
+      "place": "cn-530700",
+      "changed": true
+    },
+    {
+      "id": "hk-handover",
+      "place": "hk-city",
+      "changed": true
+    },
+    {
+      "id": "asia1997",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "kyoto1997",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "housing-monetization",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "flood1998-harbin",
+      "place": "cn-230100",
+      "changed": true
+    },
+    {
+      "id": "flood1998-wuhan",
+      "place": "cn-360400",
+      "changed": true
+    },
+    {
+      "id": "higher-education-expansion",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "taiwan921",
+      "place": "tw-7104",
+      "changed": true
+    },
+    {
+      "id": "macao-handover",
+      "place": "mo-city",
+      "changed": true
+    },
+    {
+      "id": "western-development",
+      "place": "cn-500000",
+      "changed": false
+    },
+    {
+      "id": "wto-china",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "rural-healthcare",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "sars-guangdong",
+      "place": "cn-440100",
+      "changed": true
+    },
+    {
+      "id": "sars-global2003",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "sars-hongkong",
+      "place": "hk-city",
+      "changed": true
+    },
+    {
+      "id": "sars-beijing",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "northeast-revitalization",
+      "place": "cn-210100",
+      "changed": false
+    },
+    {
+      "id": "tsunami2004",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "agricultural-tax",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "gfc2008",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "labour-contract-law",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "snow2008",
+      "place": "cn-330100",
+      "changed": true
+    },
+    {
+      "id": "wenchuan2008",
+      "place": "cn-510600",
+      "changed": true
+    },
+    {
+      "id": "highspeed-rail",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "beijing-olympics",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "h1n12009",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "yushu2010",
+      "place": "cn-632700",
+      "changed": true
+    },
+    {
+      "id": "shanghai-expo",
+      "place": "cn-310000",
+      "changed": true
+    },
+    {
+      "id": "zhouqu2010",
+      "place": "cn-623000",
+      "changed": true
+    },
+    {
+      "id": "lushan2013",
+      "place": "cn-511800",
+      "changed": true
+    },
+    {
+      "id": "mobile-internet",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "ludian2014",
+      "place": "cn-530600",
+      "changed": true
+    },
+    {
+      "id": "ebola2014",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "paris2015",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "universal-two-child",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "hangzhou-g20",
+      "place": "cn-330100",
+      "changed": true
+    },
+    {
+      "id": "paris2016",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "jiuzhaigou2017",
+      "place": "cn-513200",
+      "changed": true
+    },
+    {
+      "id": "hato-macao2017",
+      "place": "mo-city",
+      "changed": true
+    },
+    {
+      "id": "mangkhut-hk2018",
+      "place": "hk-city",
+      "changed": true
+    },
+    {
+      "id": "covid2020",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "wuhan2020",
+      "place": "cn-420100",
+      "changed": true
+    },
+    {
+      "id": "carbon-goals",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "civil-code",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "shipping2021",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "poverty-victory",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "zhengzhou2021",
+      "place": "cn-410100",
+      "changed": true
+    },
+    {
+      "id": "three-child",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "food-energy2022",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "blacksea2022",
+      "place": "cn-110000",
+      "changed": false
+    },
+    {
+      "id": "yangtze-heat2022",
+      "place": "cn-500000",
+      "changed": true
+    },
+    {
+      "id": "post-pandemic",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "haihe2023",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "jishishan2023",
+      "place": "cn-622900",
+      "changed": true
+    },
+    {
+      "id": "global-heat2024",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "hualien2024",
+      "place": "tw-7126",
+      "changed": true
+    },
+    {
+      "id": "retirement-reform",
+      "place": "cn-110000",
+      "changed": true
+    },
+    {
+      "id": "fifteenth-plan",
+      "place": "cn-110000",
+      "changed": true
+    }
+  ],
+  "simulations": {
+    "strive": {
+      "lives": 150,
+      "terminated": 150,
+      "earned": {
+        "n": 150,
+        "mean": 7132137.314953709,
+        "min": 0,
+        "p10": 898222.0171210122,
+        "p50": 4741604.480490951,
+        "p90": 15706390.82593699,
+        "p95": 23625417.880115673,
+        "max": 56402768.260529
+      },
+      "housingAt39": {
+        "count": 71,
+        "denominator": 134,
+        "rate": 0.5298507462686567
+      },
+      "carsAt39": {
+        "count": 66,
+        "denominator": 134,
+        "rate": 0.4925373134328358
+      }
+    },
+    "balanced": {
+      "lives": 150,
+      "terminated": 150,
+      "earned": {
+        "n": 150,
+        "mean": 6860790.942817453,
+        "min": 0,
+        "p10": 919091.74967719,
+        "p50": 4659760.727066247,
+        "p90": 15174172.832394853,
+        "p95": 22932645.040200476,
+        "max": 54092874.59586931
+      },
+      "housingAt39": {
+        "count": 67,
+        "denominator": 134,
+        "rate": 0.5
+      },
+      "carsAt39": {
+        "count": 58,
+        "denominator": 134,
+        "rate": 0.43283582089552236
+      }
+    },
+    "health": {
+      "lives": 150,
+      "terminated": 150,
+      "earned": {
+        "n": 150,
+        "mean": 6798742.301388253,
+        "min": 0,
+        "p10": 946816.4796713404,
+        "p50": 4669017.9255534895,
+        "p90": 14995280.498665893,
+        "p95": 22481694.20622598,
+        "max": 53639660.961759165
+      },
+      "housingAt39": {
+        "count": 66,
+        "denominator": 135,
+        "rate": 0.4888888888888889
+      },
+      "carsAt39": {
+        "count": 54,
+        "denominator": 135,
+        "rate": 0.4
+      }
+    },
+    "family": {
+      "lives": 150,
+      "terminated": 150,
+      "earned": {
+        "n": 150,
+        "mean": 6600659.0340903625,
+        "min": 0,
+        "p10": 870784.4796713404,
+        "p50": 4429737.9255534895,
+        "p90": 14897096.498665893,
+        "p95": 22319484.20622598,
+        "max": 50870956.961759165
+      },
+      "housingAt39": {
+        "count": 66,
+        "denominator": 134,
+        "rate": 0.4925373134328358
+      },
+      "carsAt39": {
+        "count": 54,
+        "denominator": 134,
+        "rate": 0.40298507462686567
+      }
+    },
+    "academic": {
+      "lives": 150,
+      "terminated": 150,
+      "earned": {
+        "n": 150,
+        "mean": 6689981.208495923,
+        "min": 0,
+        "p10": 883865.1142199981,
+        "p50": 4500908.396090945,
+        "p90": 15082899.896451259,
+        "p95": 22661469.243333858,
+        "max": 51221552.00967535
+      },
+      "housingAt39": {
+        "count": 66,
+        "denominator": 134,
+        "rate": 0.4925373134328358
+      },
+      "carsAt39": {
+        "count": 57,
+        "denominator": 134,
+        "rate": 0.4253731343283582
+      }
+    }
+  },
+  "medianIncomeSpread": 0.07040293583474108
+}

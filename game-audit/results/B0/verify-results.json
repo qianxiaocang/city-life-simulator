@@ -1,0 +1,331 @@
+{
+  "checks": {
+    "TIMELINE": {
+      "passed": 690673,
+      "failed": 0,
+      "denominator": 690673,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "FINITE_STATE": {
+      "passed": 690673,
+      "failed": 0,
+      "denominator": 690673,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "STAT_BOUNDS": {
+      "passed": 690673,
+      "failed": 0,
+      "denominator": 690673,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "NONNEGATIVE_CASH": {
+      "passed": 690673,
+      "failed": 0,
+      "denominator": 690673,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "GAOKAO_SUSPENSION": {
+      "passed": 5017,
+      "failed": 0,
+      "denominator": 5017,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "FULLTIME_ENTRY_AGE": {
+      "passed": 5017,
+      "failed": 0,
+      "denominator": 5017,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "EMPLOYMENT_AGE": {
+      "passed": 9853,
+      "failed": 0,
+      "denominator": 9853,
+      "unsupported": 1128,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_MIN_YEAR": {
+      "passed": 10981,
+      "failed": 0,
+      "denominator": 10981,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_MIN_AGE": {
+      "passed": 10981,
+      "failed": 0,
+      "denominator": 10981,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_EDUCATION": {
+      "passed": 10981,
+      "failed": 0,
+      "denominator": 10981,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "MARRIAGE_HAS_LAW": {
+      "passed": 2095,
+      "failed": 277,
+      "denominator": 2372,
+      "unsupported": 0,
+      "status": "FAIL",
+      "failureRate": 0.11677908937605397,
+      "samples": [
+        {
+          "seed": "v0",
+          "region": "taiwan",
+          "year": 2041
+        },
+        {
+          "seed": "v12",
+          "region": "hongkong",
+          "year": 2027
+        },
+        {
+          "seed": "v35",
+          "region": "taiwan",
+          "year": 2041
+        },
+        {
+          "seed": "v47",
+          "region": "taiwan",
+          "year": 2024
+        }
+      ]
+    },
+    "MARRIAGE_AGE": {
+      "passed": 2095,
+      "failed": 0,
+      "denominator": 2095,
+      "unsupported": 277,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "RETIREMENT_AGE": {
+      "passed": 2619,
+      "failed": 2,
+      "denominator": 2621,
+      "unsupported": 986,
+      "status": "FAIL",
+      "failureRate": 0.0007630675314765357,
+      "samples": [
+        {
+          "seed": "v26",
+          "age": 55,
+          "month": 672,
+          "rule": {
+            "ageMonths": 696,
+            "baseAgeMonths": 660,
+            "delayMonths": 36,
+            "retirementYear": 2054,
+            "retirementMonth": 1,
+            "category": "female55",
+            "sourceIds": [
+              "retirement-1978",
+              "retirement-2024"
+            ],
+            "modelOnly": false,
+            "pensionEligibilitySeparate": true,
+            "note": {
+              "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+              "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+              "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+            }
+          }
+        },
+        {
+          "seed": "v1319",
+          "age": 55,
+          "month": 672,
+          "rule": {
+            "ageMonths": 696,
+            "baseAgeMonths": 660,
+            "delayMonths": 36,
+            "retirementYear": 2067,
+            "retirementMonth": 1,
+            "category": "female55",
+            "sourceIds": [
+              "retirement-1978",
+              "retirement-2024"
+            ],
+            "modelOnly": false,
+            "pensionEligibilitySeparate": true,
+            "note": {
+              "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+              "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+              "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+            }
+          }
+        }
+      ]
+    },
+    "TERMINATED": {
+      "passed": 4000,
+      "failed": 0,
+      "denominator": 4000,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "PENSION_MIN_CONTRIBUTIONS": {
+      "passed": 2394,
+      "failed": 0,
+      "denominator": 2394,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "PENSION_JURISDICTION": {
+      "passed": 2394,
+      "failed": 0,
+      "denominator": 2394,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "BIRTH_UNDER_50": {
+      "passed": 667,
+      "failed": 19,
+      "denominator": 686,
+      "unsupported": 0,
+      "status": "FAIL",
+      "failureRate": 0.027696793002915453,
+      "samples": [
+        {
+          "seed": "v65",
+          "momAge": 51
+        },
+        {
+          "seed": "v330",
+          "momAge": 51
+        },
+        {
+          "seed": "v957",
+          "momAge": 52
+        },
+        {
+          "seed": "v974",
+          "momAge": 50
+        }
+      ]
+    },
+    "BIRTH_AFTER_RELATIONSHIP": {
+      "passed": 0,
+      "failed": 0,
+      "denominator": 0,
+      "unsupported": 686,
+      "status": "NOT_CHECKED",
+      "failureRate": null,
+      "samples": []
+    }
+  },
+  "aggregates": {
+    "higherAdmissionYear": {
+      "n": 5017,
+      "mean": 2019.079529599362,
+      "min": 2008,
+      "p10": 2011,
+      "p50": 2019,
+      "p90": 2027,
+      "p95": 2028,
+      "max": 2037
+    },
+    "firstJobAge": {
+      "n": 10981,
+      "mean": 33.227301702941446,
+      "min": 18,
+      "p10": 19,
+      "p50": 29,
+      "p90": 54,
+      "p95": 57,
+      "max": 87
+    },
+    "jobSalaryRatio": {
+      "n": 10981,
+      "mean": 0.9716731570426081,
+      "min": 0.39430991450268177,
+      "p10": 0.6610067918497803,
+      "p50": 0.9221007076437219,
+      "p90": 1.313481033355134,
+      "p95": 1.554478698068272,
+      "max": 2.1988690234322092
+    },
+    "firstMarriageAge": {
+      "n": 2372,
+      "mean": 37.899662731871835,
+      "min": 21,
+      "p10": 25,
+      "p50": 31,
+      "p90": 64,
+      "p95": 69,
+      "max": 89
+    },
+    "retirementAge": {
+      "n": 3607,
+      "mean": 61.40338231217078,
+      "min": 55,
+      "p10": 55,
+      "p50": 63,
+      "p90": 65,
+      "p95": 66,
+      "max": 69
+    },
+    "pensionReplacement": {
+      "n": 2394,
+      "mean": 0.38004627652863165,
+      "min": 0.37998852936959326,
+      "p10": 0.37999695713361986,
+      "p50": 0.380000156254883,
+      "p90": 0.3800034148840159,
+      "p95": 0.38000482873236396,
+      "max": 0.4593716433941998
+    },
+    "maternalAgeAtBirth": {
+      "n": 686,
+      "mean": 36.29446064139942,
+      "min": 22,
+      "p10": 27,
+      "p50": 36,
+      "p90": 46,
+      "p95": 48,
+      "max": 52
+    }
+  },
+  "engineCalls": {
+    "startLife": 4000,
+    "advanceYear": 324727,
+    "autoChoose": 208616,
+    "setFocus": 153330
+  }
+}

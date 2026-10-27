@@ -1,0 +1,3390 @@
+{
+  "meta": {
+    "lives": 60000,
+    "seconds": 117.771,
+    "source": "/Users/heaveil/Documents/ChatGPT/八十亿分之一 2/app",
+    "generatedAt": "2026-10-26T02:20:08.086Z",
+    "method": "Engine headless simulation; autoChoose + work focus. Not browser clicks. Every mutating engine call is observed."
+  },
+  "checks": {
+    "TIMELINE": {
+      "passed": 10292747,
+      "failed": 0,
+      "denominator": 10292747,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "FINITE_STATE": {
+      "passed": 10292747,
+      "failed": 0,
+      "denominator": 10292747,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "STAT_BOUNDS": {
+      "passed": 10292747,
+      "failed": 0,
+      "denominator": 10292747,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "NONNEGATIVE_CASH": {
+      "passed": 10292747,
+      "failed": 0,
+      "denominator": 10292747,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "DECISION_NONEMPTY": {
+      "passed": 3007299,
+      "failed": 0,
+      "denominator": 3007299,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "DECISION_UNIQUE_OPTIONS": {
+      "passed": 3007299,
+      "failed": 0,
+      "denominator": 3007299,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "OPTION_DESCRIPTION": {
+      "passed": 4854623,
+      "failed": 3540104,
+      "denominator": 8394727,
+      "unsupported": 0,
+      "status": "FAIL",
+      "failureRate": 0.42170567309693335,
+      "samples": [
+        {
+          "seed": "a0",
+          "action": "temperament",
+          "option": "curious"
+        },
+        {
+          "seed": "a0",
+          "action": "temperament",
+          "option": "caring"
+        },
+        {
+          "seed": "a0",
+          "action": "temperament",
+          "option": "resilient"
+        },
+        {
+          "seed": "a0",
+          "action": "temperament",
+          "option": "outgoing"
+        }
+      ]
+    },
+    "EMPLOYMENT_AGE": {
+      "passed": 136595,
+      "failed": 0,
+      "denominator": 136595,
+      "unsupported": 26272,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_MIN_YEAR": {
+      "passed": 162867,
+      "failed": 0,
+      "denominator": 162867,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_MIN_AGE": {
+      "passed": 162867,
+      "failed": 0,
+      "denominator": 162867,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "JOB_EDUCATION": {
+      "passed": 162867,
+      "failed": 0,
+      "denominator": 162867,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "RETIREMENT_AGE": {
+      "passed": 39627,
+      "failed": 8,
+      "denominator": 39635,
+      "unsupported": 13959,
+      "status": "FAIL",
+      "failureRate": 0.00020184180648416804,
+      "samples": [
+        {
+          "seed": "a2365",
+          "age": 53,
+          "month": 641,
+          "rule": {
+            "ageMonths": 677,
+            "baseAgeMonths": 660,
+            "delayMonths": 17,
+            "retirementYear": 2032,
+            "retirementMonth": 1,
+            "category": "female55",
+            "sourceIds": [
+              "retirement-1978",
+              "retirement-2024"
+            ],
+            "modelOnly": false,
+            "pensionEligibilitySeparate": true,
+            "note": {
+              "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+              "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+              "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+            }
+          }
+        },
+        {
+          "seed": "a2956",
+          "age": 55,
+          "month": 672,
+          "rule": {
+            "ageMonths": 696,
+            "baseAgeMonths": 660,
+            "delayMonths": 36,
+            "retirementYear": 2084,
+            "retirementMonth": 1,
+            "category": "female55",
+            "sourceIds": [
+              "retirement-1978",
+              "retirement-2024"
+            ],
+            "modelOnly": false,
+            "pensionEligibilitySeparate": true,
+            "note": {
+              "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+              "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+              "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+            }
+          }
+        },
+        {
+          "seed": "a9800",
+          "age": 54,
+          "month": 657,
+          "rule": {
+            "ageMonths": 685,
+            "baseAgeMonths": 660,
+            "delayMonths": 25,
+            "retirementYear": 2035,
+            "retirementMonth": 5,
+            "category": "female55",
+            "sourceIds": [
+              "retirement-1978",
+              "retirement-2024"
+            ],
+            "modelOnly": false,
+            "pensionEligibilitySeparate": true,
+            "note": {
+              "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+              "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+              "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+            }
+          }
+        },
+        {
+          "seed": "a29243",
+          "age": 55,
+          "month": 672,
+          "rule": {
+            "ageMonths": 696,
+            "baseAgeMonths": 660,
+            "delayMonths": 36,
+            "retirementYear": 2084,
+            "retirementMonth": 1,
+            "category": "female55",
+            "sourceIds": [
+              "retirement-1978",
+              "retirement-2024"
+            ],
+            "modelOnly": false,
+            "pensionEligibilitySeparate": true,
+            "note": {
+              "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+              "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+              "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+            }
+          }
+        }
+      ]
+    },
+    "TERMINATED": {
+      "passed": 60000,
+      "failed": 0,
+      "denominator": 60000,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "ENGINE_THROW": {
+      "passed": 60000,
+      "failed": 0,
+      "denominator": 60000,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "HISTORY_KNOWN": {
+      "passed": 392830,
+      "failed": 0,
+      "denominator": 392830,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "HISTORY_TIMING": {
+      "passed": 392830,
+      "failed": 0,
+      "denominator": 392830,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "HISTORY_REGION": {
+      "passed": 1,
+      "failed": 0,
+      "denominator": 1,
+      "unsupported": 392829,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "HISTORY_HAS_EFFECT_FIELD": {
+      "passed": 384020,
+      "failed": 8697,
+      "denominator": 392717,
+      "unsupported": 113,
+      "status": "FAIL",
+      "failureRate": 0.02214571816346122,
+      "samples": [
+        {
+          "seed": "a0",
+          "id": "retirement-reform"
+        },
+        {
+          "seed": "a5",
+          "id": "retirement-reform"
+        },
+        {
+          "seed": "a15",
+          "id": "retirement-reform"
+        },
+        {
+          "seed": "a30",
+          "id": "retirement-reform"
+        }
+      ]
+    },
+    "HISTORY_MECHANICAL": {
+      "passed": 0,
+      "failed": 0,
+      "denominator": 0,
+      "unsupported": 392830,
+      "status": "NOT_CHECKED",
+      "failureRate": null,
+      "samples": []
+    },
+    "HISTORY_SOURCE": {
+      "passed": 392830,
+      "failed": 0,
+      "denominator": 392830,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "CASHFLOW_LEDGER": {
+      "passed": 0,
+      "failed": 0,
+      "denominator": 0,
+      "unsupported": 60000,
+      "status": "NOT_CHECKED",
+      "failureRate": null,
+      "samples": []
+    },
+    "GAOKAO_SUSPENSION": {
+      "passed": 36327,
+      "failed": 0,
+      "denominator": 36327,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "FULLTIME_ENTRY_AGE": {
+      "passed": 36327,
+      "failed": 0,
+      "denominator": 36327,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "MARRIAGE_HAS_LAW": {
+      "passed": 48533,
+      "failed": 5481,
+      "denominator": 54014,
+      "unsupported": 0,
+      "status": "FAIL",
+      "failureRate": 0.10147369200577629,
+      "samples": [
+        {
+          "seed": "a1",
+          "region": "taiwan",
+          "year": 2068
+        },
+        {
+          "seed": "a10",
+          "region": "taiwan",
+          "year": 2012
+        },
+        {
+          "seed": "a12",
+          "region": "taiwan",
+          "year": 2054
+        },
+        {
+          "seed": "a21",
+          "region": "taiwan",
+          "year": 2055
+        }
+      ]
+    },
+    "MARRIAGE_AGE": {
+      "passed": 48533,
+      "failed": 0,
+      "denominator": 48533,
+      "unsupported": 5481,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "PENSION_MIN_CONTRIBUTIONS": {
+      "passed": 38424,
+      "failed": 0,
+      "denominator": 38424,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "PENSION_JURISDICTION": {
+      "passed": 38424,
+      "failed": 0,
+      "denominator": 38424,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "BIRTH_UNDER_50": {
+      "passed": 6786,
+      "failed": 0,
+      "denominator": 6786,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "BIRTH_AFTER_RELATIONSHIP": {
+      "passed": 6786,
+      "failed": 0,
+      "denominator": 6786,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    },
+    "CHILD_AGE_VALID": {
+      "passed": 6786,
+      "failed": 0,
+      "denominator": 6786,
+      "unsupported": 0,
+      "status": "PASS",
+      "failureRate": 0,
+      "samples": []
+    }
+  },
+  "aggregates": {
+    "profile.lifeExpectancy@mainland@1950": {
+      "n": 642,
+      "mean": 44.3231448598131,
+      "min": 41.583,
+      "p10": 41.78999999999999,
+      "p50": 46.28,
+      "p90": 46.778,
+      "p95": 47.105,
+      "max": 47.576
+    },
+    "profile.typicalIncome@mainland": {
+      "n": 57962,
+      "mean": 66602.58840274662,
+      "min": 3375,
+      "p10": 12891,
+      "p50": 74316,
+      "p90": 88596,
+      "p95": 91872,
+      "max": 103128
+    },
+    "siblings@1950": {
+      "n": 667,
+      "mean": 2.464767616191904,
+      "min": 0,
+      "p10": 1,
+      "p50": 2,
+      "p90": 4,
+      "p95": 5,
+      "max": 5
+    },
+    "motherAge@1950": {
+      "n": 667,
+      "mean": 24.886056971514243,
+      "min": 18,
+      "p10": 20,
+      "p50": 25,
+      "p90": 29,
+      "p95": 30,
+      "max": 35
+    },
+    "firstJobAge": {
+      "n": 58378,
+      "mean": 20.00272362876426,
+      "min": 18,
+      "p10": 18,
+      "p50": 19,
+      "p90": 23,
+      "p95": 24,
+      "max": 37
+    },
+    "jobSalaryRatio": {
+      "n": 162867,
+      "mean": 0.9515513672778202,
+      "min": 0.37474881796690307,
+      "p10": 0.6716284670320545,
+      "p50": 0.9051388418557399,
+      "p90": 1.2290005316321106,
+      "p95": 1.5054633841762555,
+      "max": 2.1998527320739387
+    },
+    "retirementAge": {
+      "n": 53594,
+      "mean": 61.03323133186551,
+      "min": 50,
+      "p10": 55,
+      "p50": 63,
+      "p90": 65,
+      "p95": 66,
+      "max": 71
+    },
+    "deathAge@mainland": {
+      "n": 57962,
+      "mean": 78.55569166005314,
+      "min": 0,
+      "p10": 61,
+      "p50": 83,
+      "p90": 94,
+      "p95": 97,
+      "max": 111
+    },
+    "deathAge@1950": {
+      "n": 667,
+      "mean": 58.30584707646177,
+      "min": 0,
+      "p10": 0,
+      "p50": 75,
+      "p90": 93,
+      "p95": 96,
+      "max": 102
+    },
+    "netWorthLifetimeRatio": {
+      "n": 60000,
+      "mean": -2.2520475990318816,
+      "min": -52311,
+      "p10": 0.7305902697346529,
+      "p50": 0.9409303448562616,
+      "p90": 1.0783611502032047,
+      "p95": 1.1102060961643907,
+      "max": 20873
+    },
+    "spendLifetimeRatio": {
+      "n": 58377,
+      "mean": 0.39440201930985,
+      "min": 0.06388089241885217,
+      "p10": 0.2100358028244241,
+      "p50": 0.3828638909504596,
+      "p90": 0.5754900121954992,
+      "p95": 0.6434855152683113,
+      "max": 6.770075918215231
+    },
+    "motherDeathAge@1950": {
+      "n": 491,
+      "mean": 50.34623217922607,
+      "min": 21,
+      "p10": 34,
+      "p50": 51,
+      "p90": 65,
+      "p95": 69,
+      "max": 86
+    },
+    "fatherDeathAge@1950": {
+      "n": 501,
+      "mean": 47.461077844311376,
+      "min": 24,
+      "p10": 33,
+      "p50": 48,
+      "p90": 60,
+      "p95": 63,
+      "max": 80
+    },
+    "profile.lifeExpectancy@mainland@2026": {
+      "n": 46371,
+      "mean": 79.69758169977567,
+      "min": 77.03,
+      "p10": 77.21000000000001,
+      "p50": 78.17,
+      "p90": 82.219,
+      "p95": 82.53999999999999,
+      "max": 83.026
+    },
+    "siblings@2026": {
+      "n": 48000,
+      "mean": 1.0370625,
+      "min": 0,
+      "p10": 0,
+      "p50": 1,
+      "p90": 2,
+      "p95": 3,
+      "max": 3
+    },
+    "motherAge@2026": {
+      "n": 48000,
+      "mean": 30.068979166666665,
+      "min": 22,
+      "p10": 27,
+      "p50": 30,
+      "p90": 33,
+      "p95": 34,
+      "max": 40
+    },
+    "higherAdmissionYear": {
+      "n": 36327,
+      "mean": 2041.3328928895862,
+      "min": 1968,
+      "p10": 2033,
+      "p50": 2044,
+      "p90": 2047,
+      "p95": 2048,
+      "max": 2055
+    },
+    "firstMarriageAge": {
+      "n": 53435,
+      "mean": 29.600842144661737,
+      "min": 21,
+      "p10": 26,
+      "p50": 28,
+      "p90": 35,
+      "p95": 38,
+      "max": 55
+    },
+    "pensionReplacement": {
+      "n": 38424,
+      "mean": 0.3800686667407304,
+      "min": 0.3799839051869193,
+      "p10": 0.3799968091329705,
+      "p50": 0.3800000387731403,
+      "p90": 0.3800035066187429,
+      "p95": 0.38000486708561776,
+      "max": 0.506029407134536
+    },
+    "deathAge@2026": {
+      "n": 48000,
+      "mean": 80.43964583333333,
+      "min": 0,
+      "p10": 64,
+      "p50": 83,
+      "p90": 95,
+      "p95": 97,
+      "max": 111
+    },
+    "motherDeathAge@2026": {
+      "n": 46111,
+      "mean": 77.63633406345558,
+      "min": 28,
+      "p10": 60,
+      "p50": 80,
+      "p90": 92,
+      "p95": 95,
+      "max": 109
+    },
+    "fatherDeathAge@2026": {
+      "n": 46896,
+      "mean": 72.53908648925281,
+      "min": 27,
+      "p10": 55,
+      "p50": 74,
+      "p90": 87,
+      "p95": 90,
+      "max": 105
+    },
+    "profile.lifeExpectancy@mainland@1968": {
+      "n": 657,
+      "mean": 61.41526484018252,
+      "min": 58.78,
+      "p10": 58.989999999999995,
+      "p50": 59.887,
+      "p90": 63.96,
+      "p95": 64.257,
+      "max": 64.776
+    },
+    "siblings@1968": {
+      "n": 667,
+      "mean": 2.4707646176911546,
+      "min": 0,
+      "p10": 0,
+      "p50": 2,
+      "p90": 5,
+      "p95": 5,
+      "max": 5
+    },
+    "motherAge@1968": {
+      "n": 667,
+      "mean": 26.997001499250374,
+      "min": 19,
+      "p10": 23,
+      "p50": 27,
+      "p90": 31,
+      "p95": 32,
+      "max": 35
+    },
+    "deathAge@1968": {
+      "n": 667,
+      "mean": 68.9415292353823,
+      "min": 0,
+      "p10": 1,
+      "p50": 80,
+      "p90": 93,
+      "p95": 96,
+      "max": 106
+    },
+    "motherDeathAge@1968": {
+      "n": 575,
+      "mean": 50.64869565217391,
+      "min": 24,
+      "p10": 35,
+      "p50": 51,
+      "p90": 64,
+      "p95": 68,
+      "max": 82
+    },
+    "fatherDeathAge@1968": {
+      "n": 578,
+      "mean": 47.226643598615915,
+      "min": 22,
+      "p10": 34,
+      "p50": 47,
+      "p90": 60,
+      "p95": 62,
+      "max": 85
+    },
+    "profile.lifeExpectancy@taiwan@1986": {
+      "n": 17,
+      "mean": 75.49935294117647,
+      "min": 73.15100000000001,
+      "p10": 73.17200000000001,
+      "p50": 73.424,
+      "p90": 78.05199999999999,
+      "p95": 78.127,
+      "max": 78.127
+    },
+    "profile.typicalIncome@taiwan": {
+      "n": 1444,
+      "mean": 75184.60387811634,
+      "min": 6355,
+      "p10": 16980,
+      "p50": 86076,
+      "p90": 90696,
+      "p95": 91368,
+      "max": 92040
+    },
+    "siblings@1986": {
+      "n": 667,
+      "mean": 1.088455772113943,
+      "min": 0,
+      "p10": 0,
+      "p50": 1,
+      "p90": 3,
+      "p95": 4,
+      "max": 5
+    },
+    "motherAge@1986": {
+      "n": 667,
+      "mean": 26.170914542728635,
+      "min": 21,
+      "p10": 23,
+      "p50": 26,
+      "p90": 31,
+      "p95": 32,
+      "max": 34
+    },
+    "deathAge@taiwan": {
+      "n": 1444,
+      "mean": 80.63227146814404,
+      "min": 0,
+      "p10": 64,
+      "p50": 84,
+      "p90": 95,
+      "p95": 98,
+      "max": 107
+    },
+    "deathAge@1986": {
+      "n": 667,
+      "mean": 76.119940029985,
+      "min": 0,
+      "p10": 59,
+      "p50": 82,
+      "p90": 93,
+      "p95": 95,
+      "max": 102
+    },
+    "motherDeathAge@1986": {
+      "n": 625,
+      "mean": 56.152,
+      "min": 25,
+      "p10": 38,
+      "p50": 57,
+      "p90": 72,
+      "p95": 77,
+      "max": 95
+    },
+    "fatherDeathAge@1986": {
+      "n": 629,
+      "mean": 51.753577106518286,
+      "min": 26,
+      "p10": 37,
+      "p50": 52,
+      "p90": 66,
+      "p95": 71,
+      "max": 85
+    },
+    "profile.lifeExpectancy@mainland@2010": {
+      "n": 644,
+      "mean": 75.19891304347819,
+      "min": 72.616,
+      "p10": 72.778,
+      "p50": 73.48,
+      "p90": 77.79899999999999,
+      "p95": 78.14099999999999,
+      "max": 78.606
+    },
+    "siblings@2010": {
+      "n": 667,
+      "mean": 1.014992503748126,
+      "min": 0,
+      "p10": 0,
+      "p50": 1,
+      "p90": 3,
+      "p95": 4,
+      "max": 5
+    },
+    "motherAge@2010": {
+      "n": 667,
+      "mean": 28.869565217391305,
+      "min": 22,
+      "p10": 25,
+      "p50": 28,
+      "p90": 33,
+      "p95": 35,
+      "max": 40
+    },
+    "deathAge@2010": {
+      "n": 667,
+      "mean": 79.46926536731634,
+      "min": 0,
+      "p10": 63,
+      "p50": 83,
+      "p90": 94,
+      "p95": 96,
+      "max": 105
+    },
+    "motherDeathAge@2010": {
+      "n": 635,
+      "mean": 74.45196850393701,
+      "min": 27,
+      "p10": 57,
+      "p50": 77,
+      "p90": 89,
+      "p95": 92,
+      "max": 102
+    },
+    "fatherDeathAge@2010": {
+      "n": 648,
+      "mean": 69.4429012345679,
+      "min": 28,
+      "p10": 54,
+      "p50": 71,
+      "p90": 84,
+      "p95": 86,
+      "max": 96
+    },
+    "profile.lifeExpectancy@mainland@1958": {
+      "n": 641,
+      "mean": 50.470053042121805,
+      "min": 47.786,
+      "p10": 47.978,
+      "p50": 48.887,
+      "p90": 52.972,
+      "p95": 53.332,
+      "max": 53.776
+    },
+    "siblings@1958": {
+      "n": 667,
+      "mean": 2.4332833583208395,
+      "min": 0,
+      "p10": 0,
+      "p50": 2,
+      "p90": 5,
+      "p95": 5,
+      "max": 5
+    },
+    "motherAge@1958": {
+      "n": 667,
+      "mean": 25.86056971514243,
+      "min": 18,
+      "p10": 22,
+      "p50": 26,
+      "p90": 30,
+      "p95": 31,
+      "max": 35
+    },
+    "deathAge@1958": {
+      "n": 667,
+      "mean": 59.07196401799101,
+      "min": 0,
+      "p10": 0,
+      "p50": 76,
+      "p90": 92,
+      "p95": 95,
+      "max": 103
+    },
+    "profile.lifeExpectancy@taiwan@2026": {
+      "n": 1150,
+      "mean": 81.72331217391296,
+      "min": 79.23,
+      "p10": 79.275,
+      "p50": 83.93299999999999,
+      "p90": 84.15799999999999,
+      "p95": 84.19399999999999,
+      "max": 84.22999999999999
+    },
+    "profile.lifeExpectancy@mainland@1975": {
+      "n": 642,
+      "mean": 65.75162928348901,
+      "min": 63.292,
+      "p10": 63.451,
+      "p50": 64.057,
+      "p90": 68.469,
+      "p95": 68.838,
+      "max": 69.276
+    },
+    "siblings@1975": {
+      "n": 667,
+      "mean": 2.026986506746627,
+      "min": 0,
+      "p10": 0,
+      "p50": 2,
+      "p90": 4,
+      "p95": 4,
+      "max": 5
+    },
+    "motherAge@1975": {
+      "n": 667,
+      "mean": 26.82608695652174,
+      "min": 19,
+      "p10": 23,
+      "p50": 27,
+      "p90": 31,
+      "p95": 32,
+      "max": 36
+    },
+    "deathAge@1975": {
+      "n": 667,
+      "mean": 68.77961019490255,
+      "min": 0,
+      "p10": 0,
+      "p50": 79,
+      "p90": 94,
+      "p95": 97,
+      "max": 105
+    },
+    "motherDeathAge@1975": {
+      "n": 573,
+      "mean": 51.86212914485166,
+      "min": 22,
+      "p10": 36,
+      "p50": 53,
+      "p90": 66,
+      "p95": 69,
+      "max": 80
+    },
+    "fatherDeathAge@1975": {
+      "n": 578,
+      "mean": 47.98961937716263,
+      "min": 25,
+      "p10": 35,
+      "p50": 48,
+      "p90": 61,
+      "p95": 64,
+      "max": 86
+    },
+    "maternalAgeAtBirth": {
+      "n": 6786,
+      "mean": 32.51046271735927,
+      "min": 21,
+      "p10": 27,
+      "p50": 32,
+      "p90": 38,
+      "p95": 39,
+      "max": 49
+    },
+    "childDeathBefore5@2054": {
+      "n": 394,
+      "mean": 0.012690355329949238,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "profile.lifeExpectancy@mainland@1995": {
+      "n": 642,
+      "mean": 70.52326168224309,
+      "min": 67.758,
+      "p10": 67.956,
+      "p50": 72.47899999999998,
+      "p90": 72.95599999999999,
+      "p95": 73.25899999999999,
+      "max": 73.59499999999998
+    },
+    "siblings@1995": {
+      "n": 667,
+      "mean": 1.1799100449775113,
+      "min": 0,
+      "p10": 0,
+      "p50": 1,
+      "p90": 3,
+      "p95": 4,
+      "max": 5
+    },
+    "motherAge@1995": {
+      "n": 667,
+      "mean": 27.53823088455772,
+      "min": 21,
+      "p10": 24,
+      "p50": 27,
+      "p90": 32,
+      "p95": 33,
+      "max": 37
+    },
+    "deathAge@1995": {
+      "n": 667,
+      "mean": 77.55022488755623,
+      "min": 0,
+      "p10": 61,
+      "p50": 82,
+      "p90": 93,
+      "p95": 96,
+      "max": 106
+    },
+    "motherDeathAge@1995": {
+      "n": 633,
+      "mean": 67.33965244865719,
+      "min": 26,
+      "p10": 48,
+      "p50": 70,
+      "p90": 82,
+      "p95": 86,
+      "max": 96
+    },
+    "fatherDeathAge@1995": {
+      "n": 641,
+      "mean": 60.20904836193448,
+      "min": 28,
+      "p10": 43,
+      "p50": 61,
+      "p90": 76,
+      "p95": 79,
+      "max": 90
+    },
+    "profile.lifeExpectancy@mainland@2020": {
+      "n": 642,
+      "mean": 78.29442523364479,
+      "min": 75.71300000000001,
+      "p10": 75.84200000000001,
+      "p50": 76.60400000000001,
+      "p90": 80.887,
+      "p95": 81.187,
+      "max": 81.706
+    },
+    "siblings@2020": {
+      "n": 667,
+      "mean": 1.143928035982009,
+      "min": 0,
+      "p10": 0,
+      "p50": 1,
+      "p90": 3,
+      "p95": 3,
+      "max": 4
+    },
+    "motherAge@2020": {
+      "n": 667,
+      "mean": 30.194902548725636,
+      "min": 23,
+      "p10": 27,
+      "p50": 30,
+      "p90": 33,
+      "p95": 35,
+      "max": 38
+    },
+    "deathAge@2020": {
+      "n": 667,
+      "mean": 79.94452773613193,
+      "min": 0,
+      "p10": 63,
+      "p50": 83,
+      "p90": 94,
+      "p95": 97,
+      "max": 105
+    },
+    "motherDeathAge@2020": {
+      "n": 648,
+      "mean": 76.11574074074075,
+      "min": 31,
+      "p10": 57,
+      "p50": 78,
+      "p90": 90,
+      "p95": 94,
+      "max": 103
+    },
+    "fatherDeathAge@2020": {
+      "n": 656,
+      "mean": 70.9420731707317,
+      "min": 30,
+      "p10": 54,
+      "p50": 72,
+      "p90": 85,
+      "p95": 88,
+      "max": 104
+    },
+    "childDeathBefore5@2053": {
+      "n": 233,
+      "mean": 0.004291845493562232,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "profile.lifeExpectancy@mainland@1965": {
+      "n": 648,
+      "mean": 58.363694444444434,
+      "min": 55.783,
+      "p10": 55.969,
+      "p50": 56.674,
+      "p90": 60.984,
+      "p95": 61.29,
+      "max": 61.776
+    },
+    "siblings@1965": {
+      "n": 667,
+      "mean": 2.427286356821589,
+      "min": 0,
+      "p10": 0,
+      "p50": 2,
+      "p90": 4,
+      "p95": 5,
+      "max": 5
+    },
+    "motherAge@1965": {
+      "n": 667,
+      "mean": 26.63718140929535,
+      "min": 19,
+      "p10": 22,
+      "p50": 27,
+      "p90": 31,
+      "p95": 32,
+      "max": 36
+    },
+    "deathAge@1965": {
+      "n": 667,
+      "mean": 68.3328335832084,
+      "min": 0,
+      "p10": 0,
+      "p50": 80,
+      "p90": 93,
+      "p95": 95,
+      "max": 106
+    },
+    "motherDeathAge@1965": {
+      "n": 567,
+      "mean": 51.483245149911816,
+      "min": 23,
+      "p10": 36,
+      "p50": 52,
+      "p90": 66,
+      "p95": 70,
+      "max": 83
+    },
+    "fatherDeathAge@1965": {
+      "n": 571,
+      "mean": 47.765323992994745,
+      "min": 24,
+      "p10": 33,
+      "p50": 48,
+      "p90": 60,
+      "p95": 63,
+      "max": 79
+    },
+    "profile.lifeExpectancy@mainland@1982": {
+      "n": 652,
+      "mean": 68.38655010224942,
+      "min": 65.63666666666667,
+      "p10": 65.81666666666668,
+      "p50": 70.35166666666666,
+      "p90": 70.81066666666666,
+      "p95": 71.14366666666666,
+      "max": 71.63266666666667
+    },
+    "siblings@1982": {
+      "n": 667,
+      "mean": 1.1109445277361318,
+      "min": 0,
+      "p10": 0,
+      "p50": 1,
+      "p90": 3,
+      "p95": 4,
+      "max": 5
+    },
+    "motherAge@1982": {
+      "n": 667,
+      "mean": 25.91904047976012,
+      "min": 20,
+      "p10": 23,
+      "p50": 25,
+      "p90": 30,
+      "p95": 32,
+      "max": 36
+    },
+    "deathAge@1982": {
+      "n": 667,
+      "mean": 74.08995502248875,
+      "min": 0,
+      "p10": 47,
+      "p50": 81,
+      "p90": 94,
+      "p95": 96,
+      "max": 104
+    },
+    "motherDeathAge@1982": {
+      "n": 610,
+      "mean": 56.19672131147541,
+      "min": 24,
+      "p10": 39,
+      "p50": 57,
+      "p90": 71,
+      "p95": 75,
+      "max": 88
+    },
+    "fatherDeathAge@1982": {
+      "n": 614,
+      "mean": 51.20195439739414,
+      "min": 22,
+      "p10": 36,
+      "p50": 52,
+      "p90": 65,
+      "p95": 68,
+      "max": 84
+    },
+    "childDeathBefore5@2055": {
+      "n": 530,
+      "mean": 0.009433962264150943,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "profile.lifeExpectancy@mainland@2005": {
+      "n": 645,
+      "mean": 73.67215193798461,
+      "min": 70.89800000000001,
+      "p10": 71.08700000000002,
+      "p50": 75.613,
+      "p90": 76.25800000000001,
+      "p95": 76.405,
+      "max": 76.891
+    },
+    "siblings@2005": {
+      "n": 667,
+      "mean": 1.0224887556221889,
+      "min": 0,
+      "p10": 0,
+      "p50": 1,
+      "p90": 3,
+      "p95": 4,
+      "max": 5
+    },
+    "motherAge@2005": {
+      "n": 667,
+      "mean": 28.298350824587708,
+      "min": 23,
+      "p10": 25,
+      "p50": 28,
+      "p90": 32,
+      "p95": 34,
+      "max": 39
+    },
+    "deathAge@2005": {
+      "n": 667,
+      "mean": 78.01799100449774,
+      "min": 0,
+      "p10": 60,
+      "p50": 82,
+      "p90": 94,
+      "p95": 97,
+      "max": 103
+    },
+    "motherDeathAge@2005": {
+      "n": 630,
+      "mean": 73.27142857142857,
+      "min": 28,
+      "p10": 55,
+      "p50": 75,
+      "p90": 88,
+      "p95": 91,
+      "max": 97
+    },
+    "fatherDeathAge@2005": {
+      "n": 646,
+      "mean": 68.54798761609906,
+      "min": 27,
+      "p10": 52,
+      "p50": 70,
+      "p90": 83,
+      "p95": 86,
+      "max": 95
+    },
+    "profile.lifeExpectancy@mainland@1955": {
+      "n": 641,
+      "mean": 50.72297451898074,
+      "min": 48.11633333333334,
+      "p10": 48.281333333333336,
+      "p50": 49.04333333333334,
+      "p90": 53.29933333333334,
+      "p95": 53.620333333333335,
+      "max": 54.10933333333334
+    },
+    "siblings@1955": {
+      "n": 667,
+      "mean": 2.454272863568216,
+      "min": 0,
+      "p10": 0,
+      "p50": 2,
+      "p90": 5,
+      "p95": 5,
+      "max": 5
+    },
+    "motherAge@1955": {
+      "n": 667,
+      "mean": 25.569715142428784,
+      "min": 18,
+      "p10": 21,
+      "p50": 25,
+      "p90": 30,
+      "p95": 31,
+      "max": 35
+    },
+    "deathAge@1955": {
+      "n": 667,
+      "mean": 58.719640179910044,
+      "min": 0,
+      "p10": 0,
+      "p50": 75,
+      "p90": 93,
+      "p95": 95,
+      "max": 104
+    },
+    "motherDeathAge@1955": {
+      "n": 501,
+      "mean": 51.73652694610779,
+      "min": 22,
+      "p10": 36,
+      "p50": 52,
+      "p90": 66,
+      "p95": 71,
+      "max": 85
+    },
+    "fatherDeathAge@1955": {
+      "n": 505,
+      "mean": 47.772277227722775,
+      "min": 22,
+      "p10": 33,
+      "p50": 49,
+      "p90": 62,
+      "p95": 64,
+      "max": 80
+    },
+    "profile.lifeExpectancy@mainland@1971": {
+      "n": 636,
+      "mean": 63.863033018867895,
+      "min": 61.28,
+      "p10": 61.46,
+      "p50": 62.239999999999995,
+      "p90": 66.46,
+      "p95": 66.874,
+      "max": 67.276
+    },
+    "siblings@1971": {
+      "n": 666,
+      "mean": 1.945945945945946,
+      "min": 0,
+      "p10": 0,
+      "p50": 2,
+      "p90": 4,
+      "p95": 4,
+      "max": 5
+    },
+    "motherAge@1971": {
+      "n": 666,
+      "mean": 26.343843843843842,
+      "min": 19,
+      "p10": 23,
+      "p50": 26,
+      "p90": 30,
+      "p95": 31,
+      "max": 36
+    },
+    "deathAge@1971": {
+      "n": 666,
+      "mean": 69.88138138138139,
+      "min": 0,
+      "p10": 1,
+      "p50": 81,
+      "p90": 93,
+      "p95": 96,
+      "max": 104
+    },
+    "motherDeathAge@1971": {
+      "n": 576,
+      "mean": 51.19965277777778,
+      "min": 23,
+      "p10": 34,
+      "p50": 52,
+      "p90": 65,
+      "p95": 69,
+      "max": 84
+    },
+    "fatherDeathAge@1971": {
+      "n": 578,
+      "mean": 48.12975778546713,
+      "min": 23,
+      "p10": 34,
+      "p50": 48,
+      "p90": 62,
+      "p95": 66,
+      "max": 83
+    },
+    "profile.lifeExpectancy@mainland@1990": {
+      "n": 640,
+      "mean": 68.97068124999994,
+      "min": 66.333,
+      "p10": 66.507,
+      "p50": 67.437,
+      "p90": 71.51899999999999,
+      "p95": 71.83999999999999,
+      "max": 72.326
+    },
+    "siblings@1990": {
+      "n": 666,
+      "mean": 1.0945945945945945,
+      "min": 0,
+      "p10": 0,
+      "p50": 1,
+      "p90": 3,
+      "p95": 4,
+      "max": 5
+    },
+    "motherAge@1990": {
+      "n": 666,
+      "mean": 26.72822822822823,
+      "min": 19,
+      "p10": 23,
+      "p50": 26,
+      "p90": 31,
+      "p95": 32,
+      "max": 37
+    },
+    "deathAge@1990": {
+      "n": 666,
+      "mean": 76.26876876876877,
+      "min": 0,
+      "p10": 57,
+      "p50": 81,
+      "p90": 95,
+      "p95": 97,
+      "max": 105
+    },
+    "motherDeathAge@1990": {
+      "n": 629,
+      "mean": 61.610492845786965,
+      "min": 26,
+      "p10": 42,
+      "p50": 63,
+      "p90": 77,
+      "p95": 81,
+      "max": 96
+    },
+    "fatherDeathAge@1990": {
+      "n": 634,
+      "mean": 54.25236593059937,
+      "min": 26,
+      "p10": 39,
+      "p50": 55,
+      "p90": 70,
+      "p95": 75,
+      "max": 88
+    },
+    "childDeathBefore5@2019": {
+      "n": 29,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@mainland@2015": {
+      "n": 633,
+      "mean": 76.82856082148497,
+      "min": 74.16,
+      "p10": 74.337,
+      "p50": 75.267,
+      "p90": 79.34599999999999,
+      "p95": 79.71799999999999,
+      "max": 80.15599999999999
+    },
+    "siblings@2015": {
+      "n": 666,
+      "mean": 0.990990990990991,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 3,
+      "p95": 3,
+      "max": 5
+    },
+    "motherAge@2015": {
+      "n": 666,
+      "mean": 29.33933933933934,
+      "min": 23,
+      "p10": 26,
+      "p50": 29,
+      "p90": 33,
+      "p95": 35,
+      "max": 40
+    },
+    "deathAge@2015": {
+      "n": 666,
+      "mean": 79.69069069069069,
+      "min": 0,
+      "p10": 62,
+      "p50": 82,
+      "p90": 94,
+      "p95": 97,
+      "max": 108
+    },
+    "motherDeathAge@2015": {
+      "n": 639,
+      "mean": 75.67136150234742,
+      "min": 28,
+      "p10": 58,
+      "p50": 78,
+      "p90": 91,
+      "p95": 93,
+      "max": 101
+    },
+    "fatherDeathAge@2015": {
+      "n": 653,
+      "mean": 70.99387442572741,
+      "min": 31,
+      "p10": 56,
+      "p50": 73,
+      "p90": 85,
+      "p95": 88,
+      "max": 97
+    },
+    "childDeathBefore5@2048": {
+      "n": 17,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@mainland@1961": {
+      "n": 643,
+      "mean": 41.31438880248835,
+      "min": 38.789,
+      "p10": 38.951,
+      "p50": 39.632,
+      "p90": 43.969,
+      "p95": 44.257,
+      "max": 44.776
+    },
+    "siblings@1961": {
+      "n": 666,
+      "mean": 2.463963963963964,
+      "min": 0,
+      "p10": 1,
+      "p50": 2,
+      "p90": 4,
+      "p95": 5,
+      "max": 5
+    },
+    "motherAge@1961": {
+      "n": 666,
+      "mean": 26.126126126126128,
+      "min": 18,
+      "p10": 22,
+      "p50": 26,
+      "p90": 30,
+      "p95": 31,
+      "max": 34
+    },
+    "deathAge@1961": {
+      "n": 666,
+      "mean": 61.8948948948949,
+      "min": 0,
+      "p10": 0,
+      "p50": 78,
+      "p90": 93,
+      "p95": 96,
+      "max": 103
+    },
+    "motherDeathAge@1961": {
+      "n": 516,
+      "mean": 51.68217054263566,
+      "min": 24,
+      "p10": 36,
+      "p50": 52,
+      "p90": 66,
+      "p95": 69,
+      "max": 82
+    },
+    "fatherDeathAge@1961": {
+      "n": 530,
+      "mean": 47.62075471698113,
+      "min": 24,
+      "p10": 34,
+      "p50": 48,
+      "p90": 60,
+      "p95": 63,
+      "max": 79
+    },
+    "profile.lifeExpectancy@mainland@1978": {
+      "n": 652,
+      "mean": 67.38824079754598,
+      "min": 64.783,
+      "p10": 64.98700000000001,
+      "p50": 65.71000000000001,
+      "p90": 69.951,
+      "p95": 70.23899999999999,
+      "max": 70.776
+    },
+    "siblings@1978": {
+      "n": 666,
+      "mean": 1.975975975975976,
+      "min": 0,
+      "p10": 0,
+      "p50": 2,
+      "p90": 4,
+      "p95": 4,
+      "max": 5
+    },
+    "motherAge@1978": {
+      "n": 666,
+      "mean": 27.153153153153152,
+      "min": 19,
+      "p10": 23,
+      "p50": 27,
+      "p90": 31,
+      "p95": 33,
+      "max": 38
+    },
+    "deathAge@1978": {
+      "n": 666,
+      "mean": 73.7897897897898,
+      "min": 0,
+      "p10": 48,
+      "p50": 82,
+      "p90": 93,
+      "p95": 96,
+      "max": 103
+    },
+    "motherDeathAge@1978": {
+      "n": 605,
+      "mean": 53.48429752066116,
+      "min": 25,
+      "p10": 37,
+      "p50": 55,
+      "p90": 67,
+      "p95": 70,
+      "max": 84
+    },
+    "fatherDeathAge@1978": {
+      "n": 611,
+      "mean": 48.55810147299509,
+      "min": 26,
+      "p10": 34,
+      "p50": 49,
+      "p90": 62,
+      "p95": 65,
+      "max": 79
+    },
+    "profile.lifeExpectancy@mainland@2000": {
+      "n": 648,
+      "mean": 71.76934567901235,
+      "min": 69.183,
+      "p10": 69.35400000000001,
+      "p50": 70.11000000000001,
+      "p90": 74.369,
+      "p95": 74.705,
+      "max": 75.176
+    },
+    "siblings@2000": {
+      "n": 666,
+      "mean": 1.012012012012012,
+      "min": 0,
+      "p10": 0,
+      "p50": 1,
+      "p90": 3,
+      "p95": 3,
+      "max": 5
+    },
+    "motherAge@2000": {
+      "n": 666,
+      "mean": 27.785285285285287,
+      "min": 22,
+      "p10": 25,
+      "p50": 27,
+      "p90": 32,
+      "p95": 33,
+      "max": 37
+    },
+    "deathAge@2000": {
+      "n": 666,
+      "mean": 77.5915915915916,
+      "min": 0,
+      "p10": 59,
+      "p50": 82,
+      "p90": 94,
+      "p95": 96,
+      "max": 103
+    },
+    "motherDeathAge@2000": {
+      "n": 631,
+      "mean": 70.68938193343898,
+      "min": 28,
+      "p10": 53,
+      "p50": 73,
+      "p90": 85,
+      "p95": 88,
+      "max": 97
+    },
+    "fatherDeathAge@2000": {
+      "n": 643,
+      "mean": 65.32659409020218,
+      "min": 29,
+      "p10": 48,
+      "p50": 67,
+      "p90": 79,
+      "p95": 82,
+      "max": 93
+    },
+    "childDeathBefore5@2065": {
+      "n": 248,
+      "mean": 0.012096774193548387,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "profile.lifeExpectancy@mainland@1986": {
+      "n": 643,
+      "mean": 68.6278994297564,
+      "min": 65.98333333333333,
+      "p10": 66.16333333333334,
+      "p50": 66.94333333333334,
+      "p90": 71.17533333333333,
+      "p95": 71.50833333333333,
+      "max": 71.97933333333333
+    },
+    "remarriageAge": {
+      "n": 579,
+      "mean": 48.58376511226252,
+      "min": 26,
+      "p10": 35,
+      "p50": 47,
+      "p90": 65,
+      "p95": 72,
+      "max": 86
+    },
+    "profile.lifeExpectancy@taiwan@1975": {
+      "n": 17,
+      "mean": 72.78041176470587,
+      "min": 69.729,
+      "p10": 69.732,
+      "p50": 74.363,
+      "p90": 74.45899999999999,
+      "p95": 74.50699999999999,
+      "max": 74.50699999999999
+    },
+    "childDeathBefore5@2059": {
+      "n": 621,
+      "mean": 0.004830917874396135,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@1992": {
+      "n": 42,
+      "mean": 0.047619047619047616,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@2057": {
+      "n": 604,
+      "mean": 0.004966887417218543,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@1979": {
+      "n": 10,
+      "mean": 0.1,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 1,
+      "p95": 1,
+      "max": 1
+    },
+    "childDeathBefore5@2041": {
+      "n": 14,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2060": {
+      "n": 545,
+      "mean": 0.007339449541284404,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "motherDeathAge@1958": {
+      "n": 503,
+      "mean": 51.95029821073559,
+      "min": 24,
+      "p10": 35,
+      "p50": 53,
+      "p90": 67,
+      "p95": 69,
+      "max": 85
+    },
+    "fatherDeathAge@1958": {
+      "n": 505,
+      "mean": 48.255445544554455,
+      "min": 24,
+      "p10": 35,
+      "p50": 49,
+      "p90": 61,
+      "p95": 65,
+      "max": 77
+    },
+    "profile.lifeExpectancy@hongkong@2026": {
+      "n": 392,
+      "mean": 87.1359209183674,
+      "min": 84.71000000000001,
+      "p10": 84.73700000000001,
+      "p50": 85.001,
+      "p90": 89.66199999999999,
+      "p95": 89.68599999999999,
+      "max": 89.701
+    },
+    "profile.typicalIncome@hongkong": {
+      "n": 481,
+      "mean": 85121.39708939708,
+      "min": 6985,
+      "p10": 22352,
+      "p50": 96156,
+      "p90": 100272,
+      "p95": 100608,
+      "max": 101028
+    },
+    "deathAge@hongkong": {
+      "n": 481,
+      "mean": 82.85654885654886,
+      "min": 0,
+      "p10": 69,
+      "p50": 85,
+      "p90": 96,
+      "p95": 98,
+      "max": 107
+    },
+    "childDeathBefore5@2006": {
+      "n": 36,
+      "mean": 0.05555555555555555,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 1,
+      "max": 1
+    },
+    "childDeathBefore5@1990": {
+      "n": 31,
+      "mean": 0.06451612903225806,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 1,
+      "max": 1
+    },
+    "childDeathBefore5@2016": {
+      "n": 17,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2058": {
+      "n": 618,
+      "mean": 0.0016181229773462784,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@1999": {
+      "n": 35,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2064": {
+      "n": 247,
+      "mean": 0.004048582995951417,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@1994": {
+      "n": 30,
+      "mean": 0.03333333333333333,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@2063": {
+      "n": 260,
+      "mean": 0.011538461538461539,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@2002": {
+      "n": 31,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2022": {
+      "n": 26,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2051": {
+      "n": 12,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2000": {
+      "n": 34,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@1997": {
+      "n": 29,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2061": {
+      "n": 293,
+      "mean": 0.006825938566552901,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@2015": {
+      "n": 29,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2017": {
+      "n": 35,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@taiwan@1982": {
+      "n": 9,
+      "mean": 72.75455555555557,
+      "min": 72.17500000000001,
+      "p10": 72.17500000000001,
+      "p50": 72.208,
+      "p90": 76.875,
+      "p95": 76.875,
+      "max": 76.875
+    },
+    "childDeathBefore5@2004": {
+      "n": 38,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2068": {
+      "n": 47,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@taiwan@1971": {
+      "n": 18,
+      "mean": 69.82966666666668,
+      "min": 68.11600000000001,
+      "p10": 68.11900000000001,
+      "p50": 68.31400000000001,
+      "p90": 73.074,
+      "p95": 73.077,
+      "max": 73.077
+    },
+    "childDeathBefore5@2070": {
+      "n": 27,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2014": {
+      "n": 20,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@taiwan@1958": {
+      "n": 18,
+      "mean": 63.48987878787878,
+      "min": 61.83754545454545,
+      "p10": 61.84954545454545,
+      "p50": 62.06254545454545,
+      "p90": 66.70554545454544,
+      "p95": 66.72054545454544,
+      "max": 66.72054545454544
+    },
+    "childDeathBefore5@1989": {
+      "n": 38,
+      "mean": 0.05263157894736842,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 1,
+      "max": 1
+    },
+    "childDeathBefore5@1995": {
+      "n": 44,
+      "mean": 0.045454545454545456,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@2037": {
+      "n": 16,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2032": {
+      "n": 14,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2052": {
+      "n": 12,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2066": {
+      "n": 108,
+      "mean": 0.027777777777777776,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "profile.lifeExpectancy@hongkong@2015": {
+      "n": 10,
+      "mean": 87.57283333333332,
+      "min": 83.15233333333335,
+      "p10": 87.96033333333334,
+      "p50": 88.08033333333333,
+      "p90": 88.13433333333333,
+      "p95": 88.13433333333333,
+      "max": 88.13433333333333
+    },
+    "childDeathBefore5@2011": {
+      "n": 32,
+      "mean": 0.03125,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@2062": {
+      "n": 285,
+      "mean": 0.0035087719298245615,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@2067": {
+      "n": 81,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@1996": {
+      "n": 32,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2018": {
+      "n": 28,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2028": {
+      "n": 17,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2003": {
+      "n": 35,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2001": {
+      "n": 28,
+      "mean": 0.03571428571428571,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@2029": {
+      "n": 20,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2008": {
+      "n": 20,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2069": {
+      "n": 29,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@1993": {
+      "n": 27,
+      "mean": 0.037037037037037035,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@2046": {
+      "n": 15,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2012": {
+      "n": 21,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2009": {
+      "n": 32,
+      "mean": 0.03125,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@2005": {
+      "n": 17,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@taiwan@2015": {
+      "n": 19,
+      "mean": 81.189,
+      "min": 78.62200000000001,
+      "p10": 78.718,
+      "p50": 83.295,
+      "p90": 83.41799999999999,
+      "p95": 83.511,
+      "max": 83.511
+    },
+    "childDeathBefore5@1983": {
+      "n": 15,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@taiwan@2020": {
+      "n": 17,
+      "mean": 80.93911764705881,
+      "min": 78.878,
+      "p10": 78.899,
+      "p50": 79.115,
+      "p90": 83.77599999999998,
+      "p95": 83.78199999999998,
+      "max": 83.78199999999998
+    },
+    "childDeathBefore5@2021": {
+      "n": 20,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@1986": {
+      "n": 27,
+      "mean": 0.07407407407407407,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 1,
+      "max": 1
+    },
+    "childDeathBefore5@1985": {
+      "n": 21,
+      "mean": 0.09523809523809523,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 1,
+      "max": 1
+    },
+    "childDeathBefore5@2007": {
+      "n": 30,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2033": {
+      "n": 21,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@taiwan@2005": {
+      "n": 18,
+      "mean": 79.96733333333333,
+      "min": 77.495,
+      "p10": 77.516,
+      "p50": 82.201,
+      "p90": 82.39899999999999,
+      "p95": 82.45299999999999,
+      "max": 82.45299999999999
+    },
+    "profile.lifeExpectancy@macau@2026": {
+      "n": 87,
+      "mean": 84.27243678160916,
+      "min": 82.459,
+      "p10": 82.513,
+      "p50": 82.684,
+      "p90": 87.38399999999999,
+      "p95": 87.38399999999999,
+      "max": 87.42599999999999
+    },
+    "profile.typicalIncome@macau": {
+      "n": 113,
+      "mean": 81533.01769911505,
+      "min": 7905,
+      "p10": 18660,
+      "p50": 93468,
+      "p90": 98928,
+      "p95": 98928,
+      "max": 98928
+    },
+    "deathAge@macau": {
+      "n": 113,
+      "mean": 81.42477876106194,
+      "min": 0,
+      "p10": 65,
+      "p50": 84,
+      "p90": 95,
+      "p95": 99,
+      "max": 104
+    },
+    "profile.lifeExpectancy@taiwan@1990": {
+      "n": 19,
+      "mean": 75.97005263157894,
+      "min": 74.14500000000001,
+      "p10": 74.16900000000001,
+      "p50": 74.349,
+      "p90": 78.93799999999999,
+      "p95": 79.05199999999999,
+      "max": 79.05199999999999
+    },
+    "profile.lifeExpectancy@taiwan@1961": {
+      "n": 18,
+      "mean": 66.38433333333333,
+      "min": 63.91,
+      "p10": 63.919,
+      "p50": 68.604,
+      "p90": 68.853,
+      "p95": 68.877,
+      "max": 68.877
+    },
+    "childDeathBefore5@1991": {
+      "n": 25,
+      "mean": 0.04,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@2013": {
+      "n": 29,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@hongkong@2020": {
+      "n": 6,
+      "mean": 87.1663333333333,
+      "min": 83.912,
+      "p10": 83.912,
+      "p50": 88.74699999999999,
+      "p90": 88.80099999999999,
+      "p95": 88.80099999999999,
+      "max": 88.80099999999999
+    },
+    "profile.lifeExpectancy@taiwan@1950": {
+      "n": 18,
+      "mean": 59.65133333333334,
+      "min": 56.419,
+      "p10": 56.419,
+      "p50": 61.164,
+      "p90": 61.329,
+      "p95": 61.332,
+      "max": 61.332
+    },
+    "childDeathBefore5@1977": {
+      "n": 1,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@1982": {
+      "n": 16,
+      "mean": 0.1875,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 1,
+      "p95": 1,
+      "max": 1
+    },
+    "profile.lifeExpectancy@hongkong@1995": {
+      "n": 5,
+      "mean": 80.70200000000001,
+      "min": 78.79200000000002,
+      "p10": 78.79200000000002,
+      "p50": 78.903,
+      "p90": 83.594,
+      "p95": 83.594,
+      "max": 83.594
+    },
+    "childDeathBefore5@2042": {
+      "n": 19,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2010": {
+      "n": 19,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@macau@2015": {
+      "n": 4,
+      "mean": 83.96791666666667,
+      "min": 81.59166666666667,
+      "p10": 81.59166666666667,
+      "p50": 86.27966666666666,
+      "p90": 86.27966666666666,
+      "p95": 86.27966666666666,
+      "max": 86.27966666666666
+    },
+    "childDeathBefore5@2034": {
+      "n": 17,
+      "mean": 0.11764705882352941,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 1,
+      "p95": 1,
+      "max": 1
+    },
+    "profile.lifeExpectancy@hongkong@2005": {
+      "n": 4,
+      "mean": 81.42724999999999,
+      "min": 81.239,
+      "p10": 81.239,
+      "p50": 81.491,
+      "p90": 81.506,
+      "p95": 81.506,
+      "max": 81.506
+    },
+    "childDeathBefore5@1998": {
+      "n": 21,
+      "mean": 0.047619047619047616,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@1987": {
+      "n": 36,
+      "mean": 0.08333333333333333,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 1,
+      "max": 1
+    },
+    "profile.lifeExpectancy@taiwan@1995": {
+      "n": 16,
+      "mean": 76.9738125,
+      "min": 75.39500000000001,
+      "p10": 75.41300000000001,
+      "p50": 75.653,
+      "p90": 80.19699999999999,
+      "p95": 80.30199999999999,
+      "max": 80.30199999999999
+    },
+    "childDeathBefore5@2039": {
+      "n": 14,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2031": {
+      "n": 17,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2040": {
+      "n": 6,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2025": {
+      "n": 8,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@hongkong@1975": {
+      "n": 7,
+      "mean": 73.46357142857143,
+      "min": 72.712,
+      "p10": 72.712,
+      "p50": 72.78099999999999,
+      "p90": 77.57099999999998,
+      "p95": 77.57099999999998,
+      "max": 77.57099999999998
+    },
+    "childDeathBefore5@2074": {
+      "n": 6,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2027": {
+      "n": 16,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@1988": {
+      "n": 24,
+      "mean": 0.20833333333333334,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 1,
+      "p95": 1,
+      "max": 1
+    },
+    "childDeathBefore5@2024": {
+      "n": 20,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@hongkong@1986": {
+      "n": 6,
+      "mean": 78.12866666666667,
+      "min": 76.46900000000001,
+      "p10": 76.46900000000001,
+      "p50": 76.673,
+      "p90": 81.187,
+      "p95": 81.187,
+      "max": 81.187
+    },
+    "childDeathBefore5@2071": {
+      "n": 6,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2073": {
+      "n": 6,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@taiwan@2000": {
+      "n": 17,
+      "mean": 79.52105882352942,
+      "min": 76.64200000000001,
+      "p10": 76.66900000000001,
+      "p50": 81.384,
+      "p90": 81.55199999999999,
+      "p95": 81.55499999999999,
+      "max": 81.55499999999999
+    },
+    "childDeathBefore5@2023": {
+      "n": 24,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@taiwan@1978": {
+      "n": 12,
+      "mean": 73.20049999999999,
+      "min": 70.74600000000001,
+      "p10": 70.75500000000001,
+      "p50": 75.455,
+      "p90": 75.62299999999999,
+      "p95": 75.64699999999999,
+      "max": 75.64699999999999
+    },
+    "profile.lifeExpectancy@hongkong@1990": {
+      "n": 6,
+      "mean": 80.68533333333335,
+      "min": 77.48200000000001,
+      "p10": 77.48200000000001,
+      "p50": 82.182,
+      "p90": 82.317,
+      "p95": 82.317,
+      "max": 82.317
+    },
+    "childDeathBefore5@1981": {
+      "n": 6,
+      "mean": 0.16666666666666666,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 1,
+      "p95": 1,
+      "max": 1
+    },
+    "childDeathBefore5@2043": {
+      "n": 13,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2038": {
+      "n": 22,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@hongkong@2010": {
+      "n": 3,
+      "mean": 87.247,
+      "min": 87.107,
+      "p10": 87.107,
+      "p50": 87.29299999999999,
+      "p90": 87.341,
+      "p95": 87.341,
+      "max": 87.341
+    },
+    "childDeathBefore5@2049": {
+      "n": 18,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2056": {
+      "n": 9,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@taiwan@1955": {
+      "n": 20,
+      "mean": 62.288040909090896,
+      "min": 59.8250909090909,
+      "p10": 59.852090909090904,
+      "p50": 64.5010909090909,
+      "p90": 64.7620909090909,
+      "p95": 64.7800909090909,
+      "max": 64.7800909090909
+    },
+    "profile.lifeExpectancy@hongkong@1982": {
+      "n": 5,
+      "mean": 77.6156,
+      "min": 75.711,
+      "p10": 75.711,
+      "p50": 75.831,
+      "p90": 80.48299999999999,
+      "p95": 80.48299999999999,
+      "max": 80.48299999999999
+    },
+    "childDeathBefore5@2044": {
+      "n": 12,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2072": {
+      "n": 3,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@1984": {
+      "n": 22,
+      "mean": 0.045454545454545456,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 1
+    },
+    "childDeathBefore5@1976": {
+      "n": 2,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2047": {
+      "n": 17,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2045": {
+      "n": 6,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@hongkong@1961": {
+      "n": 5,
+      "mean": 68.6174,
+      "min": 66.723,
+      "p10": 66.723,
+      "p50": 66.774,
+      "p90": 71.46199999999999,
+      "p95": 71.46199999999999,
+      "max": 71.46199999999999
+    },
+    "profile.lifeExpectancy@taiwan@2010": {
+      "n": 18,
+      "mean": 80.20727777777778,
+      "min": 78.26,
+      "p10": 78.275,
+      "p50": 78.509,
+      "p90": 83.17899999999999,
+      "p95": 83.19699999999999,
+      "max": 83.19699999999999
+    },
+    "profile.lifeExpectancy@hongkong@1971": {
+      "n": 7,
+      "mean": 73.6932857142857,
+      "min": 70.981,
+      "p10": 70.981,
+      "p50": 75.627,
+      "p90": 75.75299999999999,
+      "p95": 75.75299999999999,
+      "max": 75.75299999999999
+    },
+    "childDeathBefore5@2050": {
+      "n": 5,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@hongkong@1950": {
+      "n": 7,
+      "mean": 63.33885714285714,
+      "min": 60.519,
+      "p10": 60.519,
+      "p50": 65.312,
+      "p90": 65.47099999999999,
+      "p95": 65.47099999999999,
+      "max": 65.47099999999999
+    },
+    "childDeathBefore5@2035": {
+      "n": 4,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2030": {
+      "n": 10,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2020": {
+      "n": 11,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@hongkong@1955": {
+      "n": 5,
+      "mean": 67.06087272727272,
+      "min": 63.24627272727273,
+      "p10": 63.24627272727273,
+      "p50": 67.94627272727273,
+      "p90": 68.18927272727272,
+      "p95": 68.18927272727272,
+      "max": 68.18927272727272
+    },
+    "profile.lifeExpectancy@hongkong@1958": {
+      "n": 5,
+      "mean": 65.93543636363636,
+      "min": 64.90063636363637,
+      "p10": 64.90063636363637,
+      "p50": 65.04463636363636,
+      "p90": 69.64863636363636,
+      "p95": 69.64863636363636,
+      "max": 69.64863636363636
+    },
+    "profile.lifeExpectancy@macau@2020": {
+      "n": 2,
+      "mean": 86.89549999999998,
+      "min": 86.83999999999999,
+      "p10": 86.83999999999999,
+      "p50": 86.95099999999998,
+      "p90": 86.95099999999998,
+      "p95": 86.95099999999998,
+      "max": 86.95099999999998
+    },
+    "profile.lifeExpectancy@macau@1958": {
+      "n": 3,
+      "mean": 65.33457575757576,
+      "min": 63.74990909090909,
+      "p10": 63.74990909090909,
+      "p50": 63.74990909090909,
+      "p90": 68.50390909090909,
+      "p95": 68.50390909090909,
+      "max": 68.50390909090909
+    },
+    "childDeathBefore5@2026": {
+      "n": 10,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@hongkong@1968": {
+      "n": 2,
+      "mean": 74.4975,
+      "min": 74.484,
+      "p10": 74.484,
+      "p50": 74.511,
+      "p90": 74.511,
+      "p95": 74.511,
+      "max": 74.511
+    },
+    "profile.lifeExpectancy@taiwan@1965": {
+      "n": 15,
+      "mean": 69.14146666666667,
+      "min": 65.57800000000002,
+      "p10": 65.686,
+      "p50": 70.362,
+      "p90": 70.485,
+      "p95": 70.545,
+      "max": 70.545
+    },
+    "childDeathBefore5@1974": {
+      "n": 1,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "childDeathBefore5@2036": {
+      "n": 13,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@macau@1971": {
+      "n": 5,
+      "mean": 74.0426,
+      "min": 70.23100000000001,
+      "p10": 70.23100000000001,
+      "p50": 75.015,
+      "p90": 75.05399999999999,
+      "p95": 75.05399999999999,
+      "max": 75.05399999999999
+    },
+    "profile.lifeExpectancy@macau@2010": {
+      "n": 2,
+      "mean": 83.42,
+      "min": 81.025,
+      "p10": 81.025,
+      "p50": 85.815,
+      "p90": 85.815,
+      "p95": 85.815,
+      "max": 85.815
+    },
+    "profile.lifeExpectancy@hongkong@1978": {
+      "n": 1,
+      "mean": 78.762,
+      "min": 78.762,
+      "p10": 78.762,
+      "p50": 78.762,
+      "p90": 78.762,
+      "p95": 78.762,
+      "max": 78.762
+    },
+    "profile.lifeExpectancy@taiwan@1968": {
+      "n": 8,
+      "mean": 68.772625,
+      "min": 67.03,
+      "p10": 67.03,
+      "p50": 67.096,
+      "p90": 71.77499999999999,
+      "p95": 71.77499999999999,
+      "max": 71.77499999999999
+    },
+    "profile.lifeExpectancy@macau@1995": {
+      "n": 4,
+      "mean": 80.11775,
+      "min": 77.71300000000001,
+      "p10": 77.71300000000001,
+      "p50": 82.359,
+      "p90": 82.58399999999999,
+      "p95": 82.58399999999999,
+      "max": 82.58399999999999
+    },
+    "profile.lifeExpectancy@macau@1990": {
+      "n": 1,
+      "mean": 76.409,
+      "min": 76.409,
+      "p10": 76.409,
+      "p50": 76.409,
+      "p90": 76.409,
+      "p95": 76.409,
+      "max": 76.409
+    },
+    "profile.lifeExpectancy@macau@1978": {
+      "n": 1,
+      "mean": 77.65899999999999,
+      "min": 77.65899999999999,
+      "p10": 77.65899999999999,
+      "p50": 77.65899999999999,
+      "p90": 77.65899999999999,
+      "p95": 77.65899999999999,
+      "max": 77.65899999999999
+    },
+    "childDeathBefore5@2077": {
+      "n": 1,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    },
+    "profile.lifeExpectancy@macau@1982": {
+      "n": 1,
+      "mean": 74.47500000000001,
+      "min": 74.47500000000001,
+      "p10": 74.47500000000001,
+      "p50": 74.47500000000001,
+      "p90": 74.47500000000001,
+      "p95": 74.47500000000001,
+      "max": 74.47500000000001
+    },
+    "childDeathBefore5@1980": {
+      "n": 3,
+      "mean": 0.3333333333333333,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 1,
+      "p95": 1,
+      "max": 1
+    },
+    "profile.lifeExpectancy@macau@1975": {
+      "n": 1,
+      "mean": 76.615,
+      "min": 76.615,
+      "p10": 76.615,
+      "p50": 76.615,
+      "p90": 76.615,
+      "p95": 76.615,
+      "max": 76.615
+    },
+    "profile.lifeExpectancy@hongkong@2000": {
+      "n": 1,
+      "mean": 85.00399999999999,
+      "min": 85.00399999999999,
+      "p10": 85.00399999999999,
+      "p50": 85.00399999999999,
+      "p90": 85.00399999999999,
+      "p95": 85.00399999999999,
+      "max": 85.00399999999999
+    },
+    "profile.lifeExpectancy@hongkong@1965": {
+      "n": 4,
+      "mean": 71.95899999999999,
+      "min": 68.491,
+      "p10": 68.491,
+      "p50": 73.19399999999999,
+      "p90": 73.22099999999999,
+      "p95": 73.22099999999999,
+      "max": 73.22099999999999
+    },
+    "profile.lifeExpectancy@macau@1986": {
+      "n": 1,
+      "mean": 75.634,
+      "min": 75.634,
+      "p10": 75.634,
+      "p50": 75.634,
+      "p90": 75.634,
+      "p95": 75.634,
+      "max": 75.634
+    },
+    "profile.lifeExpectancy@macau@1955": {
+      "n": 1,
+      "mean": 66.69681818181819,
+      "min": 66.69681818181819,
+      "p10": 66.69681818181819,
+      "p50": 66.69681818181819,
+      "p90": 66.69681818181819,
+      "p95": 66.69681818181819,
+      "max": 66.69681818181819
+    },
+    "childDeathBefore5@2075": {
+      "n": 1,
+      "mean": 0,
+      "min": 0,
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "max": 0
+    }
+  },
+  "engineCalls": {
+    "startLife": 60000,
+    "advanceYear": 4828217,
+    "autoChoose": 3007299,
+    "setFocus": 2397231
+  },
+  "coverage": {
+    "locations": 1152,
+    "born": 1143,
+    "historyTotal": 100,
+    "historyFired": 100,
+    "historyNeverFired": [],
+    "jobsTotal": 66,
+    "jobsNeverTaken": [
+      "repair-shop",
+      "restaurant-owner"
+    ],
+    "cultural": {
+      "spring-reunion": {
+        "count": 52288,
+        "denominator": 60000,
+        "rate": 0.8714666666666666
+      },
+      "study-expectations": {
+        "count": 47320,
+        "denominator": 60000,
+        "rate": 0.7886666666666666
+      },
+      "stable-career": {
+        "count": 33196,
+        "denominator": 60000,
+        "rate": 0.5532666666666667
+      },
+      "marriage-pressure": {
+        "count": 14293,
+        "denominator": 60000,
+        "rate": 0.23821666666666666
+      },
+      "parenthood-expectation": {
+        "count": 30610,
+        "denominator": 60000,
+        "rate": 0.5101666666666667
+      },
+      "home-before-marriage": {
+        "count": 26790,
+        "denominator": 60000,
+        "rate": 0.4465
+      },
+      "elder-care": {
+        "count": 33835,
+        "denominator": 60000,
+        "rate": 0.5639166666666666
+      },
+      "family-learning": {
+        "count": 5175,
+        "denominator": 60000,
+        "rate": 0.08625
+      },
+      "family-gift": {
+        "count": 57894,
+        "denominator": 60000,
+        "rate": 0.9649
+      },
+      "family-career-move": {
+        "count": 49096,
+        "denominator": 60000,
+        "rate": 0.8182666666666667
+      },
+      "grandparent-care": {
+        "count": 5960,
+        "denominator": 60000,
+        "rate": 0.09933333333333333
+      },
+      "family-financial-help": {
+        "count": 56762,
+        "denominator": 60000,
+        "rate": 0.9460333333333333
+      }
+    },
+    "actions": {
+      "temperament": 58828,
+      "reflect": 280851,
+      "hobby": 58459,
+      "familyhelp": 55547,
+      "culture": 878419,
+      "edu-secondary": 58429,
+      "edu-suspended": 469,
+      "career-offer": 183959,
+      "edu-recommendation": 5203,
+      "edu-college": 66112,
+      "romance": 94540,
+      "worklife": 92596,
+      "checkup": 135541,
+      "startup": 94080,
+      "move": 116728,
+      "retirement-law": 59969,
+      "community": 185391,
+      "memory": 186364,
+      "schoolfriend": 56006,
+      "screen": 51427,
+      "edu-funding": 61487,
+      "edu-bridge": 23698,
+      "career-result": 51522,
+      "marriage": 79668,
+      "child": 48926,
+      "care": 10626,
+      "edu-postgraduate": 12454
+    },
+    "distinctBirthWeights": 10,
+    "populationRecorded": 0
+  }
+}

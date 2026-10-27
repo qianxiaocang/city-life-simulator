@@ -1,0 +1,91 @@
+{
+  "version": "2026-10-25.1",
+  "generatedAt": "2026-10-25",
+  "total": 1152,
+  "regionCounts": {
+    "mainland": 735,
+    "taiwan": 390,
+    "hongkong": 19,
+    "macau": 8
+  },
+  "regions": {
+    "mainland": {
+      "zhCN": "中国大陆",
+      "zhTW": "中國大陸",
+      "en": "Mainland China"
+    },
+    "taiwan": {
+      "zhCN": "中国台湾",
+      "zhTW": "中國臺灣",
+      "en": "Taiwan, China"
+    },
+    "hongkong": {
+      "zhCN": "中国香港",
+      "zhTW": "中國香港",
+      "en": "Hong Kong, China"
+    },
+    "macau": {
+      "zhCN": "中国澳门",
+      "zhTW": "中國澳門",
+      "en": "Macao, China"
+    }
+  },
+  "scope": {
+    "mainland": {
+      "municipalities": 4,
+      "prefectureDivisions": 333,
+      "countyCities": 398
+    },
+    "taiwan": {
+      "countiesAndCities": 22,
+      "townshipsAndDistricts": 368
+    },
+    "hongkong": {
+      "city": 1,
+      "districts": 18
+    },
+    "macau": {
+      "city": 1,
+      "traditionalParishes": 7
+    }
+  },
+  "populationKind": "not-provided",
+  "weightKind": "simulation-only",
+  "prosperityKind": "simulation-only",
+  "simulatedRegionShares": {
+    "mainland": 0.965,
+    "taiwan": 0.025,
+    "hongkong": 0.008,
+    "macau": 0.002
+  },
+  "notes": {
+    "zhCN": "行政区名称为公开目录；出生权重和发展指数为游戏设定，不是真实人口、出生概率或城市排名。大陆目录截至2025年底并补入2026年草湖市，其他后续变更需更新。台湾条目包含22县市及368乡镇市区；香港为城市及18区；澳门堂区为传统地域标签。",
+    "zhTW": "行政區名稱為公開目錄；出生權重和發展指數為遊戲設定，不是真實人口、出生機率或城市排名。大陸目錄截至2025年底並補入2026年草湖市，其他後續變更需更新。臺灣條目包含22縣市及368鄉鎮市區；香港為城市及18區；澳門堂區為傳統地域標籤。",
+    "en": "Place names come from public directories. Birth weights and development indices are game settings, not actual populations, birth probabilities or city rankings. The mainland snapshot covers end-2025 and adds Caohu (2026); later changes require updates. Taiwan includes 22 counties/cities and 368 townships/districts. Hong Kong includes its city and 18 districts; Macao parish names are traditional locality labels."
+  },
+  "sources": [
+    {
+      "id": "areacity-2026-04",
+      "url": "https://github.com/xiangyuecn/AreaCity-JsSpider-StatsGov",
+      "version": "2025.251231.260403",
+      "license": "MIT"
+    },
+    {
+      "id": "opencc",
+      "url": "https://github.com/BYVoid/OpenCC",
+      "license": "Apache-2.0"
+    },
+    {
+      "id": "xinjiang-government-2026-04-17",
+      "url": "https://www.xinjiang.gov.cn/xinjiang/tzgg/202604/3691350b13064945947d8f78933ccb3e.shtml"
+    },
+    {
+      "id": "hongkong-home-affairs",
+      "url": "https://www.had.gov.hk/en/18_districts/my_map.htm"
+    },
+    {
+      "id": "macao-cadastre",
+      "url": "https://cadastre.gis.gov.mo/MGSP_Cad/chn/bak/main_20160628.html"
+    }
+  ]
+}

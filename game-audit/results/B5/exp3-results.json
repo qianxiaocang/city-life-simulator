@@ -1,0 +1,3372 @@
+{
+  "out": {
+    "meta": {
+      "decisionPointsProbed": 3667,
+      "lives": 2000,
+      "watchActions": 21
+    },
+    "overall": {
+      "pctExactIdenticalWholeLife": 0.7,
+      "pctWithinToleranceIdenticalWholeLife": 7
+    },
+    "byAction": {
+      "reflect": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0,
+        "p95DeathAgeSpread": 0,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 0,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 0
+      },
+      "hobby": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.72,
+        "p95DeathAgeSpread": 1,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 1758.7,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 1.1
+      },
+      "edu-secondary": {
+        "probed": 180,
+        "pctExactIdentical": 12.8,
+        "pctWithinToleranceIdentical": 13.3,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.24,
+        "p95DeathAgeSpread": 1,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 20128224.5,
+        "pctWhereEducationChanges": 84.4,
+        "pctWhereFinalJobChanges": 42.2
+      },
+      "culture": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 34.4,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0,
+        "p95DeathAgeSpread": 0,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 0,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 0
+      },
+      "edu-college": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.43,
+        "p95DeathAgeSpread": 2,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 12896693.5,
+        "pctWhereEducationChanges": 71.1,
+        "pctWhereFinalJobChanges": 61.1
+      },
+      "edu-funding": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 1.7,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.43,
+        "p95DeathAgeSpread": 2,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 15823499.9,
+        "pctWhereEducationChanges": 54.4,
+        "pctWhereFinalJobChanges": 61.1
+      },
+      "edu-bridge": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.42,
+        "p95DeathAgeSpread": 2,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 2286206.7,
+        "pctWhereEducationChanges": 100,
+        "pctWhereFinalJobChanges": 76.7
+      },
+      "edu-postgraduate": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 6.1,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.31,
+        "p95DeathAgeSpread": 1,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 10196150.3,
+        "pctWhereEducationChanges": 32.2,
+        "pctWhereFinalJobChanges": 42.2
+      },
+      "career-offer": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.34,
+        "p95DeathAgeSpread": 2,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 2969743.1,
+        "pctWhereEducationChanges": 1.1,
+        "pctWhereFinalJobChanges": 40.6
+      },
+      "career-result": {
+        "probed": 180,
+        "pctExactIdentical": 1.7,
+        "pctWithinToleranceIdentical": 6.1,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.27,
+        "p95DeathAgeSpread": 1,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 3369032,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 53.9
+      },
+      "romance": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 13.9,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.36,
+        "p95DeathAgeSpread": 2,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 3263411,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 32.8
+      },
+      "marriage": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.68,
+        "p95DeathAgeSpread": 3,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 4348605.8,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 62.8
+      },
+      "move": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0.6,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.79,
+        "p95DeathAgeSpread": 3,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 80488850.8,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 35
+      },
+      "child": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 38.3,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.31,
+        "p95DeathAgeSpread": 2,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 3148638.3,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 22.8
+      },
+      "startup": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 6.1,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.51,
+        "p95DeathAgeSpread": 3,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 826826.3,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 45
+      },
+      "worklife": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0.6,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.03,
+        "p95DeathAgeSpread": 0,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 13.7,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 1.7
+      },
+      "checkup": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 17.2,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 1.12,
+        "p95DeathAgeSpread": 3,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 22263.1,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 0.6
+      },
+      "retirement-law": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.22,
+        "p95DeathAgeSpread": 1,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 1786081.8,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 3.9
+      },
+      "community": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 0,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.03,
+        "p95DeathAgeSpread": 0,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 0.5,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 0
+      },
+      "familyhelp": {
+        "probed": 180,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 1.7,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0,
+        "p95DeathAgeSpread": 0,
+        "denominator": 180,
+        "meanMaxNetWorthSpreadPct": 0,
+        "pctWhereEducationChanges": 0,
+        "pctWhereFinalJobChanges": 0
+      },
+      "edu-recommendation": {
+        "probed": 67,
+        "pctExactIdentical": 0,
+        "pctWithinToleranceIdentical": 7.5,
+        "pctImmediateIdentical": 0,
+        "pctWithDuplicateImmediateOptions": 0,
+        "meanMaxDeathAgeSpread": 0.01,
+        "p95DeathAgeSpread": 0,
+        "denominator": 67,
+        "meanMaxNetWorthSpreadPct": 15.4,
+        "pctWhereEducationChanges": 3,
+        "pctWhereFinalJobChanges": 4.5
+      }
+    },
+    "meaninglessExamples": [
+      {
+        "action": "child",
+        "age": 31,
+        "title": "是否迎接一个孩子",
+        "options": [
+          "尝试迎接新生命",
+          "现在还没准备好"
+        ],
+        "finalNetWorth": 16517007,
+        "finalAge": 79
+      },
+      {
+        "action": "culture",
+        "age": 16,
+        "title": "家人对成绩的期待",
+        "options": [
+          "商量一个更认真学习的计划",
+          "一起讨论目标，保留运动与休息",
+          "说明自己更想发展的方向"
+        ],
+        "finalNetWorth": 780044,
+        "finalAge": 79
+      },
+      {
+        "action": "culture",
+        "age": 16,
+        "title": "家人对成绩的期待",
+        "options": [
+          "商量一个更认真学习的计划",
+          "一起讨论目标，保留运动与休息",
+          "说明自己更想发展的方向"
+        ],
+        "finalNetWorth": 0,
+        "finalAge": 82
+      },
+      {
+        "action": "edu-secondary",
+        "age": 15,
+        "title": "选择下一段学业",
+        "options": [
+          "公办重点／高选拔性高中",
+          "公办普通高中",
+          "民办普通高中",
+          "中等职业教育"
+        ],
+        "finalNetWorth": 35945603,
+        "finalAge": 94
+      },
+      {
+        "action": "culture",
+        "age": 16,
+        "title": "今年春节，回家吗？",
+        "options": [
+          "安排返乡团聚",
+          "协商错峰探望，先通话拜年",
+          "说明原因，留在当地休息"
+        ],
+        "finalNetWorth": 35945603,
+        "finalAge": 94
+      },
+      {
+        "action": "checkup",
+        "age": 69,
+        "title": "身体发来的信号",
+        "options": [
+          "安排检查和治疗",
+          "先忙完手上的事"
+        ],
+        "finalNetWorth": 9790629,
+        "finalAge": 94
+      },
+      {
+        "action": "romance",
+        "age": 28,
+        "title": "认识一个新的人",
+        "options": [
+          "试着了解彼此",
+          "保留自己的节奏"
+        ],
+        "finalNetWorth": 0,
+        "finalAge": 82
+      },
+      {
+        "action": "move",
+        "age": 62,
+        "title": "去另一座城市生活",
+        "options": [
+          "留在熟悉的地方",
+          "禄丰市",
+          "龙港市",
+          "邵东市"
+        ],
+        "finalNetWorth": 0,
+        "finalAge": 82
+      },
+      {
+        "action": "romance",
+        "age": 24,
+        "title": "认识一个新的人",
+        "options": [
+          "试着了解彼此",
+          "保留自己的节奏"
+        ],
+        "finalNetWorth": 5317258,
+        "finalAge": 70
+      },
+      {
+        "action": "child",
+        "age": 34,
+        "title": "是否迎接一个孩子",
+        "options": [
+          "尝试迎接新生命",
+          "现在还没准备好"
+        ],
+        "finalNetWorth": 3324731,
+        "finalAge": 70
+      },
+      {
+        "action": "startup",
+        "age": 33,
+        "title": "把一个想法变成生意",
+        "options": [
+          "投入积蓄试一试",
+          "保留稳定的工作"
+        ],
+        "finalNetWorth": 0,
+        "finalAge": 91
+      },
+      {
+        "action": "checkup",
+        "age": 35,
+        "title": "身体发来的信号",
+        "options": [
+          "安排检查和治疗",
+          "先忙完手上的事"
+        ],
+        "finalNetWorth": 0,
+        "finalAge": 91
+      }
+    ],
+    "duplicateImmediateExamples": []
+  },
+  "examples": [
+    {
+      "action": "child",
+      "age": 31,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 16517007,
+      "finalAge": 79
+    },
+    {
+      "action": "culture",
+      "age": 16,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 780044,
+      "finalAge": 79
+    },
+    {
+      "action": "culture",
+      "age": 16,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 82
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 35945603,
+      "finalAge": 94
+    },
+    {
+      "action": "culture",
+      "age": 16,
+      "title": "今年春节，回家吗？",
+      "options": [
+        "安排返乡团聚",
+        "协商错峰探望，先通话拜年",
+        "说明原因，留在当地休息"
+      ],
+      "finalNetWorth": 35945603,
+      "finalAge": 94
+    },
+    {
+      "action": "checkup",
+      "age": 69,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 9790629,
+      "finalAge": 94
+    },
+    {
+      "action": "romance",
+      "age": 28,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 82
+    },
+    {
+      "action": "move",
+      "age": 62,
+      "title": "去另一座城市生活",
+      "options": [
+        "留在熟悉的地方",
+        "禄丰市",
+        "龙港市",
+        "邵东市"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 82
+    },
+    {
+      "action": "romance",
+      "age": 24,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 5317258,
+      "finalAge": 70
+    },
+    {
+      "action": "child",
+      "age": 34,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 3324731,
+      "finalAge": 70
+    },
+    {
+      "action": "startup",
+      "age": 33,
+      "title": "把一个想法变成生意",
+      "options": [
+        "投入积蓄试一试",
+        "保留稳定的工作"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 91
+    },
+    {
+      "action": "checkup",
+      "age": 35,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 91
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 804201,
+      "finalAge": 54
+    },
+    {
+      "action": "romance",
+      "age": 24,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 653193,
+      "finalAge": 55
+    },
+    {
+      "action": "child",
+      "age": 36,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 795048,
+      "finalAge": 56
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 894824,
+      "finalAge": 82
+    },
+    {
+      "action": "romance",
+      "age": 26,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 1890453,
+      "finalAge": 84
+    },
+    {
+      "action": "child",
+      "age": 37,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 15313,
+      "finalAge": 85
+    },
+    {
+      "action": "child",
+      "age": 36,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 14824303,
+      "finalAge": 89
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 5327839,
+      "finalAge": 65
+    },
+    {
+      "action": "child",
+      "age": 33,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 4330545,
+      "finalAge": 65
+    },
+    {
+      "action": "checkup",
+      "age": 37,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 604661,
+      "finalAge": 72
+    },
+    {
+      "action": "culture",
+      "age": 16,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 2706732,
+      "finalAge": 86
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 1551943,
+      "finalAge": 86
+    },
+    {
+      "action": "romance",
+      "age": 27,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 7646677,
+      "finalAge": 89
+    },
+    {
+      "action": "child",
+      "age": 36,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 6731253,
+      "finalAge": 89
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 1455936,
+      "finalAge": 54
+    },
+    {
+      "action": "culture",
+      "age": 17,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 1455936,
+      "finalAge": 54
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 613215,
+      "finalAge": 86
+    },
+    {
+      "action": "career-result",
+      "age": 24,
+      "title": "专业资格与岗位考核",
+      "options": [
+        "接受岗位",
+        "保留现有安排"
+      ],
+      "finalNetWorth": 31506,
+      "finalAge": 85
+    },
+    {
+      "action": "checkup",
+      "age": 46,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 2016488,
+      "finalAge": 91
+    },
+    {
+      "action": "culture",
+      "age": 13,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 1373,
+      "finalAge": 84
+    },
+    {
+      "action": "child",
+      "age": 27,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 168,
+      "finalAge": 84
+    },
+    {
+      "action": "child",
+      "age": 35,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 81
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 2937624,
+      "finalAge": 56
+    },
+    {
+      "action": "child",
+      "age": 31,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 7132173,
+      "finalAge": 57
+    },
+    {
+      "action": "checkup",
+      "age": 41,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 89
+    },
+    {
+      "action": "child",
+      "age": 47,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 89
+    },
+    {
+      "action": "culture",
+      "age": 13,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 82
+    },
+    {
+      "action": "romance",
+      "age": 24,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 7198745,
+      "finalAge": 92
+    },
+    {
+      "action": "checkup",
+      "age": 38,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 6449024,
+      "finalAge": 92
+    },
+    {
+      "action": "child",
+      "age": 46,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 4138686,
+      "finalAge": 92
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 90
+    },
+    {
+      "action": "edu-postgraduate",
+      "age": 23,
+      "title": "毕业以后，再决定下一步",
+      "options": [
+        "硕士研究生：申请与考核",
+        "开始工作并积累经验"
+      ],
+      "finalNetWorth": 1260747,
+      "finalAge": 91
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 4981851,
+      "finalAge": 82
+    },
+    {
+      "action": "romance",
+      "age": 22,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 4981851,
+      "finalAge": 82
+    },
+    {
+      "action": "checkup",
+      "age": 51,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 83
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 4048341,
+      "finalAge": 91
+    },
+    {
+      "action": "romance",
+      "age": 26,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 16611483,
+      "finalAge": 71
+    },
+    {
+      "action": "checkup",
+      "age": 57,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 11292026,
+      "finalAge": 72
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 1035882,
+      "finalAge": 82
+    },
+    {
+      "action": "checkup",
+      "age": 41,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 384726,
+      "finalAge": 82
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 572576,
+      "finalAge": 73
+    },
+    {
+      "action": "culture",
+      "age": 23,
+      "title": "亲友的人情往来",
+      "options": [
+        "准备一份负担得起的礼物",
+        "帮忙张罗，用行动表达祝福",
+        "说明安排，送上祝福"
+      ],
+      "finalNetWorth": 559566,
+      "finalAge": 73
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 3526304,
+      "finalAge": 90
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 303019,
+      "finalAge": 76
+    },
+    {
+      "action": "checkup",
+      "age": 37,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 399762,
+      "finalAge": 89
+    },
+    {
+      "action": "child",
+      "age": 38,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 1368397,
+      "finalAge": 71
+    },
+    {
+      "action": "child",
+      "age": 33,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 94
+    },
+    {
+      "action": "worklife",
+      "age": 58,
+      "title": "工作的边界",
+      "options": [
+        "投入项目，争取机会",
+        "沟通安排，留住周末"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 94
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 23848,
+      "finalAge": 83
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 83
+    },
+    {
+      "action": "child",
+      "age": 38,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 337525,
+      "finalAge": 83
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 4280103,
+      "finalAge": 80
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 223965,
+      "finalAge": 96
+    },
+    {
+      "action": "checkup",
+      "age": 45,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 639914,
+      "finalAge": 89
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 3663211,
+      "finalAge": 83
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 3663211,
+      "finalAge": 83
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 39373714,
+      "finalAge": 88
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 39373714,
+      "finalAge": 88
+    },
+    {
+      "action": "child",
+      "age": 33,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 38248889,
+      "finalAge": 89
+    },
+    {
+      "action": "checkup",
+      "age": 78,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 85
+    },
+    {
+      "action": "checkup",
+      "age": 86,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 99
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 841132,
+      "finalAge": 79
+    },
+    {
+      "action": "edu-recommendation",
+      "age": 20,
+      "title": "推荐选拔时期的求学机会",
+      "options": [
+        "申请推荐与学校复审",
+        "继续实践并保留学习"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 87
+    },
+    {
+      "action": "culture",
+      "age": 37,
+      "title": "孩子的成绩与兴趣",
+      "options": [
+        "一起找适合的学习方法",
+        "在预算内选择适合的课程",
+        "先减少压力，保证运动与休息"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 87
+    },
+    {
+      "action": "romance",
+      "age": 25,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 11420013,
+      "finalAge": 104
+    },
+    {
+      "action": "child",
+      "age": 33,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 9930013,
+      "finalAge": 104
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 86
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 86
+    },
+    {
+      "action": "child",
+      "age": 31,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 86
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 11557839,
+      "finalAge": 59
+    },
+    {
+      "action": "startup",
+      "age": 29,
+      "title": "把一个想法变成生意",
+      "options": [
+        "投入积蓄试一试",
+        "保留稳定的工作"
+      ],
+      "finalNetWorth": 7094275,
+      "finalAge": 87
+    },
+    {
+      "action": "culture",
+      "age": 13,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 577953,
+      "finalAge": 88
+    },
+    {
+      "action": "child",
+      "age": 36,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 422615,
+      "finalAge": 88
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 273214,
+      "finalAge": 54
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 95
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 3044835,
+      "finalAge": 80
+    },
+    {
+      "action": "edu-funding",
+      "age": 18,
+      "title": "录取以后，先安排求学资金",
+      "options": [
+        "申请国家助学贷款并接受资格审核",
+        "申请奖助与校内困难支持",
+        "暂缓入学，先工作并继续学习"
+      ],
+      "finalNetWorth": 3039299,
+      "finalAge": 80
+    },
+    {
+      "action": "culture",
+      "age": 13,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 797133,
+      "finalAge": 67
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 646299,
+      "finalAge": 67
+    },
+    {
+      "action": "checkup",
+      "age": 40,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 97
+    },
+    {
+      "action": "child",
+      "age": 29,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 6085773,
+      "finalAge": 65
+    },
+    {
+      "action": "child",
+      "age": 31,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 2435563,
+      "finalAge": 71
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 91
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 91
+    },
+    {
+      "action": "edu-recommendation",
+      "age": 20,
+      "title": "推荐选拔时期的求学机会",
+      "options": [
+        "申请推荐与学校复审",
+        "继续实践并保留学习"
+      ],
+      "finalNetWorth": 1164849,
+      "finalAge": 88
+    },
+    {
+      "action": "career-result",
+      "age": 27,
+      "title": "专业资格与岗位考核",
+      "options": [
+        "接受岗位",
+        "保留现有安排"
+      ],
+      "finalNetWorth": 1163731,
+      "finalAge": 88
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 3622,
+      "finalAge": 95
+    },
+    {
+      "action": "child",
+      "age": 31,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 40288,
+      "finalAge": 95
+    },
+    {
+      "action": "checkup",
+      "age": 38,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 7211,
+      "finalAge": 95
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 95648,
+      "finalAge": 82
+    },
+    {
+      "action": "culture",
+      "age": 31,
+      "title": "亲友的人情往来",
+      "options": [
+        "准备一份负担得起的礼物",
+        "帮忙张罗，用行动表达祝福",
+        "说明安排，送上祝福"
+      ],
+      "finalNetWorth": 201524,
+      "finalAge": 64
+    },
+    {
+      "action": "checkup",
+      "age": 49,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 96
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 5214794,
+      "finalAge": 86
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 5048526,
+      "finalAge": 86
+    },
+    {
+      "action": "romance",
+      "age": 29,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 125137,
+      "finalAge": 94
+    },
+    {
+      "action": "child",
+      "age": 42,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 96755,
+      "finalAge": 94
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 2515760,
+      "finalAge": 78
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 2515760,
+      "finalAge": 78
+    },
+    {
+      "action": "romance",
+      "age": 28,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 2114912,
+      "finalAge": 78
+    },
+    {
+      "action": "checkup",
+      "age": 49,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 1228701,
+      "finalAge": 101
+    },
+    {
+      "action": "child",
+      "age": 36,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 95
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 89
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 150335,
+      "finalAge": 101
+    },
+    {
+      "action": "child",
+      "age": 37,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 30555,
+      "finalAge": 101
+    },
+    {
+      "action": "romance",
+      "age": 27,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 218524,
+      "finalAge": 69
+    },
+    {
+      "action": "child",
+      "age": 29,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": -2806,
+      "finalAge": 90
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 1386555,
+      "finalAge": 86
+    },
+    {
+      "action": "checkup",
+      "age": 68,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 400034,
+      "finalAge": 87
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 5392985,
+      "finalAge": 62
+    },
+    {
+      "action": "child",
+      "age": 34,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 4674755,
+      "finalAge": 62
+    },
+    {
+      "action": "culture",
+      "age": 20,
+      "title": "今年春节，回家吗？",
+      "options": [
+        "安排返乡团聚",
+        "协商错峰探望，先通话拜年",
+        "说明原因，留在当地休息"
+      ],
+      "finalNetWorth": 1514261,
+      "finalAge": 92
+    },
+    {
+      "action": "edu-recommendation",
+      "age": 20,
+      "title": "推荐选拔时期的求学机会",
+      "options": [
+        "申请推荐与学校复审",
+        "继续实践并保留学习"
+      ],
+      "finalNetWorth": 1138351,
+      "finalAge": 70
+    },
+    {
+      "action": "checkup",
+      "age": 59,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 1149808,
+      "finalAge": 78
+    },
+    {
+      "action": "culture",
+      "age": 13,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 92
+    },
+    {
+      "action": "romance",
+      "age": 28,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 713836,
+      "finalAge": 88
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 520195,
+      "finalAge": 88
+    },
+    {
+      "action": "checkup",
+      "age": 40,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 5627299,
+      "finalAge": 86
+    },
+    {
+      "action": "child",
+      "age": 31,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 128173,
+      "finalAge": 82
+    },
+    {
+      "action": "checkup",
+      "age": 42,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 135343,
+      "finalAge": 82
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 2838973,
+      "finalAge": 83
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 2838973,
+      "finalAge": 83
+    },
+    {
+      "action": "child",
+      "age": 37,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 2691602,
+      "finalAge": 83
+    },
+    {
+      "action": "checkup",
+      "age": 42,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 2648960,
+      "finalAge": 83
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 44832134,
+      "finalAge": 77
+    },
+    {
+      "action": "romance",
+      "age": 25,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 40082628,
+      "finalAge": 77
+    },
+    {
+      "action": "child",
+      "age": 47,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 23256109,
+      "finalAge": 77
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 626195,
+      "finalAge": 76
+    },
+    {
+      "action": "culture",
+      "age": 19,
+      "title": "今年春节，回家吗？",
+      "options": [
+        "安排返乡团聚",
+        "协商错峰探望，先通话拜年",
+        "说明原因，留在当地休息"
+      ],
+      "finalNetWorth": 26914572,
+      "finalAge": 72
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 16279,
+      "finalAge": 69
+    },
+    {
+      "action": "child",
+      "age": 33,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 4404,
+      "finalAge": 70
+    },
+    {
+      "action": "culture",
+      "age": 13,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 212766,
+      "finalAge": 85
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 4186474,
+      "finalAge": 81
+    },
+    {
+      "action": "checkup",
+      "age": 39,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 100508,
+      "finalAge": 90
+    },
+    {
+      "action": "culture",
+      "age": 13,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 16240631,
+      "finalAge": 75
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 16240631,
+      "finalAge": 75
+    },
+    {
+      "action": "edu-funding",
+      "age": 18,
+      "title": "录取以后，先安排求学资金",
+      "options": [
+        "申请奖助与校内困难支持",
+        "暂缓入学，先工作并继续学习"
+      ],
+      "finalNetWorth": 16232147,
+      "finalAge": 75
+    },
+    {
+      "action": "child",
+      "age": 36,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 14683594,
+      "finalAge": 75
+    },
+    {
+      "action": "checkup",
+      "age": 76,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 7455034,
+      "finalAge": 77
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 269249,
+      "finalAge": 85
+    },
+    {
+      "action": "child",
+      "age": 35,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 219586,
+      "finalAge": 85
+    },
+    {
+      "action": "culture",
+      "age": 16,
+      "title": "今年春节，回家吗？",
+      "options": [
+        "安排返乡团聚",
+        "协商错峰探望，先通话拜年",
+        "说明原因，留在当地休息"
+      ],
+      "finalNetWorth": 444779,
+      "finalAge": 86
+    },
+    {
+      "action": "romance",
+      "age": 24,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 436682,
+      "finalAge": 86
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 2974250,
+      "finalAge": 94
+    },
+    {
+      "action": "romance",
+      "age": 24,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 2555568,
+      "finalAge": 94
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 13816337,
+      "finalAge": 95
+    },
+    {
+      "action": "romance",
+      "age": 24,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 13563651,
+      "finalAge": 95
+    },
+    {
+      "action": "child",
+      "age": 31,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 52248471,
+      "finalAge": 89
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 80
+    },
+    {
+      "action": "romance",
+      "age": 37,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 80
+    },
+    {
+      "action": "checkup",
+      "age": 40,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 80
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "中考之后，选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 1719791,
+      "finalAge": 92
+    },
+    {
+      "action": "child",
+      "age": 36,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 2244246,
+      "finalAge": 92
+    },
+    {
+      "action": "child",
+      "age": 34,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 786066,
+      "finalAge": 83
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 831762,
+      "finalAge": 83
+    },
+    {
+      "action": "romance",
+      "age": 28,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 14794359,
+      "finalAge": 93
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 14695906,
+      "finalAge": 93
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 3697260,
+      "finalAge": 75
+    },
+    {
+      "action": "checkup",
+      "age": 38,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 1777350,
+      "finalAge": 75
+    },
+    {
+      "action": "child",
+      "age": 37,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 11603703,
+      "finalAge": 71
+    },
+    {
+      "action": "startup",
+      "age": 47,
+      "title": "把一个想法变成生意",
+      "options": [
+        "投入积蓄试一试",
+        "保留稳定的工作"
+      ],
+      "finalNetWorth": 9140659,
+      "finalAge": 71
+    },
+    {
+      "action": "culture",
+      "age": 13,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 97
+    },
+    {
+      "action": "child",
+      "age": 31,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 97
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 1063113,
+      "finalAge": 95
+    },
+    {
+      "action": "checkup",
+      "age": 54,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 501328,
+      "finalAge": 95
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": -133544,
+      "finalAge": 67
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 11413515,
+      "finalAge": 89
+    },
+    {
+      "action": "child",
+      "age": 28,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 7482288,
+      "finalAge": 89
+    },
+    {
+      "action": "checkup",
+      "age": 35,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 5161322,
+      "finalAge": 90
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 1297716,
+      "finalAge": 78
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 2770166,
+      "finalAge": 98
+    },
+    {
+      "action": "child",
+      "age": 35,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 1590104,
+      "finalAge": 98
+    },
+    {
+      "action": "culture",
+      "age": 13,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 651487,
+      "finalAge": 96
+    },
+    {
+      "action": "startup",
+      "age": 51,
+      "title": "把一个想法变成生意",
+      "options": [
+        "投入积蓄试一试",
+        "保留稳定的工作"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 96
+    },
+    {
+      "action": "child",
+      "age": 34,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 1348995,
+      "finalAge": 83
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 85
+    },
+    {
+      "action": "startup",
+      "age": 52,
+      "title": "把一个想法变成生意",
+      "options": [
+        "投入积蓄试一试",
+        "保留稳定的工作"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 85
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 8231736,
+      "finalAge": 87
+    },
+    {
+      "action": "romance",
+      "age": 24,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 18922950,
+      "finalAge": 90
+    },
+    {
+      "action": "child",
+      "age": 33,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 12988267,
+      "finalAge": 90
+    },
+    {
+      "action": "career-result",
+      "age": 24,
+      "title": "专业资格与岗位考核",
+      "options": [
+        "接受岗位",
+        "保留现有安排"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 84
+    },
+    {
+      "action": "child",
+      "age": 40,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 84
+    },
+    {
+      "action": "startup",
+      "age": 54,
+      "title": "把一个想法变成生意",
+      "options": [
+        "投入积蓄试一试",
+        "保留稳定的工作"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 84
+    },
+    {
+      "action": "child",
+      "age": 31,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 122603,
+      "finalAge": 86
+    },
+    {
+      "action": "child",
+      "age": 32,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 800031,
+      "finalAge": 89
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 6468129,
+      "finalAge": 91
+    },
+    {
+      "action": "checkup",
+      "age": 58,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 2506460,
+      "finalAge": 91
+    },
+    {
+      "action": "culture",
+      "age": 16,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 87
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 116273,
+      "finalAge": 85
+    },
+    {
+      "action": "checkup",
+      "age": 69,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 108,
+      "finalAge": 85
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 4056572,
+      "finalAge": 84
+    },
+    {
+      "action": "romance",
+      "age": 28,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 2380095,
+      "finalAge": 84
+    },
+    {
+      "action": "culture",
+      "age": 12,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 3171326,
+      "finalAge": 85
+    },
+    {
+      "action": "child",
+      "age": 27,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 2768364,
+      "finalAge": 85
+    },
+    {
+      "action": "child",
+      "age": 25,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 10649415,
+      "finalAge": 81
+    },
+    {
+      "action": "startup",
+      "age": 28,
+      "title": "把一个想法变成生意",
+      "options": [
+        "投入积蓄试一试",
+        "保留稳定的工作"
+      ],
+      "finalNetWorth": 10676389,
+      "finalAge": 81
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 32440905,
+      "finalAge": 83
+    },
+    {
+      "action": "romance",
+      "age": 28,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 27942870,
+      "finalAge": 83
+    },
+    {
+      "action": "romance",
+      "age": 24,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 313204,
+      "finalAge": 78
+    },
+    {
+      "action": "culture",
+      "age": 21,
+      "title": "亲友的人情往来",
+      "options": [
+        "准备一份负担得起的礼物",
+        "帮忙张罗，用行动表达祝福",
+        "说明安排，送上祝福"
+      ],
+      "finalNetWorth": 8229209,
+      "finalAge": 89
+    },
+    {
+      "action": "culture",
+      "age": 13,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 803479,
+      "finalAge": 86
+    },
+    {
+      "action": "culture",
+      "age": 20,
+      "title": "饭桌上的婚姻话题",
+      "options": [
+        "愿意认识合适的人",
+        "温和说明自己的节奏",
+        "暂不考虑，请家人尊重"
+      ],
+      "finalNetWorth": 5630639,
+      "finalAge": 75
+    },
+    {
+      "action": "child",
+      "age": 36,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 6940231,
+      "finalAge": 97
+    },
+    {
+      "action": "romance",
+      "age": 24,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 907319,
+      "finalAge": 91
+    },
+    {
+      "action": "culture",
+      "age": 14,
+      "title": "家人对成绩的期待",
+      "options": [
+        "商量一个更认真学习的计划",
+        "一起讨论目标，保留运动与休息",
+        "说明自己更想发展的方向"
+      ],
+      "finalNetWorth": 2164118,
+      "finalAge": 102
+    },
+    {
+      "action": "child",
+      "age": 33,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 1178577,
+      "finalAge": 101
+    },
+    {
+      "action": "romance",
+      "age": 33,
+      "title": "认识一个新的人",
+      "options": [
+        "试着了解彼此",
+        "保留自己的节奏"
+      ],
+      "finalNetWorth": 337091,
+      "finalAge": 97
+    },
+    {
+      "action": "culture",
+      "age": 34,
+      "title": "亲人遇到一笔急用钱",
+      "options": [
+        "提供能负担的小额帮助",
+        "一起寻找其他支持办法",
+        "说明自己目前的困难"
+      ],
+      "finalNetWorth": 523503,
+      "finalAge": 83
+    },
+    {
+      "action": "child",
+      "age": 29,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 626894,
+      "finalAge": 93
+    },
+    {
+      "action": "edu-secondary",
+      "age": 15,
+      "title": "选择下一段学业",
+      "options": [
+        "公办重点／高选拔性高中",
+        "公办普通高中",
+        "民办普通高中",
+        "中等职业教育"
+      ],
+      "finalNetWorth": 7985130,
+      "finalAge": 58
+    },
+    {
+      "action": "child",
+      "age": 28,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 111423,
+      "finalAge": 85
+    },
+    {
+      "action": "career-result",
+      "age": 28,
+      "title": "专业资格与岗位考核",
+      "options": [
+        "接受岗位",
+        "保留现有安排"
+      ],
+      "finalNetWorth": 3584550,
+      "finalAge": 96
+    },
+    {
+      "action": "child",
+      "age": 39,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 3519190,
+      "finalAge": 96
+    },
+    {
+      "action": "child",
+      "age": 29,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 3739431,
+      "finalAge": 89
+    },
+    {
+      "action": "child",
+      "age": 36,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 90
+    },
+    {
+      "action": "startup",
+      "age": 57,
+      "title": "把一个想法变成生意",
+      "options": [
+        "投入积蓄试一试",
+        "保留稳定的工作"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 90
+    },
+    {
+      "action": "startup",
+      "age": 54,
+      "title": "把一个想法变成生意",
+      "options": [
+        "投入积蓄试一试",
+        "保留稳定的工作"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 91
+    },
+    {
+      "action": "child",
+      "age": 31,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 6974474,
+      "finalAge": 69
+    },
+    {
+      "action": "checkup",
+      "age": 61,
+      "title": "身体发来的信号",
+      "options": [
+        "安排检查和治疗",
+        "先忙完手上的事"
+      ],
+      "finalNetWorth": 5978002,
+      "finalAge": 71
+    },
+    {
+      "action": "child",
+      "age": 35,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 1648693,
+      "finalAge": 70
+    },
+    {
+      "action": "familyhelp",
+      "age": 16,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 4139657,
+      "finalAge": 103
+    },
+    {
+      "action": "familyhelp",
+      "age": 11,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 76
+    },
+    {
+      "action": "child",
+      "age": 34,
+      "title": "是否迎接一个孩子",
+      "options": [
+        "尝试迎接新生命",
+        "现在还没准备好"
+      ],
+      "finalNetWorth": 4137655,
+      "finalAge": 88
+    },
+    {
+      "action": "career-result",
+      "age": 25,
+      "title": "专业资格与岗位考核",
+      "options": [
+        "接受岗位",
+        "保留现有安排"
+      ],
+      "finalNetWorth": 678811,
+      "finalAge": 80
+    },
+    {
+      "action": "startup",
+      "age": 32,
+      "title": "把一个想法变成生意",
+      "options": [
+        "投入积蓄试一试",
+        "保留稳定的工作"
+      ],
+      "finalNetWorth": 5174480,
+      "finalAge": 67
+    },
+    {
+      "action": "startup",
+      "age": 29,
+      "title": "把一个想法变成生意",
+      "options": [
+        "投入积蓄试一试",
+        "保留稳定的工作"
+      ],
+      "finalNetWorth": 6738,
+      "finalAge": 76
+    },
+    {
+      "action": "career-result",
+      "age": 24,
+      "title": "专业资格与岗位考核",
+      "options": [
+        "接受岗位",
+        "保留现有安排"
+      ],
+      "finalNetWorth": 227314,
+      "finalAge": 91
+    },
+    {
+      "action": "familyhelp",
+      "age": 11,
+      "title": "家里忙碌的一天",
+      "options": [
+        "分担一些家务",
+        "先完成学习任务"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 99
+    },
+    {
+      "action": "career-result",
+      "age": 20,
+      "title": "专业资格与岗位考核",
+      "options": [
+        "接受岗位",
+        "保留现有安排"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 90
+    },
+    {
+      "action": "edu-postgraduate",
+      "age": 23,
+      "title": "毕业以后，再决定下一步",
+      "options": [
+        "硕士研究生：申请与考核",
+        "开始工作并积累经验"
+      ],
+      "finalNetWorth": 40237,
+      "finalAge": 94
+    },
+    {
+      "action": "edu-recommendation",
+      "age": 21,
+      "title": "推荐选拔时期的求学机会",
+      "options": [
+        "申请推荐与学校复审",
+        "继续实践并保留学习"
+      ],
+      "finalNetWorth": 2313884,
+      "finalAge": 88
+    },
+    {
+      "action": "career-result",
+      "age": 23,
+      "title": "专业资格与岗位考核",
+      "options": [
+        "接受岗位",
+        "保留现有安排"
+      ],
+      "finalNetWorth": 2312546,
+      "finalAge": 88
+    },
+    {
+      "action": "career-result",
+      "age": 27,
+      "title": "专业资格与岗位考核",
+      "options": [
+        "接受岗位",
+        "保留现有安排"
+      ],
+      "finalNetWorth": 33605,
+      "finalAge": 63
+    },
+    {
+      "action": "career-result",
+      "age": 21,
+      "title": "专业资格与岗位考核",
+      "options": [
+        "接受岗位",
+        "保留现有安排"
+      ],
+      "finalNetWorth": 964319,
+      "finalAge": 58
+    },
+    {
+      "action": "career-result",
+      "age": 21,
+      "title": "专业资格与岗位考核",
+      "options": [
+        "接受岗位",
+        "保留现有安排"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 81
+    },
+    {
+      "action": "edu-funding",
+      "age": 18,
+      "title": "录取以后，先安排求学资金",
+      "options": [
+        "申请奖助与校内困难支持",
+        "暂缓入学，先工作并继续学习"
+      ],
+      "finalNetWorth": 276300,
+      "finalAge": 90
+    },
+    {
+      "action": "edu-postgraduate",
+      "age": 24,
+      "title": "毕业以后，再决定下一步",
+      "options": [
+        "硕士研究生：申请与考核",
+        "开始工作并积累经验"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 90
+    },
+    {
+      "action": "edu-postgraduate",
+      "age": 24,
+      "title": "毕业以后，再决定下一步",
+      "options": [
+        "硕士研究生：申请与考核",
+        "开始工作并积累经验"
+      ],
+      "finalNetWorth": 0,
+      "finalAge": 86
+    },
+    {
+      "action": "edu-postgraduate",
+      "age": 22,
+      "title": "毕业以后，再决定下一步",
+      "options": [
+        "硕士研究生：申请与考核",
+        "开始工作并积累经验"
+      ],
+      "finalNetWorth": 27037211,
+      "finalAge": 86
+    },
+    {
+      "action": "edu-postgraduate",
+      "age": 23,
+      "title": "毕业以后，再决定下一步",
+      "options": [
+        "硕士研究生：申请与考核",
+        "开始工作并积累经验"
+      ],
+      "finalNetWorth": 421152,
+      "finalAge": 63
+    },
+    {
+      "action": "edu-postgraduate",
+      "age": 23,
+      "title": "毕业以后，再决定下一步",
+      "options": [
+        "硕士研究生：申请与考核",
+        "开始工作并积累经验"
+      ],
+      "finalNetWorth": 2122476,
+      "finalAge": 70
+    },
+    {
+      "action": "edu-postgraduate",
+      "age": 23,
+      "title": "毕业以后，再决定下一步",
+      "options": [
+        "硕士研究生：申请与考核",
+        "开始工作并积累经验"
+      ],
+      "finalNetWorth": 38968416,
+      "finalAge": 76
+    },
+    {
+      "action": "edu-postgraduate",
+      "age": 23,
+      "title": "毕业以后，再决定下一步",
+      "options": [
+        "硕士研究生：申请与考核",
+        "开始工作并积累经验"
+      ],
+      "finalNetWorth": 29479,
+      "finalAge": 86
+    },
+    {
+      "action": "edu-postgraduate",
+      "age": 24,
+      "title": "毕业以后，再决定下一步",
+      "options": [
+        "硕士研究生：申请与考核",
+        "开始工作并积累经验"
+      ],
+      "finalNetWorth": 12289990,
+      "finalAge": 85
+    },
+    {
+      "action": "edu-recommendation",
+      "age": 20,
+      "title": "推荐选拔时期的求学机会",
+      "options": [
+        "申请推荐与学校复审",
+        "继续实践并保留学习"
+      ],
+      "finalNetWorth": 108704,
+      "finalAge": 89
+    },
+    {
+      "action": "edu-postgraduate",
+      "age": 24,
+      "title": "毕业以后，再决定下一步",
+      "options": [
+        "硕士研究生：申请与考核",
+        "开始工作并积累经验"
+      ],
+      "finalNetWorth": 1285415,
+      "finalAge": 92
+    }
+  ]
+}
