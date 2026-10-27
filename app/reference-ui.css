@@ -305,3 +305,72 @@ body{background:var(--memorial-bg)}
 .page-home .resume-strip{background:var(--panel2);color:var(--ink)}
 .page-home .resume-strip>div{min-width:0}
 .page-home .resume-strip button{flex:none;white-space:nowrap;font-size:12px;padding:11px 12px}
+
+/* The living person's identity, status and family share one top card. */
+.life-overview{position:relative;margin:22px 0 0;background:var(--memorial-card);border:1px solid var(--memorial-line);border-radius:18px;box-shadow:0 12px 35px #3f382019;overflow:hidden}
+.life-overview:before{content:"";position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,var(--jade),#b9a06b 72%,var(--accent))}
+.overview-header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:21px 25px 0;font-family:var(--sans);font-size:11px;color:var(--muted)}
+.overview-eyebrow{font-weight:700;letter-spacing:.12em;color:var(--jade)}
+.overview-date{font-variant-numeric:tabular-nums;white-space:nowrap}
+.overview-person{display:flex;align-items:center;gap:15px;padding:15px 25px 23px;min-width:0}
+.overview-avatar{flex:none;width:56px;height:56px;border-radius:17px;display:grid;place-items:center;background:#e5ebdc;color:#406a54;font-size:26px;font-weight:700;line-height:1}
+:root[data-theme=dark] .overview-avatar{background:#394d3f;color:#c2dfc6}
+.overview-person-copy{min-width:0}
+.overview-person h1{font-size:clamp(24px,3vw,32px);line-height:1.2;margin:0 0 4px;font-weight:600;overflow-wrap:anywhere}
+.overview-person p{font-family:var(--sans);font-size:11px;color:var(--muted);margin:0;overflow-wrap:anywhere}
+.overview-career{margin-left:auto;max-width:34%;border-radius:999px;background:#eaf2e8;color:#276749;padding:7px 12px;font-family:var(--sans);font-size:11px;font-weight:700;text-align:center;line-height:1.35;overflow-wrap:anywhere}
+:root[data-theme=dark] .overview-career{background:#304a3e;color:#b8dfc7}
+.overview-sections{display:grid;grid-template-columns:1.1fr 1fr 1.05fr;border-top:1px solid var(--memorial-line)}
+.overview-section{min-width:0;padding:20px 24px 22px}
+.overview-section+.overview-section{border-left:1px solid var(--memorial-line)}
+.overview-section h2{display:flex;align-items:center;gap:9px;margin:0 0 16px;font-family:var(--serif);font-size:17px;line-height:1.3;font-weight:600}
+.overview-section h2:before{content:"";width:5px;height:17px;border-radius:4px;background:var(--gold);flex:none}
+.overview-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 14px;margin:0}
+.overview-facts>div{min-width:0}
+.overview-facts dt,.overview-finances span{display:block;color:var(--muted);font-family:var(--sans);font-size:10px;line-height:1.5}
+.overview-facts dd{margin:3px 0 0;font-size:13px;font-weight:600;line-height:1.45;overflow-wrap:anywhere}
+.overview-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 14px}
+.overview-stat-line{display:flex;justify-content:space-between;gap:6px;align-items:baseline;font-family:var(--sans);font-size:10px;color:var(--muted)}
+.overview-stat-line strong{color:var(--ink);font-size:13px;font-variant-numeric:tabular-nums}
+.overview-track{height:5px;margin-top:5px;background:var(--memorial-line);border-radius:20px;overflow:hidden}
+.overview-track span{display:block;height:100%;border-radius:inherit;background:#5a9c75}
+.overview-stat.happiness .overview-track span{background:#d2a04c}
+.overview-stat.knowledge .overview-track span{background:#86a9bb}
+.overview-stat.relationships .overview-track span{background:#b782a2}
+.overview-finances{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;border-top:1px solid var(--memorial-line);margin-top:17px;padding-top:14px}
+.overview-finances strong{display:block;font-family:var(--sans);font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.overview-note{margin:8px 0 0;color:var(--muted);font-family:var(--sans);font-size:9px;line-height:1.5}
+.overview-family-content{max-height:260px;overflow:auto;scrollbar-width:thin}
+.overview-family-content .family-row{grid-template-columns:minmax(50px,auto) minmax(0,1fr);gap:10px;padding:7px 0;font-size:12px;line-height:1.5;border-color:var(--memorial-line)}
+.overview-family-content .family-row .muted{font-family:var(--sans);font-size:10px}
+.overview-family-content .family-name,.overview-family-content .family-row>span:last-child{min-width:0;overflow-wrap:anywhere}
+.overview-family-content .family-name small{font-family:var(--sans);font-size:10px}
+.overview-family-content>p{margin-bottom:0}
+.overview-auto{display:block;width:calc(100% - 48px);margin:0 24px 19px;background:#eaf2e8;border:0;color:#276749;font-size:11px;font-family:var(--sans);font-weight:700}
+:root[data-theme=dark] .overview-auto{background:#304a3e;color:#b8dfc7}
+.life-layout{grid-template-columns:minmax(0,1fr) 260px;margin-top:18px}
+@media(max-width:1000px){
+ .overview-sections{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .overview-family{grid-column:1/-1;border-left:0!important;border-top:1px solid var(--memorial-line)}
+ .life-layout{display:flex;flex-direction:column}.life-center,.life-right{width:100%}
+ .life-right{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+ .life-right .companions-panel{grid-column:1/-1}
+}
+@media(max-width:700px){
+ .life-overview{margin:10px 16px 0;border-radius:15px;box-shadow:0 5px 18px #3f382012}
+ .overview-header{padding:17px 17px 0}
+ .overview-person{display:grid;grid-template-columns:46px minmax(0,1fr);padding:13px 17px 17px;gap:7px 11px}
+ .overview-avatar{width:46px;height:46px;border-radius:13px;font-size:22px}
+ .overview-person-copy{min-width:0}
+ .overview-person h1{font-size:24px}
+ .overview-career{grid-column:2;margin-left:0;max-width:100%;justify-self:start;text-align:left;padding:6px 11px}
+ .overview-sections{display:block}
+ .overview-section{padding:17px}
+ .overview-section+.overview-section,.overview-family{border-left:0;border-top:1px solid var(--memorial-line)}
+ .overview-section h2{font-size:16px;margin-bottom:13px}
+ .overview-facts{gap:12px 14px}
+ .overview-family-content{max-height:none;overflow:visible}
+ .overview-auto{width:calc(100% - 34px);margin:0 17px 17px}
+ .life-layout{margin-top:12px}
+ .life-right{display:grid;grid-template-columns:1fr;width:auto;margin:12px 18px 0}
+}
