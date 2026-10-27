@@ -93,10 +93,11 @@ function applyPersonalEvent(life, event, env) {
   const before={health:life.stats.health,happiness:life.stats.happiness,relationships:life.stats.relationships,knowledge:life.stats.knowledge,money:life.money,house:life.assets?.house||0,phase:life.phase};
   const changes = Object.fromEntries(['health', 'happiness', 'relationships', 'knowledge'].filter(k => Number.isFinite(fx[k])).map(k => [k, fx[k]]));
   const date = displayDate(event);
+  const place = life.location?.name || {};
   const primary=emit(life, T(
-    `${date} · ${event.title.zhCN}。${event.description.zhCN}`,
-    `${date} · ${event.title.zhTW}。${event.description.zhTW}`,
-    `${date} · ${event.title.en}. ${event.description.en}`,
+    `${date} · 你在${place.zhCN || '这座城市'}生活的这一年，${event.title.zhCN}发生了。${event.description.zhCN}`,
+    `${date} · 你在${place.zhTW || place.zhCN || '這座城市'}生活的這一年，${event.title.zhTW}發生了。${event.description.zhTW}`,
+    `${date} · While you were living in ${place.en || 'your city'}, ${event.title.en} occurred. ${event.description.en}`,
   ), 'history', changes, metadata, env);
 
   // Independent draws: displacement and injury do not imply a death outcome.
@@ -151,7 +152,7 @@ function applyPersonalEvent(life, event, env) {
     const sign=adverse?-1:1;
     const key=Math.abs(life.stats.happiness-(sign>0?100:0))<.5?'knowledge':'happiness';
     const direction=key==='knowledge'&&life.stats.knowledge>99?-1:sign;
-    emit(life,T('时代变化也影响了你的日常感受。','時代變化也影響了你的日常感受。','The changing times also affected your daily life.'),'history',{[key]:direction*.5},{...metadata,historicalOutcome:'modeled-context-response'},env);
+    emit(life,T(`你在${place.zhCN || '这座城市'}的日常感受也随之改变。`,`你在${place.zhTW || place.zhCN || '這座城市'}的日常感受也隨之改變。`,`Your daily life in ${place.en || 'your city'} also felt different.`),'history',{[key]:direction*.5},{...metadata,historicalOutcome:'modeled-context-response'},env);
   }
   if(primary){
     const delta=Object.fromEntries(Object.entries(before).map(([key,value])=>[key,key==='house'?(life.assets?.house||0)-value:key==='phase'?life.phase:key==='money'?life.money-value:life.stats[key]-value]).filter(([key,value])=>key==='phase'?value!==before.phase:value!==0));

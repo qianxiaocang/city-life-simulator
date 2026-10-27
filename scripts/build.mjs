@@ -35,6 +35,7 @@ const bundled = await build({
 let html = await readFile(resolve(app, 'index.html'), 'utf8');
 const script = bundled.outputFiles.find(file => file.path.endsWith('.js'))?.text;
 if (!script) throw new Error('The standalone JavaScript bundle was not generated.');
+await writeFile(resolve(output, 'main.js'), script);
 const assetMime = { '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.woff': 'font/woff' };
 async function assetData(path, directory = app) {
   const bytes = await readFile(resolve(directory, path.replace(/^\.\//, '').replace(/^\//, '')));

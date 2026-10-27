@@ -1,4 +1,4 @@
-import { referencesFor } from './references.js';
+import html2canvas from 'html2canvas';
 import { drawHighlightScene } from './highlight-scenes.js';
 import { selectLifeMoments } from './life-moments.js';
 import { memorialReview } from './memorial-review.js';
@@ -22,6 +22,9 @@ if(store.current&&store.current.phase!=='dead')ensureModelState(store.current);
 let view = 'home', viewedLife = null, modal = null, lastFocus = null, minimizedDecision = null, advancedOpen = false, overviewExpanded = false, editableReviewLifeId = null;
 let paused = true, speed = 1, fast = false, automatic = !!store.current?.autopilot?.enabled, progress = 0, logLimit = 12, autoDeadline = 0, toastTimer, lastFrame = 0;
 let audioState = null;
+const MUSIC_POSITION_KEY = 'this-life-city.music-position.v1';
+let musicPosition = null, musicDrag = null, suppressMusicClick = false;
+try { const saved = JSON.parse(localStorage.getItem(MUSIC_POSITION_KEY)); if (Number.isFinite(saved?.x) && Number.isFinite(saved?.y)) musicPosition = saved; } catch { /* Storage may be unavailable. */ }
 const L = value => valueText(value, store.settings.language);
 const tr = key => t(key, store.settings.language);
 const tx = (zhCN, zhTW, en) => L({ zhCN, zhTW, en });
@@ -33,13 +36,6 @@ const formatMoney = number => money(number, store.settings.language);
 const currentLife = () => viewedLife || store.current;
 const placeLabel = place => L(place?.name);
 const regionLabel = region => tr(region);
-function modelStatus(life){
-  const p=life.profile||{};
-  const through=p.observedThrough||2025;
-  const projection=p.projection?tx(`推算情景：沿用截至 ${through} 年的观测锚点`, `推算情景：沿用截至 ${through} 年的觀測錨點`, `Projection scenario using observation anchors through ${through}`):tx(`观测锚点截至 ${through} 年`, `觀測錨點截至 ${through} 年`, `Observation anchors through ${through}`);
-  const estimate=p.historicalEstimate?tx(' · 早期或地区数值含历史估计',' · 早期或地區數值含歷史估計',' · early or regional values include historical estimates'):'';
-  return `${projection}${estimate} · ${tx('金额为2025年购买力游戏元','金額為2025年購買力遊戲元','Money is modeled in 2025 CNY purchasing power')}`;
-}
 function journalHTML(life){return (life.journal||[]).length?`<div class="panel-pad"><h3>${tx('你写下的想法','你寫下的想法','What you wrote')}</h3>${life.journal.map(entry=>`<article class="memory-note"><span class="info-label">${entry.year} · ${ageLabel(entry.age)}</span><p>${esc(entry.text)}</p></article>`).join('')}</div>`:'';}
 function persist() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(store)); } catch { toast(tr('saveError')); } }
 function toast(message) { const target = document.querySelector('#toast'); target.textContent = message; target.classList.add('visible'); clearTimeout(toastTimer); toastTimer = setTimeout(() => target.classList.remove('visible'), 3500); }
@@ -56,7 +52,57 @@ function syncMusicControl() {
   control.setAttribute('aria-label', label);
   control.title = label;
   document.body.dataset.view = view;
+  applyMusicPosition();
 }
+function applyMusicPosition() {
+  const control = document.querySelector('#floating-music');
+  if (!control || !musicPosition || musicDrag) return;
+  const margin = 12, width = control.offsetWidth, height = control.offsetHeight;
+  const x = Math.max(margin, Math.min(innerWidth - width - margin, musicPosition.x * innerWidth));
+  const y = Math.max(margin, Math.min(innerHeight - height - margin, musicPosition.y * innerHeight));
+  Object.assign(control.style, { left: `${x}px`, top: `${y}px`, right: 'auto', bottom: 'auto' });
+}
+function setupMusicDrag() {
+  const control = document.querySelector('#floating-music');
+  if (!control) return;
+  control.addEventListener('pointerdown', event => {
+    if (event.button !== 0) return;
+    const box = control.getBoundingClientRect();
+    musicDrag = { id: event.pointerId, x: event.clientX, y: event.clientY, left: box.left, top: box.top, moved: false };
+    control.setPointerCapture(event.pointerId);
+  });
+  control.addEventListener('pointermove', event => {
+    if (!musicDrag || musicDrag.id !== event.pointerId) return;
+    const dx = event.clientX - musicDrag.x, dy = event.clientY - musicDrag.y;
+    if (!musicDrag.moved && Math.hypot(dx, dy) < 6) return;
+    musicDrag.moved = true;
+    control.classList.add('is-dragging');
+    const margin = 12;
+    const x = Math.max(margin, Math.min(innerWidth - control.offsetWidth - margin, musicDrag.left + dx));
+    const y = Math.max(margin, Math.min(innerHeight - control.offsetHeight - margin, musicDrag.top + dy));
+    Object.assign(control.style, { left: `${x}px`, top: `${y}px`, right: 'auto', bottom: 'auto' });
+  });
+  const stop = event => {
+    if (!musicDrag || musicDrag.id !== event.pointerId) return;
+    if (musicDrag.moved) {
+      const box = control.getBoundingClientRect();
+      musicPosition = { x: box.left / innerWidth, y: box.top / innerHeight };
+      try { localStorage.setItem(MUSIC_POSITION_KEY, JSON.stringify(musicPosition)); } catch { /* Keep position for this visit. */ }
+      suppressMusicClick = true;
+      setTimeout(() => { suppressMusicClick = false; }, 0);
+    }
+    control.classList.remove('is-dragging');
+    musicDrag = null;
+  };
+  control.addEventListener('pointerup', stop);
+  control.addEventListener('pointercancel', stop);
+  control.addEventListener('click', event => {
+    if (!suppressMusicClick) return;
+    event.preventDefault(); event.stopImmediatePropagation(); suppressMusicClick = false;
+  }, true);
+  window.addEventListener('resize', applyMusicPosition);
+}
+setupMusicDrag();
 function header() {
   if (view === 'home') return '';
   const title = {certificate:tr('certificate'),archive:tr('archive'),report:tx('一段人生','一段人生','A lifetime')}[view] || tr('brand');
@@ -87,8 +133,8 @@ function renderHome() {
     <section class="registration" aria-labelledby="registration-title"><div class="section-heading"><h2 id="registration-title">${tx('过去和现在','過去和現在','Past and present')}</h2><span>${locations.length.toLocaleString()} ${tr('cityCount')}</span></div><div class="segments era-tabs">${['past','now'].map(world=>button('world',worldLabel(world),`data-value="${world}" class="${settings.world===world?'active':''}" aria-pressed="${settings.world===world}"`)).join('')}</div><p class="field-hint">${tr(`${settings.world}Hint`)}</p>
       ${settings.world==='past'?`<div class="field birth-year-field"><label for="birth-year">${tr('year')}</label><select id="birth-year" data-setting="birthYear">${Array.from({length:76},(_,index)=>2025-index).map(year=>`<option value="${year}" ${year===Number(settings.birthYear)?'selected':''}>${year}</option>`).join('')}</select></div>`:''}
       <details class="advanced-settings" ${advancedOpen?'open':''}><summary>${tx('出生地与游玩设置','出生地與遊玩設定','Birthplace and play settings')}</summary><div class="advanced-body"><div class="field"><label for="region-select">${tr('scope')}</label><select id="region-select" data-setting="scope"><option value="all">${tr('allRegions')}</option>${regions.map(region=>`<option value="${region}" ${settings.scope===region?'selected':''}>${regionLabel(region)}</option>`).join('')}</select></div><div class="field"><label for="province-select">${tr('province')}</label><select id="province-select" data-setting="province"><option value="all">${tr('allProvinces')}</option>${provinceOptions().map(province=>`<option value="${province.id}" ${settings.province===province.id?'selected':''}>${esc(L(province))}</option>`).join('')}</select></div><div class="field"><label>${tr('pace')}</label><div class="segments">${[30,60,90].map(pace=>button('pace',`${pace} ${tr('minutes')}`,`data-value="${pace}" class="${settings.pace===pace?'active':''}" aria-pressed="${settings.pace===pace}"`)).join('')}</div></div></div></details>
-      ${button(available?'resume':'born',available?tr('resume'):tr('born'),'class="primary full birth-button"')}<p class="birth-footnote">${tr('weightedHint')}</p></section>
-    <section class="home-memorial"><div class="section-heading"><h2>${tx('安放在追思馆的人生','安放在追思館的人生','Lives in the memorial hall')}</h2>${button('archive',tx('查看全部','查看全部','View all'),'class="text-button"')}</div>${memories.length?`<div class="memorial-preview">${memories.map(life=>`<button class="memorial-mini" data-action="review" data-value="${life.id}"><canvas data-memory-cover="${life.id}" width="640" height="220" aria-hidden="true"></canvas><strong>${esc(L(life.name))}</strong><small>${life.birthYear}–${life.year} · ${esc(placeLabel(life.born))}</small></button>`).join('')}</div>`:`<p class="home-empty">${tx('完成第一段人生后，它会出现在这里。','完成第一段人生後，它會出現在這裡。','Your first completed life will appear here.')}</p>`}</section>
+    ${button(available?'resume':'born',available?tr('resume'):tr('born'),'class="primary full birth-button"')}</section>
+    <section class="home-memorial"><div class="section-heading"><h2>${tx('安放在追思馆的人生','安放在追思館的人生','Lives in the memorial hall')}</h2>${button('archive',tx('查看全部','查看全部','View all'),'class="text-button"')}</div>${memories.length?`<div class="memorial-preview">${memories.map(life=>`<button class="memorial-mini" data-action="review" data-value="${life.id}"><canvas data-memory-cover="${life.id}" width="640" height="220" aria-hidden="true"></canvas><strong>${esc(L(life.name))}</strong><small>${life.birthYear}–${life.year} · ${esc(placeLabel(life.born))}</small></button>`).join('')}</div>`:`<p class="home-empty">${tx('你选择珍藏的人生会出现在这里。','你選擇珍藏的人生會出現在這裡。','Lives you choose to remember will appear here.')}</p>`}</section>
   </main></div>`;
 }
 function newLife() {
@@ -109,7 +155,7 @@ function renderCertificate() {
   app.innerHTML = `<div class="wrap page-certificate">${header()}<main class="cert-wrap"><article class="certificate"><div class="cert-visual"><canvas id="cert-scene" width="640" height="220" role="img" aria-label="${esc(placeLabel(life.born))}"></canvas><p>${tx(`这一生从 ${esc(placeLabel(life.born))} 开始。`,`這一生從 ${esc(placeLabel(life.born))} 開始。`,`This life begins in ${esc(placeLabel(life.born))}.`)}</p></div>
     <div class="birth-context"><strong>${esc(placeLabel(life.born))}</strong><span>${esc(L(life.born.province))} · ${regionLabel(life.born.region)} · ${life.birthYear}</span><p>${tr('birthCityNote')}</p></div>
     <div class="cert-body"><div class="cert-name"><span class="info-label">${tr('certificate')}</span><h1>${esc(L(life.name))}</h1><p>${esc(L(life.log.at(-1).text))}</p></div><div class="cert-grid">${info(tr('sex'), tr(life.sex))}${info(tr('birthplace'), placeLabel(life.born))}${info(tr('familyClass'), tr(`class${life.classRank}`))}${info(tr('mother'), `${L(life.family.mother.name)} · ${ageLabel(life.family.mother.age)}`)}${info(tr('father'), `${L(life.family.father.name)} · ${ageLabel(life.family.father.age)}`)}${info(tx('出生月份','出生月份','Birth month'),life.birthYear+'-'+String(life.birthMonth||1).padStart(2,'0'))}${info(tr('referenceLifespan'), `${life.profile.lifeExpectancy.toFixed(1)} ${tr('age')}`)}</div>
-    <h3>${tr('sameMoment')}</h3><p class="small-text muted">${tr('companionHint')}</p><div class="companions-inline">${(life.companions || []).map(person => `<div class="mini-person"><strong>${esc(L(person.name))}</strong><span>${esc(placeLabel(person.born))} · ${tr(person.sex)}</span></div>`).join('')}</div><p class="tiny muted model-note">${esc(modelStatus(life))}</p></div>
+    <h3>${tr('sameMoment')}</h3><p class="small-text muted">${tr('companionHint')}</p><div class="companions-inline">${(life.companions || []).map(person => `<div class="mini-person"><strong>${esc(L(person.name))}</strong><span>${esc(placeLabel(person.born))} · ${tr(person.sex)}</span></div>`).join('')}</div></div>
     <div class="cert-actions">${button('birth-card', tr('shareBirth'))}${button('begin', tr('beginLife'), 'class="primary"')}</div></article></main>${footer()}</div>`;
 }
 function lifeOverview(life) {
@@ -150,7 +196,7 @@ function lifeOverview(life) {
     <div class="overview-finances"><div><span>${tr('wealth')}</span><strong>${formatMoney(netWorth(life))}</strong></div><div><span>${tx('现金', '現金', 'Cash')}</span><strong>${formatMoney(life.money)}</strong></div><div><span>${tr('income')}</span><strong>${formatMoney(life.income)}</strong></div></div>
     <div class="overview-household"><span>${tx('身份与家人', '身份與家人', 'Identity & family')}</span><p>${esc(`${tr(life.sex)} · ${educationText(life.education, store.settings.language)} · ${family.join(' · ')}${familyExtra.length ? ` · ${familyExtra.join(' · ')}` : ''}`)}</p></div>
     <details class="overview-details" ${overviewExpanded ? 'open' : ''}><summary>${tx('查看身份、家人与资产明细', '查看身份、家人與資產明細', 'View identity, family & assets')}</summary><div class="overview-detail-content"><div><h2>${tr('identity')}</h2><dl class="overview-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl></div><div><h2>${tr('family')}</h2><div class="overview-family-content">${familyHTML(life)}</div></div><div><h2>${tx('资产明细', '資產明細', 'Assets')}</h2><dl class="overview-facts">${assets.map(([label, value]) => `<div><dt>${label}</dt><dd>${formatMoney(value || 0)}</dd></div>`).join('')}</dl><p class="overview-note">${tr('moneyUnit')}</p></div></div></details>
-    ${life.autopilot?.enabled || automatic ? button('take-control', tx('抉择已交给自动 · 点此恢复手动','抉擇已交給自動 · 點此恢復手動','Choices are automatic · Take control'), 'class="overview-auto"') : ''}
+    ${life.autopilot?.enabled ? button('take-control', tx('抉择已交给自动 · 点此恢复手动','抉擇已交給自動 · 點此恢復手動','Choices are automatic · Take control'), 'class="overview-auto"') : ''}
   </section>`;
 }
 function lifeFocus(life, choices) {
@@ -163,21 +209,27 @@ function yearProgress(life) {
 function renderLife() {
   const life = store.current; if (!life) return navigate('home');
   const choices = getFocusOptions(life);
-  app.innerHTML = `<main class="game-shell"><div class="life-nav">${button('leave','‹',`aria-label="${tr('back')}"`)}<span>${tx('正在活着','正在活著','Living')}</span><span class="life-nav-spacer" aria-hidden="true"></span></div><header class="game-toolbar"><div class="game-toolbar-top"><div class="toolbar-brand">${tr('brand')}</div><div class="age-display">${life.age}<small>${ageUnit(life.age)}</small></div><div class="toolbar-person">${life.year} · ${esc(L(life.name))}<br>${esc(placeLabel(life.location))}</div><div class="toolbar-tools">${button('leave', tr('exit'))}</div></div>${yearProgress(life)}<div class="control-status"><span>${esc(life.job ? L(life.job.name) : life.retired ? tx('已退休','已退休','Retired') : tr('noJob'))}</span><span>${formatMoney(life.income)} / ${tx('年','年','yr')}</span></div><div class="time-controls">${button('pause', paused ? tr('play') : tr('pause'), `id="pause-control" class="${paused ? 'active' : ''}" aria-pressed="${paused}"`)}<div class="speed-controls">${[1, 2, 4, 8, 12, 16].map(value => button('speed', `${value}×`, `data-value="${value}" class="${speed === value ? 'active' : ''}" aria-pressed="${speed === value}"`)).join('')}</div><span class="control-divider"></span>${button('next', `${tr('next')} »`, `class="${fast ? 'active' : ''}"`)}${button('year', tr('oneYear'))}${button('auto', tr('auto'), `class="${automatic&&!life.autopilot?.enabled ? 'active' : ''}" aria-pressed="${automatic&&!life.autopilot?.enabled}"`)}${button('autopilot', tr('autopilot'), `class="${life.autopilot?.enabled ? 'active' : ''}" aria-pressed="${!!life.autopilot?.enabled}"`)}${life.pending && minimizedDecision === life.pending.id ? button('pending', tr('majorChoice'), 'class="primary"') : ''}</div></header>${lifeOverview(life)}${lifeFocus(life, choices)}<div class="life-layout"><section class="life-center"><section class="panel life-scene"><canvas id="life-scene" width="640" height="220" role="img" aria-label="${esc(`${placeLabel(life.location)} · ${tr(life.urban ? 'urban' : 'rural')}`)}"></canvas><div class="scene-caption"><span>${esc(placeLabel(life.location))} · ${tr(life.urban ? 'urban' : 'rural')}</span><span>${life.year}</span></div></section><section class="panel feed-panel"><div class="panel-header panel-pad" style="margin-bottom:0"><h3>${tr('lifeLog')}</h3><span>${tr('newestFirst')}</span></div><div class="life-feed">${logHTML(life, logLimit)}</div>${life.log.length > logLimit ? `<div class="panel-pad">${button('earlier', tr('earlier'), 'class="full small"')}</div>` : ''}</section></section><aside class="life-right"><section class="panel panel-pad companions-panel"><h3>${tr('sameMoment')}</h3><div class="companions-stack">${companionsHTML(life)}</div><p class="tiny muted" style="margin:17px 0 0">${tr('companionHint')}</p></section><section class="panel panel-pad"><h3>${tr('lifeMap')}</h3>${yearGrid(life)}<p class="tiny muted" style="margin:12px 0 0">${tr('lifeMapHint')}</p></section><section class="panel panel-pad"><h3>${tr('survival')}</h3><canvas id="survival" class="survival-canvas" width="480" height="300" role="img" aria-label="${tr('survival')}"></canvas><p class="tiny muted" style="margin:10px 0 0">${tr('survivalHint')}</p></section></aside></div></main>`;
+  app.innerHTML = `<main class="game-shell"><div class="life-nav">${button('leave','‹',`aria-label="${tr('back')}"`)}<span>${tx('正在活着','正在活著','Living')}</span><span class="life-nav-spacer" aria-hidden="true"></span></div><header class="game-toolbar"><div class="game-toolbar-top"><div class="toolbar-brand">${tr('brand')}</div><div class="age-display">${life.age}<small>${ageUnit(life.age)}</small></div><div class="toolbar-person">${life.year} · ${esc(L(life.name))}<br>${esc(placeLabel(life.location))}</div><div class="toolbar-tools">${button('leave', tr('exit'))}</div></div>${yearProgress(life)}<div class="control-status"><span>${esc(life.job ? L(life.job.name) : life.retired ? tx('已退休','已退休','Retired') : tr('noJob'))}</span><span>${formatMoney(life.income)} / ${tx('年','年','yr')}</span></div><div class="time-controls">${button('pause', paused ? tr('play') : tr('pause'), `id="pause-control" class="${paused ? 'active' : ''}" aria-pressed="${paused}"`)}<div class="speed-controls">${[1, 2, 4, 8, 12, 16].map(value => button('speed', `${value}×`, `data-value="${value}" class="${speed === value ? 'active' : ''}" aria-pressed="${speed === value}"`)).join('')}</div><span class="control-divider"></span>${button('next', `${tr('next')} »`, `class="${fast ? 'active' : ''}"`)}${button('year', tr('oneYear'))}${button('autopilot', tr('autopilot'), `class="${life.autopilot?.enabled ? 'active' : ''}" aria-pressed="${!!life.autopilot?.enabled}"`)}${life.pending && minimizedDecision === life.pending.id ? button('pending', tr('majorChoice'), 'class="primary"') : ''}</div></header>${lifeOverview(life)}${lifeFocus(life, choices)}<div class="life-layout"><section class="life-center"><section class="panel life-scene"><canvas id="life-scene" width="640" height="220" role="img" aria-label="${esc(`${placeLabel(life.location)} · ${tr(life.urban ? 'urban' : 'rural')}`)}"></canvas><div class="scene-caption"><span>${esc(placeLabel(life.location))} · ${tr(life.urban ? 'urban' : 'rural')}</span><span>${life.year}</span></div></section><section class="panel feed-panel"><div class="panel-header panel-pad" style="margin-bottom:0"><h3>${tr('lifeLog')}</h3><span>${tr('newestFirst')}</span></div><div class="life-feed">${logHTML(life, logLimit)}</div>${life.log.length > logLimit ? `<div class="panel-pad">${button('earlier', tr('earlier'), 'class="full small"')}</div>` : ''}</section></section><aside class="life-right"><section class="panel panel-pad companions-panel"><h3>${tr('sameMoment')}</h3><div class="companions-stack">${companionsHTML(life)}</div><p class="tiny muted" style="margin:17px 0 0">${tr('companionHint')}</p></section><section class="panel panel-pad"><h3>${tr('lifeMap')}</h3>${yearGrid(life)}<p class="tiny muted" style="margin:12px 0 0">${tr('lifeMapHint')}</p></section><section class="panel panel-pad"><h3>${tr('survival')}</h3><canvas id="survival" class="survival-canvas" width="480" height="300" role="img" aria-label="${tr('survival')}"></canvas><p class="tiny muted" style="margin:10px 0 0">${tr('survivalHint')}</p></section></aside></div></main>`;
 }
 function familyHTML(life) {
   const row = (kind, person) => person ? `<div class="family-row"><span class="muted">${kind}</span><span class="family-name">${esc(L(person.name))}<small>${person.alive ? ageLabel(person.age) : tr('passed')}</small></span></div>` : '';
   return row(tr('mother'), life.family.mother) + row(tr('father'), life.family.father) + (life.family.partner ? row(tr('partner'), life.family.partner) : `<p class="tiny muted">${tr('single')}</p>`) + life.family.children.map(child => row(tr('children'), child)).join('') + (life.family.siblings.length ? `<div class="family-row"><span class="muted">${tr('siblings')}</span><span>${life.family.siblings.map(person => `${esc(L(person.name))} · ${person.alive ? ageLabel(person.age) : tr('passed')}`).join('<br>')}</span></div>` : '') + (life.hobbies.length ? `<p class="tiny muted" style="margin:14px 0 0">${life.hobbies.map(hobby => `${esc(L(hobby.name))} · Lv.${Math.floor(hobby.level)}`).join(' · ')}</p>` : '');
 }
-function displayEventText(event) { const text=L(event.text); return event.date&&text.startsWith(event.date+' · ')?text.slice(event.date.length+3):text; }
-function logHTML(life, count) { return life.log.slice(0, count).map(event => `<article class="feed-item ${event.type}"><span class="feed-age">${event.age}</span><div class="feed-text">${event.date?'<span class="history-date mono">'+esc(event.date)+(event.timeBeijing?' '+esc(event.timeBeijing)+' (UTC+8)':'')+'</span>':''}${esc(displayEventText(event))}${sourceLinks(event)}${event.effects ? `<div class="feed-meta">${Object.entries(event.effects).filter(([key]) => key in life.stats).map(([key, value]) => `${tr(key)} ${value > 0 ? '+' : ''}${Math.round(value * 10) / 10}`).join(' · ')}</div>` : ''}</div>${button('star', life.stars?.includes(event.id) ? '★' : '☆', `data-value="${event.id}" class="star ${life.stars?.includes(event.id) ? 'is-starred' : ''}" aria-label="${tx('收藏记忆', '收藏記憶', 'Star a memory')}" aria-pressed="${!!life.stars?.includes(event.id)}"`)}</article>`).join(''); }
+function displayEventText(event) {
+  const text = L(event.text);
+  const clean = event.date && text.startsWith(event.date + ' · ') ? text.slice(event.date.length + 3) : text;
+  if (event.type !== 'history' || !event.historicalEventId || /你|妳|you|your/i.test(clean)) return clean;
+  const place = locationsById.get(event.locationId);
+  return `${tx(`你在${placeLabel(place) || '这座城市'}生活时，`, `你在${placeLabel(place) || '這座城市'}生活時，`, `While you were living in ${placeLabel(place) || 'your city'}, `)}${clean}`;
+}
+function logHTML(life, count) { return life.log.slice(0, count).map(event => `<article class="feed-item ${event.type}"><span class="feed-age">${event.age}</span><div class="feed-text">${event.date?'<span class="history-date mono">'+esc(event.date)+(event.timeBeijing?' '+esc(event.timeBeijing)+' (UTC+8)':'')+'</span>':''}${esc(displayEventText(event))}${event.effects ? `<div class="feed-meta">${Object.entries(event.effects).filter(([key]) => key in life.stats).map(([key, value]) => `${tr(key)} ${value > 0 ? '+' : ''}${Math.round(value * 10) / 10}`).join(' · ')}</div>` : ''}</div>${button('star', life.stars?.includes(event.id) ? '★' : '☆', `data-value="${event.id}" class="star ${life.stars?.includes(event.id) ? 'is-starred' : ''}" aria-label="${tx('收藏记忆', '收藏記憶', 'Star a memory')}" aria-pressed="${!!life.stars?.includes(event.id)}"`)}</article>`).join(''); }
 function companionsHTML(life) { return (life.companions || []).map(person => { const gone = life.age >= person.deathAge; const year = person.years.find(item => item.age === life.age) || person.years.at(-1); const stage = gone ? `${ageLabel(person.deathAge)} · ${tr('goneAt')}` : year?.job ? L(year.job) : educationText(year?.education, store.settings.language); return `<article class="companion ${gone ? 'gone' : ''}"><div class="companion-top"><div><div class="companion-name">${esc(L(person.name))}</div><div class="companion-city">${esc(placeLabel(person.born))} · ${tr(person.sex)}</div></div><span class="companion-dot"></span></div><p class="companion-status">${esc(stage)}</p></article>`; }).join(''); }
 function yearGrid(life) { const byAge = new Map(life.years.map(year => [year.age, year])); return `<div class="year-grid">${Array.from({ length: Math.max(96, life.age + 1) }, (_, age) => { const year = byAge.get(age); return `<span class="year-square ${life.age === age ? 'current' : ''}" title="${ageLabel(age)}${year ? ` · ${tr('happiness')} ${Math.round(year.happiness)}` : ''}" ${year ? `style="background:hsl(${55 + year.happiness * .95} 28% ${83 - year.happiness * .46}%)"` : ''}></span>`; }).join('')}</div><div class="year-legend"><span>0</span><span>48</span><span>${Math.max(95, life.age)}</span></div>`; }
 function memorialPlaceCount(life) { return new Set((life.visited || []).map(place => place?.id).filter(Boolean)).size || 1; }
 function memorialReviewHTML(life) {
   const review = memorialReview(life, store.settings.language);
   const editable = view === 'report' && editableReviewLifeId === life.id && life.phase === 'dead';
-  return `<div class="memorial-review"><div class="memorial-review-top"><span>${tx('一生点评', '一生點評', 'Life reflection')}</span>${editable ? button('edit-review', tx('编辑点评', '編輯點評', 'Edit reflection'), 'class="edit-review"') : ''}</div><p>${esc(review.text)}</p></div>`;
+  return `<div class="memorial-review"><div class="memorial-review-top"><span>${tx('一生点评', '一生點評', 'Life reflection')}</span>${editable ? button('edit-review', `<span aria-hidden="true">✎</span> ${tx('写下你的话', '寫下你的話', 'Add your words')}`, 'class="edit-review"') : ''}</div><p>${esc(review.text)}</p></div>`;
 }
 function memorialLifeFacts(life) {
   const summary = summarize(life);
@@ -228,7 +280,7 @@ function renderReport() {
   const allEvents=life.log.slice().reverse();
   app.innerHTML=`<div class="wrap page-report">${header()}<main class="memorial-detail"><article class="detail-person"><canvas data-memory-cover="${life.id}" width="640" height="220" aria-hidden="true"></canvas><div class="detail-person-body"><h1>${esc(L(life.name))}</h1><p class="muted">${life.birthYear}–${life.year} · ${esc(placeLabel(life.born))}</p><p class="detail-summary">${esc(memorialTagline(life))}</p><p class="detail-meta">${tr(life.sex)} · ${tx('活了','活了','Lived')} ${ageLabel(life.age)} · ${life.family.partner?.married?tx('已婚','已婚','Married'):tr('single')} · ${life.family.children.length} ${tr('children')}</p>${memorialLifeFacts(life)}${memorialReviewHTML(life)}${button('candle',`${life.candleLit??(life.candles>0)?'🕯️':'🕯'} <span>${life.candles||0}</span>`,`data-value="${life.id}" class="detail-candle" aria-label="${(life.candleLit??(life.candles>0))?tx('收起烛光','收起燭光','Put out candle'):tx('点亮烛光','點亮燭光','Light a candle')}" aria-pressed="${!!(life.candleLit??(life.candles>0))}"`)}</div></article>
   <div class="memorial-highlights"><h2>${tx('人生瞬间', '人生瞬間', 'Life moments')}</h2>${[...groups].map(([decade,events])=>`<section class="decade-group"><div class="decade-title"><strong>${memorialDecade(events[0].age)}</strong><span>${events.length===1?events[0].year:`${events[0].year}–${events.at(-1).year}`}</span></div><div class="decade-events">${events.map(event=>`<article class="memory-moment"><canvas data-memory-event="${event.id}" width="640" height="220" aria-hidden="true"></canvas><div><strong>${ageLabel(event.age)}</strong><span>${event.year}</span></div><p>${esc(displayEventText(event))}</p></article>`).join('')}</div></section>`).join('')}</div>
-  <section class="whole-life" id="life-record"><h2>${tx('这一生','這一生','This life')}</h2><div class="life-record-list">${allEvents.map(event=>`<div class="record-row ${event.type}"><span class="record-age">${event.age}</span><p>${esc(displayEventText(event))}</p></div>`).join('')}</div></section><div class="detail-bottom">${button('archive',tx('回到追思馆','回到追思館','Back to the memorial hall'),'class="full"')}${button('home',tr('home'),'class="full"')}</div></main></div>`;
+  <section class="whole-life" id="life-record"><h2>${tx('这一生','這一生','This life')}</h2><div class="life-record-list">${allEvents.map(event=>`<div class="record-row ${event.type}"><span class="record-age">${event.age}</span><p>${esc(displayEventText(event))}</p></div>`).join('')}</div></section><div class="detail-bottom">${store.history.some(item=>item.id===life.id)?`<p class="memorial-saved">✓ ${tx('已放入追思馆', '已放入追思館', 'Saved in the memorial hall')}</p>`:button('memorialize',tx('放入追思馆','放入追思館','Place in memorial hall'),'class="full memorialize-button"')}${button('replay',tx('重活一遍','重活一遍','Live again'),'class="full replay-button"')}</div></main></div>`;
 }
 function openModal(type, title, contents, wide = false) {
   if (!modal) lastFocus = document.activeElement;
@@ -241,34 +293,39 @@ function closeModal() { modalRoot.innerHTML = ''; document.body.classList.remove
 function openReviewEditor() {
   const life = currentLife();
   if (view !== 'report' || life?.phase !== 'dead' || editableReviewLifeId !== life.id) return;
-  openModal('review-editor', tx('一生点评', '一生點評', 'Life reflection'), `<div class="review-editor"><p>${tx('写下你想留给这一生的话。离开本页后，点评将保存在追思馆，不能再修改。', '寫下你想留給這一生的話。離開本頁後，點評會保存在追思館，不能再修改。', 'Write what you want to remember. Once you leave this page, the reflection is saved and can no longer be edited.')}</p><label for="farewell-note">${tx('你的点评（可选）', '你的點評（可選）', 'Your reflection (optional)')}</label><textarea id="farewell-note" maxlength="300" placeholder="${tx('留空则使用系统生成的点评', '留空則使用系統生成的點評', 'Leave blank to use the generated reflection')}">${esc(life.farewell || '')}</textarea>${button('save-review', tx('保存点评', '儲存點評', 'Save reflection'), 'class="full"')}</div>`);
+  openModal('review-editor', tx('一生点评', '一生點評', 'Life reflection'), `<div class="review-editor"><p>${tx('写下想留给这一生的话。离开本页后便不能修改；只有主动放入追思馆才会珍藏这段人生。', '寫下想留給這一生的話。離開本頁後便不能修改；只有主動放入追思館才會珍藏這段人生。', 'Write what you want to remember. Editing ends when you leave this page; this life enters the memorial hall only if you choose to save it.')}</p><label for="farewell-note">${tx('你的点评（可选）', '你的點評（可選）', 'Your reflection (optional)')}</label><textarea id="farewell-note" maxlength="300" placeholder="${tx('留空则使用系统生成的点评', '留空則使用系統生成的點評', 'Leave blank to use the generated reflection')}">${esc(life.farewell || '')}</textarea>${button('save-review', tx('保存点评', '儲存點評', 'Save reflection'), 'class="full"')}</div>`);
   modalRoot.querySelector('#farewell-note')?.focus();
 }
 function openDecision() {
   const life = store.current, pending = life?.pending; if (!pending) return;
   if (modal?.type === 'decision' && modal.id === pending.id) return;
   closeModal(); minimizedDecision = null; autoDeadline = automatic && !paused ? performance.now() + 2200 : 0;
-  openModal('decision', pending.kind === 'reflection' ? tr('reflection') : tr('majorChoice'), `<div class="decision-kicker"><span>${ageLabel(life.age)} · ${life.year}</span><span>${esc(placeLabel(life.location))}</span></div><h2>${esc(L(pending.title))}</h2><p>${esc(L(pending.description))}</p>${sourceLinks(pending)}${pending.input ? `<textarea id="reflection-input" maxlength="200" aria-label="${tr('reflection')}" placeholder="${tr('reflectionPlaceholder')}"></textarea>` : ''}<div class="decision-options">${pending.options.map((option, index) => button('choose', `<span class="number">${index + 1}</span><span><b>${esc(L(option.label))}</b>${L(option.description) ? `<small>${esc(L(option.description))}</small>` : ''}</span>`, `class="decision-option" data-value="${option.id}"`)).join('')}</div><div class="decision-foot">${automatic ? `<div>${tr('autoCountdown')} <span id="decision-countdown">3</span></div>${button('take-control', tr('takeControl'))}` : button('auto', tr('auto'))}</div>`);
+  openModal('decision', pending.kind === 'reflection' ? tr('reflection') : tr('majorChoice'), `<div class="decision-kicker"><span>${ageLabel(life.age)} · ${life.year}</span><span>${esc(placeLabel(life.location))}</span></div><h2>${esc(L(pending.title))}</h2><p>${esc(L(pending.description))}</p>${pending.input ? `<textarea id="reflection-input" maxlength="200" aria-label="${tr('reflection')}" placeholder="${tr('reflectionPlaceholder')}"></textarea>` : ''}<div class="decision-options">${pending.options.map((option, index) => button('choose', `<span class="number">${index + 1}</span><span><b>${esc(L(option.label))}</b>${L(option.description) ? `<small>${esc(L(option.description))}</small>` : ''}</span>`, `class="decision-option" data-value="${option.id}"`)).join('')}</div>${automatic ? `<div class="decision-foot"><div>${tr('autoCountdown')} <span id="decision-countdown">3</span></div>${button('take-control', tr('takeControl'))}</div>` : ''}`);
   modal.id = pending.id;
-}
-function sourceLinks(entry) {
-  const urls=referencesFor(entry);
-  return urls.length?`<div class="source-links">${urls.map((url,index)=>`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${tx('出处','出處','Source')} ${index+1} ↗</a>`).join('')}</div>`:'';
 }
 function completeYear() { const life = store.current; if (!life || life.pending || life.phase !== 'life') return; const oldYear=life.year; advanceYear(life); progress = life.year===oldYear&&life.pending?1:0; life.uiProgress=progress; persist(); if (life.phase === 'dead') finishLife(); else { if (life.pending) fast = false; render(); } }
 function makeChoice(optionId, isAutomatic = false) { const life = store.current; if (!life?.pending) return; const text = document.querySelector('#reflection-input')?.value || ''; if (isAutomatic) autoChoose(life); else choose(life, optionId, text); closeModal(); minimizedDecision = null; autoDeadline = 0; if(life.autopilot?.enabled)runAutopilot(life); persist(); render(); }
 function finishLife() {
   const life = store.current;
   paused = true; fast = false; closeModal();
-  store.history = [life, ...store.history.filter(item => item.id !== life.id)].slice(0, 12);
   editableReviewLifeId = life.id;
   persist(); view = 'report'; viewedLife = null; render();
   const ending = document.createElement('section');
   ending.className = 'ending'; ending.setAttribute('role', 'dialog'); ending.setAttribute('aria-modal', 'true'); ending.setAttribute('aria-label', tr('endingTitle'));
-  ending.innerHTML = `<div class="ending-content"><canvas id="ending-scene" width="640" height="220" aria-hidden="true"></canvas><h1>${esc(L(life.name))}</h1><p class="date">${life.birthYear} — ${life.year}</p><p>${tr('endingTitle')}<br>${tr('endingText')}</p>${button('end-done', tr('viewReport'))}</div>`;
+  ending.innerHTML = `<div class="ending-content"><div class="ending-portrait"><canvas id="ending-scene" width="640" height="220" aria-hidden="true"></canvas><h1>${esc(L(life.name))}</h1><p class="date">${life.birthYear} — ${life.year}</p><p>${tr('endingTitle')}<br>${tr('endingText')}</p></div><div class="ending-actions">${button('capture-ending', tx('拍照纪念', '拍照紀念', 'Save a photo'))}${button('end-done', tr('viewReport'))}</div></div>`;
   document.body.append(ending); drawScene(ending.querySelector('canvas'), life, true); ending.querySelector('[data-action="end-done"]')?.focus();
 }
-function toggleAuto() { automatic = !automatic; if(!automatic&&store.current?.autopilot?.enabled)setAutopilot(store.current,false,store.current.autopilot.strategy); if (automatic) paused = false; autoDeadline = 0; if (modal?.type === 'decision') closeModal(); persist(); render(); toast(tr(automatic ? 'autoOn' : 'autoOff')); }
+async function captureEnding(ending) {
+  if (!ending) return;
+  const portrait = ending.querySelector('.ending-portrait');
+  const canvas = await html2canvas(portrait, { backgroundColor: '#101916', scale: Math.min(2, window.devicePixelRatio || 1), useCORS: true, logging: false });
+  const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+  if (!blob) throw new Error('Could not create a memorial image');
+  const life = store.current;
+  download(blob, `${L(life.name).replace(/[\\/:*?"<>|]/g, '').slice(0, 32)}-${life.birthYear}-${life.year}-纪念.png`);
+  toast(tx('纪念照片已保存', '紀念照片已儲存', 'Memorial photo saved'));
+}
+function takeControl() { const life = store.current; if (!life) return; setAutopilot(life, false, life.autopilot?.strategy || 'balanced'); automatic = false; autoDeadline = 0; if (modal?.type === 'decision') closeModal(); persist(); render(); toast(tr('autopilotOff')); }
 function toggleAutopilot(){const life=store.current;if(!life||life.phase!=='life')return;const enable=!life.autopilot?.enabled;const strategy=life.autopilot?.strategy||'balanced';setAutopilot(life,enable,strategy);automatic=enable;paused=!enable?paused:false;if(enable)runAutopilot(life);persist();render();toast(tr(enable?'autopilotOn':'autopilotOff'));}
 function updateFrame(timestamp) {
   const dt = Math.min(.2, Math.max(0, (timestamp - (lastFrame || timestamp)) / 1000)); lastFrame = timestamp;
@@ -307,12 +364,14 @@ document.addEventListener('click', async event => {
     if (action === 'back') return navigate(view === 'report' ? 'archive' : 'home');
     if (action === 'home' || action === 'leave') { persist(); return navigate('home'); }
     if (action === 'archive') return navigate('archive');
-    if (action === 'candle') { const life=store.history.find(item=>item.id===value); if (life) { const wasLit=life.candleLit ?? (life.candles>0); life.candleLit=!wasLit; life.candles=Math.max(0,(life.candles||0)+(life.candleLit?1:-1)); persist(); render(); } return; }
+    if (action === 'candle') { const life=store.history.find(item=>item.id===value)||[store.current,viewedLife].find(item=>item?.id===value); if (life) { const wasLit=life.candleLit ?? (life.candles>0); life.candleLit=!wasLit; life.candles=Math.max(0,(life.candles||0)+(life.candleLit?1:-1)); persist(); render(); } return; }
     if (action === 'world') { if (!['past', 'now'].includes(value)) return; store.settings.world = value; persist(); return render(); }
     if (action === 'pace') { store.settings.pace = Number(value); persist(); return render(); }
     if (action === 'language') { if (!LANGUAGES.some(language => language.id === value)) return; store.settings.language = value; persist(); return render(); }
     if (action === 'theme') { store.settings.theme = store.settings.theme === 'dark' ? 'light' : 'dark'; persist(); return render(); }
     if (action === 'born') return newLife();
+    if (action === 'replay') return newLife();
+    if (action === 'memorialize') { const life=currentLife(); if (view!=='report'||life?.phase!=='dead') return; if (!store.history.some(item=>item.id===life.id)) store.history=[life,...store.history].slice(0,12); persist(); render(); return toast(tx('这一生已放入追思馆', '這一生已放入追思館', 'This life is now in the memorial hall')); }
     if (action === 'resume') return navigate(store.current.phase === 'birth' ? 'certificate' : 'life');
     if (action === 'begin') { startLife(store.current); navigate('life'); paused = false; persist(); return render(); }
     if (action === 'pause') { paused = !paused; autoDeadline = 0; return render(); }
@@ -320,17 +379,18 @@ document.addEventListener('click', async event => {
     if (action === 'next') { fast = !fast; paused = false; return render(); }
     if (action === 'year') { if (store.current.pending) openDecision(); else completeYear(); return; }
     if (action === 'focus') { if(store.current.autopilot?.enabled){setAutopilot(store.current,false,store.current.autopilot.strategy);automatic=false;}setFocus(store.current, value); persist(); return render(); }
-    if (action === 'auto' || action === 'take-control') return toggleAuto();
+    if (action === 'take-control') return takeControl();
     if (action === 'autopilot') return toggleAutopilot();
     if (action === 'choose') return makeChoice(value);
     if (action === 'pending') { minimizedDecision = null; return openDecision(); }
-    if (action === 'close-modal') { if (modal?.type === 'decision') { minimizedDecision = store.current.pending.id; automatic = false; } closeModal(); if (view === 'life') render(); return; }
+    if (action === 'close-modal') { if (modal?.type === 'decision') { minimizedDecision = store.current.pending.id; automatic = false; if (store.current?.autopilot?.enabled) setAutopilot(store.current, false, store.current.autopilot.strategy); persist(); } closeModal(); if (view === 'life') render(); return; }
     if (action === 'earlier') { logLimit += 20; return render(); }
     if (action === 'star') { const life = currentLife(); life.stars ||= []; const removing=life.stars.includes(value); life.stars = removing ? life.stars.filter(id => id !== value) : [...life.stars, value]; persist(); render(); toast(removing?tx('已取消收藏','已取消收藏','Removed from saved records'):tx('已收藏，人生结束后将成为人生瞬间','已收藏，人生結束後將成為人生瞬間','Saved for your life moments after this life ends')); return; }
     if (action === 'review') return navigate('report', store.history.find(life => life.id === value));
     if (action === 'edit-review') return openReviewEditor();
     if (action === 'save-review') { const life=currentLife(); if (view !== 'report' || life?.phase !== 'dead' || editableReviewLifeId !== life.id || modal?.type !== 'review-editor') return; life.farewell = (modalRoot.querySelector('#farewell-note')?.value || '').trim().slice(0, 300); persist(); closeModal(); render(); return toast(tr('saved')); }
     if (action === 'end-done') { target.closest('.ending')?.remove(); render(); return; }
+    if (action === 'capture-ending') return captureEnding(target.closest('.ending'));
     if (action === 'life-card' || action === 'birth-card') return makeCard(currentLife(), action === 'birth-card', action === 'birth-card');
     if (action === 'music') { await toggleAudio(); return render(); }
   } catch (error) { console.error(error); toast(tx('这次操作没有完成，人生记录仍保留。', '這次操作沒有完成，人生紀錄仍保留。', 'The action could not be completed. Your life is still saved.')); }
@@ -385,7 +445,7 @@ function drawAll() {
   const life = currentLife();
   for (const id of ['home-scene', 'cert-scene', 'life-scene', 'report-scene']) { const canvas = document.querySelector(`#${id}`); if (canvas) drawScene(canvas, id === 'home-scene' ? null : life); }
   for (const canvas of document.querySelectorAll('[data-archive-scene]')) drawScene(canvas, store.history.find(item => item.id === canvas.dataset.archiveScene));
-  for (const canvas of document.querySelectorAll('[data-memory-cover]')) { const person=store.history.find(item=>item.id===canvas.dataset.memoryCover); if(person){const covers=reportHighlights(person).filter(item=>['family','love','work','career','education','birth'].includes(item.type));const event=covers[person.birthYear%covers.length]||reportHighlights(person)[0];drawHighlightScene(canvas,event,person);} }
+  for (const canvas of document.querySelectorAll('[data-memory-cover]')) { const person=store.history.find(item=>item.id===canvas.dataset.memoryCover)||[store.current,viewedLife].find(item=>item?.id===canvas.dataset.memoryCover); if(person){const covers=reportHighlights(person).filter(item=>['family','love','work','career','education','birth'].includes(item.type));const event=covers[person.birthYear%covers.length]||reportHighlights(person)[0];drawHighlightScene(canvas,event,person);} }
   for (const canvas of document.querySelectorAll('[data-memory-event]')) { const person=currentLife();const event=person?.log.find(item=>item.id===canvas.dataset.memoryEvent);if(event)drawHighlightScene(canvas,event,person); }
   if (document.querySelector('#survival')) drawSurvival(document.querySelector('#survival'), life);
 }

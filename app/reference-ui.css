@@ -537,3 +537,53 @@ body{background:var(--memorial-bg)}
 @media(prefers-reduced-motion:reduce){
  .floating-music,.music-icon,.music-waves i,.floating-music:before,.language-chevron{animation:none!important;transition:none!important}
 }
+/* The start form groups the essential choice and keeps detailed settings compact. */
+.page-home .registration{padding:22px 22px 20px;box-shadow:0 12px 32px #1d24201c}
+.page-home .registration .section-heading{align-items:center;margin-bottom:17px}
+.page-home .registration h2{font-size:22px;line-height:1.25}
+.page-home .registration .section-heading>span{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;background:color-mix(in srgb,var(--memorial-green) 11%,var(--memorial-card));color:var(--jade);font:700 10px/1.2 var(--sans);white-space:nowrap}
+.page-home .era-tabs{padding:5px;gap:5px;border:1px solid var(--memorial-line);border-radius:13px}
+.page-home .era-tabs button{min-height:47px;border-radius:9px!important;font:700 14px/1.3 var(--serif)}
+.page-home .era-tabs button.active{background:var(--memorial-card);color:var(--jade);box-shadow:0 2px 9px #201f1a23}
+:root[data-theme=dark] .page-home .era-tabs button.active{background:#355747;color:#edf7ee;box-shadow:0 2px 10px #0005}
+.page-home .registration>.field-hint{margin:12px 2px 0;color:var(--muted);font:12px/1.6 var(--sans)}
+.page-home .birth-year-field{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:15px 0 0;padding:12px 15px;border:1px solid var(--memorial-line);border-radius:11px;background:var(--memorial-bg)}
+.page-home .birth-year-field label{margin:0;font:700 12px var(--sans)}
+.page-home .birth-year-field select{width:min(46%,180px);min-height:43px;margin:0;padding:8px 13px;border-radius:8px;background:var(--memorial-card);font:700 14px var(--sans)}
+.page-home .advanced-settings{margin-top:14px;border-color:var(--memorial-line);border-radius:12px;background:var(--memorial-bg);overflow:hidden}
+.page-home .advanced-settings summary{position:relative;display:flex;align-items:center;min-height:48px;padding:13px 40px 13px 15px;list-style:none;color:var(--ink);font:700 13px/1.3 var(--sans)}
+.page-home .advanced-settings summary::-webkit-details-marker{display:none}
+.page-home .advanced-settings summary:after{content:'⌄';position:absolute;right:16px;top:10px;font:24px/1 var(--sans);color:var(--jade);transition:transform .2s}
+.page-home .advanced-settings[open] summary:after{transform:rotate(180deg)}
+.page-home .advanced-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px;padding:2px 15px 16px}
+.page-home .advanced-body .field{min-width:0;margin:0}
+.page-home .advanced-body .field:last-child{grid-column:1/-1}
+.page-home .advanced-body label{display:block;margin-bottom:7px;font:11px/1.4 var(--sans);color:var(--muted)}
+.page-home .advanced-body select{width:100%;min-height:46px;margin:0;padding:9px 10px;border-radius:8px;background:var(--memorial-card);font:12px/1.3 var(--sans)}
+.page-home .advanced-body .segments{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;overflow:hidden;border:1px solid var(--memorial-line);border-radius:9px}
+.page-home .advanced-body .segments button{min-height:45px;margin:0;border:0;border-right:1px solid var(--memorial-line);border-radius:0;font:12px/1.3 var(--sans)}
+.page-home .advanced-body .segments button:last-child{border-right:0}
+.page-home .registration .birth-button{margin-top:18px;min-height:54px;font-size:17px}
+.floating-music{touch-action:none;user-select:none;cursor:grab}
+.floating-music.is-dragging,.floating-music.is-dragging:hover,.floating-music.is-dragging:active{transform:none;transition:none;cursor:grabbing;box-shadow:0 17px 34px #0005,0 0 0 5px #70bea64d}
+.memorial-review .edit-review{min-height:42px;padding:5px 0 5px 8px;border:0;border-radius:0;background:transparent;color:var(--jade);font:700 12px/1.3 var(--sans);text-decoration:underline;text-underline-offset:4px}
+.memorial-review .edit-review:hover{background:transparent;color:var(--memorial-green)}
+.memorial-review .edit-review span{display:inline;color:inherit;font:18px/1 var(--serif);letter-spacing:0;text-decoration:none}
+.detail-bottom .memorialize-button{background:var(--jade);border-color:var(--jade);color:#fff;font-weight:700}
+.detail-bottom .memorialize-button:hover{filter:brightness(1.08)}
+.detail-bottom .replay-button{background:transparent;border-color:var(--memorial-line);color:var(--ink)}
+.detail-bottom .memorial-saved{margin:0;padding:13px 16px;border:1px solid var(--memorial-line);border-radius:8px;background:color-mix(in srgb,var(--memorial-green) 12%,var(--memorial-card));color:var(--jade);font:700 12px/1.5 var(--sans);text-align:center}
+.ending-portrait{padding:0 0 12px;background:#101916}
+.ending-actions{display:flex;justify-content:center;gap:12px;margin-top:18px}
+.ending-actions button{min-height:48px;margin:0;border-radius:10px;font-size:13px}
+.ending-actions button[data-action=capture-ending]{background:#efeadd;color:#16211c;border-color:#efeadd}
+@media(max-width:700px){
+ .page-home .registration{padding:18px 16px 17px}
+ .page-home .registration h2{font-size:19px}
+ .page-home .registration .section-heading>span{font-size:9px;padding:5px 7px}
+ .page-home .era-tabs button{font-size:13px}
+ .page-home .advanced-body{gap:12px 9px;padding:2px 12px 13px}
+ .ending-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+ .ending-actions button{padding:10px 8px;font-size:12px}
+}
+@media(max-width:370px){.page-home .advanced-body{grid-template-columns:1fr}.page-home .advanced-body .field:last-child{grid-column:auto}.page-home .registration .section-heading>span{display:none}}
