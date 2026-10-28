@@ -70,6 +70,10 @@ function programFor(life,stage,ownership,label,extra={}) {
 }
 function enroll(life,program,env) {
   const state=ensureEducationState(life);
+  if (HIGHER.has(program.stage) && life.age + (program.duration || DURATIONS[program.stage]) > 45) {
+    env.log(life,T('这一阶段的课程无法在本作设定的继续教育年龄范围内完成。你保留已有学历，重新安排工作和学习。','這階段課程無法在本作設定的進修年齡範圍內完成。你保留既有學歷，重新安排工作與學習。','This course cannot be completed within the game’s continuing-education age range. You keep the qualification already earned and reconsider work and study.'),'education');
+    env.offerWork(life);return false;
+  }
   if(life.location.region==='mainland'&&life.year>=1966&&life.year<=1969&&HIGHER.has(program.stage)&&!program.wasEnrolled){
     env.log(life,T('这一年高校停止招生，录取或资金安排不能绕过停招。','這一年高校停止招生，錄取或資金安排不能繞過停招。','Admissions are suspended this year; a funding plan cannot bypass the closure.'),'education');env.offerWork(life);return false;
   }
@@ -147,7 +151,7 @@ function higherDecision(life,env,{restored=false}={}) {
   const programs=admitted?admissionPrograms(life,score).filter(program=>(program.stage!=='university'||bachelor)&&(program.admissionTier!=='research-public'||selective)):[];
   state.admissionAttempts||=[];state.admissionAttempts.push({year:life.year,age:life.age,admitted,bachelor,policy,contextualAccess,modelOnly:true});
   const description=T((restored?'恢复高考带来一次重新出发的机会。':'')+'本次模拟标准分 '+score+'/100。分段只用于游戏，不代表真实省级录取线；本科／专科与公办／民办是两个不同维度。',(restored?'恢復高考帶來一次重新出發的機會。':'')+'本次模擬標準分 '+score+'/100。分段僅用於遊戲，不代表真實省級錄取線；大學／專科與公辦／民辦是不同維度。',(restored?'The restored entrance examination offers a new start. ':'')+'Modeled score: '+score+'/100. These bands are game parameters, not provincial cut-offs. Qualification and public/private ownership are separate.');
-  const options=programs.map((program,i)=>option(env,'program-'+i,program.label,T('模型学费 ¥'+numberText(program.annualTuition)+'/年；再选择家庭支持、奖助或符合条件的助学贷款。','模型學費 ¥'+numberText(program.annualTuition)+'/年；再選家庭支持、獎助或合資格助學貸款。','Modeled tuition: CNY '+numberText(program.annualTuition)+'/year. Next arrange family support, aid or an eligible student loan.'),program.ownership==='public'?2.2:.7));
+  const options=programs.map((program,i)=>option(env,'program-'+i,T('选择'+program.label.zhCN,'選擇'+program.label.zhTW,'Choose '+program.label.en),T('模型学费 ¥'+numberText(program.annualTuition)+'/年；再选择家庭支持、奖助或符合条件的助学贷款。','模型學費 ¥'+numberText(program.annualTuition)+'/年；再選家庭支持、獎助或合資格助學貸款。','Modeled tuition: CNY '+numberText(program.annualTuition)+'/year. Next arrange family support, aid or an eligible student loan.'),program.ownership==='public'?2.2:.7));
   if(state.repeats<2&&life.age<=24)options.push(option(env,'repeat',T('准备一年，再试一次','準備一年，再試一次','Prepare and try again next year'),T('推迟一年，不保证下一次成绩提高。','延後一年，不保證下次成績提高。','A year of preparation does not guarantee a higher score.'),.4));
   options.push(option(env,'work',T('先进入工作，保留继续教育机会','先進入工作，保留繼續教育機會','Work first; keep learning later'),undefined,programs.length?.7:2));
   env.decision(life,'edu-college',T(mainland?'高考之后，选择去向':'毕业评估后的升学去向',mainland?'高考之後，選擇去向':'畢業評估後的升學去向',mainland?'After the entrance examination':'Study choices after graduation assessment'),description,options,{programs,score,route:route.id,sourceIds:['admission-batches','gaokao-history'],modelOnly:true});
@@ -177,6 +181,21 @@ export function finishEducation(life,env) {
   const state=ensureEducationState(life);
   if(!life.school)return false;
   const school=life.school;
+  if (school.stage==='junior' && Number.isInteger(life.birthYear) && life.location.region==='mainland' && life.age>=13 &&
+      !state.juniorExitChecked) {
+    state.juniorExitChecked=true;
+    const exitRisk=life.birthYear<1970?.24:life.birthYear<1990?.11:.035;
+    if(env.chance(life,exitRisk)){
+      life.school=null;state.completedCompulsory=false;state.juniorDroppedOut=true;
+      env.log(life,T('家庭和时代条件使你暂时离开初中，九年学业尚未完成；此时不能按完成义务教育者进入岗位。','家庭與時代條件使你暫時離開國中，九年學業尚未完成；此時不能按完成義務教育者進入職位。','Family and period conditions interrupted lower-secondary study. The nine years remain incomplete, so employment requiring completion is unavailable.'),'education');
+      return false;
+    }
+  }
+  if (HIGHER.has(school.stage) && life.age > 45) {
+    life.school=null;
+    env.log(life,T('你保留此前已获得的学历，这段长期未完成的课程在这里结束。','你保留此前已取得的學歷，這段長期未完成的課程在此結束。','You retain your previous qualification; this long-unfinished course ends here.'),'education');
+    env.offerWork(life);return false;
+  }
   school.completedAcademicYears=school.creditedAcademicYears+Math.max(0,life.age-school.segmentStartedAt-school.segmentDelayedAcademicYears);
   if(HIGHER.has(school.stage)&&school.lastFundingReviewYear!==life.year) {
     const incomplete=Math.max(0,school.unfundedAcademicYears || (school.fundingGap>0?1:0));
@@ -203,8 +222,8 @@ export function finishEducation(life,env) {
 export function educationMilestones(life,env) {
   const state=ensureEducationState(life);
   if(life.phase!=='life')return;
-  if(life.age===6&&life.education==='preschool'&&!life.school&&!seen(life,'primary')) {
-    enroll(life,programFor(life,'primary','public',NAMES.primary,{familyContribution:0}),env);
+  if(life.age===(life.schoolStartAge??6)&&life.education==='preschool'&&!life.school&&!seen(life,'primary')) {
+    enroll(life,programFor(life,'primary','public',NAMES.primary,{familyContribution:0,duration:life.primaryYears??6}),env);
     return;
   }
   const stage=state.justGraduated;
@@ -287,7 +306,7 @@ export function resolveEducationDecision(life,pending,optionId,env) {
       } else if(optionId==='aid') {
         if(env.chance(life,.45+(life.classRank<=2?.2:0)+(program.examScore>=85?.15:0))) {
           const scholarship=Math.round(program.annualTuition*.8+program.livingCost*.6);
-          env.log(life,T('你获得一项奖助安排，预计每学年支持 ¥'+numberText(scholarship)+'。该金额是本次情景设定。','你獲得一項獎助安排，預計每學年支持 ¥'+numberText(scholarship)+'。此金額為本次情景設定。','You received a modeled aid package of CNY '+numberText(scholarship)+' per academic year.'),'education');
+          env.log(life,T('你的奖助申请获得支持，预计每学年可用 ¥'+numberText(scholarship)+'支付求学费用。','你的獎助申請獲得支持，預計每學年可用 ¥'+numberText(scholarship)+'支付求學費用。','Your aid application succeeded and can contribute CNY '+numberText(scholarship)+' per academic year toward study costs.'),'education');
           fundingDecision(life,{...program,scholarship,aidAttempted:true},env);
         } else {env.log(life,T('这次奖助申请未获支持，录取选择仍需要可承担的资金方案。','這次獎助申請未獲支持，錄取選擇仍需要可負擔的資金安排。','This aid application was unsuccessful. An affordable funding plan is still needed.'),'education');fundingDecision(life,{...program,aidAttempted:true},env);}
       } else if(optionId==='cheaper') {

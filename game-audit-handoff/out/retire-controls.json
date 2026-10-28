@@ -1,0 +1,460 @@
+[
+  {
+    "case": "st70@past@1970",
+    "before": {
+      "seed": "st70",
+      "world": "past",
+      "birthYear": 1970,
+      "sex": "female",
+      "region": "mainland",
+      "contributionYears": 78,
+      "transitions": [
+        {
+          "age": 55,
+          "year": 2025,
+          "rule": 55.166666666666664,
+          "category": "female55",
+          "statutory": true,
+          "effective": null
+        }
+      ],
+      "workHistory": [
+        {
+          "age": 18,
+          "year": 1988,
+          "id": "quality-control"
+        },
+        {
+          "age": 35,
+          "year": 2005,
+          "id": "sales"
+        },
+        {
+          "age": 56,
+          "year": 2026,
+          "id": "bus-driver"
+        }
+      ],
+      "deathAge": 97
+    },
+    "after": {
+      "seed": "st70",
+      "world": "past",
+      "birthYear": 1970,
+      "sex": "female",
+      "region": "mainland",
+      "contributionYears": 0,
+      "transitions": [],
+      "workHistory": [],
+      "deathAge": 95
+    }
+  },
+  {
+    "case": "st93@past@1997",
+    "before": {
+      "seed": "st93",
+      "world": "past",
+      "birthYear": 1997,
+      "sex": "female",
+      "region": "mainland",
+      "contributionYears": 0,
+      "transitions": [
+        {
+          "age": 64,
+          "year": 2061,
+          "rule": 55,
+          "category": "female50",
+          "statutory": true,
+          "effective": null
+        }
+      ],
+      "workHistory": [
+        {
+          "age": 18,
+          "year": 2015,
+          "id": "farmer"
+        },
+        {
+          "age": 25,
+          "year": 2022,
+          "id": "livestock"
+        },
+        {
+          "age": 57,
+          "year": 2054,
+          "id": "farmer"
+        },
+        {
+          "age": 64,
+          "year": 2061,
+          "id": "textile-worker"
+        }
+      ],
+      "deathAge": 89
+    },
+    "after": {
+      "seed": "st93",
+      "world": "past",
+      "birthYear": 1997,
+      "sex": "female",
+      "region": "mainland",
+      "contributionYears": 27,
+      "transitions": [
+        {
+          "age": 55,
+          "year": 2052,
+          "rule": 55,
+          "category": "female50",
+          "statutory": true,
+          "effective": {
+            "year": 2052,
+            "month": 8,
+            "precision": "modeled-month"
+          }
+        }
+      ],
+      "workHistory": [
+        {
+          "age": 18,
+          "year": 2015,
+          "id": "farmer"
+        },
+        {
+          "age": 25,
+          "year": 2022,
+          "id": "livestock"
+        },
+        {
+          "age": 28,
+          "year": 2025,
+          "id": "quality-control"
+        },
+        {
+          "age": 33,
+          "year": 2030,
+          "id": "machine-technician"
+        }
+      ],
+      "deathAge": 88
+    }
+  },
+  {
+    "case": "st613@past@1952",
+    "before": {
+      "seed": "st613",
+      "world": "past",
+      "birthYear": 1952,
+      "sex": "male",
+      "region": "mainland",
+      "contributionYears": 24,
+      "transitions": [
+        {
+          "age": 63,
+          "year": 2015,
+          "rule": 60,
+          "category": "male60",
+          "statutory": true,
+          "effective": null
+        }
+      ],
+      "workHistory": [
+        {
+          "age": 18,
+          "year": 1970,
+          "id": "machine-technician"
+        },
+        {
+          "age": 20,
+          "year": 1972,
+          "id": "postal-worker"
+        },
+        {
+          "age": 21,
+          "year": 1973,
+          "id": "utility-worker"
+        },
+        {
+          "age": 23,
+          "year": 1975,
+          "id": "welder"
+        },
+        {
+          "age": 23,
+          "year": 1975,
+          "id": "agricultural-tech"
+        },
+        {
+          "age": 24,
+          "year": 1976,
+          "id": "nurse"
+        },
+        {
+          "age": 25,
+          "year": 1977,
+          "id": "utility-worker"
+        },
+        {
+          "age": 43,
+          "year": 1995,
+          "id": "farmer"
+        },
+        {
+          "age": 63,
+          "year": 2015,
+          "id": "state-factory"
+        }
+      ],
+      "deathAge": 82
+    },
+    "after": {
+      "seed": "st613",
+      "world": "past",
+      "birthYear": 1952,
+      "sex": "male",
+      "region": "mainland",
+      "contributionYears": 41,
+      "transitions": [
+        {
+          "age": 60,
+          "year": 2012,
+          "rule": 60,
+          "category": "male60",
+          "statutory": true,
+          "effective": {
+            "year": 2012,
+            "month": 4,
+            "precision": "modeled-month"
+          }
+        }
+      ],
+      "workHistory": [
+        {
+          "age": 18,
+          "year": 1970,
+          "id": "machine-technician"
+        },
+        {
+          "age": 20,
+          "year": 1972,
+          "id": "postal-worker"
+        },
+        {
+          "age": 21,
+          "year": 1973,
+          "id": "utility-worker"
+        },
+        {
+          "age": 23,
+          "year": 1975,
+          "id": "welder"
+        },
+        {
+          "age": 23,
+          "year": 1975,
+          "id": "agricultural-tech"
+        },
+        {
+          "age": 24,
+          "year": 1976,
+          "id": "nurse"
+        },
+        {
+          "age": 25,
+          "year": 1977,
+          "id": "utility-worker"
+        }
+      ],
+      "deathAge": 82
+    }
+  },
+  {
+    "case": "st3260@now@2026",
+    "before": {
+      "seed": "st3260",
+      "world": "now",
+      "birthYear": 2026,
+      "sex": "female",
+      "region": "mainland",
+      "contributionYears": 39,
+      "transitions": [
+        {
+          "age": 61,
+          "year": 2087,
+          "rule": 58,
+          "category": "female55",
+          "statutory": true,
+          "effective": null
+        }
+      ],
+      "workHistory": [
+        {
+          "age": 22,
+          "year": 2048,
+          "id": "cleaner"
+        },
+        {
+          "age": 32,
+          "year": 2058,
+          "id": "physician"
+        },
+        {
+          "age": 41,
+          "year": 2067,
+          "id": "state-factory"
+        },
+        {
+          "age": 51,
+          "year": 2077,
+          "id": "bank-teller"
+        }
+      ],
+      "deathAge": 95
+    },
+    "after": {
+      "seed": "st3260",
+      "world": "now",
+      "birthYear": 2026,
+      "sex": "female",
+      "region": "mainland",
+      "contributionYears": 38,
+      "transitions": [
+        {
+          "age": 55,
+          "year": 2081,
+          "rule": 55,
+          "category": "female50",
+          "statutory": true,
+          "effective": {
+            "year": 2081,
+            "month": 8,
+            "precision": "modeled-month"
+          }
+        },
+        {
+          "age": 61,
+          "year": 2087,
+          "rule": 58,
+          "category": "female55",
+          "statutory": true,
+          "effective": {
+            "year": 2087,
+            "month": 8,
+            "precision": "modeled-month"
+          }
+        }
+      ],
+      "workHistory": [
+        {
+          "age": 22,
+          "year": 2048,
+          "id": "cleaner"
+        },
+        {
+          "age": 39,
+          "year": 2065,
+          "id": "textile-worker"
+        },
+        {
+          "age": 56,
+          "year": 2082,
+          "id": "secondary-teacher"
+        }
+      ],
+      "deathAge": 96
+    }
+  },
+  {
+    "case": "st1201@past@1955",
+    "before": {
+      "seed": "st1201",
+      "world": "past",
+      "birthYear": 1955,
+      "sex": "female",
+      "region": "mainland",
+      "contributionYears": 32,
+      "transitions": [
+        {
+          "age": 50,
+          "year": 2005,
+          "rule": 50,
+          "category": "female50",
+          "statutory": true,
+          "effective": null
+        }
+      ],
+      "workHistory": [
+        {
+          "age": 18,
+          "year": 1973,
+          "id": "state-factory"
+        },
+        {
+          "age": 21,
+          "year": 1976,
+          "id": "electrician"
+        },
+        {
+          "age": 21,
+          "year": 1976,
+          "id": "utility-worker"
+        },
+        {
+          "age": 22,
+          "year": 1977,
+          "id": "machine-technician"
+        },
+        {
+          "age": 38,
+          "year": 1993,
+          "id": "state-factory"
+        }
+      ],
+      "deathAge": 62
+    },
+    "after": {
+      "seed": "st1201",
+      "world": "past",
+      "birthYear": 1955,
+      "sex": "female",
+      "region": "mainland",
+      "contributionYears": 32,
+      "transitions": [
+        {
+          "age": 50,
+          "year": 2005,
+          "rule": 50,
+          "category": "female50",
+          "statutory": true,
+          "effective": {
+            "year": 2005,
+            "month": 10,
+            "precision": "modeled-month"
+          }
+        }
+      ],
+      "workHistory": [
+        {
+          "age": 18,
+          "year": 1973,
+          "id": "state-factory"
+        },
+        {
+          "age": 21,
+          "year": 1976,
+          "id": "electrician"
+        },
+        {
+          "age": 21,
+          "year": 1976,
+          "id": "utility-worker"
+        },
+        {
+          "age": 22,
+          "year": 1977,
+          "id": "machine-technician"
+        }
+      ],
+      "deathAge": 62
+    }
+  }
+]

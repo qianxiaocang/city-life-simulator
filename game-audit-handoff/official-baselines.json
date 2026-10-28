@@ -1,0 +1,643 @@
+{
+ "_meta": {
+  "purpose": "External Chinese official baselines used to judge whether the simulated life matches a real Chinese life, stage by stage.",
+  "game_under_audit": "https://www.opportunity-tszy.site/  (engine = main.js, sha256 f703243ce9662d66…, 1574199 bytes)",
+  "collectedOn": "2026-10-27",
+  "collectedBy": "headless audit session (main agent verified tier A pages personally; tier B pages were opened by delegated research runs and are marked with the read method)",
+  "tiers": {
+   "A": "原文由本次审计主进程亲自 web_fetch 打开并在返回正文中逐字看到该数字。可直接作为基线。",
+   "B": "由本次审计派出的取证任务真实打开了页面（含统计局年鉴 JPG 表格的图片读数）。可作基线，但复用时应能容忍读数误差，年鉴图片读数需标 OCR。",
+   "C": "只拿到搜索摘要 / 二手转引 / 官方原页 404 / 官方根本无此口径。禁止当作硬基线，只能作为方向性参考，且必须在结论里标注。"
+  },
+  "hard_rule": "Any assertion in FIX-BRIEF / LIFE-STAGE-REVIEW that cites a C-tier item is advisory only and must not be written as a confirmed defect. If a C-tier item is later upgraded to A/B, re-run the gate before changing the verdict.",
+  "unit_note": "Money inside the game is declared by the engine itself as 'CNY-2025-model' fixed purchasing power, so period prices are compared after CPI deflation to 2025 prices, never nominal-to-nominal across decades.",
+  "hard_rule_c": "凡引用 C 级条目的断言一律为\"待核/方向性\"，不得写\"已核实\"；本轮官方从未发布过 1949-1977 出生人口绝对数、全国逐年初婚年龄、分年龄死亡率一手表，这三项永久标记为缺口。"
+ },
+ "baselines": [
+  {
+   "id": "LAW-RETIRE-2024",
+   "tier": "A",
+   "stage": "老年/退休",
+   "kind": "law",
+   "publisher": "中国政府网（新华社受权发布）",
+   "pubDate": "2024-09-13",
+   "url": "https://www.gov.cn/yaowen/liebiao/202409/content_6974294.htm",
+   "facts": {
+    "通过日期": "2024-09-13（十四届全国人大常委会第十一次会议）",
+    "施行日期": "2025-01-01",
+    "男职工": "原60周岁 → 逐步延迟至63周岁；每4个月延迟1个月",
+    "原55周岁女职工": "→ 逐步延迟至58周岁；每4个月延迟1个月",
+    "原50周岁女职工": "→ 逐步延迟至55周岁；每2个月延迟1个月",
+    "最低缴费年限": "自2030-01-01起由15年逐步提高至20年，每年提高6个月",
+    "弹性退休": "达到最低缴费年限可自愿弹性提前，最长3年，且不得低于原法定年龄；协商一致可弹性延迟，最长3年",
+    "特殊工种": "井下、高空、高温、特别繁重体力劳动、高海拔地区可按规定提前退休",
+    "废止": "《安置老弱病残干部暂行办法》《工人退休、退职暂行办法》中有关退休年龄的规定不再施行"
+   },
+   "useFor": "引擎 retirementRule 的年龄与时点是否符合现行法律；2025 年后出生的工作人群退休年龄应随出生月递增"
+  },
+  {
+   "id": "POP-2024",
+   "tier": "A",
+   "stage": "全生命周期",
+   "kind": "statistic",
+   "publisher": "国家统计局《中华人民共和国2024年国民经济和社会发展统计公报》",
+   "pubDate": "2025-02-28",
+   "url": "https://www.stats.gov.cn/sj/zxfb/202502/t20250228_1958817.html",
+   "facts": {
+    "年末全国人口_万人": 140828,
+    "比上年减少_万人": 139,
+    "城镇常住人口_万人": 94350,
+    "出生人口_万人": 954,
+    "出生率_千分比": 6.77,
+    "死亡人口_万人": 1093,
+    "死亡率_千分比": 7.76,
+    "自然增长率_千分比": -0.99,
+    "男性比重_pct": 51.1,
+    "女性比重_pct": 48.9,
+    "0-15岁比重_pct": 17.1,
+    "16-59岁比重_pct": 60.9,
+    "60岁及以上比重_pct": 22.0,
+    "65岁及以上比重_pct": 15.6
+   },
+   "useFor": "判断模拟人口的年龄结构、生死频率是否与同期真实中国人口结构同量级"
+  },
+  {
+   "id": "URBAN-2024",
+   "tier": "A",
+   "stage": "全生命周期/迁徙",
+   "kind": "statistic",
+   "publisher": "国家统计局 2024年公报",
+   "pubDate": "2025-02-28",
+   "url": "https://www.stats.gov.cn/sj/zxfb/202502/t20250228_1958817.html",
+   "facts": {
+    "年末常住人口城镇化率_pct": 67.0,
+    "比上年提高_百分点": 0.84
+   },
+   "useFor": "判断各出生队列的城乡出身比例与'农村→城市'流动概率是否合理",
+   "_note": "同一 URL 即 POP-2024 条目，正文原句：'年末全国常住人口城镇化率为67.00%，比上年末提高0.84个百分点。'"
+  },
+  {
+   "id": "INCOME-2024",
+   "tier": "A",
+   "stage": "中年/收入",
+   "kind": "statistic",
+   "publisher": "国家统计局 2024年公报",
+   "pubDate": "2025-02-28",
+   "url": "https://www.stats.gov.cn/sj/zxfb/202502/t20250228_1958817.html",
+   "facts": {
+    "全国居民人均可支配收入_元": 41314,
+    "同比名义增长_pct": 5.3,
+    "中位数_元": 34707,
+    "城镇居民人均可支配收入_元": 54188,
+    "城镇中位数_元": 49302,
+    "农村居民人均可支配收入_元": 23119,
+    "人均消费支出_元": 28227,
+    "服务性消费占比_pct": 46.1,
+    "恩格尔系数_pct": 29.8
+   },
+   "useFor": "校准游戏内职业年收入与'经济拮据/小康'家庭出身的现金水平是否落在真实分布内"
+  },
+  {
+   "id": "CPI-2024",
+   "tier": "A",
+   "stage": "全生命周期/物价",
+   "kind": "statistic",
+   "publisher": "国家统计局 2024年公报",
+   "pubDate": "2025-02-28",
+   "url": "https://www.stats.gov.cn/sj/zxfb/202502/t20250228_1958817.html",
+   "facts": {
+    "居民消费价格比上年上涨_pct": 0.2,
+    "食品烟酒_pct": -0.1,
+    "居住_pct": 0.1,
+    "教育文化娱乐_pct": 1.5,
+    "医疗保健_pct": 1.3
+   },
+   "useFor": "把历年官方名义收入折算到 2025 年购买力，再与游戏内 CNY-2025-model 对比"
+  },
+  {
+   "id": "EDU-2024",
+   "tier": "A",
+   "stage": "上学",
+   "kind": "statistic",
+   "publisher": "国家统计局 2024年公报",
+   "pubDate": "2025-02-28",
+   "url": "https://www.stats.gov.cn/sj/zxfb/202502/t20250228_1958817.html",
+   "facts": {
+    "九年义务教育巩固率_pct": 95.9,
+    "高中阶段毛入学率_pct": 92.0,
+    "小学_招生_万人": 1616.6,
+    "小学_在校生_万人": 10584.4,
+    "初中_招生_万人": 1848.8,
+    "初中_在校生_万人": 5386.2,
+    "普通高中_招生_万人": 1036.2,
+    "中职_招生_万人": 575.4,
+    "中职_在校生_万人": 1659.4,
+    "普通职业本专科_招生_万人": 1068.9,
+    "普通职业本专科_毕业生_万人": 1059.4,
+    "研究生_招生_万人": 135.7,
+    "研究生_在学_万人": 409.5,
+    "研究生_毕业生_万人": 108.4
+   },
+   "useFor": "按同一年龄组人数比例校验'升学/中职/直接工作'的分流比例；研究生招生量级用于判断'大龄读研'的现实概率"
+  },
+  {
+   "id": "JOB-2024",
+   "tier": "A",
+   "stage": "就业",
+   "kind": "statistic",
+   "publisher": "国家统计局 2024年公报",
+   "pubDate": "2025-02-28",
+   "url": "https://www.stats.gov.cn/sj/zxfb/202502/t20250228_1958817.html",
+   "facts": {
+    "全国就业人员_万人": 73439,
+    "城镇就业人员_万人": 47345,
+    "城镇新增就业_万人": 1256,
+    "城镇调查失业率年均_pct": 5.1,
+    "年末城镇调查失业率_pct": 5.1,
+    "农民工总量_万人": 29973,
+    "外出农民工_万人": 17871,
+    "本地农民工_万人": 12102
+   },
+   "useFor": "校验失业事件的频率量级、以及农村出身者进入城镇就业的概率（农民工 3 亿量级）"
+  },
+  {
+   "id": "INSUR-2024",
+   "tier": "A",
+   "stage": "就业/老年",
+   "kind": "statistic",
+   "publisher": "国家统计局 2024年公报",
+   "pubDate": "2025-02-28",
+   "url": "https://www.stats.gov.cn/sj/zxfb/202502/t20250228_1958817.html",
+   "facts": {
+    "城镇职工基本养老保险_万人": 53449,
+    "城乡居民基本养老保险_万人": 53830,
+    "基本医疗保险_万人": 132638,
+    "职工基本医疗保险_万人": 37920,
+    "城乡居民基本医疗保险_万人": 94718,
+    "失业保险_万人": 24589,
+    "工伤保险_万人": 30398,
+    "生育保险_万人": 25298
+   },
+   "useFor": "校验'有没有社保/养老金'类事件在人群中的覆盖比例；职工 vs 居民养老两条线约各 5.3 亿人"
+  },
+  {
+   "id": "CENSUS7-EDU",
+   "tier": "A",
+   "stage": "上学",
+   "kind": "statistic",
+   "publisher": "国家统计局·国务院第七次全国人口普查公报（第六号）",
+   "pubDate": "2021-05-11",
+   "url": "https://www.stats.gov.cn/sj/tjgb/rkpcgb/qgrkpcgb/202302/t20230206_1902006.html",
+   "facts": {
+    "文盲人口_人": 37750200,
+    "文盲率_pct": 2.67,
+    "2010年文盲率_pct": 4.08,
+    "15岁及以上平均受教育年限_年": 9.91,
+    "2010年该值_年": 9.08,
+    "大专及以上_人": 218360767,
+    "高中含中专_人": 213005258,
+    "初中_人": 487163489,
+    "小学_人": 349658828,
+    "每10万人中大学文化程度_2020": 15467,
+    "每10万人中大学文化程度_2010": 8930
+   },
+   "useFor": "判断'完全没读过书/只有小学'的人口比例是否与普查一致；受过程度分布是学历事件的总量约束"
+  },
+  {
+   "id": "LAW-COMPULSORY-EDU",
+   "tier": "A",
+   "stage": "上学",
+   "kind": "law",
+   "publisher": "教育部（转载《中华人民共和国义务教育法》现行文本）",
+   "pubDate": "2021-10-29（页面）；法律：1986-04-12 通过，2006-06-29 修订，修订自 2006-09-01 施行",
+   "url": "http://www.moe.gov.cn/jyb_sjzl/sjzl_zcfg/zcfg_jyfl/202110/t20211029_575949.html",
+   "facts": {
+    "第二条": "国家实行九年义务教育制度。……实施义务教育，不收学费、杂费。",
+    "第十一条": "凡年满六周岁的儿童，其父母或者其他法定监护人应当送其入学接受并完成义务教育；条件不具备的地区的儿童，可以推迟到七周岁。",
+    "第六十一条": "对接受义务教育的学生免收杂费的具体期限，由国务院规定。",
+    "时代边界": "免学费杂费条款属 2006 年修订文本（2006-09-01 施行）；1986 年原文只规定\"国家实行九年义务教育\"，故 1986 年前的学费记录不能按现行法判缺陷。",
+    "学制": "小学 6 年 + 初中 3 年（六三制），合计九年"
+   },
+   "useFor": [
+    "入学年龄=6/7 周岁",
+    "完成小学=12/13 岁",
+    "完成初中=15 岁",
+    "2006-09-01 起小学初中不得收学费杂费（判定须带时代边界）"
+   ],
+   "readMethod": "直接抓取页面正文并逐条核对原文"
+  },
+  {
+   "id": "LAW-MIN-AGE-WORK",
+   "tier": "B",
+   "stage": "就业",
+   "kind": "law",
+   "publisher": "中国政府网·法规库《中华人民共和国劳动法》",
+   "pubDate": "1994-07-05 通过；1995-01-01 施行；2009-08-27 修正",
+   "url": "https://www.gjxfj.gov.cn/gjxfj/fgwj/flfg/webinfo/2014-05-1601761496659330.htm",
+   "facts": {
+    "第十五条": "禁止用人单位招用未满十六周岁的未成年人",
+    "第五十八条": "未成年工指年满16未满18周岁"
+   },
+   "useFor": "16 岁前不得入职；16-18 岁属未成年工特殊保护"
+  },
+  {
+   "id": "LE-YEARBOOK",
+   "tier": "B",
+   "readMethod": "统计表为 JPG 图片，由取证任务逐行读图",
+   "stage": "老年/死亡",
+   "kind": "statistic",
+   "publisher": "国家统计局《中国统计年鉴2024》表2-3 平均预期寿命",
+   "url": "https://www.stats.gov.cn/sj/ndsj/2024/html/C02-03.jpg",
+   "facts": {
+    "1981": {
+     "合计": 67.77,
+     "男": 66.28,
+     "女": 69.27
+    },
+    "1990": {
+     "合计": 68.55,
+     "男": 66.84,
+     "女": 70.47
+    },
+    "1996_合计": 70.8,
+    "2000": {
+     "合计": 71.4,
+     "男": 69.63,
+     "女": 73.33
+    },
+    "2005": {
+     "合计": 72.95,
+     "男": 70.83,
+     "女": 75.25
+    },
+    "2010": {
+     "合计": 74.83,
+     "男": 72.38,
+     "女": 77.37
+    },
+    "2015": {
+     "合计": 76.34,
+     "男": 73.64,
+     "女": 79.43
+    },
+    "2020": {
+     "合计": 77.93,
+     "男": 75.37,
+     "女": 80.88
+    }
+   },
+   "useFor": "模拟人口的死亡年龄分布是否随出生队列下移；女性应高于男性约 4-6 岁"
+  },
+  {
+   "id": "LE-NHC",
+   "tier": "B",
+   "stage": "老年/死亡",
+   "kind": "statistic",
+   "publisher": "国家卫健委 卫生健康事业发展统计公报解读稿",
+   "pubDate": "2024年公报解读 2025-12-02；2025年公报解读 2026-08-28",
+   "url": "https://www.nhc.gov.cn/guihuaxxs/c100132/202512/9db8db5488a748c4b1e1068a4a8c4455.shtml",
+   "url2": "https://www.nhc.gov.cn/guihuaxxs/c100132/202608/3fadb2a3da314bb688e848598f6ac6df.shtml",
+   "facts": {
+    "2024_人均预期寿命_岁": 79.0,
+    "2024_婴儿死亡率_千分比": 4.0,
+    "2024_孕产妇死亡率_十万分比": 14.3,
+    "2025_人均预期寿命_岁": 79.25,
+    "2025_婴儿死亡率_千分比": 3.8
+   },
+   "useFor": "游戏里 2020 年代出生队列的寿命锚点与婴儿死亡频率"
+  },
+  {
+   "id": "INCOME-SERIES",
+   "tier": "B",
+   "readMethod": "统计表为 JPG 图片，由取证任务逐行读图",
+   "stage": "中年/收入",
+   "kind": "statistic",
+   "publisher": "国家统计局《中国统计年鉴2024》表6-16 居民人均可支配收入和指数",
+   "url": "https://www.stats.gov.cn/sj/ndsj/2024/html/C06-16.jpg",
+   "facts": {
+    "口径": "全国/城镇/农村 元·人·年",
+    "1978": [
+     171,
+     343,
+     134
+    ],
+    "1990": [
+     904,
+     1510,
+     686
+    ],
+    "2000": [
+     3721,
+     6256,
+     2282
+    ],
+    "2010": [
+     12520,
+     18779,
+     6272
+    ],
+    "2013_全国": 18311,
+    "2020": [
+     32189,
+     43834,
+     17131
+    ],
+    "2023": [
+     39218,
+     51821,
+     21691
+    ]
+   },
+   "useFor": "把不同年代的游戏内收入折算到同一年份后，检查是否落在真实收入分布附近"
+  },
+  {
+   "id": "WAGE-NONPRIV",
+   "tier": "B",
+   "readMethod": "统计表为 JPG 图片，由取证任务逐行读图",
+   "stage": "就业/收入",
+   "kind": "statistic",
+   "publisher": "国家统计局《中国统计年鉴2024》表4-9 城镇非私营单位就业人员平均工资",
+   "url": "https://www.stats.gov.cn/sj/ndsj/2024/html/C04-09.jpg",
+   "facts": {
+    "单位_元每年": {
+     "1995": 5348,
+     "2000": 9333,
+     "2005": 18200,
+     "2010": 36539,
+     "2015": 62029,
+     "2020": 97379,
+     "2023": 120698
+    }
+   },
+   "useFor": "游戏职业收入的天花板与中位数校准（注意此为'非私营单位'口径，高于全体居民）"
+  },
+  {
+   "id": "CPI-SERIES",
+   "tier": "B",
+   "readMethod": "统计表为 JPG 图片，由取证任务逐行读图",
+   "stage": "全生命周期/物价",
+   "kind": "statistic",
+   "publisher": "国家统计局《中国统计年鉴2024》表5-1 各种价格指数（上年=100）",
+   "url": "https://www.stats.gov.cn/sj/ndsj/2024/html/C05-01.jpg",
+   "facts": {
+    "1978": 100.7,
+    "1990": 103.1,
+    "1995": 117.1,
+    "2000": 100.4,
+    "2010": 103.3,
+    "2020": 102.5,
+    "2021": 100.9,
+    "2022": 102.0,
+    "2023": 100.2
+   },
+   "useFor": "构建 1978→2025 CPI 链（缺年按相邻年插值，必须在结论中标注为推算）"
+  },
+  {
+   "id": "BIRTHRATE-SERIES",
+   "tier": "B",
+   "readMethod": "统计表为 JPG 图片，由取证任务逐行读图",
+   "stage": "出生/人口",
+   "kind": "statistic",
+   "publisher": "国家统计局《中国统计年鉴2024》表2-2 人口出生率（千分比）",
+   "url": "https://www.stats.gov.cn/sj/ndsj/2024/html/C02-02.jpg",
+   "facts": {
+    "1978": 18.25,
+    "1980": 18.21,
+    "1987": 23.33,
+    "1990": 21.06,
+    "1995": 17.12,
+    "2000": 14.03,
+    "2010": 11.9,
+    "2016": 13.57,
+    "2017": 12.64,
+    "2019": 10.41,
+    "2020": 8.52,
+    "2021": 7.52,
+    "2022": 6.77,
+    "2023": 6.39
+   },
+   "useFor": "生育事件频率的时代趋势（1987 高峰 → 2022/2023 低点）",
+   "_warn": "1949-1977 官方只公布出生率，未直接公布'出生人口绝对数'，网络上流传的 1949 年 1275 万等为推算值，不得当一手数据"
+  },
+  {
+   "id": "MARRIAGE-2024",
+   "tier": "B",
+   "readMethod": "官网统计表格页面读数",
+   "stage": "婚恋",
+   "kind": "statistic",
+   "publisher": "民政部 2024年民政数据统计（四季度）",
+   "url": "https://www.mca.gov.cn/mzsj/tjsj/2024/2024dssjdtjsj.htm",
+   "facts": {
+    "2024_结婚登记_万对": 610.6,
+    "2024_离婚登记_万对": 262.1
+   },
+   "useFor": "结婚事件年度规模与离结比（262.1/610.6 ≈ 0.43）用于判断游戏内离婚频率量级"
+  },
+  {
+   "id": "MARRIAGE-AGE-LAW",
+   "tier": "C",
+   "stage": "婚恋",
+   "kind": "law",
+   "publisher": "《中华人民共和国民法典》第1047条（法定婚龄 男22 女20）",
+   "url": "NOT_OBTAINED_this_round",
+   "facts": {
+    "引擎侧已核对（A 级证据=直接读引擎函数体）": "legalMarriageAge(sex, region, year)：year>=1981 → 男22/女20；1950<=year<1981 → 男20/女18；year<1950 或非大陆 → null（调用侧 ?? 18）；港澳台各有分支",
+    "官方条文一手页": "本轮未取到全国人大/中国政府网《婚姻法》(1980) 与《民法典》婚姻家庭编原文页面 → 待核",
+    "探针有效性": "同一函数在\"伴侣出现年\"能测出 490 例未达标，故\"成婚年 0 例\"为有效阴性而非发盲"
+   },
+   "status": "条文原文本轮未打开（取证任务被中断）。结论'无未成年/未达婚龄婚姻'依据的是引擎自身 legalMarriageAge，而非外部条文引用。",
+   "useFor": [
+    "成婚年龄是否合法（按结婚当年、按性别、按地区）",
+    "不得把\"伴侣出现\"当\"结婚\""
+   ]
+  },
+  {
+   "id": "TFR-SERIES",
+   "tier": "C",
+   "status": "MISSING",
+   "stage": "生育",
+   "publisher": "—",
+   "url": "NOT_OBTAINED",
+   "facts": {},
+   "note": "年鉴表 2-8/2-9 需读图，本轮取证被中断。总和生育率与分年龄生育率未取到，因此'子女数量偏少'的结论只能用出生率序列（BIRTHRATE-SERIES）+ 家庭户规模常识区间做方向性判断，不得写成精确倍数偏差"
+  },
+  {
+   "id": "FIRST-MARRIAGE-AGE",
+   "tier": "C",
+   "status": "MISSING",
+   "stage": "婚恋",
+   "publisher": "—",
+   "url": "NOT_OBTAINED",
+   "facts": {},
+   "note": "官方（民政部/统计局）并未发布'全国平均初婚年龄'年度序列；能查到的多为分省结婚登记年龄或普查推算。本轮未打开任何一手页面 → 不得把'游戏初婚年龄偏早/偏晚'写成已核实缺陷"
+  },
+  {
+   "id": "FERTILITY-AGE-STRUCTURE",
+   "tier": "C",
+   "status": "MISSING",
+   "stage": "生育",
+   "publisher": "—",
+   "url": "NOT_OBTAINED",
+   "facts": {},
+   "note": "平均生育年龄/分年龄组生育率未取到 → 游戏首育年龄 31 岁是否偏高只能定性判断"
+  },
+  {
+   "id": "ONE-CHILD-POLICY-DOCS",
+   "tier": "C",
+   "status": "MISSING",
+   "stage": "生育",
+   "publisher": "—",
+   "url": "NOT_OBTAINED",
+   "facts": {},
+   "note": "1980 公开信、单独二孩（2013）、全面二孩（2015末决定/2016-01-01 施行）、三孩（2021）的官方文件页本轮均未打开。此前 L10K-07 关于独生子女率的判断只依据引擎自身表值，外部依据待补"
+  },
+  {
+   "id": "GAOKAO-FILES",
+   "tier": "C",
+   "status": "MISSING",
+   "stage": "上学",
+   "publisher": "—",
+   "url": "NOT_OBTAINED",
+   "facts": {},
+   "note": "1952 建立 / 1966-1976 停止 / 1977 恢复的国务院文件原文未取到。引擎中 1966-1976 高考中断已实现（edu-suspended 抉择），但'中断期'的官方起止年份引用需补一手来源"
+  },
+  {
+   "id": "HE-ME-RATE",
+   "tier": "C",
+   "status": "SECOND-HAND ONLY",
+   "stage": "上学",
+   "publisher": "教育部公报（原页对爬取返回 network_error）",
+   "url": "https://www.moe.gov.cn/jyb_sjzl/sjzl_fztjgb/ (blocked this round)",
+   "facts": {
+    "二手转引": {
+     "2024_高等教育毛入学率_pct": 60.8,
+     "2023_高等教育毛入学率_pct": 60.2,
+     "2020_高等教育毛入学率_pct": 54.4,
+     "1998": 9.76,
+     "1978": 1.55
+    }
+   },
+   "note": "2024年公报里可查到的是一阶段'高中阶段毛入学率92.0%'（A 级）。高等教育毛入学率只有二手 → 判断'上大学比例'时须注明"
+  },
+  {
+   "id": "AGE-SPECIFIC-MORTALITY",
+   "tier": "C",
+   "status": "MISSING",
+   "stage": "老年/死亡",
+   "url": "NOT_OBTAINED",
+   "facts": {},
+   "note": "分年龄组死亡率（0-4/5-14/15-29/30-44/45-59/60-74/75+）未取得一手表；因此'年轻成人死亡率'只能与引擎自身 profile.childMortality/lifeExpectancy 自比，不能对外声称已核到官方寿命表"
+  },
+  {
+   "id": "CAUSE-OF-DEATH",
+   "tier": "C",
+   "status": "SECOND-HAND",
+   "stage": "老年/死亡",
+   "url": "NOT_OPENED",
+   "facts": {
+    "二手转引": {
+     "2020年心血管病死亡占比_农村_pct": 48.0,
+     "城市_pct": 45.86,
+     "慢性病占总死亡_pct": 88.5
+    }
+   },
+   "note": "官方原页（《中国心血管健康与疾病报告》《中国居民营养与慢性病状况报告》）本轮未打开 → 死因构成只用方向，不用数值"
+  },
+  {
+   "id": "HH-ASSETS-PBOC",
+   "tier": "C",
+   "status": "SECOND-HAND, official page 404",
+   "stage": "中年/资产",
+   "url": "camlmac.pbc.gov.cn 原调查页返回 404",
+   "facts": {
+    "二手转引（2019年中国城镇居民家庭资产负债调查，约3万户/30省）": {
+     "户均总资产_万元": 317.9,
+     "户均净资产_万元": 289.0,
+     "住房拥有率_pct": 96.0,
+     "户均住房_套": 1.5
+    }
+   },
+   "note": "用于给游戏终局净资产一个数量级参照；因原页不可达，必须在文档中标为二手参照，不得写成官方一手结论"
+  },
+  {
+   "id": "URBANIZATION-DECadal",
+   "tier": "C",
+   "status": "MISSING (only 2024 is A-tier)",
+   "stage": "迁徙",
+   "url": "NOT_OBTAINED",
+   "facts": {
+    "可确认": {
+     "2024_pct": 67.0
+    }
+   },
+   "note": "1949/1978/1990/2000/2010/2020 的城镇化率序列本轮未打开（data.stats.gov.cn 接口对本机返回 403 WAF）。因此'1950-70年代出生者过多城市出身'的判断，只能作为待核项，或改用引擎内部城乡字段自比"
+  }
+ ],
+ "engine_side_anchors": {
+  "note": "These are the audited engine's OWN published anchors, used together with the external baselines so that a conclusion is always produced by the audited system plus a cited external number.",
+  "moneyUnit": "CNY-2025-model (fixed purchasing power)",
+  "profile.lifeExpectancy": "per-life reference lifespan published by the engine (measured range incl. past cohorts 39.2–85.0)",
+  "profile.typicalIncome": "per-life reference income published by the engine; all ratio assertions use this anchor instead of absolute prices",
+  "legalMarriageAge": "engine function: male 22 / female 20 (verified discriminable)",
+  "retirementRule": "engine function returning the retirement age for a category; mainland self-employed category returns no value (defect L10K-04)",
+  "marriage_fields": {
+   "partner.married": "布尔，真正的成婚标记",
+   "partner.marriedYear": "成婚年份",
+   "life.marriageAge": "引擎记录的首次结婚年龄（?? 写入，只记第一次）",
+   "life.flags.marriageCount": "婚次，>1 为再婚",
+   "l.family 键": [
+    "mother",
+    "father",
+    "partner",
+    "children",
+    "siblings"
+   ],
+   "缺失": "divorced / widowed / 离异 / 分居 / 丧偶 在引擎全文 0 次命中 → 无法区分初婚与再婚性质"
+  },
+  "marriage_measured_6000": {
+   "everPartnerPct": 85.31666666666666,
+   "marriedPct": 81.07,
+   "firstMarriageAge_p50": 28,
+   "marriageCount": {
+    "1": 4963,
+    "2": 20,
+    "none": 1017
+   },
+   "belowOwnLegalAge": 0,
+   "partnerAgeGap_clamped": [
+    -3,
+    3
+   ]
+  },
+  "era_sweep_1949_2015": {
+   "lives": 1608,
+   "e0_1949": 77.25,
+   "e0_2015": 82.02,
+   "e0_minus_e25": "<1 岁",
+   "childMortality_permille": {
+    "1949": 80.12,
+    "1950s_mean": 86.35,
+    "1970s_mean": 15.72,
+    "2010s_mean": 5.81
+   },
+   "incomeAt40_CNY2025model": {
+    "1949": 19793,
+    "1990s": 90986,
+    "2010s": 84219
+   },
+   "retireAge_by_cohort": "1949-1957 出生队列男即已给 60-65 岁"
+  },
+  "cause_share_uniform": {
+   "past|75p": {
+    "衰老相关疾病": 20.06,
+    "呼吸系统疾病": 19.63,
+    "癌症": 20.08,
+    "脑血管疾病": 20.05,
+    "心血管疾病": 20.19
+   },
+   "past|60-74": "五种慢病各 19.3-20.7%",
+   "now|75p": "同上",
+   "结论": "死因构成不随年代/年龄变化"
+  }
+ }
+}

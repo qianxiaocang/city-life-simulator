@@ -754,7 +754,7 @@ export const HISTORY_EVENTS = [
       "en": "Economic hardship and food shortages"
     },
     "description": {
-      "zhCN": "困难时期的物资与营养约束影响家庭生活；不把全国人口设为同一死亡概率。",
+      "zhCN": "物资紧张与营养不足影响了许多家庭；你家的处境也会受到所在地方和家庭条件影响。",
       "zhTW": "困難時期的物資與營養約束影響家庭生活；不把全國人口設爲同一死亡概率。",
       "en": "Shortages constrained nutrition and family life; risks are not uniform across the population."
     },

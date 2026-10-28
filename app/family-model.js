@@ -1,9 +1,11 @@
 // Demographic calibration scenarios, modelOnly. Distributions describe older
 // siblings present at birth, not statutory limits on an individual family.
+// First-marriage ages and age-specific fertility are 待核／方向性校准 (S3-B2/B3):
+// no official annual national series is registered for these model parameters.
 export function siblingWeights(year,urban,region='mainland'){
  if(region!=='mainland')return year<1975?[.16,.23,.25,.20,.11,.05]:year<2000?[.30,.36,.23,.09,.02]:[.48,.34,.14,.04];
- if(year<=1970)return [.10,.18,.24,.22,.16,.10];
- if(year<=1979)return [.14,.24,.28,.20,.10,.04];
+ if(year<=1970)return [.02,.17,.25,.25,.19,.12];
+ if(year<=1979)return [.035,.20,.29,.25,.15,.075];
  if(year<=2015)return urban?[.55,.19,.15,.08,.03]:[.42,.25,.14,.10,.06,.03];
  if(year<=2020)return [.30,.36,.23,.09,.02];
  return [.37,.30,.24,.09];

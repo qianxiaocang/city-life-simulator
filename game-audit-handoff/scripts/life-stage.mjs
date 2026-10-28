@@ -1,0 +1,76 @@
+// Reproducible stage-axis report. All numeric claims come from the rerun JSON.
+// Birth profile is captured at age zero. Monetary values are fixed 2025 CNY.
+import {readFileSync} from 'node:fs';
+const dir=process.env.AUDIT_OUT_DIR||'out';
+const read=p=>JSON.parse(readFileSync(p,'utf8'));
+const S=read(`${dir}/stage-engine.json`),E=read(`${dir}/era-sweep.json`),M=read(`${dir}/marriage-true.json`);
+const R=read('official-baselines.json'),B=Object.fromEntries(R.baselines.map(x=>[x.id,x]));
+const D=S.dist,A=S.means,C=S.counters||{},rows=E.rows;
+const dist=(k,f='p50')=>D[k]?.[f]??null,mean=k=>A[k]??null;
+const n=x=>x==null?'—':typeof x==='number'?Math.round(x*100)/100:x;
+const pct=x=>x==null?'—':`${n(x*100)}%`;
+const decade=y=>rows.filter(x=>x.birthYear>=y&&x.birthYear<y+10);
+const avg=x=>x.length?x.reduce((a,b)=>a+b,0)/x.length:null;
+const med=x=>{if(!x.length)return null;let a=[...x].sort((v,w)=>v-w);return a[Math.floor(a.length/2)];};
+const dRate=k=>D[k]?.n?mean(k):null;
+const source=id=>{if(!id)return '引擎内部观察';if(!B[id])throw Error(`来源 id 不在册：${id}`);return `${id}（${B[id].tier} 级）`;};
+const out=[];const W=s=>out.push(s);let count=0;
+function row(stage,metric,value,id,verdict,note){
+ if(id&&B[id]?.tier==='C'&&verdict==='PASS')throw Error(`C 级来源不得 PASS：${id}`);
+ count++;W(`| ${stage} | ${metric} | ${value} | ${source(id)} | **${verdict}** | ${note} |`);
+}
+function section(title){W('');W(`## ${title}`);W('');W('| 阶段 | 指标 | 本轮实测 | 基线 id / 分级 | 判定 | 口径与限制 |');W('|---|---|---|---|---|---|');}
+W('# 人生阶段轴审计复跑');W('');
+W(`构建 ${S.meta.sha}；人生 ${S.meta.lives} 局；年代扫描 ${E.meta.lives} 局；婚姻 ${M.lives} 局。原始统计见同目录 JSON。`);
+W('本表纠正旧探针：出生寿命取 0 岁档案；交往不等于结婚；退休只在大陆法定岗位与对应退休年比较。统计年鉴的时期预期寿命不能直接充当所有出生队列最终死亡年龄。');
+W('货币统一为 CNY-2025-model。C 级登记来源只作方向性讨论；缺少逐年一手表时记 NOT OBSERVABLE。');
+section('阶段一 · 出生与童年');
+const baby=(S.deathsByBand['past|lt1']||0)+(S.deathsByBand['now|lt1']||0);
+row('童年','不足 1 岁死亡占比',`${baby}/${S.meta.lives}=${pct(baby/S.meta.lives)}`,'LE-NHC','WARN','历史与当代混合样本；不能直接对照 2024 年婴儿死亡率。');
+row('童年','出生时儿童死亡概率',`1950s ${n(avg(decade(1950).map(x=>x.engine_childMortality_mean_pct)))}‰；2010s ${n(avg(decade(2010).map(x=>x.engine_childMortality_mean_pct)))}‰`,'LE-NHC','WARN','1950–1977 历史儿童死亡率一手逐年序列未收集；模型方向性。');
+row('童年','城镇出身',`1950s ${pct(dRate('urbanOriginByDec|1950'))}；2020s ${pct(dRate('urbanOriginByDec|2020'))}`,'URBAN-2024','WARN','出生样本与 2024 常住人口不同口径。');
+row('童年','学前占位',`preschool 首次记录最小 ${dist('eduAt|past|M|preschool','min')} 岁` ,null,'WARN','这是未入学状态，不代表幼儿园毕业。');
+section('阶段二 · 上学');
+row('教育','小学取得年龄',`past 男 ${dist('eduAt|past|M|primary','min')}–${dist('eduAt|past|M|primary','max')} 岁；女 ${dist('eduAt|past|F|primary','min')}–${dist('eduAt|past|F|primary','max')} 岁`,'LAW-COMPULSORY-EDU',dist('eduAt|past|M|primary','min')===dist('eduAt|past|M|primary','max')?'WARN':'PASS','入学只在 6 或 7 岁；毕业年龄含历史学制与延迟。');
+row('教育','初中取得率',`1950s ${pct(dRate('juniorAttainedByDec|1950'))}；2000s ${pct(dRate('juniorAttainedByDec|2000'))}`,'EDU-2024','WARN','按活至 18 岁的游戏出生队列，非 2024 在校生巩固率；辍学者不可当作已完成义务教育。');
+row('教育','大专及以上取得率',`1950s ${pct(dRate('tertiaryAttainedByDec|1950'))}；2000s ${pct(dRate('tertiaryAttainedByDec|2000'))}`,'CENSUS7-EDU','WARN','一人只计最高是否达到大专；与 2020 人口普查存量文化程度 15.467% 的年龄、地区、年代构成不同，不直接作倍数检验。');
+row('教育','24 岁后高教学历',`在职 ${C['onJobLateDiploma|past']||0}；非在职 ${C['fulltimeLateDiploma|past']||0}`,null,'WARN','取得年龄与入学年龄不同；成人教育规模一手表缺失。');
+section('阶段三 · 就业');
+row('就业','首次入职年龄',`past 男最小 ${dist('firstJobAge|past|M','min')}；女最小 ${dist('firstJobAge|past|F','min')}`,'LAW-MIN-AGE-WORK','PASS','法律最低年龄 16 岁；仍须核对辍学者具体岗位。');
+row('就业','岗位起始数',`past 男均值 ${n(mean('jobStarts|past|M'))}；女 ${n(mean('jobStarts|past|F'))}`,null,'WARN','模型次数，没有同口径官方序列。');
+row('就业','40 岁收入',`1949 出生年 ${n(rows[0].engine_incomeAt40)}；1990 出生年 ${n(rows.find(x=>x.birthYear===1990).engine_incomeAt40)}`,'INCOME-2024','WARN','固定 2025 元；无逐年 CPI 定基序列，不能直接比当年名义收入。');
+row('就业','职业收入峰值',`now 男 p50 ${n(dist('peakIncome2025|now|M'))}；女 ${n(dist('peakIncome2025|now|F'))}`,'WAGE-NONPRIV','WARN','个体峰值与单位平均工资口径不同。');
+section('阶段四 · 婚恋与生育');
+row('婚恋','在婚人数',`${M.married}/${M.lives}=${M.marriedPct}%`,'MARRIAGE-2024','WARN','partner.married 才算当前在婚；登记对数不是人口在婚率。');
+row('婚恋','低于本地模型婚龄',`${M.belowOwnLegalAgeAtMarriage} 例`,'MARRIAGE-AGE-LAW',M.belowOwnLegalAgeAtMarriage?'FAIL':'WARN','C 级历史法规登记项待核；内部闸门按性别、地区、当年规则比较，伴侣出现不算结婚。');
+row('婚恋','初婚年龄',`p50 ${M.firstMarriageAge.p50}；n ${M.firstMarriageAge.n}`,'FIRST-MARRIAGE-AGE','WARN','登记册该来源为 C 级；无逐年全国一手基线。');
+row('婚恋','两次及以上婚姻',`${M.marriageCountHistogram[2]||0}/${M.lives}`,'MARRIAGE-2024','WARN','离结比是年度流量，不能等同一生再婚占比；需看 marriageHistory 类型。');
+row('生育','出生队列子女均值',`1950s ${n(mean('kidsByDec|1950'))}；2020s ${n(mean('kidsByDec|2020'))}`,'BIRTHRATE-SERIES',mean('kidsByDec|1950')>mean('kidsByDec|2020')?'WARN':'FAIL','粗出生率不是队列完成生育数；历史未成年死亡也进入分母。');
+row('生育','首次得子年龄',`now 男 p50 ${dist('firstChildAge|now|M')}；女 p50 ${dist('firstChildAge|now|F')}`,'FERTILITY-AGE-STRUCTURE','WARN','分年龄生育率一手表未入册。');
+section('阶段五 · 资产与家庭');
+row('资产','终局净资产/峰值收入',`now 男 p50 ${n(dist('nwOverPeak|now|M'))}；p95 ${n(dist('nwOverPeak|now|M','p95'))}`,'HH-ASSETS-PBOC','WARN','C 级家庭资产来源仅作方向性；人/户与收入峰值/典型收入比均不同。');
+let trace=null;try{trace=read(`${dir}/trace-past1955.json`)}catch{}
+const t50=trace?.yearly?.find(x=>x.age===50),t55=trace?.yearly?.find(x=>x.age===55),t56=trace?.yearly?.find(x=>x.age===56);
+row('资产','st1201 退休前后',`50 岁净资产 ${t50?.nw??'—'}；55 岁 ${t55?.nw??'—'}；55/56 岁收入 ${t55?.income??'—'}/${t56?.income??'—'}`,null,'WARN','只有退休前净资产为正、当年无支出记录却归零才构成清零阳性；实值养老金变化另以固定购买力解读。');
+row('家庭','城乡收入差',`出身城镇 1950s ${pct(dRate('urbanOriginByDec|1950'))}`,'INCOME-2024','NOT OBSERVABLE','尚未做按城乡分层的收入回归。');
+section('阶段六 · 退休与死亡');
+row('退休','大陆男性法定岗位超规则+3岁',`${C['retireBeyondRule|M']||0} 例；法定岗位退休最大 ${dist('statutoryRetireAge|past|M','max')}`,'LAW-RETIRE-2024',(C['retireBeyondRule|M']||0)?'FAIL':'PASS','非大陆及自雇不套大陆法定职工年龄。');
+row('退休','大陆女性法定岗位超规则+3岁',`${C['retireBeyondRule|F']||0} 例；female50 ${C['retireCategory|female50']||0}、female55 ${C['retireCategory|female55']||0}`,'LAW-RETIRE-2024',(C['retireBeyondRule|F']||0)?'FAIL':'PASS','岗位类别单独记录；若无原类别不能依据退休最大值判违法。');
+row('退休','缴费年限超首次就业至退休跨度',`${C.contribBeyondPhysicalBound||0} 例；全体最大 ${Math.max(...Object.entries(D).filter(([k])=>k.startsWith('contribYears|')).map(([,v])=>v.max))}`,'LAW-MIN-AGE-WORK',(C.contribBeyondPhysicalBound||0)?'FAIL':'WARN','样本断言仅对大陆法定岗位；非职工与跨地区记录须单独判。');
+const y49=rows[0],old=decade(1950).concat(decade(1960),rows.find(x=>x.birthYear===1970));
+row('死亡','0 岁档案预期寿命',`1949 ${y49.engine_e0}；1950–70 中位 ${n(med(old.map(x=>x.engine_e0)))}`,'LE-YEARBOOK','WARN','1981 年时期预期寿命 67.77 岁不能充当 1950 年出生队列真实最终寿命；1950–80 前锚点是模型假设。');
+row('死亡','e(25) 与 e(0)',`1949 e(0)=${y49.engine_e0}、e(25)=${y49.engine_e25}，条件生存差 ${n(y49.engine_e25-y49.engine_e0)}`,'LE-YEARBOOK','WARN','e(25) 是已活到 25 岁者的预期死亡年龄，通常高于 e(0)；旧断言要求 e(0)−e(25)>0，数学方向错误。');
+row('死亡','历史队列实际死亡年龄',`past p50 ${dist('deathAge|past|_')}；n ${dist('deathAge|past|_','n')}`,'LE-YEARBOOK','WARN','混合出生队列终局年龄与单一年份时期寿命不能直接比较。');
+const s75=S.causeSharePct['past|75p']||{},s60=S.causeSharePct['past|60-74']||{};
+row('死亡','75+ 岁死因构成',Object.entries(s75).map(([k,v])=>`${k} ${v}%`).join(' / '),'CAUSE-OF-DEATH','WARN','C 级死因来源；只能判模型是否随年龄与年代变化。');
+row('死亡','60–74 岁死因构成',Object.entries(s60).map(([k,v])=>`${k} ${v}%`).join(' / '),'CAUSE-OF-DEATH','WARN','C 级；不声称已对齐官方占比。');
+const fm=mean('deathAge|past|F'),mm=mean('deathAge|past|M');
+row('死亡','男女死亡年龄差',`past 女均值 ${n(fm)}、男 ${n(mm)}，差 ${n(fm-mm)} 岁；now 女/男 ${n(mean('deathAge|now|F'))}/${n(mean('deathAge|now|M'))}`,'LE-YEARBOOK',fm>mm?'WARN':'FAIL','官方 1981 女−男 2.99 岁、2020 为 5.51 岁；本表为完整模拟人生的平均死亡年龄，不是时期寿命表。');
+W('');W('## 附 · 1949–2015 出生年逐年扫描');W('');
+W('| 出生年 | n | 出生时 e(0) | 活到25岁后的预期死亡年龄 | 儿童死亡概率‰ | 40岁收入 | 子女均值 | 退休 M/F |');
+W('|---|---|---|---|---|---|---|---|');
+for(const x of rows)W(`| ${x.birthYear} | ${x.n} | ${n(x.engine_e0)} | ${n(x.engine_e25)} | ${n(x.engine_childMortality_mean_pct)} | ${n(x.engine_incomeAt40)} | ${n(x.engine_kids_mean)} | ${n(x.engine_retireAge_M_p50)}/${n(x.engine_retireAge_F_p50)} |`);
+const tally={PASS:0,WARN:0,FAIL:0,'NOT OBSERVABLE':0,WITHDRAWN:0};
+for(const line of out)for(const k of Object.keys(tally))if(line.includes(`**${k}**`))tally[k]++;
+W('');W(`STATS ${JSON.stringify({stageRows:tally,stageRowCount:count,eraYears:rows.length,eraLives:E.meta.lives,marriageLives:M.lives,lives:S.meta.lives,sha:S.meta.sha})}`);
+console.log(out.join('\n'));

@@ -166,7 +166,15 @@ export function economyYear(life,env={}){
     if(life.job.years>3&&life.job.years%7===0&&(env.chance?.(life,.5)??false)){
       life.job.salary*=1.1;envLog(env,life,T('经验积累带来一次岗位晋升，收入与责任有所增加。','經驗累積帶來一次職位升遷，收入與責任有所增加。','Experience led to a promotion, with more pay and responsibility.'),'work',{happiness:2});
     }
-  }else if(life.retired)earned=positive(life.pension)+positive(life.basicSupport);
+  }else if(life.retired){
+    // All balances use fixed 2025 purchasing power. This is a small modeled
+    // real-benefit progression, not CPI indexation or an official award rate.
+    if(life.pension>0 && life.year>(life.pensionLastAdjustedYear??life.year)){
+      life.pension=Math.round(life.pension*1.01);
+      life.pensionLastAdjustedYear=life.year;
+    }
+    earned=positive(life.pension)+positive(life.basicSupport);
+  }
   life.income=Math.round(earned);
   // Effective tax/social deductions are calibrated game parameters, not tax advice.
   const grossEmployment=life.job?earned:0;
@@ -224,7 +232,7 @@ export function economyYear(life,env={}){
   if(unmetLiving>0){
     life.flags.materialHardship=true;
     envEffects(env,life,{happiness:-Math.min(4,unmetLiving/scale*12),health:-Math.min(2,unmetLiving/scale*5)});
-    if(life.age>=16)envLog(env,life,T('收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。','收入不足以支付原來的生活安排，你縮減開支並尋求家人或救助支持，沒有因此自動背上消費債務。','You reduced spending and sought family or relief support when money ran short. No automatic consumer debt was created.'),'money');
+    if(life.age>=16)envLog(env,life,T('收入暂时不够，你缩减了开支，并向家人或社区寻求帮助。','收入暫時不足，你縮減開支，並向家人或社區尋求協助。','Income fell short, so you cut expenses and asked family or community services for help.'),'money');
   }else life.flags.materialHardship=false;
   const debts=debtService(life,env);
   if(!investmentAllowed(life,life.investment))life.investment='deposit';
@@ -296,7 +304,7 @@ export function getEconomyShopItems(life){
     if(item.requiresChildren&&!life.family.children.some(p=>p.alive&&p.age<22))return false;
     if(item.requiresPartner&&!life.family.partner?.alive)return false;
     if(item.requiresLivingParent&&!([life.family.mother,life.family.father].some(p=>p?.alive)))return false;
-    if(item.id==='adultstudy'&&(life.school||life.continuingEducation||life.age>60||!['high','vocational','associate','university'].includes(life.education)))return false;
+    if(item.id==='adultstudy'&&(life.school||life.continuingEducation||life.age+3>45||!['high','vocational','associate','university'].includes(life.education)))return false;
     return true;
   }).map(item=>{
     const cost=Math.round(itemPrice(life,item));

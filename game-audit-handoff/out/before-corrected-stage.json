@@ -1,0 +1,2460 @@
+{
+ "meta": {
+  "engine": "./shipped/engine-shipped.mjs",
+  "sha": "f703243ce9662d66",
+  "lives": 40000,
+  "deaths": 40000,
+  "moneyBasis": "CNY-2025-model fixed purchasing power (engine self-declared)",
+  "seedFamily": "st<i>",
+  "cohort": "past: birthYear 1949+7k cycle to 2015 (2/3 of runs); now: 2026 (1/3)",
+  "generatedAt": "2026-10-27T16:11:52.222Z"
+ },
+ "dist": {
+  "eduAt|past|M|preschool": {
+   "n": 13628,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 0,
+   "max": 0
+  },
+  "jobStarts|past|M": {
+   "n": 13628,
+   "min": 0,
+   "p25": 1,
+   "p50": 2,
+   "p75": 3,
+   "p95": 6,
+   "max": 12
+  },
+  "moves|past|M": {
+   "n": 13628,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 1,
+   "p95": 2,
+   "max": 4
+  },
+  "kids|past|M": {
+   "n": 13628,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 3
+  },
+  "kidsByDec|1940": {
+   "n": 399,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 1,
+   "max": 2
+  },
+  "urbanOriginByDec|1940": {
+   "n": 399,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "married|past|M": {
+   "n": 13628,
+   "min": 0,
+   "p25": 1,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "deathAge|ALL|X": {
+   "n": 40000,
+   "min": 0,
+   "p25": 80,
+   "p50": 89,
+   "p75": 96,
+   "p95": 103,
+   "max": 114
+  },
+  "deathAge|past|M": {
+   "n": 13628,
+   "min": 0,
+   "p25": 76,
+   "p50": 88,
+   "p75": 95,
+   "p95": 101,
+   "max": 112
+  },
+  "deathAge_dec1940|past|M|x": {
+   "n": 209,
+   "min": 0,
+   "p25": 1,
+   "p50": 79,
+   "p75": 92,
+   "p95": 101,
+   "max": 108
+  },
+  "deathAge|past|_": {
+   "n": 26667,
+   "min": 0,
+   "p25": 78,
+   "p50": 89,
+   "p75": 96,
+   "p95": 102,
+   "max": 113
+  },
+  "peakIncome2025|past|M": {
+   "n": 13628,
+   "min": 0,
+   "p25": 48850,
+   "p50": 103019,
+   "p75": 189248,
+   "p95": 495482,
+   "max": 3264520
+  },
+  "peakIncomeByDec1940": {
+   "n": 399,
+   "min": 0,
+   "p25": 0,
+   "p50": 34672,
+   "p75": 83682,
+   "p95": 299242,
+   "max": 1590508
+  },
+  "peakOverAnchor|past|M": {
+   "n": 13628,
+   "min": 0,
+   "p25": 0.553638447822026,
+   "p50": 1.169841146842309,
+   "p75": 2.0154979116289296,
+   "p95": 4.364003968492574,
+   "max": 28.257903352317292
+  },
+  "endNetWorth|past|M": {
+   "n": 13628,
+   "min": -2639589,
+   "p25": 0,
+   "p50": 463222,
+   "p75": 1758355,
+   "p95": 14105373,
+   "max": 655004438
+  },
+  "profileLifeExp|past|M": {
+   "n": 13628,
+   "min": 38.795,
+   "p25": 57.025999999999996,
+   "p50": 66.03800000000001,
+   "p75": 69.47400000000002,
+   "p95": 73.973,
+   "max": 83.27400000000002
+  },
+  "urbanOrigin|past|M": {
+   "n": 13628,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "contribYears|past|M": {
+   "n": 13628,
+   "min": 0,
+   "p25": 5,
+   "p50": 30,
+   "p75": 41,
+   "p95": 45,
+   "max": 84
+  },
+  "lifeExpProfile|past|_": {
+   "n": 26667,
+   "min": 38.795,
+   "p25": 59.038,
+   "p50": 67.35033333333332,
+   "p75": 72.01399999999998,
+   "p95": 77.67899999999999,
+   "max": 87.82866666666666
+  },
+  "nwAtDeath|dec1940": {
+   "n": 399,
+   "min": -1874427,
+   "p25": 0,
+   "p50": 0,
+   "p75": 196736,
+   "p95": 2098961,
+   "max": 32860870
+  },
+  "eduAt|past|F|preschool": {
+   "n": 13039,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 0,
+   "max": 0
+  },
+  "jobStarts|past|F": {
+   "n": 13039,
+   "min": 0,
+   "p25": 1,
+   "p50": 2,
+   "p75": 3,
+   "p95": 6,
+   "max": 13
+  },
+  "moves|past|F": {
+   "n": 13039,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 1,
+   "p95": 2,
+   "max": 4
+  },
+  "kids|past|F": {
+   "n": 13039,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 3
+  },
+  "kidsByDec|1950": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 1,
+   "p95": 1,
+   "max": 3
+  },
+  "urbanOriginByDec|1950": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "married|past|F": {
+   "n": 13039,
+   "min": 0,
+   "p25": 1,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "deathAge|past|F": {
+   "n": 13039,
+   "min": 0,
+   "p25": 79,
+   "p50": 90,
+   "p75": 96,
+   "p95": 103,
+   "max": 113
+  },
+  "deathAge_dec1950|past|F|x": {
+   "n": 1969,
+   "min": 0,
+   "p25": 3,
+   "p50": 85,
+   "p75": 94,
+   "p95": 102,
+   "max": 112
+  },
+  "peakIncome2025|past|F": {
+   "n": 13039,
+   "min": 0,
+   "p25": 43958,
+   "p50": 92695,
+   "p75": 173161,
+   "p95": 492192,
+   "max": 2854738
+  },
+  "peakIncomeByDec1950": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 40647,
+   "p75": 95877,
+   "p95": 311320,
+   "max": 1914967
+  },
+  "peakOverAnchor|past|F": {
+   "n": 13039,
+   "min": 0,
+   "p25": 0.4895435471439582,
+   "p50": 1.0646339581225455,
+   "p75": 1.8989764392784505,
+   "p95": 3.883866591084389,
+   "max": 44.13424078854729
+  },
+  "endNetWorth|past|F": {
+   "n": 13039,
+   "min": -2710606,
+   "p25": 0,
+   "p50": 80184,
+   "p75": 1113338,
+   "p95": 12576226,
+   "max": 994978721
+  },
+  "profileLifeExp|past|F": {
+   "n": 13039,
+   "min": 43.489000000000004,
+   "p25": 61.759,
+   "p50": 70.72966666666666,
+   "p75": 74.204,
+   "p95": 78.61099999999999,
+   "max": 87.82866666666666
+  },
+  "urbanOrigin|past|F": {
+   "n": 13039,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "contribYears|past|F": {
+   "n": 13039,
+   "min": 0,
+   "p25": 4,
+   "p50": 27,
+   "p75": 34,
+   "p95": 43,
+   "max": 87
+  },
+  "nwAtDeath|dec1950": {
+   "n": 3980,
+   "min": -2639589,
+   "p25": 0,
+   "p50": 0,
+   "p75": 209958,
+   "p95": 2784535,
+   "max": 222354392
+  },
+  "firstJobAge|now|M": {
+   "n": 6813,
+   "min": 18,
+   "p25": 18,
+   "p50": 19,
+   "p75": 22,
+   "p95": 24,
+   "max": 36
+  },
+  "eduAt|now|M|preschool": {
+   "n": 6867,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 0,
+   "max": 0
+  },
+  "eduAt|now|M|primary": {
+   "n": 6816,
+   "min": 12,
+   "p25": 12,
+   "p50": 12,
+   "p75": 12,
+   "p95": 12,
+   "max": 12
+  },
+  "eduAt|now|M|junior": {
+   "n": 6815,
+   "min": 15,
+   "p25": 15,
+   "p50": 15,
+   "p75": 15,
+   "p95": 15,
+   "max": 15
+  },
+  "eduAt|now|M|high": {
+   "n": 4750,
+   "min": 18,
+   "p25": 18,
+   "p50": 18,
+   "p75": 18,
+   "p95": 18,
+   "max": 18
+  },
+  "eduAt|now|M|university": {
+   "n": 2423,
+   "min": 22,
+   "p25": 23,
+   "p50": 24,
+   "p75": 27,
+   "p95": 59,
+   "max": 63
+  },
+  "jobStarts|now|M": {
+   "n": 6867,
+   "min": 0,
+   "p25": 2,
+   "p50": 2,
+   "p75": 3,
+   "p95": 4,
+   "max": 7
+  },
+  "moves|now|M": {
+   "n": 6867,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 1,
+   "p95": 2,
+   "max": 4
+  },
+  "marriageAge|now|M": {
+   "n": 6244,
+   "min": 26,
+   "p25": 27,
+   "p50": 29,
+   "p75": 31,
+   "p95": 39,
+   "max": 55
+  },
+  "kids|now|M": {
+   "n": 6867,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 3
+  },
+  "kidsByDec|2020": {
+   "n": 13333,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 3
+  },
+  "urbanOriginByDec|2020": {
+   "n": 13333,
+   "min": 0,
+   "p25": 1,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "marriageAgeByDec|2020": {
+   "n": 12112,
+   "min": 26,
+   "p25": 27,
+   "p50": 29,
+   "p75": 31,
+   "p95": 39,
+   "max": 55
+  },
+  "firstChildAgeByDec|2020": {
+   "n": 7076,
+   "min": 27,
+   "p25": 29,
+   "p50": 32,
+   "p75": 34,
+   "p95": 39,
+   "max": 51
+  },
+  "childAge|now|M|n1": {
+   "n": 3623,
+   "min": 27,
+   "p25": 29,
+   "p50": 32,
+   "p75": 35,
+   "p95": 40,
+   "max": 51
+  },
+  "firstChildAge|now|M": {
+   "n": 3623,
+   "min": 27,
+   "p25": 29,
+   "p50": 32,
+   "p75": 35,
+   "p95": 40,
+   "max": 51
+  },
+  "married|now|M": {
+   "n": 6867,
+   "min": 0,
+   "p25": 1,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "retireAge|now|M": {
+   "n": 6577,
+   "min": 63,
+   "p25": 63,
+   "p50": 63,
+   "p75": 65,
+   "p95": 66,
+   "max": 69
+  },
+  "ruleRetireAge|now|M": {
+   "n": 6577,
+   "min": 63,
+   "p25": 63,
+   "p50": 63,
+   "p75": 65,
+   "p95": 65,
+   "max": 65
+  },
+  "retiredLateBy|now|M": {
+   "n": 6577,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 3,
+   "max": 6
+  },
+  "statutoryRetireAge|now|M": {
+   "n": 4121,
+   "min": 63,
+   "p25": 63,
+   "p50": 63,
+   "p75": 63,
+   "p95": 66,
+   "max": 69
+  },
+  "statutoryRuleAge|now|M": {
+   "n": 4121,
+   "min": 63,
+   "p25": 63,
+   "p50": 63,
+   "p75": 63,
+   "p95": 63,
+   "max": 63
+  },
+  "deathAge|now|M": {
+   "n": 6867,
+   "min": 0,
+   "p25": 82,
+   "p50": 90,
+   "p75": 96,
+   "p95": 102,
+   "max": 110
+  },
+  "deathAge_dec2020|now|M|x": {
+   "n": 6867,
+   "min": 0,
+   "p25": 82,
+   "p50": 90,
+   "p75": 96,
+   "p95": 102,
+   "max": 110
+  },
+  "deathAge|now|_": {
+   "n": 13333,
+   "min": 0,
+   "p25": 83,
+   "p50": 90,
+   "p75": 96,
+   "p95": 103,
+   "max": 114
+  },
+  "peakIncome2025|now|M": {
+   "n": 6867,
+   "min": 0,
+   "p25": 77454,
+   "p50": 131194,
+   "p75": 224920,
+   "p95": 530638,
+   "max": 3801198
+  },
+  "peakIncomeByDec2020": {
+   "n": 13333,
+   "min": 0,
+   "p25": 75058,
+   "p50": 128210,
+   "p75": 219356,
+   "p95": 532575,
+   "max": 3801198
+  },
+  "peakOverAnchor|now|M": {
+   "n": 6867,
+   "min": 0,
+   "p25": 0.8613401484908406,
+   "p50": 1.472620946305157,
+   "p75": 2.3886316872427984,
+   "p95": 4.800871110272497,
+   "max": 67.92948282640552
+  },
+  "endNetWorth|now|M": {
+   "n": 6867,
+   "min": -524712,
+   "p25": 96087,
+   "p50": 858503,
+   "p75": 3274819,
+   "p95": 20111369,
+   "max": 830819356
+  },
+  "nwOverPeak|now|M": {
+   "n": 6813,
+   "min": -12.040567951318458,
+   "p25": 1.2981719970703125,
+   "p50": 7.034541295527983,
+   "p75": 15.695523915595556,
+   "p95": 56.94324639543948,
+   "max": 2313.101631846935
+  },
+  "profileLifeExp|now|M": {
+   "n": 6867,
+   "min": 77.03,
+   "p25": 77.25500000000001,
+   "p50": 77.354,
+   "p75": 77.507,
+   "p95": 78.176,
+   "max": 85.001
+  },
+  "urbanOrigin|now|M": {
+   "n": 6867,
+   "min": 0,
+   "p25": 1,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "contribYears|now|M": {
+   "n": 6867,
+   "min": 0,
+   "p25": 27,
+   "p50": 40,
+   "p75": 44,
+   "p95": 47,
+   "max": 49
+  },
+  "lifeExpProfile|now|_": {
+   "n": 13333,
+   "min": 77.03,
+   "p25": 77.348,
+   "p50": 79.284,
+   "p75": 82.04499999999999,
+   "p95": 82.624,
+   "max": 89.701
+  },
+  "inc20to24|dec2040": {
+   "n": 13240,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 50231,
+   "p95": 125619,
+   "max": 1441276
+  },
+  "urban20to24|dec2040": {
+   "n": 13240,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 0,
+   "max": 0
+  },
+  "nwAtDeath|dec2020": {
+   "n": 13333,
+   "min": -2059811,
+   "p25": 12313,
+   "p50": 732901,
+   "p75": 2883176,
+   "p95": 19419352,
+   "max": 830819356
+  },
+  "firstJobAge|past|F": {
+   "n": 11514,
+   "min": 18,
+   "p25": 18,
+   "p50": 18,
+   "p75": 21,
+   "p95": 23,
+   "max": 36
+  },
+  "eduAt|past|F|primary": {
+   "n": 11522,
+   "min": 12,
+   "p25": 12,
+   "p50": 12,
+   "p75": 12,
+   "p95": 12,
+   "max": 12
+  },
+  "eduAt|past|F|junior": {
+   "n": 11520,
+   "min": 15,
+   "p25": 15,
+   "p50": 15,
+   "p75": 15,
+   "p95": 15,
+   "max": 15
+  },
+  "eduAt|past|F|high": {
+   "n": 7658,
+   "min": 18,
+   "p25": 18,
+   "p50": 18,
+   "p75": 18,
+   "p95": 18,
+   "max": 18
+  },
+  "eduAt|past|F|university": {
+   "n": 3770,
+   "min": 22,
+   "p25": 23,
+   "p50": 27,
+   "p75": 27,
+   "p95": 63,
+   "max": 63
+  },
+  "eduAt|past|F|masters": {
+   "n": 559,
+   "min": 25,
+   "p25": 27,
+   "p50": 29,
+   "p75": 55,
+   "p95": 63,
+   "max": 63
+  },
+  "jobBeforeDiplomaGap|past|F": {
+   "n": 3257,
+   "min": 3,
+   "p25": 6,
+   "p50": 9,
+   "p75": 21,
+   "p95": 45,
+   "max": 45
+  },
+  "onJobLateDiplomaAge|past|F": {
+   "n": 2204,
+   "min": 25,
+   "p25": 27,
+   "p50": 27,
+   "p75": 35,
+   "p95": 63,
+   "max": 63
+  },
+  "marriageAge|past|F": {
+   "n": 10482,
+   "min": 21,
+   "p25": 25,
+   "p50": 27,
+   "p75": 31,
+   "p95": 38,
+   "max": 55
+  },
+  "kidsByDec|1970": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 3
+  },
+  "urbanOriginByDec|1970": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "marriageAgeByDec|1970": {
+   "n": 3393,
+   "min": 22,
+   "p25": 24,
+   "p50": 25,
+   "p75": 28,
+   "p95": 35,
+   "max": 55
+  },
+  "firstChildAgeByDec|1970": {
+   "n": 2553,
+   "min": 23,
+   "p25": 26,
+   "p50": 29,
+   "p75": 32,
+   "p95": 38,
+   "max": 48
+  },
+  "childAge|past|F|n1": {
+   "n": 6968,
+   "min": 22,
+   "p25": 27,
+   "p50": 31,
+   "p75": 33,
+   "p95": 38,
+   "max": 49
+  },
+  "firstChildAge|past|F": {
+   "n": 6968,
+   "min": 22,
+   "p25": 27,
+   "p50": 31,
+   "p75": 33,
+   "p95": 38,
+   "max": 49
+  },
+  "retireAge|past|F": {
+   "n": 11068,
+   "min": 50,
+   "p25": 55,
+   "p50": 57,
+   "p75": 65,
+   "p95": 65,
+   "max": 71
+  },
+  "ruleRetireAge|past|F": {
+   "n": 11068,
+   "min": 50,
+   "p25": 54.416666666666664,
+   "p50": 55,
+   "p75": 65,
+   "p95": 65,
+   "max": 65
+  },
+  "retiredLateBy|past|F": {
+   "n": 11068,
+   "min": -0.8333333333333357,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 3.5833333333333357,
+   "max": 16.083333333333336
+  },
+  "deathAge_dec1970|past|F|x": {
+   "n": 1982,
+   "min": 0,
+   "p25": 79,
+   "p50": 90,
+   "p75": 97,
+   "p95": 104,
+   "max": 113
+  },
+  "peakIncomeByDec1970": {
+   "n": 3980,
+   "min": 0,
+   "p25": 52179,
+   "p50": 100787,
+   "p75": 183483,
+   "p95": 475163,
+   "max": 2796406
+  },
+  "nwOverPeak|past|F": {
+   "n": 11514,
+   "min": -24.631103810775297,
+   "p25": 0,
+   "p50": 2.6219836543949,
+   "p75": 9.511579220929224,
+   "p95": 40.507991329411524,
+   "max": 1786.5126672566873
+  },
+  "inc20to24|dec1990": {
+   "n": 3585,
+   "min": 0,
+   "p25": 3457,
+   "p50": 12009,
+   "p75": 21925,
+   "p95": 48512,
+   "max": 249875
+  },
+  "urban20to24|dec1990": {
+   "n": 3585,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 0,
+   "max": 0
+  },
+  "nwAtDeath|dec1970": {
+   "n": 3980,
+   "min": -1656765,
+   "p25": 0,
+   "p50": 195244,
+   "p75": 1188818,
+   "p95": 10891050,
+   "max": 393394778
+  },
+  "statutoryRetireAge|past|F": {
+   "n": 7086,
+   "min": 50,
+   "p25": 52,
+   "p50": 55,
+   "p75": 58,
+   "p95": 61,
+   "max": 68
+  },
+  "statutoryRuleAge|past|F": {
+   "n": 7086,
+   "min": 50,
+   "p25": 50,
+   "p50": 55,
+   "p75": 55,
+   "p95": 58,
+   "max": 58
+  },
+  "eduAt|now|M|vocational": {
+   "n": 2065,
+   "min": 18,
+   "p25": 18,
+   "p50": 18,
+   "p75": 18,
+   "p95": 18,
+   "max": 18
+  },
+  "firstJobAge|past|M": {
+   "n": 11790,
+   "min": 18,
+   "p25": 18,
+   "p50": 18,
+   "p75": 21,
+   "p95": 23,
+   "max": 32
+  },
+  "eduAt|past|M|primary": {
+   "n": 11796,
+   "min": 12,
+   "p25": 12,
+   "p50": 12,
+   "p75": 12,
+   "p95": 12,
+   "max": 12
+  },
+  "eduAt|past|M|junior": {
+   "n": 11796,
+   "min": 15,
+   "p25": 15,
+   "p50": 15,
+   "p75": 15,
+   "p95": 15,
+   "max": 15
+  },
+  "eduAt|past|M|high": {
+   "n": 7909,
+   "min": 18,
+   "p25": 18,
+   "p50": 18,
+   "p75": 18,
+   "p95": 18,
+   "max": 18
+  },
+  "eduAt|past|M|associate": {
+   "n": 3414,
+   "min": 21,
+   "p25": 21,
+   "p50": 21,
+   "p75": 22,
+   "p95": 23,
+   "max": 31
+  },
+  "eduAt|past|M|university": {
+   "n": 3857,
+   "min": 22,
+   "p25": 23,
+   "p50": 27,
+   "p75": 27,
+   "p95": 63,
+   "max": 63
+  },
+  "jobBeforeDiplomaGap|past|M": {
+   "n": 3289,
+   "min": 3,
+   "p25": 6,
+   "p50": 9,
+   "p75": 20,
+   "p95": 45,
+   "max": 45
+  },
+  "onJobLateDiplomaAge|past|M": {
+   "n": 2462,
+   "min": 25,
+   "p25": 27,
+   "p50": 27,
+   "p75": 39,
+   "p95": 63,
+   "max": 63
+  },
+  "marriageAge|past|M": {
+   "n": 10717,
+   "min": 21,
+   "p25": 25,
+   "p50": 27,
+   "p75": 31,
+   "p95": 38,
+   "max": 55
+  },
+  "kidsByDec|1990": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 3
+  },
+  "urbanOriginByDec|1990": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "marriageAgeByDec|1990": {
+   "n": 3570,
+   "min": 24,
+   "p25": 26,
+   "p50": 28,
+   "p75": 31,
+   "p95": 39,
+   "max": 55
+  },
+  "retireAge|past|M": {
+   "n": 11409,
+   "min": 60,
+   "p25": 63,
+   "p50": 63,
+   "p75": 65,
+   "p95": 66,
+   "max": 71
+  },
+  "ruleRetireAge|past|M": {
+   "n": 11409,
+   "min": 60,
+   "p25": 63,
+   "p50": 63,
+   "p75": 65,
+   "p95": 65,
+   "max": 65
+  },
+  "retiredLateBy|past|M": {
+   "n": 11409,
+   "min": -0.8333333333333357,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 3,
+   "max": 11
+  },
+  "deathAge_dec1990|past|M|x": {
+   "n": 2013,
+   "min": 0,
+   "p25": 81,
+   "p50": 89,
+   "p75": 95,
+   "p95": 101,
+   "max": 110
+  },
+  "peakIncomeByDec1990": {
+   "n": 3980,
+   "min": 0,
+   "p25": 70173,
+   "p50": 119871,
+   "p75": 211296,
+   "p95": 547510,
+   "max": 3264520
+  },
+  "nwOverPeak|past|M": {
+   "n": 11790,
+   "min": -9.917338883900225,
+   "p25": 0.07789838379743103,
+   "p50": 5.247361184411544,
+   "p75": 12.416433077652956,
+   "p95": 46.237101414948334,
+   "max": 2856.5231213435927
+  },
+  "inc20to24|dec2010": {
+   "n": 3832,
+   "min": 0,
+   "p25": 0,
+   "p50": 8393,
+   "p75": 38956,
+   "p95": 92253,
+   "max": 546578
+  },
+  "urban20to24|dec2010": {
+   "n": 3832,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 0,
+   "max": 0
+  },
+  "nwAtDeath|dec1990": {
+   "n": 3980,
+   "min": -331046,
+   "p25": 368,
+   "p50": 744241,
+   "p75": 2536358,
+   "p95": 19151457,
+   "max": 962358315
+  },
+  "eduAt|past|F|associate": {
+   "n": 3238,
+   "min": 21,
+   "p25": 21,
+   "p50": 21,
+   "p75": 22,
+   "p95": 23,
+   "max": 30
+  },
+  "firstChildAgeByDec|1990": {
+   "n": 2235,
+   "min": 25,
+   "p25": 28,
+   "p50": 31,
+   "p75": 34,
+   "p95": 38,
+   "max": 49
+  },
+  "deathAge_dec1990|past|F|x": {
+   "n": 1967,
+   "min": 0,
+   "p25": 83,
+   "p50": 91,
+   "p75": 97,
+   "p95": 104,
+   "max": 112
+  },
+  "eduAt|now|M|associate": {
+   "n": 2911,
+   "min": 21,
+   "p25": 21,
+   "p50": 21,
+   "p75": 22,
+   "p95": 23,
+   "max": 25
+  },
+  "jobBeforeDiplomaGap|now|M": {
+   "n": 1782,
+   "min": 3,
+   "p25": 5,
+   "p50": 8,
+   "p75": 17,
+   "p95": 42,
+   "max": 45
+  },
+  "onJobLateDiplomaAge|now|M": {
+   "n": 1249,
+   "min": 25,
+   "p25": 27,
+   "p50": 27,
+   "p75": 39,
+   "p95": 59,
+   "max": 63
+  },
+  "kidsByDec|2010": {
+   "n": 2388,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 2
+  },
+  "urbanOriginByDec|2010": {
+   "n": 2388,
+   "min": 0,
+   "p25": 1,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "marriageAgeByDec|2010": {
+   "n": 2152,
+   "min": 26,
+   "p25": 27,
+   "p50": 29,
+   "p75": 32,
+   "p95": 40,
+   "max": 55
+  },
+  "firstChildAgeByDec|2010": {
+   "n": 1218,
+   "min": 27,
+   "p25": 29,
+   "p50": 32,
+   "p75": 35,
+   "p95": 39,
+   "max": 51
+  },
+  "deathAge_dec2010|past|F|x": {
+   "n": 1126,
+   "min": 0,
+   "p25": 84,
+   "p50": 91,
+   "p75": 98,
+   "p95": 104,
+   "max": 112
+  },
+  "peakIncomeByDec2010": {
+   "n": 2388,
+   "min": 0,
+   "p25": 74167,
+   "p50": 126661,
+   "p75": 214146,
+   "p95": 551578,
+   "max": 2667733
+  },
+  "inc20to24|dec2030": {
+   "n": 2354,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 49684,
+   "p95": 124411,
+   "max": 723228
+  },
+  "urban20to24|dec2030": {
+   "n": 2354,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 0,
+   "max": 0
+  },
+  "nwAtDeath|dec2010": {
+   "n": 2388,
+   "min": -152015,
+   "p25": 8777,
+   "p50": 792956,
+   "p75": 2824666,
+   "p95": 19135125,
+   "max": 994978721
+  },
+  "kidsByDec|1960": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 3
+  },
+  "urbanOriginByDec|1960": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "deathAge_dec1960|past|M|x": {
+   "n": 2109,
+   "min": 0,
+   "p25": 4,
+   "p50": 85,
+   "p75": 94,
+   "p95": 101,
+   "max": 111
+  },
+  "peakIncomeByDec1960": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 69577,
+   "p75": 150617,
+   "p95": 435346,
+   "max": 2671099
+  },
+  "nwAtDeath|dec1960": {
+   "n": 3980,
+   "min": -2710606,
+   "p25": 0,
+   "p50": 83,
+   "p75": 620387,
+   "p95": 6764237,
+   "max": 295073882
+  },
+  "eduAt|past|M|vocational": {
+   "n": 3885,
+   "min": 18,
+   "p25": 18,
+   "p50": 18,
+   "p75": 18,
+   "p95": 18,
+   "max": 18
+  },
+  "deathAge_dec1970|past|M|x": {
+   "n": 1998,
+   "min": 0,
+   "p25": 78,
+   "p50": 88,
+   "p75": 95,
+   "p95": 101,
+   "max": 112
+  },
+  "firstJobAge|now|F": {
+   "n": 6426,
+   "min": 18,
+   "p25": 18,
+   "p50": 19,
+   "p75": 22,
+   "p95": 24,
+   "max": 34
+  },
+  "eduAt|now|F|preschool": {
+   "n": 6466,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 0,
+   "max": 0
+  },
+  "eduAt|now|F|primary": {
+   "n": 6430,
+   "min": 12,
+   "p25": 12,
+   "p50": 12,
+   "p75": 12,
+   "p95": 12,
+   "max": 12
+  },
+  "eduAt|now|F|junior": {
+   "n": 6428,
+   "min": 15,
+   "p25": 15,
+   "p50": 15,
+   "p75": 15,
+   "p95": 15,
+   "max": 15
+  },
+  "eduAt|now|F|high": {
+   "n": 4432,
+   "min": 18,
+   "p25": 18,
+   "p50": 18,
+   "p75": 18,
+   "p95": 18,
+   "max": 18
+  },
+  "eduAt|now|F|associate": {
+   "n": 2829,
+   "min": 21,
+   "p25": 21,
+   "p50": 21,
+   "p75": 22,
+   "p95": 23,
+   "max": 27
+  },
+  "jobStarts|now|F": {
+   "n": 6466,
+   "min": 0,
+   "p25": 1,
+   "p50": 2,
+   "p75": 3,
+   "p95": 4,
+   "max": 7
+  },
+  "moves|now|F": {
+   "n": 6466,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 1,
+   "p95": 2,
+   "max": 4
+  },
+  "marriageAge|now|F": {
+   "n": 5868,
+   "min": 26,
+   "p25": 27,
+   "p50": 29,
+   "p75": 31,
+   "p95": 39,
+   "max": 55
+  },
+  "kids|now|F": {
+   "n": 6466,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 2
+  },
+  "childAge|now|F|n1": {
+   "n": 3453,
+   "min": 27,
+   "p25": 29,
+   "p50": 32,
+   "p75": 34,
+   "p95": 39,
+   "max": 49
+  },
+  "firstChildAge|now|F": {
+   "n": 3453,
+   "min": 27,
+   "p25": 29,
+   "p50": 32,
+   "p75": 34,
+   "p95": 39,
+   "max": 49
+  },
+  "married|now|F": {
+   "n": 6466,
+   "min": 0,
+   "p25": 1,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "retireAge|now|F": {
+   "n": 6207,
+   "min": 55,
+   "p25": 55,
+   "p50": 58,
+   "p75": 65,
+   "p95": 65,
+   "max": 69
+  },
+  "ruleRetireAge|now|F": {
+   "n": 6207,
+   "min": 55,
+   "p25": 55,
+   "p50": 58,
+   "p75": 65,
+   "p95": 65,
+   "max": 65
+  },
+  "retiredLateBy|now|F": {
+   "n": 6207,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 3,
+   "max": 14
+  },
+  "deathAge|now|F": {
+   "n": 6466,
+   "min": 0,
+   "p25": 84,
+   "p50": 91,
+   "p75": 97,
+   "p95": 104,
+   "max": 114
+  },
+  "deathAge_dec2020|now|F|x": {
+   "n": 6466,
+   "min": 0,
+   "p25": 84,
+   "p50": 91,
+   "p75": 97,
+   "p95": 104,
+   "max": 114
+  },
+  "peakIncome2025|now|F": {
+   "n": 6466,
+   "min": 0,
+   "p25": 72673,
+   "p50": 124913,
+   "p75": 211926,
+   "p95": 536862,
+   "max": 3465867
+  },
+  "peakOverAnchor|now|F": {
+   "n": 6466,
+   "min": 0,
+   "p25": 0.8249488284107619,
+   "p50": 1.4216232927381334,
+   "p75": 2.302323133071308,
+   "p95": 4.645034884832266,
+   "max": 34.24843571554955
+  },
+  "endNetWorth|now|F": {
+   "n": 6466,
+   "min": -2059811,
+   "p25": 412,
+   "p50": 664586,
+   "p75": 2462650,
+   "p95": 18657886,
+   "max": 684802104
+  },
+  "nwOverPeak|now|F": {
+   "n": 6426,
+   "min": -13.124162142875347,
+   "p25": 0.006746730165303517,
+   "p50": 4.843933955491744,
+   "p75": 12.50365114356572,
+   "p95": 50.05622006917346,
+   "max": 1792.386855045739
+  },
+  "profileLifeExp|now|F": {
+   "n": 6466,
+   "min": 81.72999999999999,
+   "p25": 81.952,
+   "p50": 82.04799999999999,
+   "p75": 82.207,
+   "p95": 82.86999999999999,
+   "max": 89.701
+  },
+  "urbanOrigin|now|F": {
+   "n": 6466,
+   "min": 0,
+   "p25": 1,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "contribYears|now|F": {
+   "n": 6466,
+   "min": 0,
+   "p25": 24,
+   "p50": 34,
+   "p75": 37,
+   "p95": 44,
+   "max": 82
+  },
+  "kidsByDec|1980": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 3
+  },
+  "urbanOriginByDec|1980": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "marriageAgeByDec|1980": {
+   "n": 3484,
+   "min": 23,
+   "p25": 25,
+   "p50": 27,
+   "p75": 29,
+   "p95": 36,
+   "max": 55
+  },
+  "deathAge_dec1980|past|M|x": {
+   "n": 2049,
+   "min": 0,
+   "p25": 80,
+   "p50": 89,
+   "p75": 95,
+   "p95": 102,
+   "max": 107
+  },
+  "peakIncomeByDec1980": {
+   "n": 3980,
+   "min": 0,
+   "p25": 63147,
+   "p50": 112891,
+   "p75": 195369,
+   "p95": 543152,
+   "max": 2364525
+  },
+  "inc20to24|dec2000": {
+   "n": 3730,
+   "min": 0,
+   "p25": 0,
+   "p50": 11891,
+   "p75": 27994,
+   "p95": 68375,
+   "max": 564488
+  },
+  "urban20to24|dec2000": {
+   "n": 3730,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 0,
+   "max": 0
+  },
+  "nwAtDeath|dec1980": {
+   "n": 3980,
+   "min": -129533,
+   "p25": 12,
+   "p50": 611447,
+   "p75": 2041757,
+   "p95": 15068154,
+   "max": 369788565
+  },
+  "eduAt|now|F|vocational": {
+   "n": 1995,
+   "min": 18,
+   "p25": 18,
+   "p50": 18,
+   "p75": 18,
+   "p95": 18,
+   "max": 18
+  },
+  "statutoryRetireAge|now|F": {
+   "n": 4066,
+   "min": 55,
+   "p25": 55,
+   "p50": 55,
+   "p75": 58,
+   "p95": 61,
+   "max": 69
+  },
+  "statutoryRuleAge|now|F": {
+   "n": 4066,
+   "min": 55,
+   "p25": 55,
+   "p50": 55,
+   "p75": 58,
+   "p95": 58,
+   "max": 58
+  },
+  "kidsByDec|2000": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 3
+  },
+  "urbanOriginByDec|2000": {
+   "n": 3980,
+   "min": 0,
+   "p25": 0,
+   "p50": 1,
+   "p75": 1,
+   "p95": 1,
+   "max": 1
+  },
+  "marriageAgeByDec|2000": {
+   "n": 3561,
+   "min": 26,
+   "p25": 27,
+   "p50": 29,
+   "p75": 32,
+   "p95": 39,
+   "max": 55
+  },
+  "deathAge_dec2000|past|M|x": {
+   "n": 1977,
+   "min": 0,
+   "p25": 81,
+   "p50": 89,
+   "p75": 95,
+   "p95": 101,
+   "max": 109
+  },
+  "peakIncomeByDec2000": {
+   "n": 3980,
+   "min": 0,
+   "p25": 72979,
+   "p50": 127468,
+   "p75": 215698,
+   "p95": 556653,
+   "max": 2854738
+  },
+  "inc20to24|dec2020": {
+   "n": 3881,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 48619,
+   "p95": 115900,
+   "max": 592008
+  },
+  "urban20to24|dec2020": {
+   "n": 3881,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 0,
+   "max": 0
+  },
+  "nwAtDeath|dec2000": {
+   "n": 3980,
+   "min": -495015,
+   "p25": 2009,
+   "p50": 772692,
+   "p75": 3038440,
+   "p95": 20283010,
+   "max": 884141546
+  },
+  "statutoryRetireAge|past|M": {
+   "n": 6780,
+   "min": 60,
+   "p25": 62,
+   "p50": 63,
+   "p75": 63,
+   "p95": 66,
+   "max": 71
+  },
+  "statutoryRuleAge|past|M": {
+   "n": 6780,
+   "min": 60,
+   "p25": 61.166666666666664,
+   "p50": 63,
+   "p75": 63,
+   "p95": 63,
+   "max": 63
+  },
+  "deathAge_dec2010|past|M|x": {
+   "n": 1262,
+   "min": 0,
+   "p25": 82,
+   "p50": 90,
+   "p75": 96,
+   "p95": 102,
+   "max": 110
+  },
+  "deathAge_dec1960|past|F|x": {
+   "n": 1871,
+   "min": 0,
+   "p25": 53,
+   "p50": 87,
+   "p75": 95,
+   "p95": 103,
+   "max": 112
+  },
+  "marriageAgeByDec|1960": {
+   "n": 2801,
+   "min": 21,
+   "p25": 23,
+   "p50": 24,
+   "p75": 27,
+   "p95": 35,
+   "max": 55
+  },
+  "firstChildAgeByDec|1960": {
+   "n": 2191,
+   "min": 22,
+   "p25": 25,
+   "p50": 28,
+   "p75": 31,
+   "p95": 37,
+   "max": 49
+  },
+  "childAge|past|M|n1": {
+   "n": 7099,
+   "min": 22,
+   "p25": 27,
+   "p50": 31,
+   "p75": 33,
+   "p95": 38,
+   "max": 51
+  },
+  "firstChildAge|past|M": {
+   "n": 7099,
+   "min": 22,
+   "p25": 27,
+   "p50": 31,
+   "p75": 33,
+   "p95": 38,
+   "max": 51
+  },
+  "inc20to24|dec1980": {
+   "n": 2975,
+   "min": 0,
+   "p25": 5336,
+   "p50": 9696,
+   "p75": 16221,
+   "p95": 34874,
+   "max": 227799
+  },
+  "urban20to24|dec1980": {
+   "n": 2975,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 0,
+   "max": 0
+  },
+  "firstChildAgeByDec|1980": {
+   "n": 2443,
+   "min": 24,
+   "p25": 27,
+   "p50": 29,
+   "p75": 33,
+   "p95": 38,
+   "max": 51
+  },
+  "deathAge_dec1980|past|F|x": {
+   "n": 1931,
+   "min": 0,
+   "p25": 81,
+   "p50": 91,
+   "p75": 97,
+   "p95": 104,
+   "max": 111
+  },
+  "firstChildAgeByDec|2000": {
+   "n": 2052,
+   "min": 27,
+   "p25": 29,
+   "p50": 32,
+   "p75": 34,
+   "p95": 39,
+   "max": 49
+  },
+  "eduAt|now|M|masters": {
+   "n": 387,
+   "min": 25,
+   "p25": 27,
+   "p50": 27,
+   "p75": 43,
+   "p95": 63,
+   "max": 63
+  },
+  "eduAt|past|F|vocational": {
+   "n": 3860,
+   "min": 18,
+   "p25": 18,
+   "p50": 18,
+   "p75": 18,
+   "p95": 18,
+   "max": 18
+  },
+  "marriageAgeByDec|1950": {
+   "n": 2062,
+   "min": 21,
+   "p25": 25,
+   "p50": 27,
+   "p75": 32,
+   "p95": 42,
+   "max": 55
+  },
+  "firstChildAgeByDec|1950": {
+   "n": 1304,
+   "min": 22,
+   "p25": 27,
+   "p50": 29,
+   "p75": 33,
+   "p95": 38,
+   "max": 47
+  },
+  "inc20to24|dec1970": {
+   "n": 2948,
+   "min": 0,
+   "p25": 3784,
+   "p50": 6486,
+   "p75": 10192,
+   "p95": 20783,
+   "max": 97538
+  },
+  "urban20to24|dec1970": {
+   "n": 2948,
+   "min": 0,
+   "p25": 0,
+   "p50": 0,
+   "p75": 0,
+   "p95": 0,
+   "max": 0
+  },
+  "fulltimeLateDiplomaAge|past|F": {
+   "n": 574,
+   "min": 25,
+   "p25": 55,
+   "p50": 59,
+   "p75": 63,
+   "p95": 63,
+   "max": 63
+  },
+  "deathAge_dec2000|past|F|x": {
+   "n": 2003,
+   "min": 0,
+   "p25": 84,
+   "p50": 91,
+   "p75": 97,
+   "p95": 103,
+   "max": 112
+  },
+  "jobBeforeDiplomaGap|now|F": {
+   "n": 1675,
+   "min": 2,
+   "p25": 5,
+   "p50": 8,
+   "p75": 13,
+   "p95": 41,
+   "max": 45
+  },
+  "eduAt|past|M|masters": {
+   "n": 518,
+   "min": 25,
+   "p25": 27,
+   "p50": 28,
+   "p75": 55,
+   "p95": 63,
+   "max": 63
+  },
+  "deathAge_dec1950|past|M|x": {
+   "n": 2011,
+   "min": 0,
+   "p25": 1,
+   "p50": 81,
+   "p75": 92,
+   "p95": 101,
+   "max": 107
+  },
+  "childAge|past|F|n2": {
+   "n": 411,
+   "min": 26,
+   "p25": 33,
+   "p50": 34,
+   "p75": 38,
+   "p95": 39,
+   "max": 49
+  },
+  "eduAt|now|F|university": {
+   "n": 2283,
+   "min": 22,
+   "p25": 23,
+   "p50": 24,
+   "p75": 27,
+   "p95": 55,
+   "max": 63
+  },
+  "onJobLateDiplomaAge|now|F": {
+   "n": 1114,
+   "min": 25,
+   "p25": 27,
+   "p50": 27,
+   "p75": 39,
+   "p95": 55,
+   "max": 63
+  },
+  "fulltimeLateDiplomaAge|past|M": {
+   "n": 299,
+   "min": 25,
+   "p25": 27,
+   "p50": 63,
+   "p75": 63,
+   "p95": 63,
+   "max": 63
+  },
+  "marriageAgeByDec|1940": {
+   "n": 176,
+   "min": 21,
+   "p25": 29,
+   "p50": 31,
+   "p75": 36,
+   "p95": 45,
+   "max": 55
+  },
+  "eduAt|now|F|masters": {
+   "n": 351,
+   "min": 25,
+   "p25": 27,
+   "p50": 27,
+   "p75": 43,
+   "p95": 63,
+   "max": 63
+  },
+  "fulltimeLateDiplomaAge|now|M": {
+   "n": 179,
+   "min": 25,
+   "p25": 26,
+   "p50": 27,
+   "p75": 63,
+   "p95": 63,
+   "max": 63
+  },
+  "firstChildAgeByDec|1940": {
+   "n": 71,
+   "min": 23,
+   "p25": 31,
+   "p50": 33,
+   "p75": 35,
+   "p95": 39,
+   "max": 42
+  },
+  "deathAge_dec1940|past|F|x": {
+   "n": 190,
+   "min": 0,
+   "p25": 58,
+   "p50": 85,
+   "p75": 95,
+   "p95": 102,
+   "max": 111
+  },
+  "childAge|past|M|n2": {
+   "n": 409,
+   "min": 26,
+   "p25": 33,
+   "p50": 34,
+   "p75": 38,
+   "p95": 42,
+   "max": 47
+  },
+  "fulltimeLateDiplomaAge|now|F": {
+   "n": 194,
+   "min": 25,
+   "p25": 26,
+   "p50": 59,
+   "p75": 63,
+   "p95": 63,
+   "max": 63
+  },
+  "childAge|now|F|n2": {
+   "n": 122,
+   "min": 31,
+   "p25": 33,
+   "p50": 37,
+   "p75": 38,
+   "p95": 42,
+   "max": 49
+  },
+  "childAge|now|M|n2": {
+   "n": 160,
+   "min": 31,
+   "p25": 34,
+   "p50": 37,
+   "p75": 39,
+   "p95": 43,
+   "max": 47
+  },
+  "eduAt|now|M|doctorate": {
+   "n": 6,
+   "min": 29,
+   "p25": 30,
+   "p50": 30,
+   "p75": 30,
+   "p95": 33,
+   "max": 33
+  },
+  "eduAt|past|M|doctorate": {
+   "n": 10,
+   "min": 29,
+   "p25": 30,
+   "p50": 31,
+   "p75": 31,
+   "p95": 34,
+   "max": 34
+  },
+  "eduAt|past|F|doctorate": {
+   "n": 12,
+   "min": 29,
+   "p25": 29,
+   "p50": 31,
+   "p75": 33,
+   "p95": 34,
+   "max": 34
+  },
+  "childAge|past|M|n3": {
+   "n": 11,
+   "min": 33,
+   "p25": 35,
+   "p50": 39,
+   "p75": 42,
+   "p95": 46,
+   "max": 46
+  },
+  "childAge|past|F|n3": {
+   "n": 13,
+   "min": 31,
+   "p25": 35,
+   "p50": 37,
+   "p75": 39,
+   "p95": 43,
+   "max": 43
+  },
+  "eduAt|now|F|doctorate": {
+   "n": 6,
+   "min": 30,
+   "p25": 30,
+   "p50": 31,
+   "p75": 32,
+   "p95": 32,
+   "max": 32
+  },
+  "childAge|now|M|n3": {
+   "n": 2,
+   "min": 38,
+   "p25": 38,
+   "p50": 39,
+   "p75": 39,
+   "p95": 39,
+   "max": 39
+  }
+ },
+ "means": {
+  "eduAt|past|M|preschool": 0,
+  "jobStarts|past|M": 2.511,
+  "moves|past|M": 0.55,
+  "kids|past|M": 0.552,
+  "kidsByDec|1940": 0.188,
+  "urbanOriginByDec|1940": 0.451,
+  "married|past|M": 0.786,
+  "deathAge|ALL|X": 81.068,
+  "deathAge|past|M": 76.175,
+  "deathAge_dec1940|past|M|x": 56.928,
+  "deathAge|past|_": 77.6,
+  "peakIncome2025|past|M": 154748.747,
+  "peakIncomeByDec1940": 73246.714,
+  "peakOverAnchor|past|M": 1.547,
+  "endNetWorth|past|M": 3390584.64,
+  "profileLifeExp|past|M": 62.443,
+  "urbanOrigin|past|M": 0.594,
+  "contribYears|past|M": 24.929,
+  "lifeExpProfile|past|_": 64.773,
+  "nwAtDeath|dec1940": 574560.885,
+  "eduAt|past|F|preschool": 0,
+  "jobStarts|past|F": 2.436,
+  "moves|past|F": 0.565,
+  "kids|past|F": 0.567,
+  "kidsByDec|1950": 0.353,
+  "urbanOriginByDec|1950": 0.45,
+  "married|past|F": 0.804,
+  "deathAge|past|F": 79.09,
+  "deathAge_dec1950|past|F|x": 62.623,
+  "peakIncome2025|past|F": 146076.091,
+  "peakIncomeByDec1950": 80447.278,
+  "peakOverAnchor|past|F": 1.435,
+  "endNetWorth|past|F": 3126806.376,
+  "profileLifeExp|past|F": 67.207,
+  "urbanOrigin|past|F": 0.607,
+  "contribYears|past|F": 21.933,
+  "nwAtDeath|dec1950": 826404.79,
+  "firstJobAge|now|M": 20.116,
+  "eduAt|now|M|preschool": 0,
+  "eduAt|now|M|primary": 12,
+  "eduAt|now|M|junior": 15,
+  "eduAt|now|M|high": 18,
+  "eduAt|now|M|university": 27.973,
+  "jobStarts|now|M": 2.334,
+  "moves|now|M": 0.611,
+  "marriageAge|now|M": 30.088,
+  "kids|now|M": 0.551,
+  "kidsByDec|2020": 0.552,
+  "urbanOriginByDec|2020": 0.844,
+  "marriageAgeByDec|2020": 30.124,
+  "firstChildAgeByDec|2020": 32.387,
+  "childAge|now|M|n1": 32.465,
+  "firstChildAge|now|M": 32.465,
+  "married|now|M": 0.909,
+  "retireAge|now|M": 64.025,
+  "ruleRetireAge|now|M": 63.695,
+  "retiredLateBy|now|M": 0.33,
+  "statutoryRetireAge|now|M": 63.511,
+  "statutoryRuleAge|now|M": 63,
+  "deathAge|now|M": 87.208,
+  "deathAge_dec2020|now|M|x": 87.208,
+  "deathAge|now|_": 88.004,
+  "peakIncome2025|now|M": 188277.425,
+  "peakIncomeByDec2020": 186039.325,
+  "peakOverAnchor|now|M": 1.936,
+  "endNetWorth|now|M": 4846556.116,
+  "nwOverPeak|now|M": 16.935,
+  "profileLifeExp|now|M": 77.541,
+  "urbanOrigin|now|M": 0.845,
+  "contribYears|now|M": 33.607,
+  "lifeExpProfile|now|_": 79.808,
+  "inc20to24|dec2040": 33015.86,
+  "urban20to24|dec2040": 0,
+  "nwAtDeath|dec2020": 4745869.838,
+  "firstJobAge|past|F": 19.34,
+  "eduAt|past|F|primary": 12,
+  "eduAt|past|F|junior": 15,
+  "eduAt|past|F|high": 18,
+  "eduAt|past|F|university": 30.751,
+  "eduAt|past|F|masters": 39.315,
+  "jobBeforeDiplomaGap|past|F": 15.496,
+  "onJobLateDiplomaAge|past|F": 32.485,
+  "marriageAge|past|F": 28.49,
+  "kidsByDec|1970": 0.69,
+  "urbanOriginByDec|1970": 0.57,
+  "marriageAgeByDec|1970": 26.664,
+  "firstChildAgeByDec|1970": 29.43,
+  "childAge|past|F|n1": 30.618,
+  "firstChildAge|past|F": 30.618,
+  "retireAge|past|F": 57.925,
+  "ruleRetireAge|past|F": 57.322,
+  "retiredLateBy|past|F": 0.603,
+  "deathAge_dec1970|past|F|x": 80.602,
+  "peakIncomeByDec1970": 150979.618,
+  "nwOverPeak|past|F": 10.925,
+  "inc20to24|dec1990": 16213.35,
+  "urban20to24|dec1990": 0,
+  "nwAtDeath|dec1970": 2713306.041,
+  "statutoryRetireAge|past|F": 54.859,
+  "statutoryRuleAge|past|F": 53.967,
+  "eduAt|now|M|vocational": 18,
+  "firstJobAge|past|M": 19.369,
+  "eduAt|past|M|primary": 12,
+  "eduAt|past|M|junior": 15,
+  "eduAt|past|M|high": 18,
+  "eduAt|past|M|associate": 21.486,
+  "eduAt|past|M|university": 30.507,
+  "jobBeforeDiplomaGap|past|M": 15.016,
+  "onJobLateDiplomaAge|past|M": 34.731,
+  "marriageAge|past|M": 28.328,
+  "kidsByDec|1990": 0.589,
+  "urbanOriginByDec|1990": 0.659,
+  "marriageAgeByDec|1990": 29.203,
+  "retireAge|past|M": 63.527,
+  "ruleRetireAge|past|M": 63.247,
+  "retiredLateBy|past|M": 0.28,
+  "deathAge_dec1990|past|M|x": 84.342,
+  "peakIncomeByDec1990": 180898.016,
+  "nwOverPeak|past|M": 13.472,
+  "inc20to24|dec2010": 25130.545,
+  "urban20to24|dec2010": 0,
+  "nwAtDeath|dec1990": 4816158.318,
+  "eduAt|past|F|associate": 21.481,
+  "firstChildAgeByDec|1990": 31.405,
+  "deathAge_dec1990|past|F|x": 87.124,
+  "eduAt|now|M|associate": 21.365,
+  "jobBeforeDiplomaGap|now|M": 12.769,
+  "onJobLateDiplomaAge|now|M": 33.873,
+  "kidsByDec|2010": 0.529,
+  "urbanOriginByDec|2010": 0.784,
+  "marriageAgeByDec|2010": 30.32,
+  "firstChildAgeByDec|2010": 32.521,
+  "deathAge_dec2010|past|F|x": 88.092,
+  "peakIncomeByDec2010": 183659.397,
+  "inc20to24|dec2030": 32827.685,
+  "urban20to24|dec2030": 0,
+  "nwAtDeath|dec2010": 5178054.617,
+  "kidsByDec|1960": 0.591,
+  "urbanOriginByDec|1960": 0.495,
+  "deathAge_dec1960|past|M|x": 65.009,
+  "peakIncomeByDec1960": 122286.457,
+  "nwAtDeath|dec1960": 1880013.145,
+  "eduAt|past|M|vocational": 18,
+  "deathAge_dec1970|past|M|x": 78.979,
+  "firstJobAge|now|F": 20.147,
+  "eduAt|now|F|preschool": 0,
+  "eduAt|now|F|primary": 12,
+  "eduAt|now|F|junior": 15,
+  "eduAt|now|F|high": 18,
+  "eduAt|now|F|associate": 21.368,
+  "jobStarts|now|F": 2.233,
+  "moves|now|F": 0.605,
+  "marriageAge|now|F": 30.161,
+  "kids|now|F": 0.553,
+  "childAge|now|F|n1": 32.305,
+  "firstChildAge|now|F": 32.305,
+  "married|now|F": 0.908,
+  "retireAge|now|F": 59.157,
+  "ruleRetireAge|now|F": 58.576,
+  "retiredLateBy|now|F": 0.581,
+  "deathAge|now|F": 88.851,
+  "deathAge_dec2020|now|F|x": 88.851,
+  "peakIncome2025|now|F": 183662.424,
+  "peakOverAnchor|now|F": 1.842,
+  "endNetWorth|now|F": 4638939.329,
+  "nwOverPeak|now|F": 14.277,
+  "profileLifeExp|now|F": 82.215,
+  "urbanOrigin|now|F": 0.842,
+  "contribYears|now|F": 29.308,
+  "kidsByDec|1980": 0.652,
+  "urbanOriginByDec|1980": 0.606,
+  "marriageAgeByDec|1980": 27.937,
+  "deathAge_dec1980|past|M|x": 82.51,
+  "peakIncomeByDec1980": 169398.367,
+  "inc20to24|dec2000": 19458.508,
+  "urban20to24|dec2000": 0,
+  "nwAtDeath|dec1980": 3512280.077,
+  "eduAt|now|F|vocational": 18,
+  "statutoryRetireAge|now|F": 56.712,
+  "statutoryRuleAge|now|F": 55.882,
+  "kidsByDec|2000": 0.535,
+  "urbanOriginByDec|2000": 0.729,
+  "marriageAgeByDec|2000": 30.148,
+  "deathAge_dec2000|past|M|x": 85.364,
+  "peakIncomeByDec2000": 186894.282,
+  "inc20to24|dec2020": 31029.674,
+  "urban20to24|dec2020": 0,
+  "nwAtDeath|dec2000": 4941001.344,
+  "statutoryRetireAge|past|M": 62.649,
+  "statutoryRuleAge|past|M": 62.192,
+  "deathAge_dec2010|past|M|x": 87.358,
+  "deathAge_dec1960|past|F|x": 67.756,
+  "marriageAgeByDec|1960": 25.59,
+  "firstChildAgeByDec|1960": 28.57,
+  "childAge|past|M|n1": 30.479,
+  "firstChildAge|past|M": 30.479,
+  "inc20to24|dec1980": 12812.163,
+  "urban20to24|dec1980": 0,
+  "firstChildAgeByDec|1980": 30.447,
+  "deathAge_dec1980|past|F|x": 84.16,
+  "firstChildAgeByDec|2000": 32.256,
+  "eduAt|now|M|masters": 35.24,
+  "eduAt|past|F|vocational": 18,
+  "marriageAgeByDec|1950": 29.131,
+  "firstChildAgeByDec|1950": 30.13,
+  "inc20to24|dec1970": 8243.419,
+  "urban20to24|dec1970": 0,
+  "fulltimeLateDiplomaAge|past|F": 52.568,
+  "deathAge_dec2000|past|F|x": 87.547,
+  "jobBeforeDiplomaGap|now|F": 12.211,
+  "eduAt|past|M|masters": 38.577,
+  "deathAge_dec1950|past|M|x": 56.415,
+  "childAge|past|F|n2": 34.65,
+  "eduAt|now|F|university": 27.487,
+  "onJobLateDiplomaAge|now|F": 32.346,
+  "fulltimeLateDiplomaAge|past|M": 49.314,
+  "marriageAgeByDec|1940": 33.063,
+  "eduAt|now|F|masters": 35.969,
+  "fulltimeLateDiplomaAge|now|M": 41.682,
+  "firstChildAgeByDec|1940": 32.704,
+  "deathAge_dec1940|past|F|x": 68.4,
+  "childAge|past|M|n2": 35.054,
+  "fulltimeLateDiplomaAge|now|F": 46.191,
+  "childAge|now|F|n2": 36.311,
+  "childAge|now|M|n2": 36.913,
+  "eduAt|past|M|doctorate": 30.7,
+  "eduAt|past|F|doctorate": 31.083,
+  "childAge|past|M|n3": 38.818,
+  "childAge|past|F|n3": 37.154
+ },
+ "ratesPct": {
+  "urban20to24|dec2040": 0,
+  "urban20to24|dec1990": 0,
+  "urban20to24|dec2010": 0,
+  "urban20to24|dec2030": 0,
+  "urban20to24|dec2000": 0,
+  "urban20to24|dec2020": 0,
+  "urban20to24|dec1980": 0,
+  "urban20to24|dec1970": 0
+ },
+ "causeSharePct": {
+  "past|lt1": {
+   "先天性疾病": 52.04,
+   "严重感染": 47.96
+  },
+  "past|1-4": {
+   "严重感染": 51.58,
+   "先天性疾病": 48.42
+  },
+  "now|75p": {
+   "呼吸系统疾病": 20.2,
+   "心血管疾病": 19.66,
+   "脑血管疾病": 19.72,
+   "癌症": 20,
+   "衰老相关疾病": 20.42
+  },
+  "past|60-74": {
+   "癌症": 20.03,
+   "脑血管疾病": 20.7,
+   "呼吸系统疾病": 19.31,
+   "心血管疾病": 20.5,
+   "衰老相关疾病": 19.46
+  },
+  "past|75p": {
+   "衰老相关疾病": 20.06,
+   "呼吸系统疾病": 19.63,
+   "癌症": 20.08,
+   "脑血管疾病": 20.05,
+   "心血管疾病": 20.19
+  },
+  "past|45-59": {
+   "心血管疾病": 30.98,
+   "意外事故": 32.52,
+   "急性疾病": 36.5
+  },
+  "past|30-44": {
+   "意外事故": 28.57,
+   "急性疾病": 35.71,
+   "心血管疾病": 35.71
+  },
+  "now|30-44": {
+   "心血管疾病": 28.3,
+   "意外事故": 49.06,
+   "急性疾病": 22.64
+  },
+  "now|45-59": {
+   "急性疾病": 32.11,
+   "意外事故": 34.4,
+   "心血管疾病": 33.49
+  },
+  "now|60-74": {
+   "脑血管疾病": 20.04,
+   "癌症": 18.71,
+   "衰老相关疾病": 20.8,
+   "呼吸系统疾病": 20.7,
+   "心血管疾病": 19.75
+  },
+  "now|15-29": {
+   "心血管疾病": 22.22,
+   "意外事故": 44.44,
+   "急性疾病": 33.33
+  },
+  "now|lt1": {
+   "先天性疾病": 50.94,
+   "严重感染": 49.06
+  },
+  "past|15-29": {
+   "意外事故": 28.95,
+   "急性疾病": 36.84,
+   "心血管疾病": 34.21
+  },
+  "past|5-14": {
+   "严重感染": 50,
+   "先天性疾病": 40.91,
+   "急性疾病": 4.55,
+   "心血管疾病": 4.55
+  },
+  "now|1-4": {
+   "先天性疾病": 55.56,
+   "严重感染": 44.44
+  },
+  "now|5-14": {
+   "严重感染": 50,
+   "先天性疾病": 20,
+   "急性疾病": 20,
+   "意外事故": 10
+  }
+ },
+ "counters": {},
+ "deathsByBand": {
+  "past|lt1": 2350,
+  "past|1-4": 979,
+  "now|75p": 11901,
+  "past|60-74": 1937,
+  "past|75p": 20931,
+  "past|45-59": 326,
+  "past|30-44": 84,
+  "now|30-44": 53,
+  "now|45-59": 218,
+  "now|60-74": 1053,
+  "now|15-29": 18,
+  "now|lt1": 53,
+  "past|15-29": 38,
+  "past|5-14": 22,
+  "now|1-4": 27,
+  "now|5-14": 10
+ },
+ "deathsByDecade20to24": {
+  "1970": 2948,
+  "1980": 2975,
+  "1990": 3585,
+  "2000": 3730,
+  "2010": 3832,
+  "2020": 3881,
+  "2030": 2354,
+  "2040": 13240
+ }
+}

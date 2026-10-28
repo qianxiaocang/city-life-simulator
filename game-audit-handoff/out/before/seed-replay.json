@@ -1,0 +1,2431 @@
+{
+  "engine": "snapshot",
+  "cases": {
+    "L10K-01": [
+      {
+        "seed": "w0",
+        "world": "past",
+        "birthYear": 1950,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 100,
+        "historyGrammar": [
+          "2015-12-12 · 你在清远市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在宁乡市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在宁乡市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。",
+          "1984-05 · 你在宁乡市生活的这一年，沿海开放城市扩大发生了。沿海制造、贸易与服务业出现新的工作机会。",
+          "1976-10-06 · 你在宁乡市生活的这一年，十年动乱结束发生了。社会进入调整与恢复阶段，受影响的教育和工作开始重建。",
+          "1965 · 你在宁乡市生活的这一年，国际发展合作扩大发生了。公共卫生、教育与发展合作成为国际社会持续讨论的议题。",
+          "1954-09-20 · 你在宁乡市生活的这一年，第一部宪法通过发生了。国家制度建设为社会生活建立新的法律框架。",
+          "1953 · 你在宁乡市生活的这一年，第一个五年计划开始发生了。工业建设扩大，新的技术岗位和城市就业机会出现。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1968,
+            "job": "mechanic"
+          },
+          {
+            "age": 23,
+            "year": 1973,
+            "job": "welder"
+          },
+          {
+            "age": 23,
+            "year": 1973,
+            "job": "farmer"
+          },
+          {
+            "age": 24,
+            "year": 1974,
+            "job": "legacy-state-office"
+          },
+          {
+            "age": 26,
+            "year": 1976,
+            "job": "electrician"
+          },
+          {
+            "age": 26,
+            "year": 1976,
+            "job": "electrician"
+          },
+          {
+            "age": 30,
+            "year": 1980,
+            "job": "factory-operator"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 600,
+          "baseAgeMonths": 600,
+          "delayMonths": 0,
+          "retirementYear": 2000,
+          "retirementMonth": 11,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 50,
+        "contributionYears": 23,
+        "badChildren": [],
+        "netWorth": 346950,
+        "typicalIncome": 92051,
+        "siblings": 5,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 30
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "赵景行",
+            "birthYear": 1993
+          }
+        ]
+      }
+    ],
+    "L10K-02": [
+      {
+        "seed": "w120",
+        "world": "past",
+        "birthYear": 1950,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 86,
+        "historyGrammar": [
+          "2015-12-12 · 你在镇江市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在梧栖区生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在梧栖区生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。",
+          "1965 · 你在梧栖区生活的这一年，国际发展合作扩大发生了。公共卫生、教育与发展合作成为国际社会持续讨论的议题。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1968,
+            "job": "plumber"
+          },
+          {
+            "age": 22,
+            "year": 1972,
+            "job": "carpenter"
+          },
+          {
+            "age": 35,
+            "year": 1985,
+            "job": "agricultural-tech"
+          },
+          {
+            "age": 51,
+            "year": 2001,
+            "job": "accountant"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 660,
+          "baseAgeMonths": 660,
+          "delayMonths": 0,
+          "retirementYear": 2005,
+          "retirementMonth": 12,
+          "category": "female55",
+          "sourceIds": [
+            "retirement-1978"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 49,
+        "contributionYears": 18,
+        "badChildren": [],
+        "netWorth": 322373,
+        "typicalIncome": 96708,
+        "siblings": 1,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 22,
+          "university": 35
+        },
+        "lateBirths": [],
+        "children": []
+      }
+    ],
+    "L10K-03": [
+      {
+        "seed": "w13",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 89,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 21,
+            "year": 2047,
+            "job": "livestock"
+          },
+          {
+            "age": 65,
+            "year": 2091,
+            "job": "vocational-teacher"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 696,
+          "baseAgeMonths": 660,
+          "delayMonths": 36,
+          "retirementYear": 2084,
+          "retirementMonth": 4,
+          "category": "female55",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 5375585,
+        "typicalIncome": 63097,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18,
+          "associate": 21,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w38",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 103,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 2045,
+            "job": "electrician"
+          },
+          {
+            "age": 23,
+            "year": 2049,
+            "job": "security"
+          },
+          {
+            "age": 33,
+            "year": 2059,
+            "job": "utility-worker"
+          },
+          {
+            "age": 34,
+            "year": 2060,
+            "job": "business"
+          },
+          {
+            "age": 59,
+            "year": 2085,
+            "job": "retail"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 660,
+          "baseAgeMonths": 600,
+          "delayMonths": 60,
+          "retirementYear": 2081,
+          "retirementMonth": 4,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 62,
+        "contributionYears": 14,
+        "badChildren": [],
+        "netWorth": 2757925,
+        "typicalIncome": 57168,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 22
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w50",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 96,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 2045,
+            "job": "utility-worker"
+          },
+          {
+            "age": 57,
+            "year": 2083,
+            "job": "fishery"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 660,
+          "baseAgeMonths": 600,
+          "delayMonths": 60,
+          "retirementYear": 2081,
+          "retirementMonth": 10,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 58,
+        "contributionYears": 38,
+        "badChildren": [],
+        "netWorth": 1071788,
+        "typicalIncome": 87499,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "李承宇",
+            "birthYear": 2057
+          }
+        ]
+      }
+    ],
+    "L10K-04": [
+      {
+        "seed": "w0",
+        "world": "past",
+        "birthYear": 1950,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 100,
+        "historyGrammar": [
+          "2015-12-12 · 你在清远市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在宁乡市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在宁乡市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。",
+          "1984-05 · 你在宁乡市生活的这一年，沿海开放城市扩大发生了。沿海制造、贸易与服务业出现新的工作机会。",
+          "1976-10-06 · 你在宁乡市生活的这一年，十年动乱结束发生了。社会进入调整与恢复阶段，受影响的教育和工作开始重建。",
+          "1965 · 你在宁乡市生活的这一年，国际发展合作扩大发生了。公共卫生、教育与发展合作成为国际社会持续讨论的议题。",
+          "1954-09-20 · 你在宁乡市生活的这一年，第一部宪法通过发生了。国家制度建设为社会生活建立新的法律框架。",
+          "1953 · 你在宁乡市生活的这一年，第一个五年计划开始发生了。工业建设扩大，新的技术岗位和城市就业机会出现。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1968,
+            "job": "mechanic"
+          },
+          {
+            "age": 23,
+            "year": 1973,
+            "job": "welder"
+          },
+          {
+            "age": 23,
+            "year": 1973,
+            "job": "farmer"
+          },
+          {
+            "age": 24,
+            "year": 1974,
+            "job": "legacy-state-office"
+          },
+          {
+            "age": 26,
+            "year": 1976,
+            "job": "electrician"
+          },
+          {
+            "age": 26,
+            "year": 1976,
+            "job": "electrician"
+          },
+          {
+            "age": 30,
+            "year": 1980,
+            "job": "factory-operator"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 600,
+          "baseAgeMonths": 600,
+          "delayMonths": 0,
+          "retirementYear": 2000,
+          "retirementMonth": 11,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 50,
+        "contributionYears": 23,
+        "badChildren": [],
+        "netWorth": 346950,
+        "typicalIncome": 92051,
+        "siblings": 5,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 30
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "赵景行",
+            "birthYear": 1993
+          }
+        ]
+      },
+      {
+        "seed": "w13",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 89,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 21,
+            "year": 2047,
+            "job": "livestock"
+          },
+          {
+            "age": 65,
+            "year": 2091,
+            "job": "vocational-teacher"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 696,
+          "baseAgeMonths": 660,
+          "delayMonths": 36,
+          "retirementYear": 2084,
+          "retirementMonth": 4,
+          "category": "female55",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 5375585,
+        "typicalIncome": 63097,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18,
+          "associate": 21,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w19",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "taiwan",
+        "deathAge": 94,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 2045,
+            "job": "welder"
+          },
+          {
+            "age": 35,
+            "year": 2061,
+            "job": "business"
+          },
+          {
+            "age": 37,
+            "year": 2063,
+            "job": "repair-shop"
+          },
+          {
+            "age": 49,
+            "year": 2075,
+            "job": "state-factory"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2091,
+          "retirementMonth": 12,
+          "statutory": false,
+          "jurisdiction": "taiwan",
+          "sourceIds": [
+            "tw-labor-pension"
+          ],
+          "modelOnly": true,
+          "benefitKind": "labor-insurance-claim"
+        },
+        "retireAge": 65,
+        "contributionYears": 32,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 271021,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "张心悦",
+            "birthYear": 2067
+          }
+        ]
+      },
+      {
+        "seed": "w22",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 49,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 2045,
+            "job": "welder"
+          },
+          {
+            "age": 47,
+            "year": 2073,
+            "job": "business"
+          }
+        ],
+        "contributionYears": 28,
+        "badChildren": [],
+        "netWorth": 224304,
+        "typicalIncome": 62883,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "周子安",
+            "birthYear": 2057
+          }
+        ]
+      }
+    ],
+    "L10K-05": [
+      {
+        "seed": "w54",
+        "world": "past",
+        "birthYear": 1985,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 87,
+        "historyGrammar": [
+          "2015-12-12 · 你在乌鲁木齐市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在乌鲁木齐市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在乌鲁木齐市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2003,
+            "job": "agricultural-tech"
+          },
+          {
+            "age": 41,
+            "year": 2026,
+            "job": "robotics-technician"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2048,
+          "retirementMonth": 8,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 22,
+        "badChildren": [
+          "李心悦"
+        ],
+        "netWorth": 1035327,
+        "typicalIncome": 62669,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "李心悦",
+            "birthYear": 2014
+          }
+        ]
+      },
+      {
+        "seed": "w67",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 97,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2044,
+            "job": "cleaner"
+          },
+          {
+            "age": 54,
+            "year": 2080,
+            "job": "business"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2091,
+          "retirementMonth": 8,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 65,
+        "contributionYears": 36,
+        "badChildren": [
+          "沈安然"
+        ],
+        "netWorth": 0,
+        "typicalIncome": 74976,
+        "siblings": 3,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "university": 39
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "沈安然",
+            "birthYear": 2067
+          }
+        ]
+      },
+      {
+        "seed": "w102",
+        "world": "past",
+        "birthYear": 2000,
+        "sex": "female",
+        "region": "taiwan",
+        "deathAge": 100,
+        "historyGrammar": [
+          "2015-12-12 · 你在雅安市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 21,
+            "year": 2021,
+            "job": "sales"
+          },
+          {
+            "age": 46,
+            "year": 2046,
+            "job": "business"
+          },
+          {
+            "age": 57,
+            "year": 2057,
+            "job": "railway-worker"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2065,
+          "retirementMonth": 6,
+          "statutory": false,
+          "jurisdiction": "taiwan",
+          "sourceIds": [
+            "tw-labor-pension"
+          ],
+          "modelOnly": true,
+          "benefitKind": "labor-insurance-claim"
+        },
+        "retireAge": 65,
+        "contributionYears": 33,
+        "badChildren": [
+          "刘浩然"
+        ],
+        "netWorth": 6384160,
+        "typicalIncome": 271073,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "刘浩然",
+            "birthYear": 2033
+          }
+        ]
+      },
+      {
+        "seed": "w108",
+        "world": "past",
+        "birthYear": 1961,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 73,
+        "historyGrammar": [
+          "2015-12-12 · 你在冷水江市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在冷水江市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在冷水江市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。",
+          "1984-05 · 你在冷水江市生活的这一年，沿海开放城市扩大发生了。沿海制造、贸易与服务业出现新的工作机会。",
+          "1976-10-06 · 你在冷水江市生活的这一年，十年动乱结束发生了。社会进入调整与恢复阶段，受影响的教育和工作开始重建。",
+          "1965 · 你在冷水江市生活的这一年，国际发展合作扩大发生了。公共卫生、教育与发展合作成为国际社会持续讨论的议题。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1979,
+            "job": "plumber"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 600,
+          "baseAgeMonths": 600,
+          "delayMonths": 0,
+          "retirementYear": 2011,
+          "retirementMonth": 11,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 50,
+        "contributionYears": 32,
+        "badChildren": [
+          "张承宇"
+        ],
+        "netWorth": 6876275,
+        "typicalIncome": 57671,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "张承宇",
+            "birthYear": 1990
+          }
+        ]
+      }
+    ],
+    "L10K-06": [
+      {
+        "seed": "w4",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 94,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2044,
+            "job": "warehouse"
+          },
+          {
+            "age": 23,
+            "year": 2049,
+            "job": "nurse"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 696,
+          "baseAgeMonths": 660,
+          "delayMonths": 36,
+          "retirementYear": 2084,
+          "retirementMonth": 4,
+          "category": "female55",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 58,
+        "contributionYears": 36,
+        "badChildren": [],
+        "netWorth": 3395077,
+        "typicalIncome": 117770,
+        "siblings": 1,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 22
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "何书瑶",
+            "birthYear": 2064
+          }
+        ]
+      },
+      {
+        "seed": "w5",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 99,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 2045,
+            "job": "sales"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2089,
+          "retirementMonth": 8,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 44,
+        "badChildren": [],
+        "netWorth": 813478,
+        "typicalIncome": 58781,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "吴明轩",
+            "birthYear": 2053
+          }
+        ]
+      },
+      {
+        "seed": "w9",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 94,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 24,
+            "year": 2050,
+            "job": "primary-teacher"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2089,
+          "retirementMonth": 11,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 39,
+        "badChildren": [],
+        "netWorth": 3634544,
+        "typicalIncome": 56832,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21,
+          "university": 23
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w13",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 89,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 21,
+            "year": 2047,
+            "job": "livestock"
+          },
+          {
+            "age": 65,
+            "year": 2091,
+            "job": "vocational-teacher"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 696,
+          "baseAgeMonths": 660,
+          "delayMonths": 36,
+          "retirementYear": 2084,
+          "retirementMonth": 4,
+          "category": "female55",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 5375585,
+        "typicalIncome": 63097,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18,
+          "associate": 21,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": []
+      }
+    ],
+    "L10K-07": [
+      {
+        "seed": "w156",
+        "world": "past",
+        "birthYear": 1972,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 96,
+        "historyGrammar": [
+          "2015-12-12 · 你在孝感市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在孝感市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在孝感市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。",
+          "1984-05 · 你在孝感市生活的这一年，沿海开放城市扩大发生了。沿海制造、贸易与服务业出现新的工作机会。",
+          "1976-10-06 · 你在孝感市生活的这一年，十年动乱结束发生了。社会进入调整与恢复阶段，受影响的教育和工作开始重建。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 1991,
+            "job": "electrician"
+          },
+          {
+            "age": 25,
+            "year": 1997,
+            "job": "civil-community"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 743,
+          "baseAgeMonths": 720,
+          "delayMonths": 23,
+          "retirementYear": 2034,
+          "retirementMonth": 4,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 62,
+        "contributionYears": 37,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 65025,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 22
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "周宇辰",
+            "birthYear": 2005
+          }
+        ]
+      },
+      {
+        "seed": "w180",
+        "world": "past",
+        "birthYear": 1950,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 0,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [],
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 4700,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w216",
+        "world": "past",
+        "birthYear": 1972,
+        "sex": "male",
+        "region": "taiwan",
+        "deathAge": 92,
+        "historyGrammar": [
+          "2015-12-12 · 你在句容市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在句容市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在句容市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。",
+          "1984-05 · 你在句容市生活的这一年，沿海开放城市扩大发生了。沿海制造、贸易与服务业出现新的工作机会。",
+          "1976-10-06 · 你在句容市生活的这一年，十年动乱结束发生了。社会进入调整与恢复阶段，受影响的教育和工作开始重建。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1990,
+            "job": "fishery"
+          },
+          {
+            "age": 37,
+            "year": 2009,
+            "job": "plumber"
+          },
+          {
+            "age": 42,
+            "year": 2014,
+            "job": "kindergarten-teacher"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2037,
+          "retirementMonth": 9,
+          "statutory": false,
+          "jurisdiction": "taiwan",
+          "sourceIds": [
+            "tw-labor-pension"
+          ],
+          "modelOnly": true,
+          "benefitKind": "labor-insurance-claim"
+        },
+        "retireAge": 65,
+        "contributionYears": 28,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 275170,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w288",
+        "world": "past",
+        "birthYear": 1961,
+        "sex": "female",
+        "region": "taiwan",
+        "deathAge": 96,
+        "historyGrammar": [
+          "2015-12-12 · 你在美浓区生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在韶关市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在韶关市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。",
+          "1984-05 · 你在韶关市生活的这一年，沿海开放城市扩大发生了。沿海制造、贸易与服务业出现新的工作机会。",
+          "1976-10-06 · 你在韶关市生活的这一年，十年动乱结束发生了。社会进入调整与恢复阶段，受影响的教育和工作开始重建。",
+          "1965 · 你在韶关市生活的这一年，国际发展合作扩大发生了。公共卫生、教育与发展合作成为国际社会持续讨论的议题。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 1980,
+            "job": "electrician"
+          },
+          {
+            "age": 26,
+            "year": 1987,
+            "job": "state-factory"
+          },
+          {
+            "age": 59,
+            "year": 2020,
+            "job": "developer"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2026,
+          "retirementMonth": 5,
+          "statutory": false,
+          "jurisdiction": "taiwan",
+          "sourceIds": [
+            "tw-labor-pension"
+          ],
+          "modelOnly": true,
+          "benefitKind": "labor-insurance-claim"
+        },
+        "retireAge": 65,
+        "contributionYears": 46,
+        "badChildren": [],
+        "netWorth": 3929337,
+        "typicalIncome": 271384,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": []
+      }
+    ],
+    "L10K-08": [
+      {
+        "seed": "w664",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "taiwan",
+        "deathAge": 99,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2044,
+            "job": "postal-worker"
+          },
+          {
+            "age": 24,
+            "year": 2050,
+            "job": "librarian"
+          },
+          {
+            "age": 46,
+            "year": 2072,
+            "job": "repair-shop"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2091,
+          "retirementMonth": 8,
+          "statutory": false,
+          "jurisdiction": "taiwan",
+          "sourceIds": [
+            "tw-labor-pension"
+          ],
+          "modelOnly": true,
+          "benefitKind": "labor-insurance-claim"
+        },
+        "retireAge": 65,
+        "contributionYears": 23,
+        "badChildren": [],
+        "netWorth": 450458,
+        "typicalIncome": 274911,
+        "siblings": 1,
+        "duplicateMoves": [
+          {
+            "action": "move",
+            "age": 63,
+            "year": 2089,
+            "labels": [
+              "留在熟悉的地方",
+              "信义区",
+              "信义区",
+              "吴川市"
+            ],
+            "duplicate": true
+          }
+        ],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "university": 23
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "蔡明轩",
+            "birthYear": 2058
+          }
+        ]
+      },
+      {
+        "seed": "w4184",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 79,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 21,
+            "year": 2047,
+            "job": "mechanic"
+          },
+          {
+            "age": 33,
+            "year": 2059,
+            "job": "repair-shop"
+          },
+          {
+            "age": 51,
+            "year": 2077,
+            "job": "agricultural-tech"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2089,
+          "retirementMonth": 9,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 1106674,
+        "typicalIncome": 94062,
+        "siblings": 1,
+        "duplicateMoves": [
+          {
+            "action": "move",
+            "age": 45,
+            "year": 2071,
+            "labels": [
+              "留在熟悉的地方",
+              "东区",
+              "铜川市",
+              "东区"
+            ],
+            "duplicate": true
+          }
+        ],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "林俊熙",
+            "birthYear": 2057
+          }
+        ]
+      },
+      {
+        "seed": "w8787",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 106,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2044,
+            "job": "delivery"
+          },
+          {
+            "age": 60,
+            "year": 2086,
+            "job": "bus-driver"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2091,
+          "retirementMonth": 12,
+          "statutory": false,
+          "jurisdiction": "taiwan",
+          "sourceIds": [
+            "tw-labor-pension"
+          ],
+          "modelOnly": true,
+          "benefitKind": "labor-insurance-claim"
+        },
+        "retireAge": 65,
+        "contributionYears": 47,
+        "badChildren": [],
+        "netWorth": 78250586,
+        "typicalIncome": 58310,
+        "siblings": 0,
+        "duplicateMoves": [
+          {
+            "action": "move",
+            "age": 54,
+            "year": 2080,
+            "labels": [
+              "留在熟悉的地方",
+              "南区",
+              "南区",
+              "淮北市"
+            ],
+            "duplicate": true
+          }
+        ],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "林若宁",
+            "birthYear": 2068
+          }
+        ]
+      },
+      {
+        "seed": "w11835",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 97,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 20,
+            "year": 2046,
+            "job": "restaurant-service"
+          },
+          {
+            "age": 32,
+            "year": 2058,
+            "job": "welder"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2089,
+          "retirementMonth": 9,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 43,
+        "badChildren": [],
+        "netWorth": 753574,
+        "typicalIncome": 62669,
+        "siblings": 2,
+        "duplicateMoves": [
+          {
+            "action": "move",
+            "age": 67,
+            "year": 2093,
+            "labels": [
+              "留在熟悉的地方",
+              "信义区",
+              "信义区",
+              "廊坊市"
+            ],
+            "duplicate": true
+          }
+        ],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "杨嘉怡",
+            "birthYear": 2055
+          }
+        ]
+      }
+    ],
+    "L10K-09": [
+      {
+        "seed": "w1686",
+        "world": "past",
+        "birthYear": 1972,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 74,
+        "historyGrammar": [
+          "2015-12-12 · 你在郑州市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在郑州市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在郑州市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。",
+          "1984-05 · 你在郑州市生活的这一年，沿海开放城市扩大发生了。沿海制造、贸易与服务业出现新的工作机会。",
+          "1976-10-06 · 你在郑州市生活的这一年，十年动乱结束发生了。社会进入调整与恢复阶段，受影响的教育和工作开始重建。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1990,
+            "job": "sales"
+          },
+          {
+            "age": 54,
+            "year": 2026,
+            "job": "factory-operator"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 742,
+          "baseAgeMonths": 720,
+          "delayMonths": 22,
+          "retirementYear": 2034,
+          "retirementMonth": 2,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 62,
+        "contributionYears": 44,
+        "badChildren": [],
+        "netWorth": 655674,
+        "typicalIncome": 68666,
+        "siblings": 3,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w2190",
+        "world": "past",
+        "birthYear": 1950,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 86,
+        "historyGrammar": [
+          "2015-12-12 · 你在郑州市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在郑州市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在郑州市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。",
+          "1984-05 · 你在郑州市生活的这一年，沿海开放城市扩大发生了。沿海制造、贸易与服务业出现新的工作机会。",
+          "1976-10-06 · 你在郑州市生活的这一年，十年动乱结束发生了。社会进入调整与恢复阶段，受影响的教育和工作开始重建。",
+          "1965 · 你在郑州市生活的这一年，国际发展合作扩大发生了。公共卫生、教育与发展合作成为国际社会持续讨论的议题。",
+          "1954-09-20 · 你在郑州市生活的这一年，第一部宪法通过发生了。国家制度建设为社会生活建立新的法律框架。",
+          "1953 · 你在郑州市生活的这一年，第一个五年计划开始发生了。工业建设扩大，新的技术岗位和城市就业机会出现。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1968,
+            "job": "farmer"
+          },
+          {
+            "age": 20,
+            "year": 1970,
+            "job": "farmer"
+          },
+          {
+            "age": 21,
+            "year": 1971,
+            "job": "nurse"
+          },
+          {
+            "age": 22,
+            "year": 1972,
+            "job": "kindergarten-teacher"
+          },
+          {
+            "age": 23,
+            "year": 1973,
+            "job": "kindergarten-teacher"
+          },
+          {
+            "age": 24,
+            "year": 1974,
+            "job": "legacy-state-office"
+          },
+          {
+            "age": 25,
+            "year": 1975,
+            "job": "kindergarten-teacher"
+          },
+          {
+            "age": 26,
+            "year": 1976,
+            "job": "state-factory"
+          },
+          {
+            "age": 27,
+            "year": 1977,
+            "job": "livestock"
+          },
+          {
+            "age": 35,
+            "year": 1985,
+            "job": "office"
+          },
+          {
+            "age": 58,
+            "year": 2008,
+            "job": "livestock"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2015,
+          "retirementMonth": 4,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 65,
+        "contributionYears": 29,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 78948,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "王以宁",
+            "birthYear": 1988
+          }
+        ]
+      },
+      {
+        "seed": "w3414",
+        "world": "past",
+        "birthYear": 1985,
+        "sex": "male",
+        "region": "taiwan",
+        "deathAge": 64,
+        "historyGrammar": [
+          "2015-12-12 · 你在郑州市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在郑州市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在郑州市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 20,
+            "year": 2005,
+            "job": "care-worker"
+          },
+          {
+            "age": 26,
+            "year": 2011,
+            "job": "kindergarten-teacher"
+          },
+          {
+            "age": 37,
+            "year": 2022,
+            "job": "warehouse"
+          }
+        ],
+        "contributionYears": 44,
+        "badChildren": [],
+        "netWorth": 55485,
+        "typicalIncome": 270969,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "刘宇辰",
+            "birthYear": 2017
+          }
+        ]
+      },
+      {
+        "seed": "w13026",
+        "world": "past",
+        "birthYear": 1972,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 82,
+        "historyGrammar": [
+          "2015-12-12 · 你在郑州市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在郑州市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在郑州市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。",
+          "1984-05 · 你在郑州市生活的这一年，沿海开放城市扩大发生了。沿海制造、贸易与服务业出现新的工作机会。",
+          "1976-10-06 · 你在郑州市生活的这一年，十年动乱结束发生了。社会进入调整与恢复阶段，受影响的教育和工作开始重建。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1990,
+            "job": "farmer"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2037,
+          "retirementMonth": 4,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 65,
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 236461,
+        "typicalIncome": 78948,
+        "siblings": 1,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "何景行",
+            "birthYear": 1997
+          }
+        ]
+      }
+    ],
+    "L10K-10": [
+      {
+        "seed": "w7",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "taiwan",
+        "deathAge": 106,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 2045,
+            "job": "cook"
+          },
+          {
+            "age": 23,
+            "year": 2049,
+            "job": "care-worker"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 660,
+          "baseAgeMonths": 600,
+          "delayMonths": 60,
+          "retirementYear": 2081,
+          "retirementMonth": 2,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 55,
+        "contributionYears": 36,
+        "badChildren": [],
+        "netWorth": 255,
+        "typicalIncome": 271124,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "university": 39
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "李远航",
+            "birthYear": 2064
+          }
+        ]
+      },
+      {
+        "seed": "w12",
+        "world": "past",
+        "birthYear": 2000,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 94,
+        "historyGrammar": [
+          "2015-12-12 · 你在广州市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 23,
+            "year": 2023,
+            "job": "hotel-service"
+          },
+          {
+            "age": 44,
+            "year": 2044,
+            "job": "welder"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 660,
+          "baseAgeMonths": 600,
+          "delayMonths": 60,
+          "retirementYear": 2055,
+          "retirementMonth": 5,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 55,
+        "contributionYears": 32,
+        "badChildren": [],
+        "netWorth": 1218,
+        "typicalIncome": 124649,
+        "siblings": 1,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21,
+          "university": 23,
+          "masters": 63
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "黄宇辰",
+            "birthYear": 2027
+          }
+        ]
+      },
+      {
+        "seed": "w21",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "taiwan",
+        "deathAge": 91,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 21,
+            "year": 2047,
+            "job": "construction-worker"
+          },
+          {
+            "age": 46,
+            "year": 2072,
+            "job": "civil-community"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2091,
+          "retirementMonth": 1,
+          "statutory": false,
+          "jurisdiction": "taiwan",
+          "sourceIds": [
+            "tw-labor-pension"
+          ],
+          "modelOnly": true,
+          "benefitKind": "labor-insurance-claim"
+        },
+        "retireAge": 65,
+        "contributionYears": 44,
+        "badChildren": [],
+        "netWorth": 4087032,
+        "typicalIncome": 273199,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21,
+          "university": 63
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "许知夏",
+            "birthYear": 2061
+          }
+        ]
+      },
+      {
+        "seed": "w24",
+        "world": "past",
+        "birthYear": 1985,
+        "sex": "male",
+        "region": "hongkong",
+        "deathAge": 103,
+        "historyGrammar": [
+          "2015-12-12 · 你在东莞市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在东莞市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在东莞市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2003,
+            "job": "fishery"
+          },
+          {
+            "age": 24,
+            "year": 2009,
+            "job": "livestock"
+          },
+          {
+            "age": 34,
+            "year": 2019,
+            "job": "fishery"
+          },
+          {
+            "age": 51,
+            "year": 2036,
+            "job": "factory-operator"
+          },
+          {
+            "age": 59,
+            "year": 2044,
+            "job": "vocational-teacher"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2050,
+          "retirementMonth": 6,
+          "statutory": false,
+          "jurisdiction": "hongkong",
+          "sourceIds": [
+            "hk-mpf"
+          ],
+          "modelOnly": true,
+          "benefitKind": "mpf-withdrawal"
+        },
+        "retireAge": 49,
+        "contributionYears": 14,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 414782,
+        "siblings": 1,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18,
+          "university": 55
+        },
+        "lateBirths": [],
+        "children": []
+      }
+    ],
+    "L10K-11": [
+      {
+        "seed": "w4854",
+        "world": "past",
+        "birthYear": 1985,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 92,
+        "historyGrammar": [
+          "2015-12-12 · 你在草湖市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在草湖市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在草湖市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2003,
+            "job": "construction-worker"
+          },
+          {
+            "age": 23,
+            "year": 2008,
+            "job": "utility-worker"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 660,
+          "baseAgeMonths": 600,
+          "delayMonths": 60,
+          "retirementYear": 2040,
+          "retirementMonth": 12,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 55,
+        "contributionYears": 37,
+        "badChildren": [],
+        "netWorth": 2612081,
+        "typicalIncome": 60192,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "杨以宁",
+            "birthYear": 2034
+          }
+        ]
+      },
+      {
+        "seed": "w9024",
+        "world": "past",
+        "birthYear": 1985,
+        "sex": "female",
+        "region": "taiwan",
+        "deathAge": 98,
+        "historyGrammar": [
+          "2015-12-12 · 你在朝阳市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在朝阳市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在朝阳市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 23,
+            "year": 2008,
+            "job": "livestock"
+          },
+          {
+            "age": 53,
+            "year": 2038,
+            "job": "business"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2050,
+          "retirementMonth": 2,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 65,
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 1069446,
+        "typicalIncome": 273511,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "周子安",
+            "birthYear": 2034
+          }
+        ]
+      },
+      {
+        "seed": "w12892",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 91,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 22,
+            "year": 2048,
+            "job": "kindergarten-teacher"
+          },
+          {
+            "age": 47,
+            "year": 2073,
+            "job": "bus-driver"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 660,
+          "baseAgeMonths": 600,
+          "delayMonths": 60,
+          "retirementYear": 2081,
+          "retirementMonth": 7,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 55,
+        "contributionYears": 33,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 64090,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "蔡子安",
+            "birthYear": 2057
+          },
+          {
+            "name": "蔡承宇",
+            "birthYear": 2075
+          }
+        ]
+      },
+      {
+        "seed": "w17274",
+        "world": "past",
+        "birthYear": 1985,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 83,
+        "historyGrammar": [
+          "2015-12-12 · 你在甘南藏族自治州生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。",
+          "1997-12-11 · 你在甘南藏族自治州生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。",
+          "1987-09-16 · 你在甘南藏族自治州生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。"
+        ],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2003,
+            "job": "railway-worker"
+          },
+          {
+            "age": 42,
+            "year": 2027,
+            "job": "repair-shop"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2050,
+          "retirementMonth": 8,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 65,
+        "contributionYears": 24,
+        "badChildren": [],
+        "netWorth": 2196775,
+        "typicalIncome": 58099,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "吴嘉树",
+            "birthYear": 2034
+          }
+        ]
+      }
+    ]
+  }
+}

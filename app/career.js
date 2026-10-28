@@ -31,6 +31,11 @@ export function ensureCareerState(life){
   return life;
 }
 export function employmentAllowed(life,job=null){
+  if (life.location.region === 'mainland' && job) {
+    const statutory = retirementRule({birthYear:life.birthYear,birthMonth:life.birthMonth,
+      sex:life.sex,category:job.retirementCategory || 'worker',region:'mainland',year:life.year});
+    if (statutory && life.age * 12 >= statutory.ageMonths) return false;
+  }
   const mainland=canStartEmployment({age:life.age,region:life.location.region,year:life.year,
     compulsoryComplete:rankOf(life.education)>=2,isEnrolled:!!life.school,hazardous:job?.hazardous??false});
   if(mainland!==null)return mainland;
@@ -119,6 +124,11 @@ export function acceptCareer(life,job,env,registration=null){
   life.workHistory.push({id:job.id,sector:job.sector,year:life.year,age:life.age});
   life.job={...canonical,...job,years:0,marketIncomeReference:life.profile.typicalIncome};
   life.everWorked=true;life.retired=false;life.income=job.salary;life.focus='balance';
+  // A new eligible job after an earlier retirement has its own category and
+  // retirement date. The old one-shot offer flag must not suppress it forever.
+  life.flags.retirementOffered=false;
+  delete life.flags.retirementDeferredUntil;
+  life.retirementRule=null;
   env.log(life,T('你成为了'+job.name.zhCN+'，开始积累工作经验和社会保障缴费。','你成為了'+job.name.zhTW+'，開始累積工作經驗與社會保障繳費。','You began work as a '+job.name.en.toLowerCase()+', building experience and social-insurance contributions.'),'work',{happiness:4});
   return true;
 }
@@ -166,7 +176,7 @@ export function resolveCareerDecision(life,pending,id,env){
       const cost=Math.max(0,fx.costRatio??-(fx.moneyRatio??0))*life.profile.typicalIncome;
       delete fx.costRatio;delete fx.moneyRatio;
       if(cost>0&&!env.spend(life,cost,'family')){
-        env.log(life,T('积蓄不足，你改用时间、沟通或公共支持回应家人的需要，没有自动借款。','積蓄不足，你改用時間、溝通或公共支持回應家人的需要，沒有自動借款。','Savings were insufficient. You used time, communication or public support instead, without automatic borrowing.'),'family');
+        env.log(life,T('手头积蓄不够，你多花时间照顾家人，也向身边的人寻求支持。','手頭積蓄不足，你多花時間照顧家人，也向身邊的人尋求支持。','Your savings fell short, so you spent more time caring for family and asked people close to you for support.'),'family');
         delete fx.money;
       }
       if(fx.careerExamPreparation){life.flags.examPreparation=(life.flags.examPreparation||0)+fx.careerExamPreparation;delete fx.careerExamPreparation;}
@@ -234,6 +244,8 @@ export function retirementMilestone(life,fraction,env){
   return true;
 }
 export function retireWithContributions(life,env){
+  const applicableRule=life.retirementRule || retirementFor(life);
+  life.retirementEffectiveDate={year:life.year,month:applicableRule.retirementMonth||life.birthMonth,precision:'modeled-month'};
   const region=life.location.region,minimum=pensionMinimumYears(life.year,region);
   const eligible=minimum!==null&&life.contributionYears>=minimum;
   const salary=life.job?.salary||life.income;
@@ -256,10 +268,11 @@ export function retireWithContributions(life,env){
     life.pension=0;life.basicSupport=0;
   }
   life.pensionJurisdiction=region;
+  life.pensionLastAdjustedYear=life.year;
   life.lastJob=life.job?{...life.job}:life.lastJob;life.job=null;life.retired=true;
   life.income=life.pension+life.basicSupport;life.focus='family';
   const record=env.log(life,T(
-    region==='hongkong'?'你结束工作并提取模型强积金个人账户；这不是自动发放的年金。':'你结束了这段工作。'+(life.pension>0?'按本地模型条件安排退休给付。':'尚未满足本作的本地养老金条件，之后依积蓄安排生活。'),
+    region==='hongkong'?'你结束工作并提取强积金个人账户，开始安排退休生活。':'你结束了这段工作。'+(life.pension>0?'从这一年起，你开始领取退休给付。':'目前没有达到领取养老金的条件，之后需要依靠积蓄安排生活。'),
     region==='hongkong'?'你結束工作並提取模型強積金個人帳戶；這不是自動發放的年金。':'你結束了這段工作。'+(life.pension>0?'按本地模型條件安排退休給付。':'尚未符合本作的本地退休金條件，日後依積蓄安排生活。'),
     region==='hongkong'?'You left work and withdrew the modeled MPF account; this is not an automatic annuity.':'You left work. '+(life.pension>0?'A simplified local retirement benefit applies.':'The modeled local pension conditions are not met; later living depends on savings.')),'work',{health:3,happiness:3});
   record.sourceIds=life.retirementRule?.sourceIds||[];

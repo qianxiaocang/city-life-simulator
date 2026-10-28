@@ -1,0 +1,3449 @@
+{
+ "seed": "st1201",
+ "world": "past",
+ "birthYear": 1955,
+ "sex": "female",
+ "name": "周语晴",
+ "urbanAtBirth": true,
+ "origin": "安徽省 / 广德市 / county-city",
+ "classRank": 4,
+ "profile": {
+  "lifeExpectancy": 79.669,
+  "lifeExpectancyAt25": 79.76899999999999,
+  "childMortality": 0.009446999999999999,
+  "typicalIncome": 51196,
+  "developmentIncomeIndex": 0.835,
+  "regionCostFactor": 1,
+  "regionIncomeFactor": 1,
+  "currencyBasis": "CNY-2025-model",
+  "educationAccess": 0.9340266666666667,
+  "urbanization": 0.58995,
+  "healthcare": 0.88,
+  "eraId": "era-2013-2019",
+  "eraLabel": {
+   "zhCN": "移动互联与公共服务发展",
+   "zhTW": "移動互聯與公共服務發展",
+   "en": "Mobile connectivity and public services"
+  },
+  "sourceIds": [
+   "nbs-urban-history",
+   "nbs-life-census",
+   "nhc-life-2025",
+   "nbs-2025",
+   "prc70",
+   "nbs75"
+  ],
+  "sourceUrls": [
+   "https://www.stats.gov.cn/sj/sjjd/202409/t20240923_1956628.html",
+   "https://www.stats.gov.cn/sj/tjgb/rkpcgb/qgrkpcgb/202302/t20230206_1902000.html",
+   "https://www.nhc.gov.cn/wjw/mtbd/202603/5dbc449df3014d939ec74c6aab30c8ae.shtml",
+   "https://www.stats.gov.cn/sj/zxfb/202602/t20260228_1962662.html",
+   "https://www.gov.cn/xinwen/2019-09/27/content_5434223.htm?allContent=",
+   "https://www.stats.gov.cn/zt_18555/ztfx/xzg75njjshfzcj/"
+  ],
+  "dataKind": "official-national-anchors-with-modeled-interpolation-and-city-sex-adjustments",
+  "historicalCutoff": "2026-10-25",
+  "projection": false,
+  "observedThrough": 2025,
+  "historicalEstimate": false,
+  "modelOnly": [
+   "incomeIndex",
+   "educationIndex",
+   "cityFactor",
+   "historical interpolation",
+   "conditional adult-life calibration",
+   "pre-1981 historical lifespan estimates",
+   "regional anchor estimates",
+   "regional under-five estimates",
+   "regional income and cost scenario coefficients",
+   "housing tier assumptions",
+   "city/sex adjustments",
+   "future projection"
+  ],
+  "modelNote": {
+   "zhCN": "全国观测锚点与城市、性别、个人风险的情景参数分别记录；收入为固定购买力游戏金额。",
+   "zhTW": "全國觀測錨點與城市、性別、個人風險的情景參數分別記錄；收入為固定購買力遊戲金額。",
+   "en": "National observations are separated from modeled city, sex and personal-risk parameters; income uses fixed-purchasing-power game money."
+  }
+ },
+ "died": {
+  "age": 62,
+  "year": 2017,
+  "cause": "癌症",
+  "place": "广德市"
+ },
+ "partner": {
+  "name": "李景行",
+  "sinceYear": 1974,
+  "partnerBirthYear": 1952
+ },
+ "children": [
+  {
+   "name": "周嘉怡",
+   "sex": "female",
+   "birthYear": 1980
+  },
+  {
+   "name": "周安然",
+   "sex": "female",
+   "birthYear": 1984
+  }
+ ],
+ "retired": true,
+ "retirementRule": {
+  "ageMonths": 600,
+  "baseAgeMonths": 600,
+  "delayMonths": 0,
+  "retirementYear": 2005,
+  "retirementMonth": 10,
+  "category": "female50",
+  "sourceIds": [
+   "retirement-1978"
+  ],
+  "modelOnly": false,
+  "pensionEligibilitySeparate": true,
+  "note": {
+   "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+   "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+   "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+  }
+ },
+ "contributionYears": 32,
+ "educationNow": "high",
+ "yearly": [
+  {
+   "age": 0,
+   "year": 1955,
+   "edu": "preschool",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 88,
+   "hp": 69,
+   "k": 57,
+   "r": 72,
+   "kids": 0
+  },
+  {
+   "age": 1,
+   "year": 1956,
+   "edu": "preschool",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 85,
+   "hp": 69,
+   "k": 56,
+   "r": 74,
+   "kids": 0
+  },
+  {
+   "age": 2,
+   "year": 1957,
+   "edu": "preschool",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 85,
+   "hp": 70,
+   "k": 55,
+   "r": 79,
+   "kids": 0
+  },
+  {
+   "age": 3,
+   "year": 1958,
+   "edu": "preschool",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 83,
+   "hp": 67,
+   "k": 55,
+   "r": 80,
+   "kids": 0
+  },
+  {
+   "age": 4,
+   "year": 1959,
+   "edu": "preschool",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 78,
+   "hp": 63,
+   "k": 54,
+   "r": 81,
+   "kids": 0
+  },
+  {
+   "age": 5,
+   "year": 1960,
+   "edu": "preschool",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 79,
+   "hp": 64,
+   "k": 53,
+   "r": 82,
+   "kids": 0
+  },
+  {
+   "age": 6,
+   "year": 1961,
+   "edu": "preschool",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 80,
+   "hp": 66,
+   "k": 60,
+   "r": 81,
+   "kids": 0
+  },
+  {
+   "age": 7,
+   "year": 1962,
+   "edu": "preschool",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 82,
+   "hp": 70,
+   "k": 65,
+   "r": 80,
+   "kids": 0
+  },
+  {
+   "age": 8,
+   "year": 1963,
+   "edu": "preschool",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 84,
+   "hp": 70,
+   "k": 72,
+   "r": 79,
+   "kids": 0
+  },
+  {
+   "age": 9,
+   "year": 1964,
+   "edu": "preschool",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 86,
+   "hp": 68,
+   "k": 77,
+   "r": 77,
+   "kids": 0
+  },
+  {
+   "age": 10,
+   "year": 1965,
+   "edu": "preschool",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 86,
+   "hp": 67,
+   "k": 82,
+   "r": 77,
+   "kids": 0
+  },
+  {
+   "age": 11,
+   "year": 1966,
+   "edu": "preschool",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 88,
+   "hp": 65,
+   "k": 86,
+   "r": 77,
+   "kids": 0
+  },
+  {
+   "age": 12,
+   "year": 1967,
+   "edu": "primary",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 89,
+   "hp": 70,
+   "k": 94,
+   "r": 81,
+   "kids": 0
+  },
+  {
+   "age": 13,
+   "year": 1968,
+   "edu": "primary",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 89,
+   "hp": 72,
+   "k": 99,
+   "r": 79,
+   "kids": 0
+  },
+  {
+   "age": 14,
+   "year": 1969,
+   "edu": "primary",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 89,
+   "hp": 74,
+   "k": 99,
+   "r": 80,
+   "kids": 0
+  },
+  {
+   "age": 15,
+   "year": 1970,
+   "edu": "junior",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 90,
+   "hp": 79,
+   "k": 99,
+   "r": 79,
+   "kids": 0
+  },
+  {
+   "age": 16,
+   "year": 1971,
+   "edu": "junior",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 91,
+   "hp": 78,
+   "k": 99,
+   "r": 78,
+   "kids": 0
+  },
+  {
+   "age": 17,
+   "year": 1972,
+   "edu": "junior",
+   "job": null,
+   "income": 0,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 92,
+   "hp": 78,
+   "k": 99,
+   "r": 82,
+   "kids": 0
+  },
+  {
+   "age": 18,
+   "year": 1973,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 4906,
+   "nw": 920,
+   "loc": "cn-341882",
+   "h": 92,
+   "hp": 85,
+   "k": 99,
+   "r": 82,
+   "kids": 0
+  },
+  {
+   "age": 19,
+   "year": 1974,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 5158,
+   "nw": 1927,
+   "loc": "cn-341882",
+   "h": 93,
+   "hp": 94,
+   "k": 99,
+   "r": 89,
+   "kids": 0
+  },
+  {
+   "age": 20,
+   "year": 1975,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 5434,
+   "nw": 3189,
+   "loc": "cn-341882",
+   "h": 94,
+   "hp": 95,
+   "k": 99,
+   "r": 90,
+   "kids": 0
+  },
+  {
+   "age": 21,
+   "year": 1976,
+   "edu": "high",
+   "job": {
+    "zhCN": "电力供水企业技术员",
+    "zhTW": "電力供水企業技術員",
+    "en": "Utility technician"
+   },
+   "income": 7116,
+   "nw": 5581,
+   "loc": "cn-341882",
+   "h": 94,
+   "hp": 97,
+   "k": 99,
+   "r": 91,
+   "kids": 0
+  },
+  {
+   "age": 22,
+   "year": 1977,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 7954,
+   "nw": 8499,
+   "loc": "cn-341882",
+   "h": 95,
+   "hp": 97,
+   "k": 99,
+   "r": 94,
+   "kids": 0
+  },
+  {
+   "age": 23,
+   "year": 1978,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 8860,
+   "nw": 12138,
+   "loc": "cn-341882",
+   "h": 95,
+   "hp": 97,
+   "k": 99,
+   "r": 96,
+   "kids": 0
+  },
+  {
+   "age": 24,
+   "year": 1979,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 9398,
+   "nw": 16033,
+   "loc": "cn-341882",
+   "h": 98,
+   "hp": 97,
+   "k": 99,
+   "r": 98,
+   "kids": 0
+  },
+  {
+   "age": 25,
+   "year": 1980,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 10192,
+   "nw": 17717,
+   "loc": "cn-341882",
+   "h": 97,
+   "hp": 97,
+   "k": 99,
+   "r": 98,
+   "kids": 1
+  },
+  {
+   "age": 26,
+   "year": 1981,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 10893,
+   "nw": 19945,
+   "loc": "cn-341882",
+   "h": 97,
+   "hp": 97,
+   "k": 99,
+   "r": 98,
+   "kids": 1
+  },
+  {
+   "age": 27,
+   "year": 1982,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 12332,
+   "nw": 22999,
+   "loc": "cn-341882",
+   "h": 97,
+   "hp": 97,
+   "k": 99,
+   "r": 98,
+   "kids": 1
+  },
+  {
+   "age": 28,
+   "year": 1983,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 12384,
+   "nw": 25431,
+   "loc": "cn-341882",
+   "h": 97,
+   "hp": 97,
+   "k": 99,
+   "r": 98,
+   "kids": 1
+  },
+  {
+   "age": 29,
+   "year": 1984,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 13918,
+   "nw": 24280,
+   "loc": "cn-341882",
+   "h": 95,
+   "hp": 97,
+   "k": 98,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 30,
+   "year": 1985,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 14529,
+   "nw": 23023,
+   "loc": "cn-341882",
+   "h": 96,
+   "hp": 97,
+   "k": 98,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 31,
+   "year": 1986,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 14576,
+   "nw": 20788,
+   "loc": "cn-341882",
+   "h": 97,
+   "hp": 97,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 32,
+   "year": 1987,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 15225,
+   "nw": 18825,
+   "loc": "cn-341882",
+   "h": 97,
+   "hp": 97,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 33,
+   "year": 1988,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 16146,
+   "nw": 16535,
+   "loc": "cn-341882",
+   "h": 96,
+   "hp": 97,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 34,
+   "year": 1989,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 16703,
+   "nw": 13962,
+   "loc": "cn-341882",
+   "h": 96,
+   "hp": 97,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 35,
+   "year": 1990,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 17226,
+   "nw": 8635,
+   "loc": "cn-341882",
+   "h": 98,
+   "hp": 97,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 36,
+   "year": 1991,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 20492,
+   "nw": 4701,
+   "loc": "cn-341882",
+   "h": 97,
+   "hp": 97,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 37,
+   "year": 1992,
+   "edu": "high",
+   "job": {
+    "zhCN": "机械设备技术员",
+    "zhTW": "機械設備技術員",
+    "en": "Machinery technician"
+   },
+   "income": 22897,
+   "nw": 1425,
+   "loc": "cn-341882",
+   "h": 97,
+   "hp": 97,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 38,
+   "year": 1993,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 11300,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 96,
+   "hp": 94,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 39,
+   "year": 1994,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 11995,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 94,
+   "hp": 91,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 40,
+   "year": 1995,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 12606,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 93,
+   "hp": 89,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 41,
+   "year": 1996,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 13651,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 91,
+   "hp": 87,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 42,
+   "year": 1997,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 13607,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 89,
+   "hp": 85,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 43,
+   "year": 1998,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 14158,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 88,
+   "hp": 78,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 44,
+   "year": 1999,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 15685,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 86,
+   "hp": 78,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 45,
+   "year": 2000,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 16841,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 87,
+   "hp": 81,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 46,
+   "year": 2001,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 19063,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 86,
+   "hp": 82,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 47,
+   "year": 2002,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 20269,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 85,
+   "hp": 84,
+   "k": 99,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 48,
+   "year": 2003,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 21783,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 87,
+   "hp": 77,
+   "k": 99,
+   "r": 96,
+   "kids": 2
+  },
+  {
+   "age": 49,
+   "year": 2004,
+   "edu": "high",
+   "job": {
+    "zhCN": "国有企业生产工人",
+    "zhTW": "國有企業生產工人",
+    "en": "State-owned factory worker"
+   },
+   "income": 23161,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 88,
+   "hp": 80,
+   "k": 99,
+   "r": 97,
+   "kids": 2
+  },
+  {
+   "age": 50,
+   "year": 2005,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 89,
+   "hp": 83,
+   "k": 98,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 51,
+   "year": 2006,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 86,
+   "hp": 88,
+   "k": 98,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 52,
+   "year": 2007,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 84,
+   "hp": 91,
+   "k": 98,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 81,
+   "hp": 97,
+   "k": 97,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 54,
+   "year": 2009,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 79,
+   "hp": 97,
+   "k": 96,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 55,
+   "year": 2010,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 76,
+   "hp": 97,
+   "k": 96,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 56,
+   "year": 2011,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 76,
+   "hp": 97,
+   "k": 97,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 57,
+   "year": 2012,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 75,
+   "hp": 97,
+   "k": 96,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 58,
+   "year": 2013,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 74,
+   "hp": 97,
+   "k": 96,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 59,
+   "year": 2014,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 72,
+   "hp": 97,
+   "k": 96,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 60,
+   "year": 2015,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 72,
+   "hp": 97,
+   "k": 95,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 61,
+   "year": 2016,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 72,
+   "hp": 97,
+   "k": 94,
+   "r": 98,
+   "kids": 2
+  },
+  {
+   "age": 62,
+   "year": 2017,
+   "edu": "high",
+   "job": null,
+   "income": 8463,
+   "nw": 0,
+   "loc": "cn-341882",
+   "h": 71,
+   "hp": 97,
+   "k": 94,
+   "r": 98,
+   "kids": 2
+  }
+ ],
+ "logSample": [
+  {
+   "age": 62,
+   "year": 2017,
+   "type": "death",
+   "text": "在广德市，你因癌症离开了人世。这段人生走到了最后。"
+  },
+  {
+   "age": 62,
+   "year": 2017,
+   "type": "warm",
+   "text": "你在音乐上又进步了一点。"
+  },
+  {
+   "age": 62,
+   "year": 2017,
+   "type": "life",
+   "text": "早晨的公园里，你遇见了几位每天散步的老朋友。"
+  },
+  {
+   "age": 62,
+   "year": 2017,
+   "type": "life",
+   "text": "你整理旧照片，想起了一位很久没见的人。"
+  },
+  {
+   "age": 62,
+   "year": 2017,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 62,
+   "year": 2017,
+   "type": "choice",
+   "text": "社区里的一点小事：报名，尽一份力"
+  },
+  {
+   "age": 61,
+   "year": 2016,
+   "type": "life",
+   "text": "一次例行检查提醒你，身体也需要长期照顾。"
+  },
+  {
+   "age": 61,
+   "year": 2016,
+   "type": "life",
+   "text": "你参与了一次社区活动，记住了几个新的名字。"
+  },
+  {
+   "age": 61,
+   "year": 2016,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 61,
+   "year": 2016,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 61,
+   "year": 2016,
+   "type": "history",
+   "text": "2016-11-04 · 你在广德市生活的这一年，巴黎协定生效发生了。气候政策逐步影响职业、交通和消费，效果并非即时实现。"
+  },
+  {
+   "age": 61,
+   "year": 2016,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 61,
+   "year": 2016,
+   "type": "history",
+   "text": "2016-01-01 · 你在广德市生活的这一年，全面两孩政策实施发生了。生育政策改变，是否生育仍取决于家庭意愿与承受能力。"
+  },
+  {
+   "age": 61,
+   "year": 2016,
+   "type": "culture",
+   "text": "心意与陪伴都重要"
+  },
+  {
+   "age": 61,
+   "year": 2016,
+   "type": "family",
+   "text": "积蓄不足，你改用时间、沟通或公共支持回应家人的需要，没有自动借款。"
+  },
+  {
+   "age": 61,
+   "year": 2016,
+   "type": "choice",
+   "text": "亲友的人情往来：准备一份负担得起的礼物"
+  },
+  {
+   "age": 60,
+   "year": 2015,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 60,
+   "year": 2015,
+   "type": "life",
+   "text": "这周的工作有些忙，你终于在周末睡了一个好觉。"
+  },
+  {
+   "age": 60,
+   "year": 2015,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 60,
+   "year": 2015,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 60,
+   "year": 2015,
+   "type": "history",
+   "text": "2015-12-12 · 你在广德市生活的这一年，巴黎协定通过发生了。全球气候合作为能源与产业转型提供长期方向。"
+  },
+  {
+   "age": 60,
+   "year": 2015,
+   "type": "choice",
+   "text": "为生活做一笔安排：维持目前安排"
+  },
+  {
+   "age": 59,
+   "year": 2014,
+   "type": "life",
+   "text": "你把一段经历讲给年轻人听，也从他们身上学到新东西。"
+  },
+  {
+   "age": 59,
+   "year": 2014,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 59,
+   "year": 2014,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 59,
+   "year": 2014,
+   "type": "history",
+   "text": "2014-09-18 · 你在广德市生活的这一年，埃博拉疫情国际响应发生了。西非疫情推动国际卫生合作；不把疫区直接风险套给中国居民。"
+  },
+  {
+   "age": 58,
+   "year": 2013,
+   "type": "life",
+   "text": "你整理旧照片，想起了一位很久没见的人。"
+  },
+  {
+   "age": 58,
+   "year": 2013,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 58,
+   "year": 2013,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 58,
+   "year": 2013,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 58,
+   "year": 2013,
+   "type": "history",
+   "text": "2013-12-04 · 你在广德市生活的这一年，移动网络与生活服务发展发生了。移动通信和线上服务继续扩展，新的行业与消费方式出现。"
+  },
+  {
+   "age": 58,
+   "year": 2013,
+   "type": "history",
+   "text": "时代进入新的阶段：移动互联与公共服务发展。当地的就业、求学与医疗条件会随年代变化。"
+  },
+  {
+   "age": 58,
+   "year": 2013,
+   "type": "choice",
+   "text": "社区里的一点小事：报名，尽一份力"
+  },
+  {
+   "age": 57,
+   "year": 2012,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 57,
+   "year": 2012,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 57,
+   "year": 2012,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 56,
+   "year": 2011,
+   "type": "life",
+   "text": "一次例行检查提醒你，身体也需要长期照顾。"
+  },
+  {
+   "age": 56,
+   "year": 2011,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 56,
+   "year": 2011,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 56,
+   "year": 2011,
+   "type": "spending",
+   "text": "你安排了：银行存款。"
+  },
+  {
+   "age": 56,
+   "year": 2011,
+   "type": "choice",
+   "text": "为生活做一笔安排：银行存款"
+  },
+  {
+   "age": 56,
+   "year": 2011,
+   "type": "culture",
+   "text": "帮助也可以是信息与陪伴"
+  },
+  {
+   "age": 56,
+   "year": 2011,
+   "type": "choice",
+   "text": "亲人遇到一笔急用钱：一起寻找其他支持办法"
+  },
+  {
+   "age": 55,
+   "year": 2010,
+   "type": "life",
+   "text": "你把一段经历讲给年轻人听，也从他们身上学到新东西。"
+  },
+  {
+   "age": 55,
+   "year": 2010,
+   "type": "life",
+   "text": "你参与了一次社区活动，记住了几个新的名字。"
+  },
+  {
+   "age": 55,
+   "year": 2010,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 55,
+   "year": 2010,
+   "type": "culture",
+   "text": "约定时间，不把全部责任揽下"
+  },
+  {
+   "age": 55,
+   "year": 2010,
+   "type": "choice",
+   "text": "要不要帮忙带孙辈？：在身体允许时分担一部分"
+  },
+  {
+   "age": 54,
+   "year": 2009,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 54,
+   "year": 2009,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 54,
+   "year": 2009,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 54,
+   "year": 2009,
+   "type": "history",
+   "text": "2009-06-11 · 你在广德市生活的这一年，甲型H1N1流感大流行发生了。卫生防疫与疫苗接种成为全球生活的一部分。"
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "type": "life",
+   "text": "你整理旧照片，想起了一位很久没见的人。"
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "type": "life",
+   "text": "你把一段经历讲给年轻人听，也从他们身上学到新东西。"
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "type": "family",
+   "text": "家里迎来了新一代的小生命，你成为了祖辈。"
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "type": "history",
+   "text": "2008 · 你在广德市生活的这一年，国际金融危机发生了。外需和金融市场波动影响就业、经营与投资。"
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "type": "history",
+   "text": "2008-08-01 · 你在广德市生活的这一年，京津城际开通发生了。高速铁路发展缩短城市间的时间距离，出行和工作联系改变。"
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "type": "history",
+   "text": "2008-01-10 · 你在广德市生活的这一年，南方低温雨雪冰冻发生了。供电、交通与返乡受阻，家庭需要重新安排生活。"
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "type": "history",
+   "text": "2008-01-01 · 你在广德市生活的这一年，劳动合同法施行发生了。正式劳动关系的合同与权益保护规则进一步明确。"
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "type": "history",
+   "text": "时代进入新的阶段：危机应对与基础设施发展。当地的就业、求学与医疗条件会随年代变化。"
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "type": "culture",
+   "text": "不只有金钱才能维系关系"
+  },
+  {
+   "age": 53,
+   "year": 2008,
+   "type": "choice",
+   "text": "亲友的人情往来：帮忙张罗，用行动表达祝福"
+  },
+  {
+   "age": 52,
+   "year": 2007,
+   "type": "life",
+   "text": "你把一段经历讲给年轻人听，也从他们身上学到新东西。"
+  },
+  {
+   "age": 52,
+   "year": 2007,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 52,
+   "year": 2007,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 52,
+   "year": 2007,
+   "type": "choice",
+   "text": "为生活做一笔安排：维持目前安排"
+  },
+  {
+   "age": 51,
+   "year": 2006,
+   "type": "life",
+   "text": "你把一段经历讲给年轻人听，也从他们身上学到新东西。"
+  },
+  {
+   "age": 51,
+   "year": 2006,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 51,
+   "year": 2006,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 51,
+   "year": 2006,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 51,
+   "year": 2006,
+   "type": "history",
+   "text": "2006-01-01 · 你在广德市生活的这一年，农业税取消发生了。农村家庭的制度性负担减轻，生计条件继续变化。"
+  },
+  {
+   "age": 50,
+   "year": 2005,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 50,
+   "year": 2005,
+   "type": "life",
+   "text": "一次例行检查提醒你，身体也需要长期照顾。"
+  },
+  {
+   "age": 50,
+   "year": 2005,
+   "type": "family",
+   "text": "周安然开始独自安排生活，你努力学着放手。"
+  },
+  {
+   "age": 50,
+   "year": 2005,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 50,
+   "year": 2005,
+   "type": "work",
+   "text": "你结束了这段工作。按本地模型条件安排退休给付。"
+  },
+  {
+   "age": 50,
+   "year": 2005,
+   "type": "choice",
+   "text": "退休与下一段生活：办理退休，安排下一阶段"
+  },
+  {
+   "age": 50,
+   "year": 2005,
+   "type": "choice",
+   "text": "暂停片刻：留在心里，继续生活"
+  },
+  {
+   "age": 49,
+   "year": 2004,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 49,
+   "year": 2004,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 49,
+   "year": 2004,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 49,
+   "year": 2004,
+   "type": "history",
+   "text": "2004-12-26 · 你在广德市生活的这一年，印度洋海啸发生了。国际救援新闻让人关注灾害预警与互助；未将海外伤亡率套给本地居民。"
+  },
+  {
+   "age": 49,
+   "year": 2004,
+   "type": "health",
+   "text": "检查发现一项需要长期管理的慢性病。规律复诊成为生活的一部分。"
+  },
+  {
+   "age": 49,
+   "year": 2004,
+   "type": "health",
+   "text": "积蓄不足，你先寻求基层医疗和救助支持，安排基本诊疗与后续复查。"
+  },
+  {
+   "age": 49,
+   "year": 2004,
+   "type": "choice",
+   "text": "身体发来的信号：安排检查和治疗"
+  },
+  {
+   "age": 48,
+   "year": 2003,
+   "type": "life",
+   "text": "你把一段经历讲给年轻人听，也从他们身上学到新东西。"
+  },
+  {
+   "age": 48,
+   "year": 2003,
+   "type": "life",
+   "text": "这周的工作有些忙，你终于在周末睡了一个好觉。"
+  },
+  {
+   "age": 48,
+   "year": 2003,
+   "type": "loss",
+   "text": "张心悦在69岁时离开了人世。你把共同的记忆留在心里。"
+  },
+  {
+   "age": 48,
+   "year": 2003,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 48,
+   "year": 2003,
+   "type": "history",
+   "text": "2003 · 你在广德市生活的这一年，新型农村合作医疗试点发生了。农村医疗保障逐步扩大，覆盖与报销水平仍因地区而异。"
+  },
+  {
+   "age": 48,
+   "year": 2003,
+   "type": "history",
+   "text": "2003-03 · 你在广德市生活的这一年，SARS的跨境公共卫生影响发生了。国际旅游、贸易和卫生防疫受到影响；当地疫情另按居住地判断。"
+  },
+  {
+   "age": 48,
+   "year": 2003,
+   "type": "spending",
+   "text": "你安排了：证券投资基金。"
+  },
+  {
+   "age": 48,
+   "year": 2003,
+   "type": "choice",
+   "text": "为生活做一笔安排：证券投资基金"
+  },
+  {
+   "age": 48,
+   "year": 2003,
+   "type": "culture",
+   "text": "距离不一定意味着忽视"
+  },
+  {
+   "age": 48,
+   "year": 2003,
+   "type": "family",
+   "text": "积蓄不足，你改用时间、沟通或公共支持回应家人的需要，没有自动借款。"
+  },
+  {
+   "age": 48,
+   "year": 2003,
+   "type": "choice",
+   "text": "父母渐渐需要更多照料：先提供能负担的经济支持并定期联系"
+  },
+  {
+   "age": 47,
+   "year": 2002,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 47,
+   "year": 2002,
+   "type": "life",
+   "text": "你把一段经历讲给年轻人听，也从他们身上学到新东西。"
+  },
+  {
+   "age": 47,
+   "year": 2002,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 47,
+   "year": 2002,
+   "type": "culture",
+   "text": "按条件安排，不勉强赶路"
+  },
+  {
+   "age": 47,
+   "year": 2002,
+   "type": "choice",
+   "text": "今年春节，回家吗？：协商错峰探望，先通话拜年"
+  },
+  {
+   "age": 46,
+   "year": 2001,
+   "type": "life",
+   "text": "这周的工作有些忙，你终于在周末睡了一个好觉。"
+  },
+  {
+   "age": 46,
+   "year": 2001,
+   "type": "life",
+   "text": "你参与了一次社区活动，记住了几个新的名字。"
+  },
+  {
+   "age": 46,
+   "year": 2001,
+   "type": "family",
+   "text": "周嘉怡开始独自安排生活，你努力学着放手。"
+  },
+  {
+   "age": 46,
+   "year": 2001,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 46,
+   "year": 2001,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 46,
+   "year": 2001,
+   "type": "history",
+   "text": "2001-12-11 · 你在广德市生活的这一年，加入世界贸易组织发生了。外贸、制造与服务岗位迎来新的联系，行业受益程度不同。"
+  },
+  {
+   "age": 46,
+   "year": 2001,
+   "type": "history",
+   "text": "时代进入新的阶段：入世与城市化加快。当地的就业、求学与医疗条件会随年代变化。"
+  },
+  {
+   "age": 46,
+   "year": 2001,
+   "type": "culture",
+   "text": "不只有金钱才能维系关系"
+  },
+  {
+   "age": 46,
+   "year": 2001,
+   "type": "choice",
+   "text": "亲友的人情往来：帮忙张罗，用行动表达祝福"
+  },
+  {
+   "age": 45,
+   "year": 2000,
+   "type": "warm",
+   "text": "你在音乐上又进步了一点。"
+  },
+  {
+   "age": 45,
+   "year": 2000,
+   "type": "life",
+   "text": "你把一段经历讲给年轻人听，也从他们身上学到新东西。"
+  },
+  {
+   "age": 45,
+   "year": 2000,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 45,
+   "year": 2000,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 45,
+   "year": 2000,
+   "type": "health",
+   "text": "积蓄不足，你先寻求基层医疗和救助支持，安排基本诊疗与后续复查。"
+  },
+  {
+   "age": 45,
+   "year": 2000,
+   "type": "choice",
+   "text": "身体发来的信号：安排检查和治疗"
+  },
+  {
+   "age": 44,
+   "year": 1999,
+   "type": "life",
+   "text": "你参与了一次社区活动，记住了几个新的名字。"
+  },
+  {
+   "age": 44,
+   "year": 1999,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 44,
+   "year": 1999,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 44,
+   "year": 1999,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 44,
+   "year": 1999,
+   "type": "history",
+   "text": "1999 · 你在广德市生活的这一年，高校扩招发生了。高等教育规模扩大，入学机会和家庭教育支出一起变化。"
+  },
+  {
+   "age": 44,
+   "year": 1999,
+   "type": "spending",
+   "text": "你安排了：银行存款。"
+  },
+  {
+   "age": 44,
+   "year": 1999,
+   "type": "choice",
+   "text": "为生活做一笔安排：银行存款"
+  },
+  {
+   "age": 44,
+   "year": 1999,
+   "type": "culture",
+   "text": "投入不能保证录取或分数"
+  },
+  {
+   "age": 44,
+   "year": 1999,
+   "type": "family",
+   "text": "积蓄不足，你改用时间、沟通或公共支持回应家人的需要，没有自动借款。"
+  },
+  {
+   "age": 44,
+   "year": 1999,
+   "type": "choice",
+   "text": "孩子的成绩与兴趣：在预算内选择适合的课程"
+  },
+  {
+   "age": 43,
+   "year": 1998,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 43,
+   "year": 1998,
+   "type": "life",
+   "text": "你参与了一次社区活动，记住了几个新的名字。"
+  },
+  {
+   "age": 43,
+   "year": 1998,
+   "type": "loss",
+   "text": "周思源在68岁时离开了人世。你把共同的记忆留在心里。"
+  },
+  {
+   "age": 43,
+   "year": 1998,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 43,
+   "year": 1998,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 43,
+   "year": 1998,
+   "type": "history",
+   "text": "1998-07-03 · 你在广德市生活的这一年，停止住房实物分配发生了。城市家庭逐步通过市场购房，住房储蓄与按揭的重要性增加。"
+  },
+  {
+   "age": 43,
+   "year": 1998,
+   "type": "culture",
+   "text": "付出时间与路费，和家人相处"
+  },
+  {
+   "age": 43,
+   "year": 1998,
+   "type": "family",
+   "text": "积蓄不足，你改用时间、沟通或公共支持回应家人的需要，没有自动借款。"
+  },
+  {
+   "age": 43,
+   "year": 1998,
+   "type": "choice",
+   "text": "今年春节，回家吗？：安排返乡团聚"
+  },
+  {
+   "age": 42,
+   "year": 1997,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 42,
+   "year": 1997,
+   "type": "life",
+   "text": "你参与了一次社区活动，记住了几个新的名字。"
+  },
+  {
+   "age": 42,
+   "year": 1997,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 42,
+   "year": 1997,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 42,
+   "year": 1997,
+   "type": "history",
+   "text": "1997-12-11 · 你在广德市生活的这一年，京都议定书通过发生了。国际减排规则继续发展，绿色技术与产业开始积累机会。"
+  },
+  {
+   "age": 42,
+   "year": 1997,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 42,
+   "year": 1997,
+   "type": "history",
+   "text": "1997-07-02 · 你在广德市生活的这一年，亚洲金融危机发生了。区域金融与贸易受到冲击，不同行业和资产的暴露不同。"
+  },
+  {
+   "age": 41,
+   "year": 1996,
+   "type": "life",
+   "text": "一次例行检查提醒你，身体也需要长期照顾。"
+  },
+  {
+   "age": 41,
+   "year": 1996,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 41,
+   "year": 1996,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 41,
+   "year": 1996,
+   "type": "culture",
+   "text": "只是增加迁居意愿，不自动搬家"
+  },
+  {
+   "age": 41,
+   "year": 1996,
+   "type": "choice",
+   "text": "去远方工作，还是留在家人身边？：了解机会，再讨论探望安排"
+  },
+  {
+   "age": 40,
+   "year": 1995,
+   "type": "life",
+   "text": "你参与了一次社区活动，记住了几个新的名字。"
+  },
+  {
+   "age": 40,
+   "year": 1995,
+   "type": "life",
+   "text": "这周的工作有些忙，你终于在周末睡了一个好觉。"
+  },
+  {
+   "age": 40,
+   "year": 1995,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 40,
+   "year": 1995,
+   "type": "history",
+   "text": "1995-01-01 · 你在广德市生活的这一年，劳动法施行发生了。劳动合同、工时与未成年工保护进入法定制度框架。"
+  },
+  {
+   "age": 40,
+   "year": 1995,
+   "type": "spending",
+   "text": "你安排了：股票市场。"
+  },
+  {
+   "age": 40,
+   "year": 1995,
+   "type": "choice",
+   "text": "为生活做一笔安排：股票市场"
+  },
+  {
+   "age": 40,
+   "year": 1995,
+   "type": "culture",
+   "text": "帮助也可以是信息与陪伴"
+  },
+  {
+   "age": 40,
+   "year": 1995,
+   "type": "choice",
+   "text": "亲人遇到一笔急用钱：一起寻找其他支持办法"
+  },
+  {
+   "age": 39,
+   "year": 1994,
+   "type": "life",
+   "text": "一次例行检查提醒你，身体也需要长期照顾。"
+  },
+  {
+   "age": 39,
+   "year": 1994,
+   "type": "life",
+   "text": "你整理旧照片，想起了一位很久没见的人。"
+  },
+  {
+   "age": 39,
+   "year": 1994,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 39,
+   "year": 1994,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 39,
+   "year": 1994,
+   "type": "history",
+   "text": "1994-04-20 · 你在广德市生活的这一年，全功能接入国际互联网发生了。通信、学习与信息技术工作逐步改变生活；并非人人立刻拥有电脑。"
+  },
+  {
+   "age": 39,
+   "year": 1994,
+   "type": "choice",
+   "text": "是否迎接一个孩子：现在还没准备好"
+  },
+  {
+   "age": 38,
+   "year": 1993,
+   "type": "life",
+   "text": "一次例行检查提醒你，身体也需要长期照顾。"
+  },
+  {
+   "age": 38,
+   "year": 1993,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 38,
+   "year": 1993,
+   "type": "money",
+   "text": "现金减少 ¥1,425，结余 ¥0。"
+  },
+  {
+   "age": 38,
+   "year": 1993,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 38,
+   "year": 1993,
+   "type": "work",
+   "text": "你成为了国有企业生产工人，开始积累工作经验和社会保障缴费。"
+  },
+  {
+   "age": 38,
+   "year": 1993,
+   "type": "choice",
+   "text": "新的职业机会：国有企业生产工人"
+  },
+  {
+   "age": 37,
+   "year": 1992,
+   "type": "life",
+   "text": "一次例行检查提醒你，身体也需要长期照顾。"
+  },
+  {
+   "age": 37,
+   "year": 1992,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 37,
+   "year": 1992,
+   "type": "money",
+   "text": "现金减少 ¥3,276，结余 ¥1,425。"
+  },
+  {
+   "age": 37,
+   "year": 1992,
+   "type": "history",
+   "text": "1992-06-03 · 你在广德市生活的这一年，里约地球峰会发生了。可持续发展的讨论影响长期政策、技术与生活观念。"
+  },
+  {
+   "age": 37,
+   "year": 1992,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 37,
+   "year": 1992,
+   "type": "history",
+   "text": "1992-01-18 · 你在广德市生活的这一年，市场化改革加快发生了。就业、经营与城市发展的机会继续扩大，也伴随新的不确定性。"
+  },
+  {
+   "age": 37,
+   "year": 1992,
+   "type": "history",
+   "text": "时代进入新的阶段：市场改革与教育扩张。当地的就业、求学与医疗条件会随年代变化。"
+  },
+  {
+   "age": 36,
+   "year": 1991,
+   "type": "life",
+   "text": "你参与了一次社区活动，记住了几个新的名字。"
+  },
+  {
+   "age": 36,
+   "year": 1991,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 36,
+   "year": 1991,
+   "type": "money",
+   "text": "现金减少 ¥3,934，结余 ¥4,701。"
+  },
+  {
+   "age": 36,
+   "year": 1991,
+   "type": "choice",
+   "text": "为生活做一笔安排：维持目前安排"
+  },
+  {
+   "age": 35,
+   "year": 1990,
+   "type": "warm",
+   "text": "你在音乐上又进步了一点。"
+  },
+  {
+   "age": 35,
+   "year": 1990,
+   "type": "life",
+   "text": "这周的工作有些忙，你终于在周末睡了一个好觉。"
+  },
+  {
+   "age": 35,
+   "year": 1990,
+   "type": "life",
+   "text": "一次例行检查提醒你，身体也需要长期照顾。"
+  },
+  {
+   "age": 35,
+   "year": 1990,
+   "type": "money",
+   "text": "现金减少 ¥4,898，结余 ¥8,635。"
+  },
+  {
+   "age": 35,
+   "year": 1990,
+   "type": "work",
+   "text": "经验积累带来一次岗位晋升，收入与责任有所增加。"
+  },
+  {
+   "age": 35,
+   "year": 1990,
+   "type": "history",
+   "text": "1990-12-19 · 你在广德市生活的这一年，上海证券交易所开业发生了。现代证券市场开始发展，投资渠道仍受时代和规则约束。"
+  },
+  {
+   "age": 35,
+   "year": 1990,
+   "type": "culture",
+   "text": "分担照护，支付可负担的服务费"
+  },
+  {
+   "age": 35,
+   "year": 1990,
+   "type": "money",
+   "text": "现金减少 ¥429，结余 ¥13,533。"
+  },
+  {
+   "age": 35,
+   "year": 1990,
+   "type": "choice",
+   "text": "父母渐渐需要更多照料：与家人协商分工，必要时请专业帮助"
+  },
+  {
+   "age": 34,
+   "year": 1989,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 34,
+   "year": 1989,
+   "type": "life",
+   "text": "你整理旧照片，想起了一位很久没见的人。"
+  },
+  {
+   "age": 34,
+   "year": 1989,
+   "type": "family",
+   "text": "周安然开始上学了。"
+  },
+  {
+   "age": 34,
+   "year": 1989,
+   "type": "money",
+   "text": "现金减少 ¥2,573，结余 ¥13,962。"
+  },
+  {
+   "age": 34,
+   "year": 1989,
+   "type": "culture",
+   "text": "理解彼此，不直接触发怀孕"
+  },
+  {
+   "age": 34,
+   "year": 1989,
+   "type": "choice",
+   "text": "关于孩子，先谈谈彼此的想法：认真讨论照护、工作与预算"
+  },
+  {
+   "age": 33,
+   "year": 1988,
+   "type": "warm",
+   "text": "你在音乐上又进步了一点。"
+  },
+  {
+   "age": 33,
+   "year": 1988,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 33,
+   "year": 1988,
+   "type": "life",
+   "text": "你整理旧照片，想起了一位很久没见的人。"
+  },
+  {
+   "age": 33,
+   "year": 1988,
+   "type": "money",
+   "text": "现金减少 ¥2,290，结余 ¥16,535。"
+  },
+  {
+   "age": 33,
+   "year": 1988,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 33,
+   "year": 1988,
+   "type": "history",
+   "text": "1988-02-25 · 你在广德市生活的这一年，城镇住房改革推进发生了。住房安排逐步从单位实物分配走向货币化与市场化。"
+  },
+  {
+   "age": 33,
+   "year": 1988,
+   "type": "culture",
+   "text": "不只有金钱才能维系关系"
+  },
+  {
+   "age": 33,
+   "year": 1988,
+   "type": "choice",
+   "text": "亲友的人情往来：帮忙张罗，用行动表达祝福"
+  },
+  {
+   "age": 32,
+   "year": 1987,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 32,
+   "year": 1987,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 32,
+   "year": 1987,
+   "type": "money",
+   "text": "现金减少 ¥1,963，结余 ¥18,825。"
+  },
+  {
+   "age": 32,
+   "year": 1987,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 32,
+   "year": 1987,
+   "type": "history",
+   "text": "1987-09-16 · 你在广德市生活的这一年，蒙特利尔议定书通过发生了。保护臭氧层推动制冷等产业技术转型。"
+  },
+  {
+   "age": 32,
+   "year": 1987,
+   "type": "choice",
+   "text": "为生活做一笔安排：维持目前安排"
+  },
+  {
+   "age": 32,
+   "year": 1987,
+   "type": "culture",
+   "text": "按条件安排，不勉强赶路"
+  },
+  {
+   "age": 32,
+   "year": 1987,
+   "type": "choice",
+   "text": "今年春节，回家吗？：协商错峰探望，先通话拜年"
+  },
+  {
+   "age": 31,
+   "year": 1986,
+   "type": "life",
+   "text": "这周的工作有些忙，你终于在周末睡了一个好觉。"
+  },
+  {
+   "age": 31,
+   "year": 1986,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 31,
+   "year": 1986,
+   "type": "money",
+   "text": "现金减少 ¥1,867，结余 ¥20,788。"
+  },
+  {
+   "age": 31,
+   "year": 1986,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 31,
+   "year": 1986,
+   "type": "history",
+   "text": "1986-07-01 · 你在广德市生活的这一年，义务教育法施行发生了。九年义务教育指小学和初中，高中并不属于该九年范围。"
+  },
+  {
+   "age": 31,
+   "year": 1986,
+   "type": "history",
+   "text": "1986-04-26 · 你在广德市生活的这一年，切尔诺贝利核事故发生了。新闻引发对核安全的关注；不对中国居民附加无依据的辐射死亡风险。"
+  },
+  {
+   "age": 31,
+   "year": 1986,
+   "type": "culture",
+   "text": "投入不能保证录取或分数"
+  },
+  {
+   "age": 31,
+   "year": 1986,
+   "type": "money",
+   "text": "现金减少 ¥368，结余 ¥22,655。"
+  },
+  {
+   "age": 31,
+   "year": 1986,
+   "type": "choice",
+   "text": "孩子的成绩与兴趣：在预算内选择适合的课程"
+  },
+  {
+   "age": 30,
+   "year": 1985,
+   "type": "life",
+   "text": "有人认真听完了你的烦恼，你觉得轻松了一点。"
+  },
+  {
+   "age": 30,
+   "year": 1985,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 30,
+   "year": 1985,
+   "type": "family",
+   "text": "周嘉怡开始上学了。"
+  },
+  {
+   "age": 30,
+   "year": 1985,
+   "type": "money",
+   "text": "现金减少 ¥1,257，结余 ¥23,023。"
+  },
+  {
+   "age": 30,
+   "year": 1985,
+   "type": "choice",
+   "text": "暂停片刻：留在心里，继续生活"
+  },
+  {
+   "age": 29,
+   "year": 1984,
+   "type": "life",
+   "text": "这周的工作有些忙，你终于在周末睡了一个好觉。"
+  },
+  {
+   "age": 29,
+   "year": 1984,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 29,
+   "year": 1984,
+   "type": "money",
+   "text": "现金减少 ¥1,151，结余 ¥24,280。"
+  },
+  {
+   "age": 29,
+   "year": 1984,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 29,
+   "year": 1984,
+   "type": "history",
+   "text": "1984-05 · 你在广德市生活的这一年，沿海开放城市扩大发生了。沿海制造、贸易与服务业出现新的工作机会。"
+  },
+  {
+   "age": 29,
+   "year": 1984,
+   "type": "history",
+   "text": "时代进入新的阶段：城乡改革与开放扩展。当地的就业、求学与医疗条件会随年代变化。"
+  },
+  {
+   "age": 29,
+   "year": 1984,
+   "type": "family",
+   "text": "周安然出生了。家里多了一双需要牵着的小手。"
+  },
+  {
+   "age": 29,
+   "year": 1984,
+   "type": "choice",
+   "text": "是否迎接一个孩子：尝试迎接新生命"
+  },
+  {
+   "age": 28,
+   "year": 1983,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 28,
+   "year": 1983,
+   "type": "life",
+   "text": "你参与了一次社区活动，记住了几个新的名字。"
+  },
+  {
+   "age": 28,
+   "year": 1983,
+   "type": "money",
+   "text": "现金增加 ¥2,754，结余 ¥25,431。"
+  },
+  {
+   "age": 28,
+   "year": 1983,
+   "type": "spending",
+   "text": "你安排了：父母赡养与照护支持。"
+  },
+  {
+   "age": 28,
+   "year": 1983,
+   "type": "money",
+   "text": "现金减少 ¥322，结余 ¥22,677。"
+  },
+  {
+   "age": 28,
+   "year": 1983,
+   "type": "choice",
+   "text": "为生活做一笔安排：父母赡养与照护支持"
+  },
+  {
+   "age": 27,
+   "year": 1982,
+   "type": "warm",
+   "text": "你在音乐上又进步了一点。"
+  },
+  {
+   "age": 27,
+   "year": 1982,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 27,
+   "year": 1982,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 27,
+   "year": 1982,
+   "type": "money",
+   "text": "现金增加 ¥3,054，结余 ¥22,999。"
+  },
+  {
+   "age": 27,
+   "year": 1982,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 27,
+   "year": 1982,
+   "type": "history",
+   "text": "1982 · 你在广德市生活的这一年，农村生产责任制发展发生了。家庭生产经营空间扩大，农村收入机会逐步变化。"
+  },
+  {
+   "age": 27,
+   "year": 1982,
+   "type": "culture",
+   "text": "没有对所有人都适用的标准答案"
+  },
+  {
+   "age": 27,
+   "year": 1982,
+   "type": "choice",
+   "text": "去远方工作，还是留在家人身边？：比较成本与照护责任后再决定"
+  },
+  {
+   "age": 26,
+   "year": 1981,
+   "type": "life",
+   "text": "你参与了一次社区活动，记住了几个新的名字。"
+  },
+  {
+   "age": 26,
+   "year": 1981,
+   "type": "life",
+   "text": "有人认真听完了你的烦恼，你觉得轻松了一点。"
+  },
+  {
+   "age": 26,
+   "year": 1981,
+   "type": "money",
+   "text": "现金增加 ¥2,228，结余 ¥19,945。"
+  },
+  {
+   "age": 26,
+   "year": 1981,
+   "type": "culture",
+   "text": "理解彼此，不直接触发怀孕"
+  },
+  {
+   "age": 26,
+   "year": 1981,
+   "type": "choice",
+   "text": "关于孩子，先谈谈彼此的想法：认真讨论照护、工作与预算"
+  },
+  {
+   "age": 25,
+   "year": 1980,
+   "type": "life",
+   "text": "有人认真听完了你的烦恼，你觉得轻松了一点。"
+  },
+  {
+   "age": 25,
+   "year": 1980,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 25,
+   "year": 1980,
+   "type": "money",
+   "text": "现金增加 ¥1,684，结余 ¥17,717。"
+  },
+  {
+   "age": 25,
+   "year": 1980,
+   "type": "history",
+   "text": "1980-05-08 · 你在广德市生活的这一年，全球宣布消灭天花发生了。国际免疫合作取得重大成果，预防医学进入新的阶段。"
+  },
+  {
+   "age": 25,
+   "year": 1980,
+   "type": "family",
+   "text": "周嘉怡出生了。家里多了一双需要牵着的小手。"
+  },
+  {
+   "age": 25,
+   "year": 1980,
+   "type": "choice",
+   "text": "是否迎接一个孩子：尝试迎接新生命"
+  },
+  {
+   "age": 24,
+   "year": 1979,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 24,
+   "year": 1979,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 24,
+   "year": 1979,
+   "type": "money",
+   "text": "现金增加 ¥5,560，结余 ¥16,033。"
+  },
+  {
+   "age": 24,
+   "year": 1979,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 24,
+   "year": 1979,
+   "type": "history",
+   "text": "1979 · 你在广德市生活的这一年，第二次石油冲击发生了。能源市场再次波动，国际产业与消费成本发生变化。"
+  },
+  {
+   "age": 24,
+   "year": 1979,
+   "type": "spending",
+   "text": "你安排了：体检与医疗护理。"
+  },
+  {
+   "age": 24,
+   "year": 1979,
+   "type": "money",
+   "text": "现金减少 ¥208，结余 ¥10,473。"
+  },
+  {
+   "age": 24,
+   "year": 1979,
+   "type": "choice",
+   "text": "为生活做一笔安排：体检与医疗护理"
+  },
+  {
+   "age": 24,
+   "year": 1979,
+   "type": "love",
+   "text": "你们结婚了，约定一起面对接下来的生活。"
+  },
+  {
+   "age": 24,
+   "year": 1979,
+   "type": "money",
+   "text": "现金减少 ¥1,457，结余 ¥10,681。"
+  },
+  {
+   "age": 24,
+   "year": 1979,
+   "type": "choice",
+   "text": "要不要一起生活：共同建立一个家"
+  },
+  {
+   "age": 23,
+   "year": 1978,
+   "type": "life",
+   "text": "有人认真听完了你的烦恼，你觉得轻松了一点。"
+  },
+  {
+   "age": 23,
+   "year": 1978,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 23,
+   "year": 1978,
+   "type": "money",
+   "text": "现金增加 ¥3,639，结余 ¥12,138。"
+  },
+  {
+   "age": 23,
+   "year": 1978,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 23,
+   "year": 1978,
+   "type": "history",
+   "text": "1978-12-18 · 你在广德市生活的这一年，改革开放起步发生了。城乡生产、就业和流动的制度环境开始变化。"
+  },
+  {
+   "age": 23,
+   "year": 1978,
+   "type": "culture",
+   "text": "不结婚不代表人生不完整"
+  },
+  {
+   "age": 23,
+   "year": 1978,
+   "type": "choice",
+   "text": "饭桌上的婚姻话题：暂不考虑，请家人尊重"
+  },
+  {
+   "age": 22,
+   "year": 1977,
+   "type": "life",
+   "text": "久未联系的朋友发来消息，你们聊起以前的日子。"
+  },
+  {
+   "age": 22,
+   "year": 1977,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 22,
+   "year": 1977,
+   "type": "money",
+   "text": "现金增加 ¥2,918，结余 ¥8,499。"
+  },
+  {
+   "age": 22,
+   "year": 1977,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 22,
+   "year": 1977,
+   "type": "history",
+   "text": "1977-10-12 · 你在广德市生活的这一年，恢复高考发生了。大学招生重新采用考试择优录取，学习打开新的通道。"
+  },
+  {
+   "age": 22,
+   "year": 1977,
+   "type": "history",
+   "text": "时代进入新的阶段：恢复高考与改革起步。当地的就业、求学与医疗条件会随年代变化。"
+  },
+  {
+   "age": 22,
+   "year": 1977,
+   "type": "work",
+   "text": "你成为了机械设备技术员，开始积累工作经验和社会保障缴费。"
+  },
+  {
+   "age": 22,
+   "year": 1977,
+   "type": "choice",
+   "text": "寻找下一份工作：机械设备技术员"
+  },
+  {
+   "age": 22,
+   "year": 1977,
+   "type": "choice",
+   "text": "高考之后，选择去向：先进入工作，保留继续教育机会"
+  },
+  {
+   "age": 21,
+   "year": 1976,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 21,
+   "year": 1976,
+   "type": "life",
+   "text": "你参与了一次社区活动，记住了几个新的名字。"
+  },
+  {
+   "age": 21,
+   "year": 1976,
+   "type": "money",
+   "text": "现金增加 ¥2,392，结余 ¥5,581。"
+  },
+  {
+   "age": 21,
+   "year": 1976,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 21,
+   "year": 1976,
+   "type": "history",
+   "text": "1976-10-06 · 你在广德市生活的这一年，十年动乱结束发生了。社会进入调整与恢复阶段，受影响的教育和工作开始重建。"
+  },
+  {
+   "age": 21,
+   "year": 1976,
+   "type": "work",
+   "text": "你成为了电力供水企业技术员，开始积累工作经验和社会保障缴费。"
+  },
+  {
+   "age": 21,
+   "year": 1976,
+   "type": "choice",
+   "text": "寻找下一份工作：电力供水企业技术员"
+  },
+  {
+   "age": 21,
+   "year": 1976,
+   "type": "education",
+   "text": "你继续在实践中生活和学习，等待之后的求学机会。"
+  },
+  {
+   "age": 21,
+   "year": 1976,
+   "type": "choice",
+   "text": "推荐选拔时期的求学机会：继续实践并保留学习"
+  },
+  {
+   "age": 21,
+   "year": 1976,
+   "type": "work",
+   "text": "你成为了电工，开始积累工作经验和社会保障缴费。"
+  },
+  {
+   "age": 21,
+   "year": 1976,
+   "type": "choice",
+   "text": "专业资格与岗位考核：接受岗位"
+  },
+  {
+   "age": 20,
+   "year": 1975,
+   "type": "life",
+   "text": "你读到一本让自己舍不得合上的书。"
+  },
+  {
+   "age": 20,
+   "year": 1975,
+   "type": "life",
+   "text": "节日的餐桌上，熟悉的味道让你想起了小时候。"
+  },
+  {
+   "age": 20,
+   "year": 1975,
+   "type": "money",
+   "text": "现金增加 ¥1,262，结余 ¥3,189。"
+  },
+  {
+   "age": 20,
+   "year": 1975,
+   "type": "choice",
+   "text": "为生活做一笔安排：维持目前安排"
+  },
+  {
+   "age": 20,
+   "year": 1975,
+   "type": "work",
+   "text": "你报名准备专业资格与岗位考核。录用仍需考试、面试或考察，不保证成功。"
+  },
+  {
+   "age": 20,
+   "year": 1975,
+   "type": "choice",
+   "text": "寻找下一份工作：电工"
+  },
+  {
+   "age": 20,
+   "year": 1975,
+   "type": "education",
+   "text": "你继续在实践中生活和学习，等待之后的求学机会。"
+  },
+  {
+   "age": 20,
+   "year": 1975,
+   "type": "choice",
+   "text": "推荐选拔时期的求学机会：继续实践并保留学习"
+  },
+  {
+   "age": 19,
+   "year": 1974,
+   "type": "life",
+   "text": "你走进一条没去过的街道，发现了一家喜欢的小店。"
+  },
+  {
+   "age": 19,
+   "year": 1974,
+   "type": "life",
+   "text": "你参与了一次社区活动，记住了几个新的名字。"
+  },
+  {
+   "age": 19,
+   "year": 1974,
+   "type": "money",
+   "text": "现金增加 ¥1,007，结余 ¥1,927。"
+  },
+  {
+   "age": 19,
+   "year": 1974,
+   "type": "love",
+   "text": "你和李景行开始交往。"
+  },
+  {
+   "age": 19,
+   "year": 1974,
+   "type": "choice",
+   "text": "认识一个新的人：试着了解彼此"
+  },
+  {
+   "age": 18,
+   "year": 1973,
+   "type": "life",
+   "text": "你读到一本让自己舍不得合上的书。"
+  },
+  {
+   "age": 18,
+   "year": 1973,
+   "type": "life",
+   "text": "这次考试的成绩不太理想，你决定再弄懂一道题。"
+  },
+  {
+   "age": 18,
+   "year": 1973,
+   "type": "money",
+   "text": "现金增加 ¥920，结余 ¥920。"
+  },
+  {
+   "age": 18,
+   "year": 1973,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 18,
+   "year": 1973,
+   "type": "history",
+   "text": "1973-10 · 你在广德市生活的这一年，第一次石油冲击发生了。国际能源价格波动通过生产、运输和物价间接影响生活。"
+  },
+  {
+   "age": 18,
+   "year": 1973,
+   "type": "work",
+   "text": "你成为了国有企业生产工人，开始积累工作经验和社会保障缴费。"
+  },
+  {
+   "age": 18,
+   "year": 1973,
+   "type": "choice",
+   "text": "寻找下一份工作：国有企业生产工人"
+  },
+  {
+   "age": 18,
+   "year": 1973,
+   "type": "education",
+   "text": "你继续在实践中生活和学习，等待之后的求学机会。"
+  },
+  {
+   "age": 18,
+   "year": 1973,
+   "type": "choice",
+   "text": "推荐选拔时期的求学机会：继续实践并保留学习"
+  },
+  {
+   "age": 18,
+   "year": 1973,
+   "type": "education",
+   "text": "你完成了公办普通高中的学业，获得相应学历。"
+  },
+  {
+   "age": 17,
+   "year": 1972,
+   "type": "life",
+   "text": "这次考试的成绩不太理想，你决定再弄懂一道题。"
+  },
+  {
+   "age": 17,
+   "year": 1972,
+   "type": "life",
+   "text": "操场上的一场比赛，成为你和朋友聊了很久的话题。"
+  },
+  {
+   "age": 17,
+   "year": 1972,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 17,
+   "year": 1972,
+   "type": "history",
+   "text": "1972-06-05 · 你在广德市生活的这一年，斯德哥尔摩人类环境会议发生了。环境保护走进国际议程，职业与生活习惯的改变需要时间。"
+  },
+  {
+   "age": 17,
+   "year": 1972,
+   "type": "choice",
+   "text": "身边的那个人：邀请对方一起玩"
+  },
+  {
+   "age": 16,
+   "year": 1971,
+   "type": "warm",
+   "text": "你在音乐上又进步了一点。"
+  },
+  {
+   "age": 16,
+   "year": 1971,
+   "type": "life",
+   "text": "操场上的一场比赛，成为你和朋友聊了很久的话题。"
+  },
+  {
+   "age": 16,
+   "year": 1971,
+   "type": "life",
+   "text": "这次考试的成绩不太理想，你决定再弄懂一道题。"
+  },
+  {
+   "age": 16,
+   "year": 1971,
+   "type": "money",
+   "text": "收入不足以覆盖原来的生活安排，你缩减开支并寻求家人或救助支持，没有因此自动背上消费债务。"
+  },
+  {
+   "age": 15,
+   "year": 1970,
+   "type": "life",
+   "text": "你读到一本让自己舍不得合上的书。"
+  },
+  {
+   "age": 15,
+   "year": 1970,
+   "type": "life",
+   "text": "有人认真听完了你的烦恼，你觉得轻松了一点。"
+  },
+  {
+   "age": 15,
+   "year": 1970,
+   "type": "education",
+   "text": "你进入公办普通高中。学习需要时间，毕业后才会获得相应学历。"
+  },
+  {
+   "age": 15,
+   "year": 1970,
+   "type": "choice",
+   "text": "选择下一段学业：公办普通高中"
+  },
+  {
+   "age": 15,
+   "year": 1970,
+   "type": "choice",
+   "text": "暂停片刻：留在心里，继续生活"
+  },
+  {
+   "age": 15,
+   "year": 1970,
+   "type": "education",
+   "text": "你完成了初中的学业，获得相应学历。"
+  },
+  {
+   "age": 14,
+   "year": 1969,
+   "type": "life",
+   "text": "放学路上，你和朋友分享了一份热腾腾的小吃。"
+  },
+  {
+   "age": 14,
+   "year": 1969,
+   "type": "life",
+   "text": "有人认真听完了你的烦恼，你觉得轻松了一点。"
+  },
+  {
+   "age": 13,
+   "year": 1968,
+   "type": "warm",
+   "text": "你在音乐上又进步了一点。"
+  },
+  {
+   "age": 13,
+   "year": 1968,
+   "type": "life",
+   "text": "有人认真听完了你的烦恼，你觉得轻松了一点。"
+  },
+  {
+   "age": 13,
+   "year": 1968,
+   "type": "life",
+   "text": "这次考试的成绩不太理想，你决定再弄懂一道题。"
+  },
+  {
+   "age": 13,
+   "year": 1968,
+   "type": "history",
+   "text": "1968-12 · 你在广德市生活的这一年，上山下乡的时代发生了。一部分城市青年离开熟悉的环境，教育和职业路径改变。"
+  },
+  {
+   "age": 12,
+   "year": 1967,
+   "type": "life",
+   "text": "操场上的一场比赛，成为你和朋友聊了很久的话题。"
+  },
+  {
+   "age": 12,
+   "year": 1967,
+   "type": "life",
+   "text": "这次考试的成绩不太理想，你决定再弄懂一道题。"
+  },
+  {
+   "age": 12,
+   "year": 1967,
+   "type": "choice",
+   "text": "身边的那个人：邀请对方一起玩"
+  },
+  {
+   "age": 12,
+   "year": 1967,
+   "type": "education",
+   "text": "你进入初中。学习需要时间，毕业后才会获得相应学历。"
+  },
+  {
+   "age": 12,
+   "year": 1967,
+   "type": "education",
+   "text": "你完成了小学的学业，获得相应学历。"
+  },
+  {
+   "age": 11,
+   "year": 1966,
+   "type": "life",
+   "text": "放学路上，你和朋友分享了一份热腾腾的小吃。"
+  },
+  {
+   "age": 11,
+   "year": 1966,
+   "type": "life",
+   "text": "操场上的一场比赛，成为你和朋友聊了很久的话题。"
+  },
+  {
+   "age": 11,
+   "year": 1966,
+   "type": "history",
+   "text": "1966-05-16 · 你在广德市生活的这一年，十年动乱中的教育与工作发生了。学校、升学与工作受到严重冲击；个体经历由阶段与处境决定。"
+  },
+  {
+   "age": 11,
+   "year": 1966,
+   "type": "history",
+   "text": "时代进入新的阶段：十年动乱与教育中断。当地的就业、求学与医疗条件会随年代变化。"
+  },
+  {
+   "age": 10,
+   "year": 1965,
+   "type": "life",
+   "text": "一场小感冒让你在家待了几天，有人守在床边。"
+  },
+  {
+   "age": 10,
+   "year": 1965,
+   "type": "life",
+   "text": "操场上的一场比赛，成为你和朋友聊了很久的话题。"
+  },
+  {
+   "age": 10,
+   "year": 1965,
+   "type": "history",
+   "text": "1965 · 你在广德市生活的这一年，国际发展合作扩大发生了。公共卫生、教育与发展合作成为国际社会持续讨论的议题。"
+  },
+  {
+   "age": 9,
+   "year": 1964,
+   "type": "life",
+   "text": "操场上的一场比赛，成为你和朋友聊了很久的话题。"
+  },
+  {
+   "age": 9,
+   "year": 1964,
+   "type": "life",
+   "text": "这次考试的成绩不太理想，你决定再弄懂一道题。"
+  },
+  {
+   "age": 8,
+   "year": 1963,
+   "type": "life",
+   "text": "操场上的一场比赛，成为你和朋友聊了很久的话题。"
+  },
+  {
+   "age": 8,
+   "year": 1963,
+   "type": "life",
+   "text": "你读到一本让自己舍不得合上的书。"
+  },
+  {
+   "age": 7,
+   "year": 1962,
+   "type": "life",
+   "text": "放学路上，你和朋友分享了一份热腾腾的小吃。"
+  },
+  {
+   "age": 7,
+   "year": 1962,
+   "type": "life",
+   "text": "这次考试的成绩不太理想，你决定再弄懂一道题。"
+  },
+  {
+   "age": 7,
+   "year": 1962,
+   "type": "history",
+   "text": "1962 · 你在广德市生活的这一年，国民经济调整发生了。生产和生活逐步恢复，家庭重新安排生计。"
+  },
+  {
+   "age": 7,
+   "year": 1962,
+   "type": "history",
+   "text": "时代进入新的阶段：经济调整与恢复。当地的就业、求学与医疗条件会随年代变化。"
+  },
+  {
+   "age": 7,
+   "year": 1962,
+   "type": "choice",
+   "text": "找到喜欢的事：音乐"
+  },
+  {
+   "age": 6,
+   "year": 1961,
+   "type": "life",
+   "text": "放学路上，你和朋友分享了一份热腾腾的小吃。"
+  },
+  {
+   "age": 6,
+   "year": 1961,
+   "type": "life",
+   "text": "你读到一本让自己舍不得合上的书。"
+  },
+  {
+   "age": 6,
+   "year": 1961,
+   "type": "education",
+   "text": "你进入小学。学习需要时间，毕业后才会获得相应学历。"
+  },
+  {
+   "age": 5,
+   "year": 1960,
+   "type": "life",
+   "text": "一场小感冒让你在家待了几天，有人守在床边。"
+  },
+  {
+   "age": 5,
+   "year": 1960,
+   "type": "life",
+   "text": "你第一次清楚地喊出了家人的称呼。"
+  },
+  {
+   "age": 5,
+   "year": 1960,
+   "type": "choice",
+   "text": "暂停片刻：留在心里，继续生活"
+  },
+  {
+   "age": 4,
+   "year": 1959,
+   "type": "life",
+   "text": "你第一次清楚地喊出了家人的称呼。"
+  },
+  {
+   "age": 4,
+   "year": 1959,
+   "type": "life",
+   "text": "一场小感冒让你在家待了几天，有人守在床边。"
+  },
+  {
+   "age": 4,
+   "year": 1959,
+   "type": "history",
+   "text": "1959 · 你在广德市生活的这一年，经济困难与粮食短缺发生了。困难时期的物资与营养约束影响家庭生活；不把全国人口设为同一死亡概率。"
+  },
+  {
+   "age": 3,
+   "year": 1958,
+   "type": "life",
+   "text": "一场小感冒让你在家待了几天，有人守在床边。"
+  },
+  {
+   "age": 3,
+   "year": 1958,
+   "type": "life",
+   "text": "你第一次清楚地喊出了家人的称呼。"
+  },
+  {
+   "age": 3,
+   "year": 1958,
+   "type": "history",
+   "text": "1958 · 你在广德市生活的这一年，大跃进与人民公社化发生了。生产与生活组织发生激烈变化，家庭自主安排受到限制。"
+  },
+  {
+   "age": 3,
+   "year": 1958,
+   "type": "history",
+   "text": "时代进入新的阶段：生产激变与困难时期。当地的就业、求学与医疗条件会随年代变化。"
+  },
+  {
+   "age": 2,
+   "year": 1957,
+   "type": "life",
+   "text": "你第一次清楚地喊出了家人的称呼。"
+  },
+  {
+   "age": 2,
+   "year": 1957,
+   "type": "life",
+   "text": "家人给你拍了一张照片，背面写下了今天的日期。"
+  },
+  {
+   "age": 2,
+   "year": 1957,
+   "type": "choice",
+   "text": "你开始探索世界：陪一陪哭泣的小朋友"
+  },
+  {
+   "age": 1,
+   "year": 1956,
+   "type": "life",
+   "text": "一场小感冒让你在家待了几天，有人守在床边。"
+  },
+  {
+   "age": 1,
+   "year": 1956,
+   "type": "life",
+   "text": "你第一次清楚地喊出了家人的称呼。"
+  },
+  {
+   "age": 1,
+   "year": 1956,
+   "type": "history",
+   "text": "你在广德市的日常感受也随之改变。"
+  },
+  {
+   "age": 1,
+   "year": 1956,
+   "type": "history",
+   "text": "1956 · 你在广德市生活的这一年，工业与单位就业扩展发生了。工业体系和单位生活逐步形成，职业选择受时代条件约束。"
+  },
+  {
+   "age": 1,
+   "year": 1956,
+   "type": "warm",
+   "text": "你迈出了第一步，家人紧张地伸出手，又笑了起来。"
+  },
+  {
+   "age": 0,
+   "year": 1955,
+   "type": "life",
+   "text": "你在家人的怀里睡着了，外面的街道渐渐安静下来。"
+  },
+  {
+   "age": 0,
+   "year": 1955,
+   "type": "life",
+   "text": "你第一次清楚地喊出了家人的称呼。"
+  },
+  {
+   "age": 0,
+   "year": 1955,
+   "type": "history",
+   "text": "你生活的时代：工业化起步。当地的就业、求学与医疗条件会随年代变化。"
+  },
+  {
+   "age": 0,
+   "year": 1955,
+   "type": "warm",
+   "text": "家人把小小的你抱在怀里。窗外，是你将慢慢认识的城市。"
+  },
+  {
+   "age": 0,
+   "year": 1955,
+   "type": "birth",
+   "text": "你出生在广德市，一个生活宽裕的家庭。你是个女孩。"
+  }
+ ]
+}

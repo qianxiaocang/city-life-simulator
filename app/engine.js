@@ -77,9 +77,19 @@ function nameFor(life, sex, surname = null) {
 }
 function familyNameFor(life, sex) {
   const surname = T(life.name.zhCN.slice(0, 1), life.name.zhTW.slice(0, 1), life.name.en.split(' ').at(-1));
-  const used = [life.name.zhCN, ...[life.family.mother, life.family.father, ...(life.family.siblings || []), ...(life.family.children || [])].filter(Boolean).map(person => person.name.zhCN)];
-  let result;
-  for (let attempt = 0; attempt < 20; attempt++) { result = nameFor(life, sex, surname); if (!used.includes(result.zhCN)) break; }
+  const family = [life, life.family.mother, life.family.father, life.family.partner,
+    ...(life.family.siblings || []), ...(life.family.children || [])].filter(Boolean);
+  const usedFull = new Set(family.map(person => person.name?.zhCN).filter(Boolean));
+  const usedGiven = new Set(family.map(person => person.name?.zhCN?.slice(1)).filter(Boolean));
+  const candidates = GIVEN[sex].filter(given => !usedGiven.has(given.zhCN));
+  // The catalogue is deliberately small; on exhaustion, retain full-name
+  // uniqueness without repeating a parent's given name.
+  const given = candidates.length ? pick(life, candidates) : pick(life, GIVEN[sex]);
+  let result = T(surname.zhCN + given.zhCN, surname.zhTW + given.zhTW, `${given.en} ${surname.en}`);
+  if (usedFull.has(result.zhCN)) {
+    const suffix = String(family.length + 1);
+    result = T(result.zhCN + suffix, result.zhTW + suffix, result.en + ' ' + suffix);
+  }
   return result;
 }
 const sexText = sex => sex === 'female' ? T('女孩', '女孩', 'girl') : T('男孩', '男孩', 'boy');
@@ -168,6 +178,8 @@ function profileFor(location,sex,world,year) {
 export function ensureModelState(life) {
   if (!life || typeof life !== 'object') return life;
   life.flags ||= {}; life.pendingQueue ||= []; life.years ||= [];
+  life.family.formerPartners ||= []; life.marriageHistory ||= [];
+  life.maritalStatus ||= life.family.partner?.married ? 'married' : 'never-married';
   life.birthMonth ||= 1; life.birthDay ||= 1;
   life.mortalityRisk ||= {budget:riskBudget(life.seed),exposure:0,modelOnly:true};
   life.residenceYears||={[life.location.region]:life.age};
@@ -205,7 +217,8 @@ export function createLife({ location, locations: catalogue, language = 'zh-CN',
     stats: { health: 80, happiness: 62, knowledge: 50, relationships: 60 },
     money: 0, income: 0, assets: { house: 0, car: 0, retirement:0 }, debt: 0, investment: 'deposit', investmentBasis: 0,
     education: 'preschool', school: null, continuingEducation: null, job: null, retired: false,
-    family: { mother: null, father: null, partner: null, children: [], siblings: [] },
+    family: { mother: null, father: null, partner: null, children: [], siblings: [], formerPartners: [] },
+    maritalStatus: 'never-married', marriageHistory: [], divorceYear: null, widowYear: null,
     focus: null, focusTime: {}, hobbies: [], owns: [], temperament: null, conditions: [],
     log: [], years: [], pending: null, pendingQueue: [], flags: {}, journal: [], visited: [location],
     death: null, logSequence: 0, profile: null, paceMinutes: clamp(paceMinutes, 1, 90), yearSeconds: 25,
@@ -238,6 +251,8 @@ export function createLife({ location, locations: catalogue, language = 'zh-CN',
     life.family.siblings.push({name:familyNameFor(life,sex),sex,age,birthYear:life.birthYear-age,alive:true});
   }
   log(life, T(`你出生在${location.name.zhCN}，一个${CLASS_NAMES[life.classRank - 1].zhCN}。你是个${sexText(life.sex).zhCN}。`, `你出生在${location.name.zhTW}，一個${CLASS_NAMES[life.classRank - 1].zhTW}。你是個${sexText(life.sex).zhTW}。`, `You were born in ${location.name.en}, into ${CLASS_NAMES[life.classRank - 1].en}. You are a ${sexText(life.sex).en}.`), 'birth');
+  life.schoolStartAge=chance(life,life.birthYear<1980?.22:.07)?7:6;
+  life.primaryYears=life.birthYear<1970&&chance(life,.14)?5:chance(life,life.birthYear<1990?.08:.025)?7:6;
   ensureModelState(life);
   ageSnapshot(life);
   return life;
@@ -278,6 +293,12 @@ function finishContinuingEducation(life) {
   const study = life.continuingEducation;
   if (!study || life.age < study.endsAt) return;
   life.continuingEducation = null;
+  // Older saves may contain a course started before the current age rule.
+  // Keep the work and study history without granting a late qualification.
+  if (life.age > 45) {
+    log(life, T('这段在职学习没有在本作设定的年龄范围内完成，你保留已有学历。', '這段在職進修沒有在本作設定的年齡範圍內完成，你保留既有學歷。', 'This part-time course did not finish within the game’s age range. You keep your existing qualification.'), 'education');
+    return;
+  }
   if (chance(life, clamp(.25 + life.stats.knowledge / 150, .35, .9))) {
     life.education = study.target;
     log(life, T('经过几年的在职学习与考核，你取得了新的学历资格。', '經過幾年的在職學習與考核，你取得了新的學歷資格。', 'After several years of part-time study and assessment, you gained a new qualification.'), 'education', { knowledge: 4, happiness: 5 });
@@ -395,6 +416,13 @@ function familyYear(life) {
     person.age++;
     if(chance(life,hazard)||person.age>110){
       person.alive = false;
+      person.deathYear = life.year;
+      if (person === life.family.partner && person.married) {
+        life.maritalStatus = 'widowed'; life.widowYear = life.year;
+        life.lastMarriageEndAge = life.age;
+        const last = life.marriageHistory.at(-1);
+        if (last && !last.endedYear) Object.assign(last,{endedYear:life.year,endReason:'partner-death'});
+      }
       log(life, T(`${person.name.zhCN}在${person.age}岁时离开了人世。你把共同的记忆留在心里。`, `${person.name.zhTW}在${person.age}歲時離開了人世。你把共同的記憶留在心裡。`, `${person.name.en} died at ${person.age}. You keep your shared memories close.`), 'loss', { happiness: -9, relationships: -3 });
     }
   }
@@ -469,8 +497,22 @@ const CAUSES = {
   adult: [T('急性疾病', '急性疾病', 'an acute illness'), T('意外事故', '意外事故', 'an accident'), T('心血管疾病', '心血管疾病', 'cardiovascular disease')],
   older: [T('心血管疾病', '心血管疾病', 'cardiovascular disease'), T('癌症', '癌症', 'cancer'), T('呼吸系统疾病', '呼吸系統疾病', 'a respiratory illness'), T('脑血管疾病', '腦血管疾病', 'cerebrovascular disease'), T('衰老相关疾病', '衰老相關疾病', 'an age-related illness')],
 };
+function modeledDeathCause(life) {
+  // Directional scenario weights, not a claim about official cause shares.
+  const older=CAUSES.older;
+  if (life.age < 12) return weighted(life,CAUSES.childhood.map((cause,i)=>({cause,weight:i?life.year<1980?3:1:2}))).cause;
+  const modern=life.year>=2000;
+  const list=life.age<30
+    ? [[CAUSES.adult[1],5],[CAUSES.adult[0],3],[CAUSES.adult[2],.4],[older[1],.3]]
+    : life.age<60
+    ? [[CAUSES.adult[1],modern?1.5:2.2],[CAUSES.adult[0],1.3],[CAUSES.adult[2],2.6],[older[1],modern?3:1.7],[older[2],1],[older[3],1.1]]
+    : life.age<75
+    ? [[older[0],3.4],[older[1],modern?3.2:2.1],[older[2],1.3],[older[3],1.7],[older[4],.5]]
+    : [[older[0],2.8],[older[1],modern?2.1:1.3],[older[2],1.7],[older[3],modern?1.5:2.1],[older[4],2.4]];
+  return weighted(life,list.map(([cause,weight])=>({cause,weight}))).cause;
+}
 function die(life, explicitCause=null, metadata={}) {
-  const cause = explicitCause || pick(life, life.age < 12 ? CAUSES.childhood : life.age < 60 ? CAUSES.adult : CAUSES.older);
+  const cause = explicitCause || modeledDeathCause(life);
   reconcile(life);life.estate={currencyBasis:'CNY-2025-model',netValue:Math.max(0,Math.round(bookNetWorth(life))),heirs:[...[life.family.mother,life.family.father].filter(p=>p?.alive).map(p=>({kind:'parent',name:p.name})),...(life.family.partner?.alive?[{kind:'partner',name:life.family.partner.name}]:[]),...life.family.children.filter(c=>c.alive).map(c=>({kind:'child',name:c.name}))],distribution:'equal-shares-game-model-not-statutory-inheritance'};
   life.phase = 'dead'; life.pending = null; life.pendingQueue = [];
   life.death = { age: life.age, year: life.year, cause, location: life.location, ...metadata };
@@ -491,9 +533,17 @@ function familyMilestone(life){
   const decay=Math.exp(-Math.max(0,life.age-ideal)/(remarriage?12:6));
   if(chance(life,.45*decay))decision(life,'romance',T('认识一个新的人','認識一個新的人','Meeting someone new'),T('是否开始了解彼此，由你决定。','是否開始了解彼此，由你決定。','You decide whether to get to know each other.'),[option('date',T('试着了解彼此','試著了解彼此','Get to know each other'),undefined,3),option('alone',T('保留自己的节奏','保留自己的節奏','Keep your own pace'))]);
  }else if(!partner.married&&partner.yearsTogether>=2&&marriageAllowed(life)&&chance(life,.8*Math.exp(-Math.max(0,life.age-ideal-3)/8)))marriageDecision(life);
- else if(partner.married&&canConceive(life)&&life.family.children.length===0&&life.age>=20&&life.age-(life.flags.lastChildOffer??-10)>=2&&chance(life,.55)){
+ else if(partner.married&&canConceive(life)&&life.age>=20&&life.age-(life.flags.lastChildOffer??-10)>=2&&
+   life.family.children.length<(life.location.region==='mainland'&&life.birthYear<=1965&&life.year<1980?4:life.location.region==='mainland'&&life.birthYear<=1965?2:1)&&
+   chance(life,life.birthYear<=1965?.82:.55)){
   life.flags.lastChildOffer=life.age;
-  decision(life,'child',T('是否迎接一个孩子','是否迎接一個孩子','Thinking about a child'),T('这需要双方商量，也意味着长期的时间和经济责任。','這需要雙方商量，也意味著長期的時間及經濟責任。','This takes a joint decision and a long commitment of time and money.'),[option('try',T('尝试迎接新生命','嘗試迎接新生命','Try to have a child'),undefined,2),option('later',T('现在还没准备好','現在還沒準備好','We are not ready yet'))]);
+  decision(life,'child',T('是否迎接一个孩子','是否迎接一個孩子','Thinking about a child'),T('这需要双方商量，也意味着长期的时间和经济责任。','這需要雙方商量，也意味著長期的時間及經濟責任。','This takes a joint decision and a long commitment of time and money.'),[option('try',T('尝试迎接新生命','嘗試迎接新生命','Try to have a child'),undefined,life.birthYear<=1965?4:2),option('later',T('现在还没准备好','現在還沒準備好','We are not ready yet'))]);
+ }
+ else if(partner.married && life.age<75 && chance(life,life.year>=2000?.045:.015)) {
+  decision(life,'marriage-crisis',T('这段关系的下一步','這段關係的下一步','The next step in the relationship'),
+    T('长期相处中出现了难以回避的分歧。你们需要认真决定如何往前走。','長期相處中出現難以迴避的分歧。你們需要認真決定如何往前走。','A lasting disagreement calls for a thoughtful decision about the relationship.'),
+    [option('repair',T('沟通并尝试修复关系','溝通並嘗試修復關係','Talk and try to repair the relationship'),undefined,2),
+     option('divorce',T('协商结束婚姻','協商結束婚姻','End the marriage by agreement'),undefined,1)]);
  }
 }
 function randomDecision(life) {
@@ -522,9 +572,15 @@ function randomDecision(life) {
     case 'worklife': decision(life, type, T('工作的边界', '工作的邊界', 'The boundaries of work'), T('一个重要项目需要更多时间。你也答应了家人一起度过周末。', '一個重要專案需要更多時間。你也答應了家人一起度過週末。', 'An important project needs more time. You also promised your family the weekend.'), [option('project', T('投入项目，争取机会', '投入專案，爭取機會', 'Commit to the project'), undefined, 1.3), option('boundary', T('沟通安排，留住周末', '溝通安排，留住週末', 'Discuss the schedule and protect the weekend'), undefined, 1.7)]); break;
     case 'move': {
       life.flags.lastMoveOffer = life.age;
-      const pool = locations.filter(place => place.id !== life.location.id);
+      const seenNames = new Set([life.location.name.zhCN]);
+      const pool = locations.filter(place => place.id !== life.location.id && place.name?.zhCN);
       const destinations = [];
-      while (destinations.length < 3 && pool.length) destinations.push(pool.splice(Math.floor(random(life) * pool.length), 1)[0]);
+      while (destinations.length < 3 && pool.length) {
+        const place = pool.splice(Math.floor(random(life) * pool.length), 1)[0];
+        if (seenNames.has(place.name.zhCN)) continue;
+        seenNames.add(place.name.zhCN);
+        destinations.push(place);
+      }
       decision(life, type, T('去另一座城市生活', '去另一座城市生活', 'A different city'), T('新的城市可能带来机会，也意味着重新建立生活。这里只包含本游戏的四个地区。', '新的城市可能帶來機會，也意味著重新建立生活。這裡只包含本遊戲的四個地區。', 'A new city may bring opportunities, and the work of rebuilding a life. Destinations stay within the game’s four regions.'), [option('stay', T('留在熟悉的地方', '留在熟悉的地方', 'Stay where you are'), undefined, 3), ...destinations.map((place, i) => option(`move-${i}`, place.name, T('搬迁费用约为当地模型年收入的8%', '搬遷費用約為當地模型年收入的8%', 'Moving costs about 8% of the model annual income'), .8))], { destinations }); break;
     }
     case 'startup': decision(life, type, T('把一个想法变成生意', '把一個想法變成生意', 'Turning an idea into a business'), T('你积累了一些经验和存款，也想过经营自己的小事业。', '你累積了一些經驗和存款，也想過經營自己的小事業。', 'With some experience and savings, you have considered starting a small business.'), [option('start', T('投入积蓄试一试', '投入積蓄試一試', 'Invest some savings and try'), T('需要资金，经营也可能失败', '需要資金，經營也可能失敗', 'Requires capital and may fail'), .55), option('steady', T('保留稳定的工作', '保留穩定的工作', 'Keep a stable job'), undefined, 2)]); break;
@@ -627,8 +683,17 @@ export function choose(life, optionId, input = '') {
       else effects(life,{happiness:-1});
       break;
     case 'marriage':
-      if (optionId === 'marry' && marriageAllowed(life)) { life.family.partner.married = true;life.family.partner.marriedYear=life.year;life.flags.marriageCount=(life.flags.marriageCount||0)+1;life.marriageAge??=life.age; spend(life,Math.min(Math.max(life.money*.12,0),life.profile.typicalIncome*.35),'wedding'); log(life, T('你们结婚了，约定一起面对接下来的生活。', '你們結婚了，約定一起面對接下來的生活。', 'You married and promised to face the years ahead together.'), 'love', { happiness: 8, relationships: 5 }); }
+      if (optionId === 'marry' && marriageAllowed(life)) { const type=(life.flags.marriageCount||0)===0?'first':life.maritalStatus==='widowed'?'widowed-remarriage':'divorced-remarriage';life.family.partner.married = true;life.family.partner.marriedYear=life.year;life.flags.marriageCount=(life.flags.marriageCount||0)+1;life.marriageAge??=life.age;life.maritalStatus='married';life.marriageHistory.push({type,year:life.year,age:life.age,partnerName:life.family.partner.name,previousEndAge:life.lastMarriageEndAge??null}); spend(life,Math.min(Math.max(life.money*.12,0),life.profile.typicalIncome*.35),'wedding'); log(life, T('你们结婚了，约定一起面对接下来的生活。', '你們結婚了，約定一起面對接下來的生活。', 'You married and promised to face the years ahead together.'), 'love', { happiness: 8, relationships: 5 }); }
       else if (optionId === 'separate') { life.family.partner = null; effects(life, { happiness: -4, relationships: -3 }); }
+      break;
+    case 'marriage-crisis':
+      if (optionId === 'divorce' && life.family.partner?.married) {
+        life.divorceYear=life.year;life.lastMarriageEndAge=life.age;life.maritalStatus='divorced';
+        const last=life.marriageHistory.at(-1);if(last&&!last.endedYear)Object.assign(last,{endedYear:life.year,endReason:'divorce'});
+        life.family.formerPartners.push({...life.family.partner,divorcedYear:life.year,married:false});
+        life.family.partner=null;
+        log(life,T('经过协商，你们在这一年结束了婚姻，各自重新安排生活。','經過協商，你們在這一年結束婚姻，各自重新安排生活。','After discussing it, you ended the marriage this year and each made new plans.'),'love',{happiness:-5,relationships:-3});
+      } else effects(life,{relationships:2,happiness:1});
       break;
     case 'child':
       if (optionId === 'try'&&canConceive(life)) {
@@ -668,9 +733,14 @@ export function relocate(life, destination) {
   if(life.phase!=='life'||life.pending)return false;
   const priorIncome = life.profile.typicalIncome;
   if(!spend(life,priorIncome*.08*(historicalContext(life).migrationCostMultiplier||1),'moving'))return false;
+  const priorRegion=life.location.region;
   const wasRural=!life.urban;
   life.location = location;
   life.urban = true;
+  if(priorRegion!==location.region&&life.job){
+    life.lastJob={...life.job};life.job=null;life.income=0;
+    log(life,T('跨地区迁居后，原岗位不能直接延续，你需要了解当地的用工和资格条件。','跨地區遷居後，原職位不能直接延續，你需要了解當地的聘用與資格條件。','After moving across jurisdictions, your previous post does not automatically transfer; you need to check local employment and qualification rules.'),'work');
+  }
   if(wasRural){life.flags.ruralMigrantYear=life.year;if(life.job?.sector==='agriculture'){life.lastJob={...life.job};life.job=null;life.income=0;}}
   life.profile = profileFor(location, life.sex, life.world, life.year);
   if (life.job) { life.job.salary = Math.round(life.job.salary * clamp(life.profile.typicalIncome / priorIncome, .6, 1.6) * .94); life.job.marketIncomeReference=life.profile.typicalIncome; life.income=life.job.salary; }

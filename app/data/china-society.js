@@ -101,7 +101,7 @@ export const CULTURAL_EVENTS = [
   C('family-career-move',22,50,
     T('去远方工作，还是留在家人身边？','去遠方工作，還是留在家人身邊？','Work farther away or stay near family?'),
     T('一份机会意味着离家更远。有人看重发展，有人看重陪伴，你想和家人认真商量。','一份機會意味著離家更遠。有人看重發展，有人看重陪伴，你想和家人認真商量。','An opportunity would take you farther from home. Growth and companionship matter differently to different people.'),
-    [O('explore',T('了解机会，再讨论探望安排','了解機會，再討論探望安排','Explore it and plan how to stay close'),T('只是增加迁居意愿，不自动搬家','只是增加遷居意願，不自動搬家','Express interest without moving automatically'),{knowledge:1,relationships:1,openToMigration:true},2),
+    [O('explore',T('了解机会，再讨论探望安排','了解機會，再討論探望安排','Explore it and plan how to stay close'),T('先了解新城市的机会，也和家人谈谈将来如何往来','先了解新城市的機會，也與家人談談將來如何往來','Learn about the new city and discuss family visits'),{knowledge:1,relationships:1,openToMigration:true},2),
      O('stay',T('优先寻找附近合适的工作','優先尋找附近合適的工作','Look for suitable work nearby'),T('陪伴是你的主动选择','陪伴是你的主動選擇','Choose closeness on your own terms'),{relationships:3,happiness:1},3),
      O('negotiate',T('比较成本与照护责任后再决定','比較成本與照護責任後再決定','Compare costs and care responsibilities first'),T('没有对所有人都适用的标准答案','沒有對所有人都適用的標準答案','There is no single right answer for everyone'),{relationships:2,knowledge:1},3)],
     ['elder-rights-2012'],{working:true},{cooldownYears:9}),

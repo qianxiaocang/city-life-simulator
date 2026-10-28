@@ -1,4 +1,8 @@
-// Observed mainland anchors. Interpolation and city adjustments are game models.
+// Mixed provenance: selected modern national observations and historical game
+// estimates. Pre-1981 lifespan and historical under-five probabilities remain
+// 待核／方向性校准 (S3-B1, S3-B3); they are not an official annual life table.
+// Full annual urbanization and age-specific mortality series are also pending
+// (S3-B5, S3-B3). Interpolation and city adjustments are game models.
 export const DEVELOPMENT_SOURCES = [
   {id:'nbs-urban-history',url:'https://www.stats.gov.cn/sj/sjjd/202409/t20240923_1956628.html',title:{zhCN:'国家统计局：新中国75年城市发展',zhTW:'國家統計局：新中國75年城市發展',en:'NBS: 75 years of urban development'}},
   {id:'nbs-life-census',url:'https://www.stats.gov.cn/sj/tjgb/rkpcgb/qgrkpcgb/202302/t20230206_1902000.html',title:{zhCN:'国家统计局：1981—2010人口预期寿命',zhTW:'國家統計局：1981—2010人口預期壽命',en:'NBS: life expectancy, 1981–2010'}},
@@ -11,6 +15,7 @@ export const DEVELOPMENT_SOURCES = [
 export const MAINLAND_OBSERVED = {
   // 1949/1957/1978 and modern anchors use the published national series.
   urbanization:[[1949,.1064],[1957,.1539],[1978,.1792],[1995,.2904],[2011,.5183],[2023,.6616],[2024,.67],[2025,.6789]],
+  // 1950–1978 points are scenario estimates; official registry begins at 1981.
   lifeExpectancy:[[1950,43.8],[1954,49],[1957,53],[1959,47],[1960,43.8],[1961,41],[1963,55],[1965,58],[1970,63],[1975,65.5],[1978,67],[1981,67.77],[1990,68.55],[2000,71.40],[2010,74.83],[2020,77.93],[2024,79],[2025,79.25]],
   // modelOnly: expected age at death conditional on surviving to 25.
   // These calibration anchors are not an official conditional life table.

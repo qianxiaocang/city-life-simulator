@@ -1,0 +1,2223 @@
+{
+  "engine": "./current-engine.mjs",
+  "cases": {
+    "L10K-01": [
+      {
+        "seed": "w0",
+        "world": "past",
+        "birthYear": 1950,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 100,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1968,
+            "job": "mechanic"
+          },
+          {
+            "age": 23,
+            "year": 1973,
+            "job": "welder"
+          },
+          {
+            "age": 23,
+            "year": 1973,
+            "job": "farmer"
+          },
+          {
+            "age": 24,
+            "year": 1974,
+            "job": "legacy-state-office"
+          },
+          {
+            "age": 26,
+            "year": 1976,
+            "job": "electrician"
+          },
+          {
+            "age": 26,
+            "year": 1976,
+            "job": "electrician"
+          },
+          {
+            "age": 30,
+            "year": 1980,
+            "job": "factory-operator"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 600,
+          "baseAgeMonths": 600,
+          "delayMonths": 0,
+          "retirementYear": 2000,
+          "retirementMonth": 11,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 50,
+        "contributionYears": 23,
+        "badChildren": [],
+        "netWorth": 14903,
+        "typicalIncome": 61384,
+        "siblings": 5,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 30
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "赵嘉树",
+            "birthYear": 1983
+          },
+          {
+            "name": "赵景行",
+            "birthYear": 1993
+          }
+        ]
+      }
+    ],
+    "L10K-02": [
+      {
+        "seed": "w120",
+        "world": "past",
+        "birthYear": 1950,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 86,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1968,
+            "job": "plumber"
+          },
+          {
+            "age": 22,
+            "year": 1972,
+            "job": "carpenter"
+          },
+          {
+            "age": 55,
+            "year": 2005,
+            "job": "repair-shop"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2015,
+          "retirementMonth": 12,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 49,
+        "contributionYears": 28,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 96708,
+        "siblings": 1,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 22
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "黄宇辰",
+            "birthYear": 1990
+          }
+        ]
+      }
+    ],
+    "L10K-03": [
+      {
+        "seed": "w13",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 89,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 21,
+            "year": 2047,
+            "job": "livestock"
+          },
+          {
+            "age": 64,
+            "year": 2090,
+            "job": "repair-shop"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2091,
+          "retirementMonth": 4,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 63,
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 24635957,
+        "typicalIncome": 63097,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18,
+          "associate": 21,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w38",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 103,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 2045,
+            "job": "electrician"
+          },
+          {
+            "age": 23,
+            "year": 2049,
+            "job": "security"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 660,
+          "baseAgeMonths": 600,
+          "delayMonths": 60,
+          "retirementYear": 2081,
+          "retirementMonth": 4,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 55,
+        "contributionYears": 32,
+        "badChildren": [],
+        "netWorth": 16,
+        "typicalIncome": 88770,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 22
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w50",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 95,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 2045,
+            "job": "utility-worker"
+          },
+          {
+            "age": 38,
+            "year": 2064,
+            "job": "business"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2091,
+          "retirementMonth": 10,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 65,
+        "contributionYears": 19,
+        "badChildren": [],
+        "netWorth": 8872444,
+        "typicalIncome": 87499,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "李俊熙",
+            "birthYear": 2057
+          }
+        ]
+      }
+    ],
+    "L10K-04": [
+      {
+        "seed": "w0",
+        "world": "past",
+        "birthYear": 1950,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 100,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1968,
+            "job": "mechanic"
+          },
+          {
+            "age": 23,
+            "year": 1973,
+            "job": "welder"
+          },
+          {
+            "age": 23,
+            "year": 1973,
+            "job": "farmer"
+          },
+          {
+            "age": 24,
+            "year": 1974,
+            "job": "legacy-state-office"
+          },
+          {
+            "age": 26,
+            "year": 1976,
+            "job": "electrician"
+          },
+          {
+            "age": 26,
+            "year": 1976,
+            "job": "electrician"
+          },
+          {
+            "age": 30,
+            "year": 1980,
+            "job": "factory-operator"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 600,
+          "baseAgeMonths": 600,
+          "delayMonths": 0,
+          "retirementYear": 2000,
+          "retirementMonth": 11,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 50,
+        "contributionYears": 23,
+        "badChildren": [],
+        "netWorth": 14903,
+        "typicalIncome": 61384,
+        "siblings": 5,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 30
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "赵嘉树",
+            "birthYear": 1983
+          },
+          {
+            "name": "赵景行",
+            "birthYear": 1993
+          }
+        ]
+      },
+      {
+        "seed": "w13",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 89,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 21,
+            "year": 2047,
+            "job": "livestock"
+          },
+          {
+            "age": 64,
+            "year": 2090,
+            "job": "repair-shop"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2091,
+          "retirementMonth": 4,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 63,
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 24635957,
+        "typicalIncome": 63097,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18,
+          "associate": 21,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w19",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "taiwan",
+        "deathAge": 95,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 2045,
+            "job": "welder"
+          },
+          {
+            "age": 58,
+            "year": 2084,
+            "job": "machine-technician"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2091,
+          "retirementMonth": 12,
+          "statutory": false,
+          "jurisdiction": "taiwan",
+          "sourceIds": [
+            "tw-labor-pension"
+          ],
+          "modelOnly": true,
+          "benefitKind": "labor-insurance-claim"
+        },
+        "retireAge": 57,
+        "contributionYears": 45,
+        "badChildren": [],
+        "netWorth": 2848698,
+        "typicalIncome": 271021,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "张晓岚",
+            "birthYear": 2067
+          }
+        ]
+      },
+      {
+        "seed": "w22",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 50,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 2045,
+            "job": "welder"
+          },
+          {
+            "age": 42,
+            "year": 2068,
+            "job": "repair-shop"
+          }
+        ],
+        "retirementRule": null,
+        "contributionYears": 23,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 110043,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18,
+          "university": 43
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "周明轩",
+            "birthYear": 2057
+          }
+        ]
+      }
+    ],
+    "L10K-05": [
+      {
+        "seed": "w54",
+        "world": "past",
+        "birthYear": 1985,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 87,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2003,
+            "job": "agricultural-tech"
+          },
+          {
+            "age": 35,
+            "year": 2020,
+            "job": "cooperative"
+          },
+          {
+            "age": 43,
+            "year": 2028,
+            "job": "social-service"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2048,
+          "retirementMonth": 8,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 20,
+        "badChildren": [],
+        "netWorth": 1018320,
+        "typicalIncome": 66667,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "李晓岚",
+            "birthYear": 2014
+          }
+        ]
+      },
+      {
+        "seed": "w67",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 93,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2044,
+            "job": "cleaner"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2089,
+          "retirementMonth": 8,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 45,
+        "badChildren": [],
+        "netWorth": 963,
+        "typicalIncome": 74976,
+        "siblings": 3,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "university": 39
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "沈以宁",
+            "birthYear": 2067
+          }
+        ]
+      },
+      {
+        "seed": "w102",
+        "world": "past",
+        "birthYear": 2000,
+        "sex": "female",
+        "region": "taiwan",
+        "deathAge": 100,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 21,
+            "year": 2021,
+            "job": "sales"
+          },
+          {
+            "age": 24,
+            "year": 2024,
+            "job": "platform-delivery"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2065,
+          "retirementMonth": 6,
+          "statutory": false,
+          "jurisdiction": "taiwan",
+          "sourceIds": [
+            "tw-labor-pension"
+          ],
+          "modelOnly": true,
+          "benefitKind": "labor-insurance-claim"
+        },
+        "retireAge": 65,
+        "contributionYears": 43,
+        "badChildren": [],
+        "netWorth": 16924601,
+        "typicalIncome": 271073,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "刘俊熙",
+            "birthYear": 2033
+          }
+        ]
+      },
+      {
+        "seed": "w108",
+        "world": "past",
+        "birthYear": 1961,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 73,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1979,
+            "job": "plumber"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 600,
+          "baseAgeMonths": 600,
+          "delayMonths": 0,
+          "retirementYear": 2011,
+          "retirementMonth": 11,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 50,
+        "contributionYears": 32,
+        "badChildren": [],
+        "netWorth": 3544376,
+        "typicalIncome": 57671,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "张宇辰",
+            "birthYear": 1990
+          },
+          {
+            "name": "张心悦",
+            "birthYear": 1994
+          }
+        ]
+      }
+    ],
+    "L10K-06": [
+      {
+        "seed": "w4",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 94,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2044,
+            "job": "warehouse"
+          },
+          {
+            "age": 23,
+            "year": 2049,
+            "job": "nurse"
+          },
+          {
+            "age": 52,
+            "year": 2078,
+            "job": "kindergarten-teacher"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 696,
+          "baseAgeMonths": 660,
+          "delayMonths": 36,
+          "retirementYear": 2084,
+          "retirementMonth": 4,
+          "category": "female55",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 58,
+        "contributionYears": 36,
+        "badChildren": [],
+        "netWorth": 910014,
+        "typicalIncome": 117770,
+        "siblings": 1,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 22
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "何安然",
+            "birthYear": 2064
+          }
+        ]
+      },
+      {
+        "seed": "w5",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 99,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 2045,
+            "job": "sales"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2089,
+          "retirementMonth": 8,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 44,
+        "badChildren": [],
+        "netWorth": 2241659,
+        "typicalIncome": 58781,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "吴明轩",
+            "birthYear": 2053
+          }
+        ]
+      },
+      {
+        "seed": "w9",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "taiwan",
+        "deathAge": 94,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 24,
+            "year": 2050,
+            "job": "primary-teacher"
+          },
+          {
+            "age": 59,
+            "year": 2085,
+            "job": "mechanic"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2089,
+          "retirementMonth": 11,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 35,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 274029,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21,
+          "university": 23
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "赵子安",
+            "birthYear": 2058
+          }
+        ]
+      },
+      {
+        "seed": "w13",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 89,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 21,
+            "year": 2047,
+            "job": "livestock"
+          },
+          {
+            "age": 64,
+            "year": 2090,
+            "job": "repair-shop"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2091,
+          "retirementMonth": 4,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 63,
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 24635957,
+        "typicalIncome": 63097,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18,
+          "associate": 21,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": []
+      }
+    ],
+    "L10K-07": [
+      {
+        "seed": "w156",
+        "world": "past",
+        "birthYear": 1972,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 95,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 1991,
+            "job": "electrician"
+          },
+          {
+            "age": 25,
+            "year": 1997,
+            "job": "civil-community"
+          },
+          {
+            "age": 31,
+            "year": 2003,
+            "job": "business"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2037,
+          "retirementMonth": 5,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 65,
+        "contributionYears": 6,
+        "badChildren": [],
+        "netWorth": 901,
+        "typicalIncome": 65025,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 22
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "周俊熙",
+            "birthYear": 2005
+          }
+        ]
+      },
+      {
+        "seed": "w180",
+        "world": "past",
+        "birthYear": 1950,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 0,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [],
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 4700,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w216",
+        "world": "past",
+        "birthYear": 1972,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 92,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 1991,
+            "job": "restaurant-service"
+          },
+          {
+            "age": 37,
+            "year": 2009,
+            "job": "plumber"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 744,
+          "baseAgeMonths": 720,
+          "delayMonths": 24,
+          "retirementYear": 2034,
+          "retirementMonth": 9,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 62,
+        "contributionYears": 43,
+        "badChildren": [],
+        "netWorth": 1514529,
+        "typicalIncome": 88770,
+        "siblings": 1,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 13,
+          "junior": 16,
+          "high": 19
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w288",
+        "world": "past",
+        "birthYear": 1961,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 98,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 1980,
+            "job": "cleaner"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 600,
+          "baseAgeMonths": 600,
+          "delayMonths": 0,
+          "retirementYear": 2011,
+          "retirementMonth": 5,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 50,
+        "contributionYears": 31,
+        "badChildren": [],
+        "netWorth": 51376,
+        "typicalIncome": 99989,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "郑思源",
+            "birthYear": 1996
+          }
+        ]
+      }
+    ],
+    "L10K-08": [
+      {
+        "seed": "w664",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 99,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2044,
+            "job": "postal-worker"
+          },
+          {
+            "age": 24,
+            "year": 2050,
+            "job": "librarian"
+          },
+          {
+            "age": 57,
+            "year": 2083,
+            "job": "postal-worker"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2089,
+          "retirementMonth": 8,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 40,
+        "badChildren": [],
+        "netWorth": 730322,
+        "typicalIncome": 98401,
+        "siblings": 1,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "university": 23
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "蔡明轩",
+            "birthYear": 2058
+          }
+        ]
+      },
+      {
+        "seed": "w4184",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "taiwan",
+        "deathAge": 79,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 21,
+            "year": 2047,
+            "job": "mechanic"
+          },
+          {
+            "age": 41,
+            "year": 2067,
+            "job": "postal-worker"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2089,
+          "retirementMonth": 9,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 22,
+        "badChildren": [],
+        "netWorth": 2724082,
+        "typicalIncome": 270450,
+        "siblings": 1,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "林浩然",
+            "birthYear": 2057
+          }
+        ]
+      },
+      {
+        "seed": "w8787",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "taiwan",
+        "deathAge": 108,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2044,
+            "job": "delivery"
+          },
+          {
+            "age": 30,
+            "year": 2056,
+            "job": "electrician"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2091,
+          "retirementMonth": 12,
+          "statutory": false,
+          "jurisdiction": "taiwan",
+          "sourceIds": [
+            "tw-labor-pension"
+          ],
+          "modelOnly": true,
+          "benefitKind": "labor-insurance-claim"
+        },
+        "retireAge": 65,
+        "contributionYears": 43,
+        "badChildren": [],
+        "netWorth": 45438049,
+        "typicalIncome": 271488,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "林若宁",
+            "birthYear": 2068
+          }
+        ]
+      },
+      {
+        "seed": "w11835",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 96,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 20,
+            "year": 2046,
+            "job": "restaurant-service"
+          },
+          {
+            "age": 46,
+            "year": 2072,
+            "job": "factory-operator"
+          },
+          {
+            "age": 59,
+            "year": 2085,
+            "job": "office"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2089,
+          "retirementMonth": 9,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 43,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 62669,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "杨若宁",
+            "birthYear": 2055
+          }
+        ]
+      }
+    ],
+    "L10K-09": [
+      {
+        "seed": "w1686",
+        "world": "past",
+        "birthYear": 1972,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 71,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [],
+        "retireAge": 46,
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 78948,
+        "siblings": 3,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12
+        },
+        "lateBirths": [],
+        "children": []
+      },
+      {
+        "seed": "w2190",
+        "world": "past",
+        "birthYear": 1950,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 85,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 21,
+            "year": 1971,
+            "job": "electrician"
+          },
+          {
+            "age": 21,
+            "year": 1971,
+            "job": "mechanic"
+          },
+          {
+            "age": 22,
+            "year": 1972,
+            "job": "kindergarten-teacher"
+          },
+          {
+            "age": 23,
+            "year": 1973,
+            "job": "livestock"
+          },
+          {
+            "age": 24,
+            "year": 1974,
+            "job": "kindergarten-teacher"
+          },
+          {
+            "age": 25,
+            "year": 1975,
+            "job": "kindergarten-teacher"
+          },
+          {
+            "age": 26,
+            "year": 1976,
+            "job": "state-factory"
+          },
+          {
+            "age": 27,
+            "year": 1977,
+            "job": "livestock"
+          },
+          {
+            "age": 35,
+            "year": 1985,
+            "job": "office"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 720,
+          "baseAgeMonths": 720,
+          "delayMonths": 0,
+          "retirementYear": 2010,
+          "retirementMonth": 4,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 60,
+        "contributionYears": 29,
+        "badChildren": [],
+        "netWorth": 3314,
+        "typicalIncome": 61536,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 13,
+          "junior": 16,
+          "vocational": 19
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "王以宁",
+            "birthYear": 1988
+          }
+        ]
+      },
+      {
+        "seed": "w3414",
+        "world": "past",
+        "birthYear": 1985,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 64,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 20,
+            "year": 2005,
+            "job": "care-worker"
+          },
+          {
+            "age": 37,
+            "year": 2022,
+            "job": "warehouse"
+          },
+          {
+            "age": 41,
+            "year": 2026,
+            "job": "machine-technician"
+          },
+          {
+            "age": 53,
+            "year": 2038,
+            "job": "delivery"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2048,
+          "retirementMonth": 4,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "contributionYears": 44,
+        "badChildren": [],
+        "netWorth": 7363,
+        "typicalIncome": 78948,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 13,
+          "junior": 16,
+          "vocational": 19
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "刘宇辰",
+            "birthYear": 2017
+          }
+        ]
+      },
+      {
+        "seed": "w13026",
+        "world": "past",
+        "birthYear": 1972,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 81,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 1990,
+            "job": "farmer"
+          },
+          {
+            "age": 58,
+            "year": 2030,
+            "job": "restaurant-owner"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2037,
+          "retirementMonth": 4,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 65,
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 608084,
+        "typicalIncome": 99248,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "何浩然",
+            "birthYear": 2001
+          }
+        ]
+      }
+    ],
+    "L10K-10": [
+      {
+        "seed": "w7",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 106,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [],
+        "retireAge": 46,
+        "contributionYears": 0,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 64168,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "李远航",
+            "birthYear": 2064
+          }
+        ]
+      },
+      {
+        "seed": "w12",
+        "world": "past",
+        "birthYear": 2000,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 94,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 23,
+            "year": 2023,
+            "job": "hotel-service"
+          },
+          {
+            "age": 41,
+            "year": 2041,
+            "job": "agricultural-tech"
+          },
+          {
+            "age": 45,
+            "year": 2045,
+            "job": "state-engineer"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 696,
+          "baseAgeMonths": 660,
+          "delayMonths": 36,
+          "retirementYear": 2058,
+          "retirementMonth": 5,
+          "category": "female55",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 58,
+        "contributionYears": 31,
+        "badChildren": [],
+        "netWorth": 15028,
+        "typicalIncome": 124649,
+        "siblings": 1,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21,
+          "university": 23
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "黄嘉树",
+            "birthYear": 2027
+          }
+        ]
+      },
+      {
+        "seed": "w21",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "male",
+        "region": "taiwan",
+        "deathAge": 91,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 19,
+            "year": 2045,
+            "job": "plumber"
+          },
+          {
+            "age": 23,
+            "year": 2049,
+            "job": "business"
+          },
+          {
+            "age": 29,
+            "year": 2055,
+            "job": "postal-worker"
+          },
+          {
+            "age": 43,
+            "year": 2069,
+            "job": "business"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2091,
+          "retirementMonth": 1,
+          "statutory": false,
+          "jurisdiction": "taiwan",
+          "sourceIds": [
+            "tw-labor-pension"
+          ],
+          "modelOnly": true,
+          "benefitKind": "labor-insurance-claim"
+        },
+        "retireAge": 65,
+        "contributionYears": 18,
+        "badChildren": [],
+        "netWorth": 12048092,
+        "typicalIncome": 273562,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 13,
+          "junior": 16,
+          "high": 19
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "许知夏",
+            "birthYear": 2061
+          }
+        ]
+      },
+      {
+        "seed": "w24",
+        "world": "past",
+        "birthYear": 1985,
+        "sex": "male",
+        "region": "mainland",
+        "deathAge": 102,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2003,
+            "job": "fishery"
+          },
+          {
+            "age": 24,
+            "year": 2009,
+            "job": "livestock"
+          },
+          {
+            "age": 34,
+            "year": 2019,
+            "job": "fishery"
+          },
+          {
+            "age": 48,
+            "year": 2033,
+            "job": "bus-driver"
+          },
+          {
+            "age": 54,
+            "year": 2039,
+            "job": "bus-driver"
+          },
+          {
+            "age": 58,
+            "year": 2043,
+            "job": "fishery"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 756,
+          "baseAgeMonths": 720,
+          "delayMonths": 36,
+          "retirementYear": 2048,
+          "retirementMonth": 6,
+          "category": "male60",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 63,
+        "contributionYears": 10,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 97237,
+        "siblings": 1,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18
+        },
+        "lateBirths": [],
+        "children": []
+      }
+    ],
+    "L10K-11": [
+      {
+        "seed": "w4854",
+        "world": "past",
+        "birthYear": 1985,
+        "sex": "female",
+        "region": "taiwan",
+        "deathAge": 97,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2003,
+            "job": "construction-worker"
+          },
+          {
+            "age": 23,
+            "year": 2008,
+            "job": "utility-worker"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 660,
+          "baseAgeMonths": 600,
+          "delayMonths": 60,
+          "retirementYear": 2040,
+          "retirementMonth": 12,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 55,
+        "contributionYears": 37,
+        "badChildren": [],
+        "netWorth": 1961938,
+        "typicalIncome": 271695,
+        "siblings": 2,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "university": 27
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "杨晓岚",
+            "birthYear": 2034
+          }
+        ]
+      },
+      {
+        "seed": "w9024",
+        "world": "past",
+        "birthYear": 1985,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 97,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 23,
+            "year": 2008,
+            "job": "livestock"
+          },
+          {
+            "age": 46,
+            "year": 2031,
+            "job": "nurse"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 696,
+          "baseAgeMonths": 660,
+          "delayMonths": 36,
+          "retirementYear": 2043,
+          "retirementMonth": 2,
+          "category": "female55",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 58,
+        "contributionYears": 12,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 64168,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "周子安",
+            "birthYear": 2034
+          }
+        ]
+      },
+      {
+        "seed": "w12892",
+        "world": "now",
+        "birthYear": 2026,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 91,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 22,
+            "year": 2048,
+            "job": "kindergarten-teacher"
+          },
+          {
+            "age": 54,
+            "year": 2080,
+            "job": "retail"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 660,
+          "baseAgeMonths": 600,
+          "delayMonths": 60,
+          "retirementYear": 2081,
+          "retirementMonth": 7,
+          "category": "female50",
+          "sourceIds": [
+            "retirement-1978",
+            "retirement-2024"
+          ],
+          "modelOnly": false,
+          "pensionEligibilitySeparate": true,
+          "note": {
+            "zhCN": "普通职工基准；特殊工种、伤残、特定干部及弹性退休另有条件，养老金还需满足缴费条件。",
+            "zhTW": "一般職工基準；特殊工種、傷殘、特定幹部及彈性退休另有條件，養老金仍需符合繳費條件。",
+            "en": "Standard employee baseline. Special occupations, disability, specific cadres and flexible retirement have additional rules; pension contributions are separate."
+          },
+          "jurisdiction": "mainland",
+          "statutory": true
+        },
+        "retireAge": 55,
+        "contributionYears": 33,
+        "badChildren": [],
+        "netWorth": 0,
+        "typicalIncome": 64090,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "high": 18,
+          "associate": 21
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "蔡嘉怡",
+            "birthYear": 2055
+          }
+        ]
+      },
+      {
+        "seed": "w17274",
+        "world": "past",
+        "birthYear": 1985,
+        "sex": "female",
+        "region": "mainland",
+        "deathAge": 84,
+        "historyGrammar": [],
+        "wrongRegion": [],
+        "workHistory": [
+          {
+            "age": 18,
+            "year": 2003,
+            "job": "railway-worker"
+          },
+          {
+            "age": 27,
+            "year": 2012,
+            "job": "restaurant-owner"
+          }
+        ],
+        "retirementRule": {
+          "ageMonths": 780,
+          "retirementYear": 2050,
+          "retirementMonth": 8,
+          "statutory": false,
+          "jurisdiction": "mainland",
+          "sourceIds": []
+        },
+        "retireAge": 65,
+        "contributionYears": 9,
+        "badChildren": [],
+        "netWorth": 6197445,
+        "typicalIncome": 63149,
+        "siblings": 0,
+        "duplicateMoves": [],
+        "firstEdu": {
+          "preschool": 0,
+          "primary": 12,
+          "junior": 15,
+          "vocational": 18
+        },
+        "lateBirths": [],
+        "children": [
+          {
+            "name": "吴景行",
+            "birthYear": 2034
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -78,7 +78,10 @@ const crcTable = Array.from({ length: 256 }, (_, value) => {
 function crc32(bytes) { let crc = 0xffffffff; for (const byte of bytes) crc = crcTable[(crc ^ byte) & 255] ^ (crc >>> 8); return (crc ^ 0xffffffff) >>> 0; }
 async function listFiles(directory) {
   const result = [];
-  for (const entry of await readdir(directory, { withFileTypes: true })) {
+  let entries;
+  try { entries = await readdir(directory, { withFileTypes: true }); }
+  catch (error) { if (error.code === 'ENOENT') return result; throw error; }
+  for (const entry of entries) {
     const path = resolve(directory, entry.name);
     if (entry.isDirectory()) result.push(...await listFiles(path));
     else if (entry.isFile()) result.push(path);

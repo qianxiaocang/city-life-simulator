@@ -95,8 +95,8 @@ function applyPersonalEvent(life, event, env) {
   const date = displayDate(event);
   const place = life.location?.name || {};
   const primary=emit(life, T(
-    `${date} · 你在${place.zhCN || '这座城市'}生活的这一年，${event.title.zhCN}发生了。${event.description.zhCN}`,
-    `${date} · 你在${place.zhTW || place.zhCN || '這座城市'}生活的這一年，${event.title.zhTW}發生了。${event.description.zhTW}`,
+    `${date} · 你在${place.zhCN || '这座城市'}生活的这一年，${event.title.zhCN}。${event.description.zhCN}`,
+    `${date} · 你在${place.zhTW || place.zhCN || '這座城市'}生活的這一年，${event.title.zhTW}。${event.description.zhTW}`,
     `${date} · While you were living in ${place.en || 'your city'}, ${event.title.en} occurred. ${event.description.en}`,
   ), 'history', changes, metadata, env);
 
