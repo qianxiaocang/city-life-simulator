@@ -13,11 +13,12 @@ const SAVE_KEY = 'this-life-city.v1';
 const regions = ['mainland', 'taiwan', 'hongkong', 'macau'];
 const locationsById = new Map(locations.map(place => [place.id, place]));
 const initialLanguage = navigator.language.startsWith('en') ? 'en' : /TW|HK|Hant/.test(navigator.language) ? 'zh-TW' : 'zh-CN';
-let store = { version: 1, settings: { language: initialLanguage, theme: 'light', scope: 'all', province: 'all', world: 'now', birthYear: 1980, pace: 30 }, current: null, history: [] };
+let store = { version: 1, settings: { language: initialLanguage, theme: 'light', scope: 'all', province: 'all', world: 'now', birthYear: 1980, pace: 30 }, current: null, history: [], savedMomentToastCount: 0 };
 try { const old = JSON.parse(localStorage.getItem(SAVE_KEY)); if (old?.version === 1) store = { ...store, ...old, settings: { ...store.settings, ...old.settings }, history: Array.isArray(old.history) ? old.history.slice(0, 12) : [] }; } catch { /* Private browsing can disable storage. */ }
 if (!LANGUAGES.some(language => language.id === store.settings.language)) store.settings.language = 'zh-CN';
 if (!regions.includes(store.settings.scope) && store.settings.scope !== 'all') store.settings.scope = 'all';
 if (!['past', 'now'].includes(store.settings.world)) store.settings.world = 'now';
+store.savedMomentToastCount = Number.isInteger(store.savedMomentToastCount) ? Math.max(0, Math.min(3, store.savedMomentToastCount)) : 0;
 delete store.settings.gentle;
 if(store.current&&store.current.phase!=='dead')ensureModelState(store.current);
 let view = 'home', viewedLife = null, modal = null, lastFocus = null, minimizedDecision = null, advancedOpen = false, editableReviewLifeId = null, detailsWasPaused = null;
@@ -126,7 +127,7 @@ function provinceOptions() { const map = new Map(); for (const place of location
 function renderHome() {
   const settings=store.settings,available=store.current&&store.current.phase!=='dead';
   const memories=store.history.slice(0,2);
-  const worldLabel=world=>`${tr(world)}${world==='past'?` ${settings.birthYear}`:world==='now'?` ${new Date().getFullYear()}`:''}`;
+  const worldLabel=world=>tr(world);
   app.innerHTML=`<div class="wrap page-home"><main class="home-main">
     <div class="home-top"><span class="home-brand">${tr('brand')}</span><div class="home-controls">${languageSelect()}${themeButton()}</div></div>
     <section class="home-intro"><span class="eyebrow">${tx('人生模拟 · 中国城市','人生模擬 · 中國城市','A life across Chinese cities')}</span><h1>${tr('heroTitle')}</h1><p class="home-lede">${tr('heroText')}</p><div class="home-intro-art"><canvas id="home-scene" width="640" height="220" aria-hidden="true"></canvas></div></section>
@@ -384,7 +385,7 @@ document.addEventListener('click', async event => {
     if (action === 'pending') { minimizedDecision = null; return openDecision(); }
     if (action === 'close-modal') { if (modal?.type === 'decision') { minimizedDecision = store.current.pending.id; automatic = false; if (store.current?.autopilot?.enabled) setAutopilot(store.current, false, store.current.autopilot.strategy); persist(); } closeModal(); if (view === 'life') render(); return; }
     if (action === 'earlier') { logLimit += 20; return render(); }
-    if (action === 'star') { const life = currentLife(); life.stars ||= []; const removing=life.stars.includes(value); life.stars = removing ? life.stars.filter(id => id !== value) : [...life.stars, value]; persist(); render(); toast(removing?tx('已取消收藏','已取消收藏','Removed from saved records'):tx('已收藏，人生结束后将成为人生瞬间','已收藏，人生結束後將成為人生瞬間','Saved for your life moments after this life ends')); return; }
+    if (action === 'star') { const life = currentLife(); life.stars ||= []; const removing=life.stars.includes(value); life.stars = removing ? life.stars.filter(id => id !== value) : [...life.stars, value]; const showSavedToast = !removing && store.savedMomentToastCount < 3; if (showSavedToast) store.savedMomentToastCount++; persist(); render(); if (removing) toast(tx('已取消收藏','已取消收藏','Removed from saved records')); else if (showSavedToast) toast(tx('已收藏，人生结束后将成为人生瞬间','已收藏，人生結束後將成為人生瞬間','Saved as a life moment')); return; }
     if (action === 'review') return navigate('report', store.history.find(life => life.id === value));
     if (action === 'edit-review') return openReviewEditor();
     if (action === 'save-review') { const life=currentLife(); if (view !== 'report' || life?.phase !== 'dead' || editableReviewLifeId !== life.id || modal?.type !== 'review-editor') return; life.farewell = (modalRoot.querySelector('#farewell-note')?.value || '').trim().slice(0, 300); persist(); closeModal(); render(); return toast(tr('saved')); }
