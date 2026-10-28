@@ -50,6 +50,7 @@ function themeButton() { return button('theme', store.settings.theme === 'dark' 
 function syncMusicControl() {
   const control = document.querySelector('#floating-music');
   const label = audioState ? tx('关闭音乐', '關閉音樂', 'Turn music off') : tx('开启音乐', '開啟音樂', 'Turn music on');
+  control.hidden = view !== 'home';
   control.classList.toggle('is-playing', !!audioState);
   control.setAttribute('aria-pressed', String(!!audioState));
   control.setAttribute('aria-label', label);
@@ -59,7 +60,7 @@ function syncMusicControl() {
 }
 function applyMusicPosition() {
   const control = document.querySelector('#floating-music');
-  if (!control || !musicPosition || musicDrag) return;
+  if (!control || control.hidden || !musicPosition || musicDrag) return;
   const margin = 12, width = control.offsetWidth, height = control.offsetHeight;
   const x = Math.max(margin, Math.min(innerWidth - width - margin, musicPosition.x * innerWidth));
   const y = Math.max(margin, Math.min(innerHeight - height - margin, musicPosition.y * innerHeight));
@@ -386,7 +387,7 @@ document.addEventListener('click', async event => {
     if (action === 'pending') { minimizedDecision = null; return openDecision(); }
     if (action === 'close-modal') { if (modal?.type === 'decision') { minimizedDecision = store.current.pending.id; automatic = false; if (store.current?.autopilot?.enabled) setAutopilot(store.current, false, store.current.autopilot.strategy); persist(); } closeModal(); if (view === 'life') render(); return; }
     if (action === 'earlier') { logLimit += 20; return render(); }
-    if (action === 'star') { const life = currentLife(); life.stars ||= []; const removing=life.stars.includes(value); life.stars = removing ? life.stars.filter(id => id !== value) : [...life.stars, value]; const showSavedToast = !removing && store.savedMomentToastCount < 3; if (showSavedToast) store.savedMomentToastCount++; persist(); render(); if (showSavedToast) toast(tx('已收藏，人生结束后将成为人生瞬间','已收藏，人生結束後將成為人生瞬間','Saved as a life moment')); else dismissToast(); return; }
+    if (action === 'star') { const life = currentLife(); life.stars ||= []; const removing=life.stars.includes(value); life.stars = removing ? life.stars.filter(id => id !== value) : [...life.stars, value]; const showSavedExplanation = !removing && store.savedMomentToastCount < 3; if (showSavedExplanation) store.savedMomentToastCount++; persist(); render(); if (removing) dismissToast(); else toast(showSavedExplanation ? tx('已收藏，人生结束后将成为人生瞬间','已收藏，人生結束後將成為人生瞬間','Saved as a life moment') : tx('已收藏','已收藏','Saved')); return; }
     if (action === 'review') return navigate('report', store.history.find(life => life.id === value));
     if (action === 'edit-review') return openReviewEditor();
     if (action === 'save-review') { const life=currentLife(); if (view !== 'report' || life?.phase !== 'dead' || editableReviewLifeId !== life.id || modal?.type !== 'review-editor') return; life.farewell = (modalRoot.querySelector('#farewell-note')?.value || '').trim().slice(0, 300); persist(); closeModal(); render(); return toast(tr('saved')); }

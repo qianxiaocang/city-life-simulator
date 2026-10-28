@@ -504,6 +504,7 @@ body{background:var(--memorial-bg)}
 .language-options button.selected .language-check{opacity:1}
 .floating-music{position:fixed;right:18px;bottom:calc(30px + env(safe-area-inset-bottom));z-index:70;display:flex;align-items:center;justify-content:center;gap:2px;width:55px;height:55px;padding:0;border:1px solid #d4cbbc;border-radius:50%;background:#e9e0d2;color:#565b54;box-shadow:0 7px 22px #29231b36,0 0 0 4px #fff8;transition:background .3s ease,color .3s ease,box-shadow .3s ease,transform .22s ease,border-color .3s ease}
 .floating-music:hover{transform:translateY(-3px);background:#dfd4c3;border-color:#bdb3a5}
+.floating-music[hidden],body:not([data-view=home]) .floating-music{display:none}
 .floating-music:active{transform:scale(.93)}
 .floating-music:before{content:"";position:absolute;inset:-5px;border:2px solid #5fbda1;border-radius:50%;opacity:0;pointer-events:none}
 .floating-music.is-playing{background:#20765e;color:#fff;border-color:#20765e;box-shadow:0 9px 27px #17634a55,0 0 0 4px #78c5a144}
@@ -525,7 +526,6 @@ body{background:var(--memorial-bg)}
 @keyframes music-wave{from{transform:scaleY(.4)}to{transform:scaleY(1.2)}}
 @media(max-width:700px){
  .life-nav-spacer{width:38px;height:1px;flex:none}
- body[data-view=life] .floating-music{bottom:calc(181px + env(safe-area-inset-bottom));right:16px;z-index:33}
  .floating-music{right:16px;width:52px;height:52px}
  .language-picker summary{min-width:112px}
 }
