@@ -9,9 +9,9 @@ const finite=(x,fallback=0)=>Number.isFinite(Number(x))?Number(x):fallback;
 const positive=x=>Math.max(0,finite(x));
 const clamp=(x,min,max)=>Math.max(min,Math.min(max,finite(x)));
 const HIGHER=new Set(['associate','university','masters','doctorate']);
-const ADULT_FAMILY_EXPENSES=new Set(['health','moving','wedding','purchase-house','purchase-house-cash','purchase-car','purchase-child-school','purchase-adultstudy']);
+const ADULT_FAMILY_EXPENSES=new Set(['health','moving','wedding','celebration','purchase-house','purchase-house-cash','purchase-car','purchase-child-school','purchase-adultstudy']);
 const EXPENSE_NAMES={
-  health:T('医疗','醫療','healthcare'),moving:T('搬迁','搬遷','moving'),wedding:T('婚礼','婚禮','wedding'),
+  health:T('医疗','醫療','healthcare'),moving:T('搬迁','搬遷','moving'),wedding:T('婚礼','婚禮','wedding'),celebration:T('庆祝聚会','慶祝聚會','family celebration'),
   'purchase-house':T('住房首付','住房首付','home down payment'),'purchase-house-cash':T('购房','購屋','home purchase'),
   'purchase-car':T('购车','購車','car purchase'),'purchase-child-school':T('子女教育','子女教育','child education'),
   'purchase-adultstudy':T('继续教育','繼續教育','continuing education')
@@ -56,19 +56,27 @@ function familyShareOfExpense(life,amount,purpose){
   const remaining=familyAidRemaining(life);
   if(!remaining||!amount)return 0;
   if(life.age<18)return Math.min(amount,remaining);
+  if(purpose==='celebration'&&!life.everWorked&&(life.school||life.age<24))return Math.min(amount,remaining);
   if(life.school&&!life.everWorked&&['health','moving'].includes(purpose))return Math.min(amount,remaining);
   if(life.job&&life.age<=40&&life.classRank>=3&&ADULT_FAMILY_EXPENSES.has(purpose))
     return Math.min(amount*.2,remaining*.25);
   return 0;
 }
+/** Quote the same household/personal split used at settlement, without reserving aid. */
+export function expenseFunding(life,amount,purpose='optional'){
+  ensureEconomyState(life);
+  const total=finite(amount,-1);
+  const familyPaid=total<0?0:Math.round(familyShareOfExpense(life,total,purpose)*100)/100;
+  const personalPaid=total-familyPaid;
+  return {total,familyPaid,personalPaid,affordable:total>=0&&personalPaid<=life.money+1e-7};
+}
+export function canSpend(life,amount,purpose='optional'){return expenseFunding(life,amount,purpose).affordable;}
 /** Optional spending never creates a loan or a negative cash balance. */
 export function spend(life,amount,purpose='optional'){
-  ensureEconomyState(life);
-  amount=finite(amount,-1);
-  if(amount<0)return false;
-  const familyPaid=Math.round(familyShareOfExpense(life,amount,purpose)*100)/100;
-  const personalPaid=amount-familyPaid;
-  if(personalPaid>life.money+1e-7)return false;
+  const funding=expenseFunding(life,amount,purpose);
+  if(!funding.affordable)return false;
+  const {total:quoted,familyPaid,personalPaid}=funding;
+  amount=quoted;
   const before=life.money;
   life.money=Math.max(0,life.money-personalPaid);
   life.totals.spent=positive(life.totals.spent)+amount;
@@ -351,6 +359,9 @@ export function getEconomyShopItems(life){
   ensureEconomyState(life);
   if(life.phase==='dead'||life.age<6)return [];
   const rows=CHINA_CONSUMPTION.filter(item=>{
+    // Wedding spending belongs to the actual marriage occasion, including the
+    // option to have no banquet. Old generic shop offers must not charge twice.
+    if(item.id==='wedding')return false;
     if(life.age<item.minAge||life.year<item.minYear)return false;
     if(item.oneTime&&(life.owns.includes(item.id)||item.assetKey==='house'&&positive(life.assets.house)))return false;
     if(item.requiresHouse&&!positive(life.assets.house))return false;
@@ -364,9 +375,10 @@ export function getEconomyShopItems(life){
     const cost=Math.round(itemPrice(life,item));
     const last=life.flags['purchase-'+item.id],cooldown=item.cooldownYears??(item.oneTime?0:1);
     const cooling=Number.isFinite(last)&&life.age-last<cooldown;
-    let available=life.money>=cost&&!cooling;
+    const affordable=canSpend(life,cost,'purchase-'+item.id);
+    let available=affordable&&!cooling;
     if(item.requiresEmployment&&!canBorrowHousing(life,homeTerms(life).principal,homeTerms(life).annualPayment))available=false;
-    return {...item,...(item.id==='phone'?{name:communicationDevice(life).name}:{}),cost,available,...(item.id==='house'?{totalPrice:homeTerms(life).totalPrice,mortgageTerms:homeTerms(life)}:{}),availabilityReason:cooling?T('尚在使用或本年已安排','尚在使用或本年已安排','Still in use or already arranged this year'):life.money<cost?T('积蓄不足','積蓄不足','Not enough savings'):!available?T('尚不符合就业或还款能力条件','尚不符合就業或還款能力條件','Employment or repayment requirements are not met'):null};
+    return {...item,...(item.id==='phone'?{name:communicationDevice(life).name}:{}),cost,available,...(item.id==='house'?{totalPrice:homeTerms(life).totalPrice,mortgageTerms:homeTerms(life)}:{}),availabilityReason:cooling?T('尚在使用或本年已安排','尚在使用或本年已安排','Still in use or already arranged this year'):!affordable?T('积蓄与可用家庭支持不足','積蓄與可用家庭支持不足','Savings and available family support are insufficient'):!available?T('尚不符合就业或还款能力条件','尚不符合就業或還款能力條件','Employment or repayment requirements are not met'):null};
   });
   if(life.age>=18)for(const id of ['deposit','bond','fund','stock']){
     if(!investmentAllowed(life,id))continue;

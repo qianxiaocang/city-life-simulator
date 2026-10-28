@@ -2,10 +2,13 @@ import {ensureAccounts,transferCash,changeAsset,bookNetWorth,reconcile} from './
 import {describeChoice} from './choice-guide.js';
 import {siblingWeights,maternalFirstBirthAge,idealMarriageAge,fecundity,canConceive} from './family-model.js';
 import { CHINA_JOBS } from './data/china-society.js';
-import { ensureEducationState, educationMilestones, resolveEducationDecision, finishEducation } from './education.js';
+import { ensureEducationState, educationMilestones, resolveEducationDecision, refreshEducationDecision, finishEducation } from './education.js';
+import { routineYear } from './life-events.js';
+import { offerLifeDecision, resolveLifeDecision, lifeDecisionYear, notifyLifeMilestone } from './life-decisions.js';
+import { ensureDecisionState, decisionSlots, scheduleDecision, activateQueuedDecision, isEssentialDecision } from './decision-scheduler.js';
 import { ensureEconomyState, economyYear, getEconomyShopItems, purchaseEconomyItem, spend } from './economy.js';
 import { ensureHistoryState, processHistory, historicalContext, historicalProfile } from './history-runtime.js';
-import { ensureCareerState, offerCareers, acceptCareer, resolveCareerDecision, careerYear, retirementMilestone, retireWithContributions, marriageAllowed, culturalMilestone } from './career.js';
+import { ensureCareerState, offerCareers, acceptCareer, resolveCareerDecision, careerYear, retirementFor, retirementMilestone, retireWithContributions, marriageAllowed, culturalMilestone } from './career.js';
 /**
  * An original, serializable city-life simulation. All monetary amounts are
  * illustrative CNY purchasing-power amounts, never city-level official forecasts.
@@ -185,11 +188,12 @@ export function ensureModelState(life) {
   life.residenceYears||={[life.location.region]:life.age};
   ensureEconomyState(life); ensureEducationState(life); ensureCareerState(life); ensureHistoryState(life);
   life.rulesVersion=2;
+  ensureDecisionState(life);
   return life;
 }
 function culturalMilestoneBridge(life) { culturalMilestone(life,modelEnv(life)); }
 function modelEnv(life) {
-  return {log,effects,chance,normal,integer,option,decision,offerWork,takeJob,enroll,die,spend,changeAsset,
+  return {log,effects,chance,random,normal,integer,option,decision,offerWork,takeJob,enroll,die,spend,changeAsset,
     locations, context:historicalContext(life)};
 }
 export function processTimeline(life,throughFraction=1) {
@@ -267,9 +271,12 @@ export function startLife(life) {
 }
 function option(id, label, description = T('', '', ''), autoWeight = 1) { return { id, label, description, autoWeight }; }
 function decision(life, id, title, description, options, data = {}, kind = 'choice') {
-  const value = { id: `${id}-${life.age}`, action: id, kind, title, description, options:options.map(o=>({...o,description:describeChoice(id,o,life)})), data };
+  const sequence=life.flags.decisionSequence=(life.flags.decisionSequence||0)+1;
+  const value = { id: `${id}-${life.age}-${sequence}`, action: id, kind, title, description, options:options.map(o=>({...o,description:describeChoice(id,o,life)})), data };
   if (kind === 'reflection') value.input = true;
-  if (life.pending) life.pendingQueue.push(value); else life.pending = value;
+  // Keep room for a retirement milestone due later within this calendar year.
+  if(!isEssentialDecision(value)&&life.job&&!life.retired&&!life.flags.retirementOffered&&decisionSlots(life)<=1&&retirementFor(life).retirementYear===life.year)return false;
+  return scheduleDecision(life,value);
 }
 function reflection(life) {
   const questions = {
@@ -286,7 +293,8 @@ function enroll(life, stage, duration) {
   life.job = null; life.income = 0; life.focus = 'study';
   log(life, T(`你开始了${EDUCATION[stage].zhCN}阶段的学习。`, `你開始了${EDUCATION[stage].zhTW}階段的學習。`, `You began ${EDUCATION[stage].en.toLowerCase()}.`), 'education');
 }
-function offerWork(life,title) { return offerCareers(life,modelEnv(life),title); }
+function hasStudyPlan(life){return [life.pending,...(life.pendingQueue||[])].some(p=>p?.action?.startsWith('edu-'));}
+function offerWork(life,title) { if(hasStudyPlan(life))return false;return offerCareers(life,modelEnv(life),title); }
 function takeJob(life,job) { return acceptCareer(life,job,modelEnv(life)); }
 
 function finishContinuingEducation(life) {
@@ -313,14 +321,14 @@ function arrangeAge(life) {
     reflection(life);
   }
   if (age === 7) decision(life, 'hobby', T('找到喜欢的事', '找到喜歡的事', 'Something you love'), T('放学后的时间，你想慢慢学会一件自己的事。', '放學後的時間，你想慢慢學會一件自己的事。', 'After school, you would like to learn something just for yourself.'), [option('music', T('音乐', '音樂', 'Music')), option('drawing', T('画画', '畫畫', 'Drawing')), option('sport', T('球类运动', '球類運動', 'Ball games')), option('reading', T('阅读', '閱讀', 'Reading'))]);
-  educationMilestones(life,modelEnv(life));
+  if(!hasStudyPlan(life))educationMilestones(life,modelEnv(life));
   if(age>=16&&!life.school&&!life.job&&!life.retired&&!life.pending&&!life.pendingQueue.length&&!life.careerPreparation&&!life.flags.repeatExam)offerWork(life);
   familyMilestone(life);
   retirementMilestone(life,0,modelEnv(life));
 }
 
 function financialDecision(life) {
-  if(life.age<18||life.age>75||life.age%4!==0||life.flags[`financialDecision-${life.age}`])return;
+  if(!decisionSlots(life)||life.age<18||life.age>75||life.age%4!==0||life.flags[`financialDecision-${life.age}`])return;
   const available=getShopItems(life).filter(item=>item.available);
   const priorities=life.age<27?['adultstudy','course','phone','computer','school-supplies','bicycle','furniture','appliances','health']:
     ['child-school','childcare','house','house-cash','car','parent-support','health','renovation','furniture','appliances','adultstudy','course'];
@@ -342,39 +350,6 @@ function financialDecision(life) {
       option('keep',T('维持目前安排','維持目前安排','Keep the current plan'),T('本次不花钱，沿用现有储蓄或投资方式。','本次不花錢，沿用現有儲蓄或投資方式。','Spend nothing now and keep your current saving or investment plan.'),2)]);
 }
 
-const ROUTINE_EVENTS = [
-  { min: 0, max: 5, text: T('家人给你拍了一张照片，背面写下了今天的日期。', '家人給你拍了一張照片，背面寫下了今天的日期。', 'Your family took a photograph and wrote today’s date on the back.'), effects: { happiness: 2 } },
-  { min: 0, max: 5, text: T('你在家人的怀里睡着了，外面的街道渐渐安静下来。', '你在家人的懷裡睡著了，外面的街道漸漸安靜下來。', 'You fell asleep in a family member’s arms as the street grew quiet.'), effects: { health: 1, relationships: 1 } },
-  { min: 0, max: 5, text: T('你第一次清楚地喊出了家人的称呼。', '你第一次清楚地喊出了家人的稱呼。', 'For the first time, you clearly called a family member by name.'), effects: { relationships: 2 } },
-  { min: 1, max: 10, text: T('一场小感冒让你在家待了几天，有人守在床边。', '一場小感冒讓你在家待了幾天，有人守在床邊。', 'A cold kept you home for a few days. Someone stayed by your bed.'), effects: { health: -2, relationships: 1 } },
-  { min: 6, max: 17, text: T('放学路上，你和朋友分享了一份热腾腾的小吃。', '放學路上，你和朋友分享了一份熱騰騰的小吃。', 'On the way home from school, you shared a warm snack with a friend.'), effects: { happiness: 2, relationships: 1 } },
-  { min: 6, max: 20, text: T('你读到一本让自己舍不得合上的书。', '你讀到一本讓自己捨不得合上的書。', 'You found a book you could hardly put down.'), effects: { knowledge: 1.6, happiness: 1 } },
-  { min: 6, max: 18, text: T('这次考试的成绩不太理想，你决定再弄懂一道题。', '這次考試的成績不太理想，你決定再弄懂一道題。', 'Your exam result disappointed you, so you worked through one more problem.'), effects: { knowledge: 1, happiness: -1 } },
-  { min: 6, max: 18, text: T('操场上的一场比赛，成为你和朋友聊了很久的话题。', '操場上的一場比賽，成為你和朋友聊了很久的話題。', 'A game on the school field gave you and your friends plenty to talk about.'), effects: { health: 1.3, relationships: 1 } },
-  { min: 13, max: 30, text: T('有人认真听完了你的烦恼，你觉得轻松了一点。', '有人認真聽完了你的煩惱，你覺得輕鬆了一點。', 'Someone listened to your worries. You felt a little lighter.'), effects: { happiness: 2, relationships: 2 } },
-  { min: 18, max: 65, text: T('这周的工作有些忙，你终于在周末睡了一个好觉。', '這週的工作有些忙，你終於在週末睡了一個好覺。', 'It was a busy week. At the weekend, you finally slept well.'), effects: { health: 1, happiness: 1 } },
-  { min: 18, max: 70, text: T('久未联系的朋友发来消息，你们聊起以前的日子。', '久未聯絡的朋友傳來訊息，你們聊起以前的日子。', 'An old friend got in touch, and you talked about earlier days.'), effects: { relationships: 2.5, happiness: 1 } },
-  { min: 18, max: 80, text: T('你走进一条没去过的街道，发现了一家喜欢的小店。', '你走進一條沒去過的街道，發現了一家喜歡的小店。', 'On an unfamiliar street, you found a little shop you liked.'), effects: { happiness: 1.8, knowledge: .4 } },
-  { min: 18, max: 75, text: T('你参与了一次社区活动，记住了几个新的名字。', '你參與了一次社區活動，記住了幾個新的名字。', 'At a neighbourhood event, you learned a few new names.'), effects: { relationships: 2, happiness: 1 } },
-  { min: 20, max: 90, text: T('节日的餐桌上，熟悉的味道让你想起了小时候。', '節日的餐桌上，熟悉的味道讓你想起了小時候。', 'At a festive meal, a familiar flavour brought back childhood memories.'), effects: { happiness: 2, relationships: 1 } },
-  { min: 25, max: 80, text: T('你整理旧照片，想起了一位很久没见的人。', '你整理舊照片，想起了一位很久沒見的人。', 'Sorting old photographs, you thought of someone you had not seen in years.'), effects: { happiness: 1, relationships: .8 } },
-  { min: 35, max: 80, text: T('一次例行检查提醒你，身体也需要长期照顾。', '一次例行檢查提醒你，身體也需要長期照顧。', 'A routine checkup reminded you that health needs regular attention.'), effects: { health: 1 } },
-  { min: 45, max: 100, text: T('你把一段经历讲给年轻人听，也从他们身上学到新东西。', '你把一段經歷講給年輕人聽，也從他們身上學到新東西。', 'You shared an experience with younger people, and learned something from them too.'), effects: { knowledge: .6, happiness: 1.6, relationships: 1 } },
-  { min: 60, max: 120, text: T('早晨的公园里，你遇见了几位每天散步的老朋友。', '早晨的公園裡，你遇見了幾位每天散步的老朋友。', 'On a morning walk in the park, you met some familiar faces.'), effects: { health: 1, relationships: 1, happiness: 1 } },
-  { min: 65, max: 120, text: T('阳光落在窗边，你安静地喝完一杯茶。', '陽光落在窗邊，你安靜地喝完一杯茶。', 'Sunlight rested by the window as you finished a quiet cup of tea.'), effects: { happiness: 2 } },
-];
-function routineYear(life) {
-  const eligible = ROUTINE_EVENTS.filter(event => life.age >= event.min && life.age <= event.max);
-  for (let i = 0; i < 2 && eligible.length; i++) {
-    const index = Math.floor(random(life) * eligible.length);
-    const event = eligible.splice(index, 1)[0];
-    log(life, event.text, 'life', event.effects);
-  }
-  if (life.hobbies.length && chance(life, .2)) {
-    life.hobbies[0].level = Math.min(10, life.hobbies[0].level + 1);
-    log(life, T(`你在${life.hobbies[0].name.zhCN}上又进步了一点。`, `你在${life.hobbies[0].name.zhTW}上又進步了一點。`, `You made a little more progress in ${life.hobbies[0].name.en.toLowerCase()}.`), 'warm', { happiness: 2 });
-  }
-}
 function applyFocus(life) {
   if (life.age < 6) return;
   const options = getFocusOptions(life);
@@ -547,7 +522,7 @@ function familyMilestone(life){
  }
 }
 function randomDecision(life) {
-  if (life.pending || life.pendingQueue.length || life.age < 9 || !chance(life, .42)) return;
+  if (!decisionSlots(life) || life.pending || life.pendingQueue.length || life.age < 9 || !chance(life, .42)) return;
   const possibilities = [];
   if (life.age <= 17) { possibilities.push('familyhelp'); if(life.school)possibilities.push('schoolfriend'); if(life.year>=1980)possibilities.push('screen'); }
 
@@ -591,6 +566,22 @@ function randomDecision(life) {
   }
 }
 
+function refreshDeferredDecision(life,pending){
+  let value=pending;
+  if(pending.action.startsWith('edu-')){
+    log(life,T('你继续处理尚未确定的求学安排，按今年的招生条件与家庭预算重新确认。','你繼續處理尚未確定的求學安排，依今年的招生條件及家庭預算重新確認。','You returned to an unfinished study plan and checked this year’s admission conditions and household budget.'),'education');
+    value=refreshEducationDecision(life,pending,modelEnv(life));
+  }else if(pending.action==='career-offer'||pending.action==='career-result'&&life.year>(pending.data?.registration?.applicantYear??life.year)+1){
+    if(pending.action==='career-result')log(life,T('上一轮录用机会已过期，你按目前的资格重新寻找岗位。','上一輪錄用機會已過期，你依目前資格重新尋找職位。','The previous recruitment round expired. You searched again using your current qualifications.'),'work');
+    value=null;
+    offerCareers(life,{...modelEnv(life),decision:(_life,action,title,description,options,data={},kind='choice')=>{
+      value={action,title,description,options,data,kind};return true;
+    }});
+  }
+  if(!value)return null;
+  const sequence=life.flags.decisionSequence=(life.flags.decisionSequence||0)+1;
+  return {...value,id:`${value.action}-${life.age}-${sequence}`,options:value.options.map(o=>({...o,description:describeChoice(value.action,o,life)}))};
+}
 export function advanceYear(life) {
   if (life.phase === 'birth') return startLife(life);
   if (life.phase !== 'life' || life.pending) return life;
@@ -603,8 +594,9 @@ export function advanceYear(life) {
   if(life.phase!=='life'||life.pending)return life;
   applyFocus(life);
   financeYear(life);
+  lifeDecisionYear(life,modelEnv(life));
   familyYear(life);
-  routineYear(life);
+  routineYear(life,modelEnv(life));
   healthYear(life);
   ageSnapshot(life);
   const annualRisk=mortality(life);
@@ -614,6 +606,7 @@ export function advanceYear(life) {
   life.residenceYears[life.location.region]=(life.residenceYears[life.location.region]||0)+1;
   life.rngState=hash(`${life.seed}:milestones:${life.year}`);
   life.profile = profileFor(life.location, life.sex, life.world, life.year);
+  activateQueuedDecision(life,refreshDeferredDecision);
   finishEducation(life,modelEnv(life));
   finishContinuingEducation(life);
   if (life.flags.business && life.job?.id === 'business' && chance(life, .045)) {
@@ -622,8 +615,9 @@ export function advanceYear(life) {
   }
   careerYear(life,modelEnv(life));
   arrangeAge(life);
-  culturalMilestoneBridge(life);
+  if(decisionSlots(life))offerLifeDecision(life,modelEnv(life));
   financialDecision(life);
+  if(decisionSlots(life))culturalMilestoneBridge(life);
   randomDecision(life);
   if (!getFocusOptions(life).some(item => item.id === life.focus)) life.focus = getFocusOptions(life)[0]?.id ?? null;
   ageSnapshot(life);
@@ -635,9 +629,12 @@ export function choose(life, optionId, input = '') {
   if (life.phase !== 'life' || !pending) return false;
   const selected = pending.options.find(item => item.id === optionId);
   if (!selected) return false;
+  ensureModelState(life);
+  if(life.pending!==pending)return false;
+  const previousSchool=life.school;
   life.pending = null;
   log(life, T(`${pending.title.zhCN}：${selected.label.zhCN}`, `${pending.title.zhTW}：${selected.label.zhTW}`, `${pending.title.en}: ${selected.label.en}`), 'choice');
-  const handled=resolveEducationDecision(life,pending,optionId,modelEnv(life))||resolveCareerDecision(life,pending,optionId,modelEnv(life));
+  const handled=resolveEducationDecision(life,pending,optionId,modelEnv(life))||resolveCareerDecision(life,pending,optionId,modelEnv(life))||resolveLifeDecision(life,pending,optionId,modelEnv(life));
   if(!handled) switch (pending.action) {
     case 'financial':
       if(optionId!=='keep'&&!purchaseEconomyItem(life,optionId,modelEnv(life)))log(life,T('这项安排暂时无法完成，你保留了积蓄。','這項安排暫時無法完成，你保留了積蓄。','This plan could not be completed, so you kept your savings.'),'money');
@@ -683,7 +680,7 @@ export function choose(life, optionId, input = '') {
       else effects(life,{happiness:-1});
       break;
     case 'marriage':
-      if (optionId === 'marry' && marriageAllowed(life)) { const type=(life.flags.marriageCount||0)===0?'first':life.maritalStatus==='widowed'?'widowed-remarriage':'divorced-remarriage';life.family.partner.married = true;life.family.partner.marriedYear=life.year;life.flags.marriageCount=(life.flags.marriageCount||0)+1;life.marriageAge??=life.age;life.maritalStatus='married';life.marriageHistory.push({type,year:life.year,age:life.age,partnerName:life.family.partner.name,previousEndAge:life.lastMarriageEndAge??null}); spend(life,Math.min(Math.max(life.money*.12,0),life.profile.typicalIncome*.35),'wedding'); log(life, T('你们结婚了，约定一起面对接下来的生活。', '你們結婚了，約定一起面對接下來的生活。', 'You married and promised to face the years ahead together.'), 'love', { happiness: 8, relationships: 5 }); }
+      if (optionId === 'marry' && marriageAllowed(life)) { const type=(life.flags.marriageCount||0)===0?'first':life.maritalStatus==='widowed'?'widowed-remarriage':'divorced-remarriage';life.family.partner.married = true;life.family.partner.marriedYear=life.year;life.flags.marriageCount=(life.flags.marriageCount||0)+1;life.marriageAge??=life.age;life.maritalStatus='married';life.marriageHistory.push({type,year:life.year,age:life.age,partnerName:life.family.partner.name,previousEndAge:life.lastMarriageEndAge??null}); notifyLifeMilestone(life,'marriage'); log(life, T('你们结婚了，约定一起面对接下来的生活。', '你們結婚了，約定一起面對接下來的生活。', 'You married and promised to face the years ahead together.'), 'love', { happiness: 8, relationships: 5 }); }
       else if (optionId === 'separate') { life.family.partner = null; effects(life, { happiness: -4, relationships: -3 }); }
       break;
     case 'marriage-crisis':
@@ -697,7 +694,7 @@ export function choose(life, optionId, input = '') {
       break;
     case 'child':
       if (optionId === 'try'&&canConceive(life)) {
-        if (chance(life, fecundity(life.sex==='female'?life.age:life.family.partner.age)*.8)) { const sex = chance(life, .51) ? 'male' : 'female'; const child = { name: familyNameFor(life, sex), age: 0, sex, birthYear:life.year,parentSinceYear:life.family.partner.sinceYear, alive: true }; life.family.children.push(child); log(life, T(`${child.name.zhCN}出生了。家里多了一双需要牵着的小手。`, `${child.name.zhTW}出生了。家裡多了一雙需要牽著的小手。`, `${child.name.en} was born. There was a new little hand to hold.`), 'family', { happiness: 8, relationships: 4, health: life.sex === 'female' ? -3 : -1 }); }
+        if (chance(life, fecundity(life.sex==='female'?life.age:life.family.partner.age)*.8)) { const sex = chance(life, .51) ? 'male' : 'female'; const child = { name: familyNameFor(life, sex), age: 0, sex, birthYear:life.year,parentSinceYear:life.family.partner.sinceYear, alive: true }; life.family.children.push(child); notifyLifeMilestone(life,'child',{child}); log(life, T(`${child.name.zhCN}出生了。家里多了一双需要牵着的小手。`, `${child.name.zhTW}出生了。家裡多了一雙需要牽著的小手。`, `${child.name.en} was born. There was a new little hand to hold.`), 'family', { happiness: 8, relationships: 4, health: life.sex === 'female' ? -3 : -1 }); }
         else log(life, T('这一次未能如愿。你们相互陪伴，慢慢整理心情。', '這一次未能如願。你們相互陪伴，慢慢整理心情。', 'It did not happen this time. You supported each other and gave yourselves time.'), 'family', { happiness: -2 });
       }
       break;
@@ -714,7 +711,9 @@ export function choose(life, optionId, input = '') {
     case 'memory': effects(life, optionId === 'record' ? { knowledge: 2, happiness: 3 } : { relationships: 4, happiness: 3 }); break;
     case 'community': if(optionId==='join'){life.flags.communityMember=true;life.totals.charity+=40;effects(life,{relationships:5,happiness:3});}else{life.totals.health+=.15;effects(life,{health:2,happiness:2});} break;
   }
-  if (!life.pending && life.pendingQueue.length) life.pending = life.pendingQueue.shift();
+  if(life.school&&life.school!==previousSchool)notifyLifeMilestone(life,'admission',{school:life.school});
+  activateQueuedDecision(life,refreshDeferredDecision);
+  if(!life.pending&&decisionSlots(life))offerLifeDecision(life,modelEnv(life));
   ageSnapshot(life);
   return true;
 }

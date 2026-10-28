@@ -268,6 +268,27 @@ export function educationMilestones(life,env) {
   if(life.location.region==='mainland'&&life.year===1977&&life.age>=18&&life.age<=35&&!HIGHER.has(life.education)&&!life.school&&!seen(life,'gaokao-restored'))higherDecision(life,env,{restored:true});
   if(life.location.region==='mainland'&&life.year>=1970&&life.year<=1976&&state.historicalBlocked&&life.age>=20&&!life.school&&!seen(life,'recommendation-'+life.year))higherDecision(life,env);
 }
+/** Rebuild a carried study plan with this year's fees, aid and admission route. */
+export function refreshEducationDecision(life,pending,env){
+  let rebuilt=null;
+  const capture={...env,decision:(_life,action,title,description,options,data={},kind='choice')=>{
+    rebuilt={...pending,action,title,description,options,data,kind};return true;
+  }};
+  if(pending.action==='edu-funding'&&pending.data?.program){
+    const old=pending.data.program;
+    const route=life.location.region==='mainland'?educationAdmissionRoute(life.year):null;
+    if(!old.wasEnrolled&&['suspended','recommendation'].includes(route?.id))higherDecision(life,capture);
+    else {
+      const cost=fees(life,old.stage,old.ownership);
+      const refreshed={...old,annualTuition:cost.tuition,livingCost:cost.annualLivingCost||0};
+      refreshed.scholarship=Math.min(old.scholarship||0,refreshed.annualTuition+refreshed.livingCost);
+      fundingDecision(life,refreshed,capture);
+    }
+  }else if(pending.action==='edu-secondary')secondaryDecision(life,capture);
+  else if(['edu-college','edu-suspended','edu-recommendation'].includes(pending.action))higherDecision(life,capture);
+  else return pending;
+  return rebuilt;
+}
 export function resolveEducationDecision(life,pending,optionId,env) {
   // Legacy saves carried pending decisions before exam scores and funding plans
   // existed. Re-open the corresponding assessment instead of granting a degree.
