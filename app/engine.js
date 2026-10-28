@@ -128,6 +128,44 @@ export function setFocus(life, id) {
   life.focus = id;
   return true;
 }
+function focusStage(life){
+  if(life.age<6||life.phase!=='life')return null;
+  if(life.school)return life.age<12?'child-school':life.age<18?'teen-school':'higher-study';
+  if(life.retired)return life.age<75?'retirement':'later-retirement';
+  if(life.job)return life.age<30?'early-work':life.age<50?'midlife-work':'later-work';
+  return life.age<12?'child-home':life.age<18?'teen-home':life.age<30?'young-adult':life.age<60?'adult-transition':'later-life';
+}
+const FOCUS_STAGES={
+  'child-school':T('开始上学，怎样安排课余时光？','開始上學，如何安排課餘時光？','Starting school: how would you spend time after class?'),
+  'teen-school':T('长大的这几年，什么更值得投入？','長大的這幾年，什麼更值得投入？','Growing up: what deserves more of your time?'),
+  'higher-study':T('求学的这一阶段，想怎样度过？','求學的這一階段，想如何度過？','How would you spend this stage of your studies?'),
+  'child-home':T('慢慢长大，想怎样认识世界？','慢慢長大，想如何認識世界？','Growing up: how would you explore the world?'),
+  'teen-home':T('眼前的日子，想先照顾好什么？','眼前的日子，想先照顧好什麼？','What would you give time to in these teenage years?'),
+  'early-work':T('刚踏入工作，怎样安排生活？','剛踏入工作，如何安排生活？','Starting work: how would you arrange your life?'),
+  'midlife-work':T('走到人生中段，精力想放在哪里？','走到人生中段，精力想放在哪裡？','In midlife, where would you put your energy?'),
+  'later-work':T('工作的后半程，想怎样继续走？','工作的後半程，想如何繼續走？','How would you approach the later part of working life?'),
+  'young-adult':T('开始独立生活，想先经营什么？','開始獨立生活，想先經營什麼？','Starting adult life: what would you build first?'),
+  'adult-transition':T('生活正在调整，想怎样重新安排？','生活正在調整，想如何重新安排？','During a change in life, how would you arrange your time?'),
+  retirement:T('退休以后，想怎样过自己的日子？','退休以後，想如何過自己的日子？','After retirement, how would you spend your days?'),
+  'later-retirement':T('步入晚年，什么让日子更安心？','步入晚年，什麼讓日子更安心？','In later retirement, what would make your days more settled?'),
+  'later-life':T('往后的日子，想把时间留给什么？','往後的日子，想把時間留給什麼？','What would you make time for in later life?'),
+};
+/** A stage preference is a life choice, not another annual settings panel. */
+export function offerFocusStage(life){
+  const stage=focusStage(life);
+  if(!stage||life.pending||life.pendingQueue?.length||!decisionSlots(life))return false;
+  life.flags||={};
+  life.flags.focusStagesOffered||={};
+  if(life.flags.focusStagesOffered[stage])return false;
+  const choices=getFocusOptions(life);
+  if(!choices.length)return false;
+  const value=decision(life,'focus-stage',FOCUS_STAGES[stage],
+    T('这一阶段，你想给哪些事多留一点时间？选择会影响接下来的日常安排；进入新的生活阶段时，还会有重新选择的机会。','這一階段，你想給哪些事多留一點時間？選擇會影響接下來的日常安排；進入新的生活階段時，仍有重新選擇的機會。','What would you make more time for in this stage? Your choice shapes daily life until a new stage offers another chance to choose.'),
+    choices.map(item=>option(item.id,item.label,item.description,item.id===(life.school?'study':life.retired?'health':life.job?'balance':'learn')?3:1)),{stage});
+  if(!value)return false;
+  life.flags.focusStagesOffered[stage]=life.age;
+  return true;
+}
 export const AUTOPILOT_STRATEGIES=['strive','balanced','health','family','academic'];
 export function setAutopilot(life,enabled,strategy='balanced'){
   ensureModelState(life);
@@ -615,6 +653,7 @@ export function advanceYear(life) {
   }
   careerYear(life,modelEnv(life));
   arrangeAge(life);
+  offerFocusStage(life);
   if(decisionSlots(life))offerLifeDecision(life,modelEnv(life));
   financialDecision(life);
   if(decisionSlots(life))culturalMilestoneBridge(life);
@@ -636,6 +675,9 @@ export function choose(life, optionId, input = '') {
   log(life, T(`${pending.title.zhCN}：${selected.label.zhCN}`, `${pending.title.zhTW}：${selected.label.zhTW}`, `${pending.title.en}: ${selected.label.en}`), 'choice');
   const handled=resolveEducationDecision(life,pending,optionId,modelEnv(life))||resolveCareerDecision(life,pending,optionId,modelEnv(life))||resolveLifeDecision(life,pending,optionId,modelEnv(life));
   if(!handled) switch (pending.action) {
+    case 'focus-stage':
+      if(pending.data?.stage===focusStage(life))setFocus(life,optionId);
+      break;
     case 'financial':
       if(optionId!=='keep'&&!purchaseEconomyItem(life,optionId,modelEnv(life)))log(life,T('这项安排暂时无法完成，你保留了积蓄。','這項安排暫時無法完成，你保留了積蓄。','This plan could not be completed, so you kept your savings.'),'money');
       break;
@@ -713,6 +755,7 @@ export function choose(life, optionId, input = '') {
   }
   if(life.school&&life.school!==previousSchool)notifyLifeMilestone(life,'admission',{school:life.school});
   activateQueuedDecision(life,refreshDeferredDecision);
+  offerFocusStage(life);
   if(!life.pending&&decisionSlots(life))offerLifeDecision(life,modelEnv(life));
   ageSnapshot(life);
   return true;
