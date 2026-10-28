@@ -57,6 +57,28 @@ test('primary and junior school complete nine years; high school depends on asse
   assert.equal(life.school.loanApproved,false);
   assert.equal(life.debt,0);
 });
+test('secondary options reflect household means and an unfunded year cannot award a diploma',()=>{
+  const env=environment();
+  const secondary=(classRank,family,year=2026)=>{
+    const life=fixture({age:15,year,education:'junior',classRank,stats:{knowledge:70,relationships:60},family});
+    ensureEducationState(life).justGraduated='junior';
+    educationMilestones(life,env);
+    return life;
+  };
+  const parents={mother:{alive:true},father:{alive:true},children:[]};
+  const poor=secondary(1,parents),wealthy=secondary(5,parents);
+  const privateIndex=poor.pending.data.programs.findIndex(program=>program.ownership==='private');
+  assert.ok(privateIndex>=0);
+  assert.equal(poor.pending.options.some(option=>option.id===`school-${privateIndex}`),false);
+  assert.equal(wealthy.pending.options.some(option=>option.id===`school-${privateIndex}`),true);
+  const noParents=secondary(1,{mother:null,father:null,children:[]},2000);
+  assert.deepEqual(noParents.pending.options.map(option=>option.id),['work']);
+  const interrupted=fixture({age:16,education:'junior',school:{stage:'high',endsAt:18,segmentStartedAt:15,creditedAcademicYears:0,segmentDelayedAcademicYears:0,fundingGap:1000,label:T('普通高中')}});
+  ensureEducationState(interrupted);
+  assert.equal(finishEducation(interrupted,env),false);
+  assert.equal(interrupted.school,null);
+  assert.equal(interrupted.education,'junior','the previous qualification is retained; no new graduation is granted');
+});
 
 test('low and high examination results lead to different eligible offers, not random degrees',()=>{
   const env=environment();

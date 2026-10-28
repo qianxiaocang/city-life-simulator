@@ -3,11 +3,19 @@ import {ensureAccounts,recordFlow,reconcile,changeAsset,noteAssetChange,noteCash
 import {housingTier,REGION_ECONOMY} from './data/development.js';
 import { CHINA_CONSUMPTION, INVESTMENT_AVAILABILITY, investmentAvailable } from './data/china-society.js';
 import { studentLoanPolicy } from './data/china-law.js';
+import { familyBudget } from './family-finance.js';
 const T=(zhCN,zhTW,en)=>({zhCN,zhTW,en});
 const finite=(x,fallback=0)=>Number.isFinite(Number(x))?Number(x):fallback;
 const positive=x=>Math.max(0,finite(x));
 const clamp=(x,min,max)=>Math.max(min,Math.min(max,finite(x)));
 const HIGHER=new Set(['associate','university','masters','doctorate']);
+const ADULT_FAMILY_EXPENSES=new Set(['health','moving','wedding','purchase-house','purchase-house-cash','purchase-car','purchase-child-school','purchase-adultstudy']);
+const EXPENSE_NAMES={
+  health:T('医疗','醫療','healthcare'),moving:T('搬迁','搬遷','moving'),wedding:T('婚礼','婚禮','wedding'),
+  'purchase-house':T('住房首付','住房首付','home down payment'),'purchase-house-cash':T('购房','購屋','home purchase'),
+  'purchase-car':T('购车','購車','car purchase'),'purchase-child-school':T('子女教育','子女教育','child education'),
+  'purchase-adultstudy':T('继续教育','繼續教育','continuing education')
+};
 const envLog=(env,life,text,type='money',changes=null)=>env?.log?.(life,text,type,changes);
 const envEffects=(env,life,changes)=>env?.effects?.(life,changes);
 function syncDebt(life){
@@ -36,17 +44,48 @@ export function ensureEconomyState(life){
   ensureAccounts(life);
   return life;
 }
+function familyAidRemaining(life){
+  const used=life.flags.familyAidYear===life.year?positive(life.flags.familyAidUsed):0;
+  return Math.max(0,familyBudget(life)-used);
+}
+function reserveFamilyAid(life,amount){
+  if(life.flags.familyAidYear!==life.year){life.flags.familyAidYear=life.year;life.flags.familyAidUsed=0;}
+  life.flags.familyAidUsed+=amount;
+}
+function familyShareOfExpense(life,amount,purpose){
+  const remaining=familyAidRemaining(life);
+  if(!remaining||!amount)return 0;
+  if(life.age<18)return Math.min(amount,remaining);
+  if(life.school&&!life.everWorked&&['health','moving'].includes(purpose))return Math.min(amount,remaining);
+  if(life.job&&life.age<=40&&life.classRank>=3&&ADULT_FAMILY_EXPENSES.has(purpose))
+    return Math.min(amount*.2,remaining*.25);
+  return 0;
+}
 /** Optional spending never creates a loan or a negative cash balance. */
 export function spend(life,amount,purpose='optional'){
   ensureEconomyState(life);
   amount=finite(amount,-1);
-  if(amount<0||amount>life.money+1e-7)return false;
+  if(amount<0)return false;
+  const familyPaid=Math.round(familyShareOfExpense(life,amount,purpose)*100)/100;
+  const personalPaid=amount-familyPaid;
+  if(personalPaid>life.money+1e-7)return false;
   const before=life.money;
-  life.money=Math.max(0,life.money-amount);
+  life.money=Math.max(0,life.money-personalPaid);
   life.totals.spent=positive(life.totals.spent)+amount;
   life.flags.lastSpendingPurpose=purpose;
+  if(familyPaid){
+    reserveFamilyAid(life,familyPaid);
+    recordFlow(life,'family-expense-support',familyPaid);
+  }
   recordFlow(life,purpose.startsWith('purchase-house')?'capital-outlay':'spending:'+purpose,-amount);
   noteCashChange(life,before,life.money);
+  if(familyPaid&&Array.isArray(life.log)){
+    const total=Math.round(amount).toLocaleString('zh-CN'),aid=Math.round(familyPaid).toLocaleString('zh-CN'),own=Math.round(personalPaid).toLocaleString('zh-CN');
+    const expense=EXPENSE_NAMES[purpose];
+    const label=expense?T(`这次${expense.zhCN}支出`,`這次${expense.zhTW}支出`,`${expense.en} expense`):T('这笔支出','這筆支出','expense');
+    life.logSequence??=life.log.length;
+    life.log.unshift({id:`${life.id}-${life.logSequence++}`,age:life.age,year:life.year,type:'money',text:T(`${label.zhCN} ¥${total} 中，原生家庭资助 ¥${aid}，你支付 ¥${own}。`,`${label.zhTW} ¥${total} 中，原生家庭資助 ¥${aid}，你支付 ¥${own}。`,`Of the ¥${total} ${label.en}, your birth family contributed ¥${aid} and you paid ¥${own}.`)});
+  }
   return true;
 }
 function regionInvestmentYear(id,region){
@@ -65,14 +104,18 @@ function investmentAllowed(life,id){
   const override=life.regionInvestmentYears?.[id];
   return life.year>=(Number.isFinite(override)?override:regionInvestmentYear(id,region));
 }
-function supportFromFamily(life,required,school){
-  const livingParent=[life.family?.mother,life.family?.father].some(person=>person?.alive);
-  // A child's personal wallet is not the household's means of subsistence.
-  // School familyContribution=0 records tuition, not absence of parental care.
-  if(life.age<18)return livingParent?required:0;
-  if(Number.isFinite(school?.familyContribution))return positive(school.familyContribution);
-  if(!livingParent)return 0;
-  if(school||life.age<24&&!life.job)return Math.min(required,life.profile.typicalIncome*(.025+life.classRank*.025));
+function supportFromFamily(life,required,school,ownAvailable){
+  const available=familyAidRemaining(life);
+  if(!available)return 0;
+  // Compulsory-school tuition can be zero while the household still pays for
+  // meals, transport and care. A minor never receives unlimited family funds.
+  if(life.age<18)return Math.min(required,available);
+  if(school)return Math.min(required,positive(school.familyContribution),available);
+  if(!life.everWorked&&life.age<24)return Math.min(required,available*.5);
+  // Once employed, wages and savings come first. Parents may cover a small
+  // shortfall while they are alive, within their modeled annual capacity.
+  if(life.job&&life.age<=35&&life.classRank>=3)
+    return Math.min(Math.max(0,required-ownAvailable),required*.2,available*.25);
   return 0;
 }
 function studentFunding(life,school,tuition,living,available){
@@ -199,12 +242,17 @@ export function economyYear(life,env={}){
   living=Math.max(0,living);
   const tuition=school?positive(school.annualTuition):0;
   const scholarship=school?positive(school.scholarship):0;
-  const familySupport=supportFromFamily(life,tuition+living,school);
+  const familySupport=supportFromFamily(life,tuition+living,school,life.money+earned+partnerIncome+scholarship);
+  if(familySupport)reserveFamilyAid(life,familySupport);
   // If parents have died, a minor is modeled under guardian/community support.
-  // This is a subsistence backstop, not a claim about a statutory benefit amount.
-  const basicRelief=dependent?Math.max(0,tuition+living-familySupport-scholarship):!life.job&&!life.retired&&!school?scale*.06:0;
-  life.money+=earned+partnerIncome+familySupport+scholarship+basicRelief;
-  recordFlow(life,'gross-income',grossEmployment||earned);recordFlow(life,'tax-and-social',-deductions);recordFlow(life,'partner-income',partnerIncome);recordFlow(life,'family-aid-relief',familySupport+scholarship+basicRelief);
+  // This backstop covers basic living, not an unaffordable optional school fee.
+  // It is a game parameter, not a claim about a statutory benefit amount.
+  const compulsoryRelief=dependent&&['primary','junior'].includes(school?.stage)
+    ?Math.max(0,tuition-(life.money+earned+partnerIncome+familySupport+scholarship)):0;
+  const livingRelief=dependent?Math.max(0,living-Math.max(0,familySupport+scholarship-tuition)):!life.job&&!life.retired&&!school?scale*.06:0;
+  const basicRelief=compulsoryRelief+livingRelief;
+  life.money+=earned+partnerIncome+familySupport+scholarship+compulsoryRelief;
+  recordFlow(life,'gross-income',grossEmployment||earned);recordFlow(life,'tax-and-social',-deductions);recordFlow(life,'partner-income',partnerIncome);recordFlow(life,'family-aid-relief',familySupport+scholarship);recordFlow(life,'guardian-compulsory-support',compulsoryRelief);
   if(life.location.region==='hongkong'&&life.year>=2000&&life.job){
     // Modeled recoverable portion of payroll deductions; not a claim about
     // this character's actual MPF contribution account or investment choice.
@@ -216,6 +264,7 @@ export function economyYear(life,env={}){
   const educationPaid=Math.min(life.money,tuition);life.money-=educationPaid;recordFlow(life,'tuition',-educationPaid);
   const educationGap=Math.max(0,tuition-educationPaid);
   if(school)school.fundingGap=Math.round(educationGap);
+  life.money+=livingRelief;recordFlow(life,'basic-living-relief',livingRelief);
   // A genuinely unpaid higher-education tuition year is not a completed course
   // year. Keep the count until education consumes it, even if a later payment
   // clears the current monetary gap. This never creates a consumer loan.
@@ -228,6 +277,11 @@ export function economyYear(life,env={}){
     envLog(env,life,T('本学年的教育费用仍有缺口，需要申请奖助、调整学校或与家人商量；没有生成普通消费贷款。','本學年的教育費用仍有缺口，需要申請獎助、調整學校或與家人商量；沒有產生一般消費貸款。','An education funding gap remains. Seek aid, discuss family support or consider another school; no consumer loan was created.'),'education');
   }else delete life.flags.educationFundingGap;
   const livingPaid=Math.min(life.money,living);life.money-=livingPaid;recordFlow(life,'household-consumption',-livingPaid);
+  if(familySupport>0){
+    const amount=Math.round(familySupport).toLocaleString('zh-CN');
+    const subject=school?T('本年的求学与生活开支','本年的求學與生活開支','This year’s study and living costs'):T('本年的生活开支','本年的生活開支','This year’s living costs');
+    envLog(env,life,T(`${subject.zhCN}中，原生家庭承担约 ¥${amount}。`,`${subject.zhTW}中，原生家庭承擔約 ¥${amount}。`,`${subject.en} included about ¥${amount} from your birth family.`),'money');
+  }
   const unmetLiving=Math.max(0,living-livingPaid);
   if(unmetLiving>0){
     life.flags.materialHardship=true;

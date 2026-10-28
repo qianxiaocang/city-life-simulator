@@ -69,7 +69,7 @@ test('historical public higher education does not turn zero publicly covered liv
   assert.equal(life.debt,0);
 });
 test('student borrowing covers only actual gap, uses aid and family first, and respects annual cap',()=>{
-  const life=make({money:1000,school:{stage:'university',endsAt:23,annualTuition:10000,livingCost:6000,familyContribution:6000,scholarship:2000,loanApproved:true,financialNeed:true,studyRegion:'mainland'}});
+  const life=make({classRank:3,money:1000,school:{stage:'university',endsAt:23,annualTuition:10000,livingCost:6000,familyContribution:6000,scholarship:2000,loanApproved:true,financialNeed:true,studyRegion:'mainland'}});
   economyYear(life,env);
   assert.equal(life.lastCashflow.borrowing,7000);
   assert.equal(life.debt,7000);
@@ -81,6 +81,27 @@ test('student borrowing covers only actual gap, uses aid and family first, and r
   assert.equal(poor.lastCashflow.borrowing,20000);
   assert.equal(poor.debt,20000);assert.ok(poor.money>=0);
   assert.equal(poor.lastCashflow.unfundedEducation,10000);
+});
+test('unaffordable secondary tuition is not disguised as a child living subsidy or consumer debt',()=>{
+  const life=make({age:16,school:{stage:'high',endsAt:18,annualTuition:50000,livingCost:0,familyContribution:50000},log:[]});
+  economyYear(life,env);
+  assert.equal(life.lastCashflow.familySupport,3600);
+  assert.equal(life.lastCashflow.education,3600);
+  assert.equal(life.lastCashflow.unfundedEducation,46400);
+  assert.equal(life.lastCashflow.unmetLiving,0);
+  assert.equal(life.debt,0);
+  assert.ok(life.events.some(entry=>entry.text.zhCN.includes('原生家庭承担')));
+});
+test('working adults pay most of a supported expense themselves and lose support when parents are gone',()=>{
+  const worker=make({age:27,classRank:4,money:10000,job:{salary:100000,years:1},log:[],logSequence:0});
+  assert.equal(spend(worker,1000,'health'),true);
+  assert.equal(worker.money,9200);
+  assert.equal(worker.accounts.reconciliationError,0);
+  assert.ok(worker.log.some(entry=>entry.text.zhCN.includes('原生家庭资助 ¥200')));
+  const alone=make({age:27,classRank:4,money:10000,job:{salary:100000,years:1},family:{mother:null,father:null,partner:null,children:[],siblings:[]},log:[],logSequence:0});
+  assert.equal(spend(alone,1000,'health'),true);
+  assert.equal(alone.money,9000);
+  assert.equal(alone.log.some(entry=>entry.text.zhCN.includes('原生家庭资助')),false);
 });
 test('unfunded academic years survive a later cleared tuition gap and are recorded once per year',()=>{
   const life=make({school:{stage:'university',endsAt:24,annualTuition:30000,livingCost:8000,familyContribution:0,scholarship:0,loanApproved:true,financialNeed:true,studyRegion:'mainland'}});

@@ -6,6 +6,7 @@
 import {loanPolicyInModelUnits} from './data/money-basis.js';
 import { admissionPolicy } from './data/admission-policy.js';
 import { educationAdmissionRoute, tuitionModel, studentLoanPolicy } from './data/china-law.js';
+import { familyBudget } from './family-finance.js';
 const T = (zhCN,zhTW,en) => ({zhCN,zhTW,en});
 const clamp = (value,min=0,max=100) => Math.min(max,Math.max(min,Number.isFinite(value)?value:min));
 const NAMES = {
@@ -59,11 +60,6 @@ function fees(life,stage,ownership='public') {
   // These are deliberately labeled fictional local-school prices in CNY terms.
   return {tuition:HIGHER.has(stage)?ownership==='private'?26000:8000:1800,annualLivingCost:HIGHER.has(stage)?12000:0,modelOnly:true,sourceIds:[],currency:'CNY'};
 }
-function familyBudget(life) {
-  const fraction={1:.06,2:.13,3:.32,4:.7,5:1.4}[life.classRank] || .25;
-  const supportAlive=[life.family?.mother,life.family?.father].filter(person=>person?.alive).length;
-  return Math.max(0,Math.round(life.profile.typicalIncome*fraction*(supportAlive? .55+.225*supportAlive : .15)));
-}
 function programFor(life,stage,ownership,label,extra={}) {
   const cost=fees(life,stage,ownership);
   return {stage,ownership,label:label || NAMES[stage],duration:DURATIONS[stage],annualTuition:cost.tuition,livingCost:cost.annualLivingCost || 0,publicSupport:!!cost.publicSupport,modelOnly:cost.modelOnly,sourceIds:cost.sourceIds,...extra};
@@ -99,6 +95,14 @@ function modelScore(life,kind,env) {
   life.educationState.exams.push(record);
   return score;
 }
+function secondaryAid(life,program){
+  const budget=familyBudget(life),shortfall=Math.max(0,program.annualTuition-budget);
+  if(!shortfall||life.location.region!=='mainland'||life.year<2012||program.ownership!=='public'||(life.classRank>2&&budget>0))return 0;
+  // Need-based secondary aid is represented as a modeled award, not an
+  // automatic statutory amount for every locality or student.
+  const orphan=budget===0;
+  return Math.min(shortfall,Math.round(program.annualTuition*(orphan?1:program.stage==='vocational'?.8:.6)));
+}
 function secondaryDecision(life,env) {
   if(seen(life,'secondary-'+life.age))return;
   const mainland=life.location.region==='mainland';
@@ -114,7 +118,16 @@ function secondaryDecision(life,env) {
     :mainland?T('你的模拟中考标准分为'+score+'/100。它不是本市真实分数线。符合相应学业条件的高中才出现在选项中；高中不属于九年义务教育。','你的模擬中考標準分為'+score+'/100。這不是本市真實分數線。符合相應學業條件的高中才列入選項；高中不屬於九年義務教育。','Your modeled lower-secondary exam score is '+score+'/100, not a real local cut-off. Only eligible school bands appear. Senior secondary school is outside the nine compulsory years.')
     :T('本地学业评估模拟分为'+score+'/100。这里使用虚构学校与统一游戏分段，不代表当地真实升学考试、学制或免费教育规定。','本地學業評估模擬分為'+score+'/100。這裡使用虛構學校與統一遊戲分段，不代表當地真實升學考試、學制或免費教育規定。','Your local academic assessment is modeled at '+score+'/100. Fictional schools and game bands do not represent the local examination, school system or free-education rules.');
   const title=historicalRecommendation||!mainland?T('选择下一段学业','選擇下一段學業','The next stage of education'):T('中考之后，选择下一段学业','中考之後，選擇下一段學業','After the lower-secondary examination');
-  env.decision(life,'edu-secondary',title,description,candidates.map((program,i)=>option(env,'school-'+i,program.label,T('模型学费每年约 ¥'+numberText(program.annualTuition)+'，家庭承担；不形成学生消费债务。','模型學費每年約 ¥'+numberText(program.annualTuition)+'，由家庭負擔；不產生學生消費債務。','Modeled annual tuition: CNY '+numberText(program.annualTuition)+', supported by family without student consumer debt.'),program.ownership==='public'?2: .55)),{programs:candidates,score,sourceIds:mainland?['compulsory-education','school-admission']:[],modelOnly:true});
+  const budget=familyBudget(life);
+  const programs=candidates.map(program=>({...program,scholarship:secondaryAid(life,program)}));
+  const options=programs.flatMap((program,i)=>{
+    const familyContribution=Math.min(budget,Math.max(0,program.annualTuition-program.scholarship));
+    if(familyContribution+program.scholarship<program.annualTuition)return [];
+    return [option(env,'school-'+i,program.label,T('模型年学费 ¥'+numberText(program.annualTuition)+'，家庭可承担 ¥'+numberText(familyContribution)+'，模型资助 ¥'+numberText(program.scholarship)+'。','模型年學費 ¥'+numberText(program.annualTuition)+'，家庭可負擔 ¥'+numberText(familyContribution)+'，模型資助 ¥'+numberText(program.scholarship)+'。','Modeled annual tuition: CNY '+numberText(program.annualTuition)+'; family: '+numberText(familyContribution)+'; modeled aid: '+numberText(program.scholarship)+'.'),program.ownership==='public'?2:.55)];
+  });
+  options.push(option(env,'work',T('暂缓升学，先寻找技能与工作机会','暫緩升學，先尋找技能與工作機會','Defer school and seek skills or work'),T('不会因此自动获得工作；仍须达到当地就业年龄。','不會因此自動獲得工作；仍須達到當地就業年齡。','Employment still requires the local minimum age.'),options.length?.3:2));
+  const fundingNote=T(' 家庭可用于本阶段学费的模型额度约 ¥'+numberText(budget)+'；未有资金保障的学校不会出现在选项中。',' 家庭可用於本階段學費的模型額度約 ¥'+numberText(budget)+'；未有資金保障的學校不會列入選項。',' The modeled family tuition capacity is CNY '+numberText(budget)+'; unfunded schools are not offered.');
+  env.decision(life,'edu-secondary',title,T(description.zhCN+fundingNote.zhCN,description.zhTW+fundingNote.zhTW,description.en+fundingNote.en),options,{programs,score,sourceIds:mainland?['compulsory-education','school-admission',...(life.year>=2012?['secondary-student-aid-2012']:[])]:[],modelOnly:true});
 }
 function admissionPrograms(life,score) {
   const bands=[
@@ -197,6 +210,12 @@ export function finishEducation(life,env) {
     env.offerWork(life);return false;
   }
   school.completedAcademicYears=school.creditedAcademicYears+Math.max(0,life.age-school.segmentStartedAt-school.segmentDelayedAcademicYears);
+  if(['high','vocational'].includes(school.stage)&&school.fundingGap>0){
+    life.school=null;
+    state.secondaryInterrupted=true;
+    env.log(life,T('家庭和已获资助未能付清上一学年的高中阶段费用，这段学业暂时中断；未付费用没有变成你的消费贷款。','家庭與已獲資助未能付清上一學年的高中階段費用，這段學業暫時中斷；未付費用沒有變成你的消費貸款。','Family resources and awarded aid did not cover last year’s secondary-school fees. Study was interrupted, and the unpaid amount did not become consumer debt.'),'education');
+    env.offerWork(life);return false;
+  }
   if(HIGHER.has(school.stage)&&school.lastFundingReviewYear!==life.year) {
     const incomplete=Math.max(0,school.unfundedAcademicYears || (school.fundingGap>0?1:0));
     if(incomplete>0) {
@@ -273,7 +292,12 @@ export function resolveEducationDecision(life,pending,optionId,env) {
   switch(pending.action) {
     case 'edu-secondary': {
       const program=data.programs?.[Number(optionId.replace('school-',''))];
-      if(program){life.educationState.seniorSchoolTier=program.schoolTier;enroll(life,{...program,familyContribution:program.annualTuition},env);}
+      if(optionId==='work')env.offerWork(life);
+      else if(program){
+        const contribution=Math.min(familyBudget(life),Math.max(0,program.annualTuition-(program.scholarship||0)));
+        if(contribution+(program.scholarship||0)<program.annualTuition){env.log(life,T('家庭目前无法承担这所学校的费用，你先寻找其他求学或技能机会。','家庭目前無法負擔這所學校的費用，你先尋找其他求學或技能機會。','Your household cannot currently cover this school’s cost, so you look for another study or skills route.'),'education');env.offerWork(life);break;}
+        life.educationState.seniorSchoolTier=program.schoolTier;enroll(life,{...program,familyContribution:contribution},env);
+      }
       break;
     }
     case 'edu-college':
