@@ -64,6 +64,30 @@
 .intro{padding-top:14rpx}
 .hero-title{display:block;font-size:75rpx;line-height:1.2;margin:12rpx 0 22rpx;letter-spacing:-2rpx}
 
+/* Keep the home settings as one quiet, thumb-sized control. */
+.home-controls{gap:0;padding:4rpx;background:var(--surface);border:1rpx solid var(--line);border-radius:18rpx;box-shadow:0 5rpx 18rpx #0000000b}
+.home-controls picker{min-width:0}
+.language{height:54rpx;min-height:54rpx;padding:0 13rpx;background:transparent;border:0;border-radius:12rpx;box-shadow:none;font-size:23rpx;gap:6rpx}
+.language .chevron{margin-left:3rpx;font-size:24rpx}
+.theme-control{flex:0 0 56rpx;width:56rpx;height:54rpx;border:0;border-left:1rpx solid var(--line);border-radius:0;background:transparent;font-size:30rpx}
+
+/* Native share button replaces the old image-export action. */
+.certificate-actions .birth-share{width:0;flex:1 1 0;min-width:0;margin:0;padding:18rpx 8rpx;min-height:84rpx;line-height:1.4;font-size:26rpx}
+.birth-share::after{border:0}
+.birth-share[disabled]{opacity:.6}
+
+/* The note editor is a small dialog, never a full-height sheet. */
+.review-backdrop{align-items:center;padding:20rpx 20rpx calc(20rpx + env(safe-area-inset-bottom))}
+.review-panel{max-height:72vh;border-radius:28rpx;animation:sheet-up .2s ease-out}
+.review-panel .modal-head{min-height:76rpx;padding:10rpx 24rpx}
+.review-panel .modal-scroll{height:auto;min-height:0;max-height:calc(72vh - 76rpx);flex-shrink:1}
+.review-body{padding:20rpx 24rpx 24rpx}
+.review-body .review-help{font-size:23rpx;line-height:1.55;margin-bottom:14rpx}
+.review-body .field-label{margin-bottom:8rpx}
+.review-body .review-input{height:176rpx;box-sizing:border-box}
+.review-body .input-count{margin:6rpx 0 15rpx}
+.review-body .primary{min-height:76rpx}
+
 /* The home memorial shows two cards at a time and can be swiped to eight. */
 .memorial-previews{display:block;width:100%;white-space:nowrap}
 .memorial-track{display:inline-flex;align-items:stretch;gap:16rpx;padding-bottom:12rpx}

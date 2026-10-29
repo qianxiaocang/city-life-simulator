@@ -84,9 +84,26 @@ async function captureMemorial(page, life, options) {
   context.fillText(isEnglish ? 'One in 1.4 Billion' : '14亿分之一', width / 2, height - 90);
   context.font = '20px sans-serif'; context.fillStyle = birth ? '#777a70' : '#7d9083';
   context.fillText(isEnglish ? 'An ordinary, irreplaceable life' : language === 'zh-TW' ? '平凡，又不可替代的一生' : '平凡，又不可替代的一生', width / 2, height - 50);
-  const path = await canvasFile(canvas);
-  wx.previewImage({ current: path, urls: [path] });
-  return path;
+  return canvasFile(canvas);
+}
+async function createBirthShare(life, language = 'zh-CN') {
+  const L = value => game.valueText(value, language);
+  const canvas = offscreen(600, 480), context = canvas.getContext('2d');
+  context.fillStyle = '#f3f0e8'; context.fillRect(0, 0, 600, 480);
+  const birth = (life.log || []).find(event => event.type === 'birth') || { type: 'birth', age: 0 };
+  const scene = offscreen(640, 280);
+  game.drawHighlightScene(scene, birth, life);
+  context.drawImage(scene, 24, 24, 552, 242);
+  context.fillStyle = '#236b59'; context.font = 'bold 20px sans-serif'; context.textAlign = 'left';
+  context.fillText(language === 'en' ? 'BIRTH CARD' : language === 'zh-TW' ? '出生登記' : '出生登记', 32, 301);
+  context.fillStyle = '#242b26'; context.font = 'bold 44px serif';
+  context.fillText(L(life.name), 32, 363, 520);
+  context.fillStyle = '#75796f'; context.font = '23px sans-serif';
+  context.fillText(`${life.birthYear} · ${L(life.born.name)}`, 32, 409, 520);
+  context.fillStyle = '#bc9349'; context.fillRect(32, 433, 58, 3);
+  context.fillStyle = '#236b59'; context.font = '18px sans-serif';
+  context.fillText(language === 'en' ? 'One in 1.4 Billion' : '14亿分之一', 104, 441, 450);
+  return canvasFile(canvas);
 }
 function cleanSceneFiles() {
   const manager = wx.getFileSystemManager();
@@ -97,13 +114,8 @@ function cleanSceneFiles() {
 function saveImage(filePath) {
   return new Promise((resolve, reject) => wx.saveImageToPhotosAlbum({
     filePath,
-    success: () => { wx.showToast({ title: '已保存到相册', icon: 'success' }); resolve(filePath); },
-    fail: error => {
-      if (/auth deny|authorize|auth denied/.test(error.errMsg || '')) {
-        wx.showModal({ title: '保存纪念图片', content: '请在设置中允许保存到相册，然后再试一次。', confirmText: '去设置', success: result => { if (result.confirm) wx.openSetting({}); } });
-      } else wx.showToast({ title: '图片未保存，可在预览中长按保存', icon: 'none' });
-      reject(error);
-    }
+    success: () => resolve(filePath),
+    fail: reject
   }));
 }
 let audio = null, musicWanted = false, suspended = false;
@@ -118,4 +130,4 @@ function toggleMusic() { musicWanted = !musicWanted; if (musicWanted && !suspend
 function stopMusic() { musicWanted = false; if (audio) audio.stop(); }
 function suspendMusic() { suspended = true; if (audio) audio.pause(); }
 function resumeMusic() { suspended = false; if (musicWanted) musicContext().play(); }
-module.exports = { drawScene, generateScene, captureMemorial, saveImage, cleanSceneFiles, toggleMusic, stopMusic, suspendMusic, resumeMusic };
+module.exports = { drawScene, generateScene, captureMemorial, createBirthShare, saveImage, cleanSceneFiles, toggleMusic, stopMusic, suspendMusic, resumeMusic };

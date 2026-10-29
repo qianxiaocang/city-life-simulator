@@ -8,7 +8,7 @@ const clone = value => JSON.parse(JSON.stringify(value));
 game.configureLocations(game.locations);
 
 Page({
-  data: { navHeight: 64, navTop: 20, navBarHeight: 44, navSide: 96, view: 'home', theme: 'light', modal: '', toast: '', person: null, logs: [], momentGroups: [], archiveList: [], archiveFacts: [], memories: [], speeds: [1, 2, 4, 8, 12, 16], speed: 1, paused: true, progress: 0, musicPlaying: false, musicX: 0, musicY: 480, reviewDraft: '', reflectionDraft: '' },
+  data: { navHeight: 64, navTop: 20, navBarHeight: 44, navSide: 96, view: 'home', theme: 'light', modal: '', toast: '', person: null, logs: [], momentGroups: [], archiveList: [], archiveFacts: [], memories: [], speeds: [1, 2, 4, 8, 12, 16], speed: 1, paused: true, progress: 0, musicPlaying: false, musicX: 0, musicY: 480, reviewDraft: '', reflectionDraft: '', birthShareReady: false },
   onLoad() {
     this.store = { version: 1, settings: { ...DEFAULTS }, current: null, history: [], savedMomentToastCount: 0 };
     try {
@@ -22,7 +22,7 @@ Page({
     if (!['now', 'past'].includes(this.store.settings.world)) this.store.settings.world = 'now';
     if (this.store.current && this.store.current.phase !== 'dead') game.ensureModelState(this.store.current);
     this._paused = true; this._speed = 1; this._progress = this.store.current?.uiProgress || 0;
-    this._view = 'home'; this._momentLimit = 24; this._imageCache = new Map(); this._imagePending = new Set();
+    this._view = 'home'; this._momentLimit = 24; this._imageCache = new Map(); this._imagePending = new Set(); this._birthShareKey = ''; this._birthSharePath = ''; this._birthSharePending = null;
     const windowInfo = typeof wx.getWindowInfo === 'function' ? wx.getWindowInfo() : wx.getSystemInfoSync();
     this.updateNavigation(windowInfo);
     this.setData({ musicX: Math.max(12,(windowInfo.windowWidth || 390) - 66), musicY: Math.max(100,(windowInfo.windowHeight || 844) - 150) });
@@ -53,7 +53,13 @@ Page({
   },
   onHide() { this._foreground = false; this._lastTick = 0; this.persist(); },
   onUnload() { clearInterval(this._timer); clearTimeout(this._toastTimer); this.persist(); platform.stopMusic(); },
-  onShareAppMessage() { return { title: this.tr('brand'), path: '/pages/index/index' }; },
+  onShareAppMessage() {
+    if (this._view === 'certificate' && this.store.current?.phase === 'birth') {
+      const life = this.store.current;
+      return { title: this.tx(`${this.L(life.name)}的出生卡`,`${this.L(life.name)}的出生卡`,`${this.L(life.name)}'s birth card`), path: '/pages/index/index', ...(this._birthSharePath ? { imageUrl: this._birthSharePath } : {}) };
+    }
+    return { title: this.tr('brand'), path: '/pages/index/index' };
+  },
   onShareTimeline() { return { title: this.tr('brand') }; },
   L(value) { return game.valueText(value, this.store.settings.language); },
   tr(key) { return game.t(key, this.store.settings.language); },
@@ -98,7 +104,7 @@ Page({
       journal: ['你写下的想法','你寫下的想法','Your thoughts'],
       moreMoments: ['更多人生瞬间','更多人生瞬間','More life moments'],
       noMoments: ['这一生的日常，都留在下面的记录中。','這一生的日常，都留在下面的紀錄中。','Everyday moments live on in the records below.'],
-      savePhoto: ['保存到相册','儲存到相簿','Save to album']
+      sharePreparing: ['准备分享…','準備分享…','Preparing…']
     };
     for (const [key, values] of Object.entries(extra)) ui[key] = this.tx(...values);
     const aliases={begin:'beginLife',birthCard:'shareBirth',birthSettings:'settings',birthYear:'year',capture:'photo',choice:'pending',eyebrow:'kicker',favorite:'save',lifeDetails:'details',lifeMoments:'moments',lifetime:'report',memorialEmpty:'noLives',oneYear:'advance',pastPresent:'era',rememberedLives:'memories',reviewHelp:'reviewHint',takeControlHint:'automatic',thisLife:'wholeLife',viewAll:'all',writeWords:'write'};
@@ -121,6 +127,18 @@ Page({
     if (!life) return '';
     const picks = life.phase === 'dead' ? game.selectLifeMoments(life) : [];
     return this.scene(picks.find(item => item.type !== 'birth') || life.log[life.log.length - 1] || { type: 'birth', age: 0 }, life);
+  },
+  prepareBirthShare(life) {
+    const key = `${life.id}:${this.store.settings.language}`;
+    if (this._birthShareKey === key && this.data.birthShareReady) return Promise.resolve(this._birthSharePath);
+    if (this._birthSharePendingKey === key) return this._birthSharePending;
+    this._birthShareKey = key; this._birthSharePath = ''; this._birthSharePendingKey = key;
+    this.setData({ birthShareReady: false });
+    this._birthSharePending = platform.createBirthShare(life, this.store.settings.language)
+      .then(path => { if (this._birthShareKey === key) { this._birthSharePath = path; this.setData({ birthShareReady: true }); } return path; })
+      .catch(error => { console.warn('Birth share image unavailable', error); if (this._birthShareKey === key) this.setData({ birthShareReady: true }); return ''; })
+      .then(path => { if (this._birthSharePendingKey === key) { this._birthSharePendingKey = ''; this._birthSharePending = null; } return path; });
+    return this._birthSharePending;
   },
   personFor(life) {
     if (!life) return null;
@@ -193,9 +211,10 @@ Page({
   },
   navigate(view, viewed=null) {
     if ((this._view==='report'||this._view==='ending') && view!=='report' && view!=='ending') this._editable=null;
-    this._view=view;this._viewed=viewed;this._paused=true;this._fast=false;this._minimized=null;this._momentLimit=24;this._autoDeadline=0;this._photo=null;this.setData({modal:'',photoReady:false});
+    this._view=view;this._viewed=viewed;this._paused=true;this._fast=false;this._minimized=null;this._momentLimit=24;this._autoDeadline=0;this._photo=null;this.setData({modal:''});
     if (view==='life' && this.store.current) game.offerFocusStage(this.store.current);
     this.persist();this.render();wx.pageScrollTo({scrollTop:0,duration:0});
+    if (view==='certificate' && this.store.current) this.prepareBirthShare(this.store.current);
   },
   async newLife() {
     if (this._creating) return;
@@ -214,7 +233,7 @@ Page({
       const seed=`${Date.now()}-${Math.random()}`,birthYear=s.world==='past'?Number(s.birthYear):new Date().getFullYear();
       const life=game.createLife({location:place,locations:game.locations,language:s.language,seed,birthYear,world:s.world,paceMinutes:s.pace});
       life.companions=game.generateCompanions({locations:game.locations,seed,birthYear,world:s.world});life.stars=[];life.uiProgress=0;
-      this.store.current=life;this._progress=0;this.navigate('certificate');
+      this.store.current=life;this._progress=0;this.navigate('certificate');await this.prepareBirthShare(life);
     } finally {this._creating=false;wx.hideLoading();}
   },
   tick() {
@@ -318,11 +337,26 @@ Page({
       }
       if(action==='candle'){const item=this.store.history.find(item=>item.id===value)||life;if(!item||item.phase!=='dead')return;const previousLit=item.candleLit,previousCandles=item.candles,lit=item.candleLit??item.candles>0;item.candleLit=!lit;item.candles=Math.max(0,(item.candles||0)+(lit?-1:1));if(!this.persist()){item.candleLit=previousLit;item.candles=previousCandles;}return this.render();}
       if(action==='music'){if(Date.now()-(this._musicMoved||0)<350)return;this.setData({musicPlaying:platform.toggleMusic()});return;}
-      if(action==='capture-ending'||action==='birth-card'||action==='life-card'){
-        if(!life)return;wx.showLoading({title:this.tx('生成纪念照片','產生紀念照片','Creating photo')});
-        try{this._photo=await platform.captureMemorial(this,life,{language:this.store.settings.language,birth:action==='birth-card'});this.setData({photoReady:true});}finally{wx.hideLoading();}return;
+      if(action==='capture-ending'){
+        if(!life||life.phase!=='dead')return;
+        const consent=await new Promise(resolve=>wx.showModal({
+          title:this.tx('保存纪念照片','儲存紀念照片','Save a memorial photo'),
+          content:this.tx('照片包含这段人生的姓名和记录，只在本机生成。确认后会保存到手机相册，不会上传。','照片包含這段人生的姓名和紀錄，只在本機產生。確認後會儲存到手機相簿，不會上傳。','This photo includes the character’s name and life story. It is created on your device and saved to your photos only with your consent.'),
+          confirmText:this.tx('生成并保存','產生並儲存','Save photo'),
+          success:result=>resolve(!!result.confirm),fail:()=>resolve(false)
+        }));
+        if(!consent)return;
+        wx.showLoading({title:this.tx('保存照片中','儲存照片中','Saving photo')});
+        try{
+          this._photo ||= await platform.captureMemorial(this,life,{language:this.store.settings.language});
+          await platform.saveImage(this._photo);
+          this.notify(this.tx('已保存到手机相册','已儲存到手機相簿','Saved to your photos'));
+        }catch(error){
+          if(/auth deny|authorize|permission|scope\.writePhotosAlbum/i.test(error?.errMsg||''))wx.showModal({title:this.tx('允许保存照片','允許儲存照片','Allow photo access'),content:this.tx('请在微信设置中允许保存到相册，然后重试。','請在微信設定中允許儲存到相簿，然後重試。','Allow photo access in WeChat settings, then try again.'),confirmText:this.tx('去设置','去設定','Settings'),success:result=>{if(result.confirm)wx.openSetting({});}});
+          else this.notify(this.tx('照片未保存，请重试','照片未儲存，請重試','Photo not saved. Try again.'));
+        }finally{wx.hideLoading();}
+        return;
       }
-      if(action==='save-photo'&&this._photo)return await platform.saveImage(this._photo);
     }catch(error){console.error('Action failed',action,error);wx.hideLoading();this.notify(this.tx('这次操作未完成，请重试。人生记录仍在。','這次操作未完成，請重試。人生紀錄仍在。','Please try again. Your life is still saved.'));}
   }
 });

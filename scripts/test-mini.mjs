@@ -88,7 +88,7 @@ function loadStorage(wx) {
 function pageHarness(initialStore, initialStorage, overrides = {}) {
   let definition;
   const storage = new Map(initialStorage ? [...initialStorage].map(([key,value]) => [key,clone(value)]) : initialStore ? [[SAVE_KEY, clone(initialStore)]] : []);
-  const platform = { generateScene: async () => '/mock-scene.png', toggleMusic: () => true, stopMusic() {}, captureMemorial: async () => '/mock-photo.png', saveImage: async () => {} };
+  const platform = { generateScene: async () => '/mock-scene.png', createBirthShare: async () => '/mock-birth-share.png', toggleMusic: () => true, stopMusic() {}, captureMemorial: async () => '/mock-photo.png', saveImage: async () => {} };
   const wx = {
     getStorageSync: key => storage.has(key) ? clone(storage.get(key)) : '',
     setStorageSync: (key, value) => storage.set(key, clone(value)),
@@ -103,8 +103,33 @@ function pageHarness(initialStore, initialStorage, overrides = {}) {
   const page = { ...definition, data: clone(definition.data), setData(patch, done) { Object.assign(this.data, clone(patch)); if (done) done(); } };
   page.onLoad();
   const action = (action, value) => page.onAction({ currentTarget: { dataset: { action, value } } });
-  return { page, storage, storageApi, action, saved: () => storageApi.readStore(page.store) };
+  return { page, storage, storageApi, platform, wx, action, saved: () => storageApi.readStore(page.store) };
 }
+
+test('birth card uses native forwarding with a prepared image and memorial photo saves after consent', async () => {
+  const { page, action, platform, wx } = pageHarness();
+  const template = readFileSync(resolve(miniRoot, 'pages/index/index.wxml'), 'utf8');
+  assert.match(template, /<button open-type="share"[^>]+birth-share/);
+  assert.doesNotMatch(template, /data-action="birth-card"|data-action="save-photo"/);
+  await action('born');
+  assert.equal(page.data.birthShareReady, true);
+  assert.equal(page.onShareAppMessage().imageUrl, '/mock-birth-share.png');
+  assert.match(page.onShareAppMessage().title, /出生卡/);
+  let asked = 0, rendered = 0, saved = 0;
+  wx.showModal = options => { asked++; assert.match(options.content, /相册/); options.success({ confirm: true }); };
+  platform.captureMemorial = async () => { rendered++; return '/mock-photo.png'; };
+  platform.saveImage = async path => { saved++; assert.equal(path, '/mock-photo.png'); };
+  page.store.current.phase = 'dead'; page.navigate('ending');
+  await action('capture-ending');
+  assert.equal(asked, 1);
+  assert.equal(rendered, 1);
+  assert.equal(saved, 1, 'one tap generates and saves the photo');
+  assert.equal(page.data.photoReady, undefined);
+  wx.showModal = options => { asked++; options.success({ confirm: false }); };
+  await action('capture-ending');
+  assert.equal(saved, 1, 'declining the privacy prompt does not save');
+  page.onUnload();
+});
 
 test('navigation geometry keeps the centered title clear of the WeChat capsule', () => {
   const { page } = pageHarness();
