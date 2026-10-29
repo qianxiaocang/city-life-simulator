@@ -145,3 +145,8 @@
 .overview .auto-notice{padding:0 22rpx 15rpx}
 .overview .auto-notice .tap-control{padding:12rpx;font-size:21rpx;border-radius:14rpx}
 @media(max-width:340px){.overview-heading{gap:9rpx}.overview-year{font-size:19rpx}.overview-top .eyebrow{font-size:21rpx}}
+
+/* Draw the language arrow geometrically so font baselines cannot shift it. */
+.language{align-items:center;gap:12rpx}
+.language-label{display:block;line-height:1.2}
+.language-chevron{flex:0 0 10rpx;width:10rpx;height:10rpx;box-sizing:border-box;border-right:3rpx solid var(--muted);border-bottom:3rpx solid var(--muted);transform:translateY(-3rpx) rotate(45deg);margin:0 3rpx 0 0}
