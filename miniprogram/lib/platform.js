@@ -124,7 +124,8 @@ function saveImage(filePath) {
     fail: reject
   }));
 }
-let audio = null, musicWanted = false, suspended = false;
+const MUSIC_TRACKS = ['/assets/music.wav', '/assets/music-2.wav', '/assets/music-3.wav', '/assets/music-4.wav', '/assets/music-5.wav'];
+let audio = null, musicWanted = false, suspended = false, lastTrack = -1;
 function musicContext() {
   if (!audio) {
     audio = wx.createInnerAudioContext(); audio.src = '/assets/music.wav'; audio.loop = true; audio.volume = .32; audio.obeyMuteSwitch = false;
@@ -132,7 +133,16 @@ function musicContext() {
   }
   return audio;
 }
-function toggleMusic() { musicWanted = !musicWanted; if (musicWanted && !suspended) musicContext().play(); else if (audio) audio.pause(); return musicWanted; }
+function toggleMusic() {
+  musicWanted = !musicWanted;
+  if (musicWanted) {
+    const candidates = MUSIC_TRACKS.map((_,index)=>index).filter(index=>index!==lastTrack);
+    lastTrack = candidates[Math.floor(Math.random()*candidates.length)];
+    const player = musicContext(); player.src = MUSIC_TRACKS[lastTrack];
+    if (!suspended) player.play();
+  } else if (audio) audio.pause();
+  return musicWanted;
+}
 function stopMusic() { musicWanted = false; if (audio) audio.stop(); }
 function suspendMusic() { suspended = true; if (audio) audio.pause(); }
 function resumeMusic() { suspended = false; if (musicWanted) musicContext().play(); }

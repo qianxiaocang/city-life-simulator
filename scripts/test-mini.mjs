@@ -155,6 +155,33 @@ test('navigation geometry keeps the centered title clear of the WeChat capsule',
   page.onUnload();
 });
 
+test('stage choices show four distinct usable options in the compact dialog', () => {
+  const {page}=pageHarness();
+  const life=mini.startLife(mini.createLife({location:mini.locations[0],seed:'compact-stage',birthYear:1980}));
+  life.age=6;life.year=1986;life.school={stage:'primary'};
+  life.pending={id:'compact-test',action:'focus-stage',title:{zhCN:'开始上学，怎样安排课余时光？'},description:{zhCN:'阶段安排'},options:mini.getFocusOptions(life)};
+  assert.equal(life.pending.options.length,6);
+  page.store.current=life;page._view='life';page.render();
+  assert.equal(page.data.ui.choice,'人生抉择');
+  assert.deepEqual(clone(page.data.choice.options.map(option=>option.id)),['study','balance','family','sport']);
+  for(const option of page.data.choice.options)assert.ok(life.pending.options.some(original=>original.id===option.id));
+  page.onUnload();
+});
+
+test('music has five distinct local tracks and chooses a new track on every play', () => {
+  const calls=[],player={onError(){},play(){calls.push(['play',this.src]);},pause(){},stop(){}};
+  const sandbox={module:{exports:{}},require:()=>mini,wx:{createInnerAudioContext:()=>player},Math:Object.create(Math),console};
+  let sample=0;sandbox.Math.random=()=>[0,0,.34,.67,.99][sample++%5];
+  vm.runInNewContext(readFileSync(resolve(miniRoot,'lib/platform.js'),'utf8'),sandbox);
+  const platform=sandbox.module.exports;
+  for(let n=0;n<20;n++){assert.equal(platform.toggleMusic(),true);assert.equal(platform.toggleMusic(),false);}
+  const tracks=calls.map(call=>call[1]);
+  assert.equal(new Set(tracks).size,5);
+  for(let n=1;n<tracks.length;n++)assert.notEqual(tracks[n],tracks[n-1]);
+  const files=[...new Set(tracks)].map(track=>readFileSync(resolve(miniRoot,track.slice(1))));
+  assert.equal(new Set(files.map(bytes=>bytes.toString('base64'))).size,5,'all melodies must contain different audio samples');
+});
+
 test('native page creates and resumes lives, and profile dialog restores prior playback state', async () => {
   const { page, action, storage } = pageHarness();
   assert.equal(page.data.view, 'home');

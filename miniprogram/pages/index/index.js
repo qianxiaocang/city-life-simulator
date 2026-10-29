@@ -92,7 +92,7 @@ Page({
       living: ['正在活着','正在活著','Living'], thisYear: ['这一年','這一年','This year'], next: ['下个抉择','下個抉擇','Next choice'],
       advance: ['推进一年','推進一年','Next year'], autopilot: ['托管人生','託管人生','Autopilot'], takeControl: ['恢复手动','恢復手動','Take control'],
       automatic: ['抉择已交给自动 · 点此恢复手动','抉擇已交給自動 · 點此恢復手動','Choices are automatic · Take control'],
-      pending: ['继续人生抉择','繼續人生抉擇','Continue your choice'],
+      pending: ['人生抉择','人生抉擇','Life choices'],
       moments: ['人生瞬间','人生瞬間','Life moments'], wholeLife: ['这一生','這一生','This life'], report: ['一段人生','一段人生','A lifetime'],
       write: ['写下你的话','寫下你的話','Add your words'], yourWords: ['你想写的话','你想寫的話','Your words'], save: ['保存','儲存','Save'],
       reviewPlaceholder: ['你想对这段人生说点什么吗？','你想對這段人生說點什麼嗎？','What would you like to say to this life?'],
@@ -206,9 +206,20 @@ Page({
       if (this.data.choice?.id !== pending.id) this._autoDeadline = Date.now() + 2200;
       this.data.modal = 'choice';
     } else if (this.data.modal === 'choice' && !pending) this.data.modal = '';
-    const optionDescriptions = pending?.options.map(option => this.L(option.description).trim()) || [];
+    let visibleOptions = pending?.options || [];
+    if (visibleOptions.length > 4) {
+      const preferred = pending.action === 'focus-stage'
+        ? (this.store.current.school ? ['study','balance','family','sport'] : this.store.current.retired ? ['balance','family','health','hobby'] : ['work','balance','family','health'])
+        : [];
+      const selected = preferred.map(id=>visibleOptions.find(option=>option.id===id)).filter(Boolean);
+      for (const option of visibleOptions) if (selected.length < 4 && !selected.includes(option)) selected.push(option);
+      // Keep the last alternative (often decline / keep the current arrangement).
+      if (!preferred.length) selected[3] = visibleOptions[visibleOptions.length-1];
+      visibleOptions = selected;
+    }
+    const optionDescriptions = visibleOptions.map(option => this.L(option.description).trim());
     const repeatedDescription = optionDescriptions.length > 1 && optionDescriptions.every(text => text === optionDescriptions[0]);
-    const choice = pending ? { id: pending.id, title: this.L(pending.title), description: this.L(pending.description), meta: `${this.age(this.store.current.age)} · ${this.store.current.year}`, input: !!pending.input, options: pending.options.map((option,index)=>({id:option.id,label:this.L(option.label),description:repeatedDescription ? '' : optionDescriptions[index]})) } : null;
+    const choice = pending ? { id: pending.id, title: this.L(pending.title), description: pending.action==='focus-stage' ? this.tx('选择这一阶段的生活重心，下个阶段可以重新选择。','選擇這一階段的生活重心，下個階段可以重新選擇。','Choose your focus for this stage. You can choose again at the next stage.') : this.L(pending.description), meta: `${this.age(this.store.current.age)} · ${this.store.current.year}`, input: !!pending.input, options: visibleOptions.map((option,index)=>({id:option.id,label:this.L(option.label),description:repeatedDescription ? '' : optionDescriptions[index]})) } : null;
     this.setData({ view:this._view,theme:settings.theme,ui,settings:{...settings},languageLabels:game.LANGUAGES.map(item=>({label:item.label,value:item.id})),languageIndex:game.LANGUAGES.findIndex(item=>item.id===settings.language),years,yearIndex:Math.max(0,years.findIndex(item=>item.value===settings.birthYear)),regions:regionOptions,regionIndex:REGIONS.indexOf(settings.scope),provinces,provinceIndex:Math.max(0,provinces.findIndex(item=>item.value===settings.province)),advancedOpen:!!this._advanced,available:places.filter(place=>settings.province==='all'||place.province.id===settings.province).length,resume:this.store.current&&this.store.current.phase!=='dead'?{name:this.L(this.store.current.name),age:this.age(this.store.current.age),place:this.L(this.store.current.location.name)}:null,homeCover:this.scene({id:'home',type:'family',age:30,text:{zhCN:'一家人在城市里生活'}},{id:'home',seed:'home',age:30,log:[],family:{children:[]}}),memories:cards.slice(0,8),person:this.personFor(life),cover:life?this.coverFor(life):'',logs,paused:this._paused,speed:this._speed,progress:Math.round(this._progress*100),fast:!!this._fast,automatic:!!this.store.current?.autopilot?.enabled,archiveFacts,archiveList:cards,momentGroups,hasMoreMoments:this._view==='report'&&life?.phase==='dead'&&game.selectLifeMoments(life).length>this._momentLimit,fromArchive:!!this._viewed,memorialSaved:!!life&&history.some(item=>item.id===life.id),endingText:life?.phase==='dead'?game.lifeEndingNarrative(life,settings.language):'',modal:this.data.modal,choice,hasPending:!!pending });
     wx.setNavigationBarTitle({title:this._view==='home'?ui.brand:this._view==='life'?ui.living:this._view==='certificate'?ui.certificate:this._view==='archive'?ui.archive:ui.report});
     const darkNav=settings.theme==='dark'||this._view==='ending';
