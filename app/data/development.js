@@ -39,7 +39,7 @@ export const REGION_LIFESPAN = {
 };
 export function underFiveRate(year,region='mainland'){return interpolateAnchors(UNDER5_MORTALITY[region]||UNDER5_MORTALITY.mainland,Math.min(2025,year));}
 // modelOnly: audit scenario coefficients, not GDP-to-wage conversions.
-export const REGION_ECONOMY={mainland:{income:1,cost:1},taiwan:{income:3.9,cost:2.6},hongkong:{income:5.8,cost:4.2},macau:{income:7.4,cost:3.8}};
+export const REGION_ECONOMY={mainland:{income:1,cost:1},taiwan:{income:2.0,cost:2.6},hongkong:{income:3.1,cost:4.2},macau:{income:2.7,cost:3.8}};
 export function mainlandIncomeFactor(location){const p=(location.id||'').slice(3,5);return ['11','12','13','31','32','33','35','37','44','46'].includes(p)?1.26:['14','34','36','41','42','43'].includes(p)?.85:['21','22','23'].includes(p)?.85:.80;}
 export function housingTier(location){const id=location.id||'';if(/^cn-(11|31|4401|4403)/.test(id))return 5.5;if(/^cn-(12|50|5101|4201|3301|3201|6101|4301|3701|3702|4101|3502|3501)/.test(id))return 2.6;if(/0000$/.test(id)||location.level==='municipality')return 1.3;return .75;}
 const limit=(x,a,b)=>Math.max(a,Math.min(b,x));

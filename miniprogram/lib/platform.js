@@ -111,6 +111,12 @@ function cleanSceneFiles() {
     for (const name of result.files || []) if (/^life-scene-[0-9-]+\.png$/.test(name)) manager.unlink({ filePath: `${wx.env.USER_DATA_PATH}/${name}`, fail() {} });
   }, fail() {} });
 }
+function albumAuthorized() {
+  return new Promise(resolve => wx.getSetting({success: result => resolve(!!result.authSetting['scope.writePhotosAlbum']), fail: () => resolve(false)}));
+}
+function requestAlbumAccess() {
+  return new Promise((resolve, reject) => wx.authorize({scope:'scope.writePhotosAlbum',success:resolve,fail:reject}));
+}
 function saveImage(filePath) {
   return new Promise((resolve, reject) => wx.saveImageToPhotosAlbum({
     filePath,
@@ -130,4 +136,4 @@ function toggleMusic() { musicWanted = !musicWanted; if (musicWanted && !suspend
 function stopMusic() { musicWanted = false; if (audio) audio.stop(); }
 function suspendMusic() { suspended = true; if (audio) audio.pause(); }
 function resumeMusic() { suspended = false; if (musicWanted) musicContext().play(); }
-module.exports = { drawScene, generateScene, captureMemorial, createBirthShare, saveImage, cleanSceneFiles, toggleMusic, stopMusic, suspendMusic, resumeMusic };
+module.exports = { drawScene, generateScene, captureMemorial, createBirthShare, albumAuthorized, requestAlbumAccess, saveImage, cleanSceneFiles, toggleMusic, stopMusic, suspendMusic, resumeMusic };

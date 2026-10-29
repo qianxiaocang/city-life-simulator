@@ -88,7 +88,7 @@ function loadStorage(wx) {
 function pageHarness(initialStore, initialStorage, overrides = {}) {
   let definition;
   const storage = new Map(initialStorage ? [...initialStorage].map(([key,value]) => [key,clone(value)]) : initialStore ? [[SAVE_KEY, clone(initialStore)]] : []);
-  const platform = { generateScene: async () => '/mock-scene.png', createBirthShare: async () => '/mock-birth-share.png', toggleMusic: () => true, stopMusic() {}, captureMemorial: async () => '/mock-photo.png', saveImage: async () => {} };
+  const platform = { albumAuthorized: async () => false, requestAlbumAccess: async () => {}, generateScene: async () => '/mock-scene.png', createBirthShare: async () => '/mock-birth-share.png', toggleMusic: () => true, stopMusic() {}, captureMemorial: async () => '/mock-photo.png', saveImage: async () => {} };
   const wx = {
     getStorageSync: key => storage.has(key) ? clone(storage.get(key)) : '',
     setStorageSync: (key, value) => storage.set(key, clone(value)),
@@ -115,19 +115,24 @@ test('birth card uses native forwarding with a prepared image and memorial photo
   assert.equal(page.data.birthShareReady, true);
   assert.equal(page.onShareAppMessage().imageUrl, '/mock-birth-share.png');
   assert.match(page.onShareAppMessage().title, /出生卡/);
-  let asked = 0, rendered = 0, saved = 0;
-  wx.showModal = options => { asked++; assert.match(options.content, /相册/); options.success({ confirm: true }); };
+  let asked = 0, rendered = 0, saved = 0, authorized = 0;
+  platform.requestAlbumAccess = async () => { authorized++; };
+  wx.showModal = options => { asked++; assert.match(options.content, /相册/); assert.ok([...options.confirmText].length<=4); options.success({ confirm: true }); };
   platform.captureMemorial = async () => { rendered++; return '/mock-photo.png'; };
   platform.saveImage = async path => { saved++; assert.equal(path, '/mock-photo.png'); };
   page.store.current.phase = 'dead'; page.navigate('ending');
   await action('capture-ending');
   assert.equal(asked, 1);
   assert.equal(rendered, 1);
+  assert.equal(authorized, 1, 'first save explicitly requests album permission');
   assert.equal(saved, 1, 'one tap generates and saves the photo');
   assert.equal(page.data.photoReady, undefined);
   wx.showModal = options => { asked++; options.success({ confirm: false }); };
   await action('capture-ending');
   assert.equal(saved, 1, 'declining the privacy prompt does not save');
+  platform.albumAuthorized = async () => true;
+  await action('capture-ending');
+  assert.equal(saved, 2); assert.equal(asked, 2, 'authorized saves do not repeat the permission explanation');
   page.onUnload();
 });
 

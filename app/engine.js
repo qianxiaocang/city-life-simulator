@@ -224,6 +224,11 @@ export function ensureModelState(life) {
   life.birthMonth ||= 1; life.birthDay ||= 1;
   life.mortalityRisk ||= {budget:riskBudget(life.seed),exposure:0,modelOnly:true};
   life.residenceYears||={[life.location.region]:life.age};
+  if (life.incomeModelVersion !== 3 && life.phase !== 'dead') {
+    life.profile = profileFor(life.location, life.sex, life.world, life.year);
+    if (life.job) life.job.marketIncomeReference = life.profile.typicalIncome;
+    life.incomeModelVersion = 3;
+  }
   ensureEconomyState(life); ensureEducationState(life); ensureCareerState(life); ensureHistoryState(life);
   life.rulesVersion=2;
   ensureDecisionState(life);

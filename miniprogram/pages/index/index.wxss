@@ -88,6 +88,8 @@
 .review-body .input-count{margin:6rpx 0 15rpx}
 .review-body .primary{min-height:76rpx}
 
+
+
 /* The home memorial shows two cards at a time and can be swiped to eight. */
 .memorial-previews{display:block;width:100%;white-space:nowrap}
 .memorial-track{display:inline-flex;align-items:stretch;gap:16rpx;padding-bottom:12rpx}
@@ -119,3 +121,27 @@
 .option-description{font-size:22rpx;line-height:1.5;margin-top:3rpx}
 
 .toast{max-width:calc(100vw - 32rpx);padding:18rpx 24rpx;font-size:23rpx;white-space:nowrap;box-sizing:border-box}
+
+/* The overview leaves room for records even while expanded. */
+.overview-top{padding:14rpx 22rpx 8rpx;align-items:center}
+.overview-heading{flex-direction:row;align-items:baseline;gap:16rpx}
+.overview-top .eyebrow{font-size:23rpx;letter-spacing:1rpx}
+.overview-year{font-size:21rpx}
+.overview .collapse{display:flex;align-items:center;justify-content:center;gap:9rpx;min-height:52rpx;padding:7rpx 12rpx;font-size:22rpx;line-height:1;border-radius:14rpx}
+.collapse text{display:block;width:13rpx;height:13rpx;border-right:3rpx solid currentColor;border-bottom:3rpx solid currentColor;transform:translateY(-3rpx) rotate(45deg);font-size:0;line-height:0}
+.collapse text.fold-up{transform:translateY(3rpx) rotate(225deg)}
+.overview-person{gap:14rpx;padding:2rpx 22rpx 15rpx}
+.overview .avatar{width:64rpx;height:64rpx;border-radius:20rpx;font-size:36rpx}
+.overview .person-name{font-size:37rpx;line-height:1.25}
+.overview .person-meta{font-size:21rpx;line-height:1.45;margin-top:3rpx}
+.overview .stats{gap:16rpx;padding:13rpx 22rpx 16rpx}
+.overview .stat-label{font-size:21rpx}
+.overview .stat-value{font-size:28rpx;margin:2rpx 0 8rpx}
+.overview .stat-track{height:6rpx}
+.overview .finances{padding:13rpx 22rpx;gap:10rpx}
+.overview .finances .muted{font-size:20rpx}
+.overview .finance-value{font-size:26rpx}
+.overview .details-entry{min-height:58rpx;padding:12rpx 22rpx;font-size:23rpx}
+.overview .auto-notice{padding:0 22rpx 15rpx}
+.overview .auto-notice .tap-control{padding:12rpx;font-size:21rpx;border-radius:14rpx}
+@media(max-width:340px){.overview-heading{gap:9rpx}.overview-year{font-size:19rpx}.overview-top .eyebrow{font-size:21rpx}}

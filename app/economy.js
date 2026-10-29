@@ -4,6 +4,7 @@ import {housingTier,REGION_ECONOMY} from './data/development.js';
 import { CHINA_CONSUMPTION, INVESTMENT_AVAILABILITY, investmentAvailable } from './data/china-society.js';
 import { studentLoanPolicy } from './data/china-law.js';
 import { familyBudget } from './family-finance.js';
+import { boundedSalary, normalizeIncome } from './income-model.js';
 const T=(zhCN,zhTW,en)=>({zhCN,zhTW,en});
 const finite=(x,fallback=0)=>Number.isFinite(Number(x))?Number(x):fallback;
 const positive=x=>Math.max(0,finite(x));
@@ -212,12 +213,14 @@ export function economyYear(life,env={}){
     const marketAdjustment=previousReference>0?marketReference/previousReference:1;
     life.job.marketIncomeReference=marketReference;
     const growth=clamp(.015+(env.normal?.(life)||0)*.018+positive(life.flags.workFraction)*.025,-.06,.09);
-    life.job.salary=Math.round(positive(life.job.salary)*marketAdjustment*(1+growth));
+    const experienceGrowth=growth*(life.job.id?Math.max(0,1-life.job.years/25):1);
+    life.job.salary=boundedSalary(life,positive(life.job.salary)*marketAdjustment*(1+experienceGrowth));
     earned=life.job.salary*(1+positive(life.flags.workFraction)*.08)*incomeFactor;
     if(life.job.years>3&&life.job.years%7===0&&(env.chance?.(life,.5)??false)){
-      life.job.salary*=1.1;envLog(env,life,T('经验积累带来一次岗位晋升，收入与责任有所增加。','經驗累積帶來一次職位升遷，收入與責任有所增加。','Experience led to a promotion, with more pay and responsibility.'),'work',{happiness:2});
+      life.job.salary=boundedSalary(life,life.job.salary*1.1);envLog(env,life,T('经验积累带来一次岗位晋升，收入与责任有所增加。','經驗累積帶來一次職位升遷，收入與責任有所增加。','Experience led to a promotion, with more pay and responsibility.'),'work',{happiness:2});
     }
   }else if(life.retired){
+    normalizeIncome(life);
     // All balances use fixed 2025 purchasing power. This is a small modeled
     // real-benefit progression, not CPI indexation or an official award rate.
     if(life.pension>0 && life.year>(life.pensionLastAdjustedYear??life.year)){

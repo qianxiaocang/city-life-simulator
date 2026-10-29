@@ -1,6 +1,7 @@
 import { CHINA_JOBS, CHINA_SOCIETY_SOURCES, CULTURAL_EVENTS, culturalEventEligible } from './data/china-society.js';
 import { canStartEmployment, legalEmploymentAge, retirementRule, pensionMinimumYears, legalMarriageAge } from './data/china-law.js';
 import { noteAssetChange,noteCashChange } from './accounting.js';
+import { boundedSalary, normalizeIncome } from './income-model.js';
 const T=(zhCN,zhTW,en)=>({zhCN,zhTW,en});
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 export const rankOf=stage=>({preschool:0,primary:1,junior:2,vocational:3,high:3,associate:3.5,university:4,masters:5,doctorate:6}[stage]??0);
@@ -28,6 +29,7 @@ export function ensureCareerState(life){
     const base=CHINA_JOBS.find(j=>j.id===life.job.id);
     if(base)life.job={...base,...life.job};
   }
+  normalizeIncome(life);
   return life;
 }
 export function employmentAllowed(life,job=null){
@@ -73,7 +75,7 @@ export function candidateCareers(life){
   return CHINA_JOBS.filter(job=>permittedCareer(life,job)&&(job.sector!=='self-employed'||life.money>=life.profile.typicalIncome*.15));
 }
 function offeredJob(life,job,env){
-  return {...job,marketIncomeReference:life.profile.typicalIncome,salary:Math.round(life.profile.typicalIncome*job.multiplier*(life.earningPotential||1)*(.84+env.normal(life)*.08)*(.85+life.stats.knowledge/300))};
+  return {...job,marketIncomeReference:life.profile.typicalIncome,salary:boundedSalary(life,life.profile.typicalIncome*job.multiplier*clamp(life.earningPotential||1,.65,1.5)*(.84+env.normal(life)*.08)*(.85+life.stats.knowledge/300),job)};
 }
 function sourceUrls(keys){
   return CHINA_SOCIETY_SOURCES.filter(s=>keys?.includes(s.id)).map(s=>s.url);

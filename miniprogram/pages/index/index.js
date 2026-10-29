@@ -65,6 +65,11 @@ Page({
   tr(key) { return game.t(key, this.store.settings.language); },
   tx(cn, tw, en) { return this.L({ zhCN: cn, zhTW: tw, en }); },
   amount(value) { return game.money(Number(value) || 0, this.store.settings.language); },
+  compactAmount(value) {
+    const n=Number(value)||0,abs=Math.abs(n),en=this.store.settings.language==='en';
+    const unit=en?(abs>=1e6?1e6:abs>=1e4?1e3:1):(abs>=1e8?1e8:abs>=1e4?1e4:1);
+    return unit===1?this.amount(n):`¥${(n/unit).toFixed(1)}${en?(unit===1e6?'M':'K'):(unit===1e8?'亿':'万')}`;
+  },
   age(value) { return this.store.settings.language === 'en' ? `${value} years` : `${value}${this.tr('age')}`; },
   currentLife() { return this._viewed || this.store.current; },
   persist() {
@@ -160,7 +165,7 @@ Page({
       year: life.year, age: this.age(life.age), date: `${life.birthYear}–${life.year} · ${this.L(life.born.name)}`, career, income: this.amount(life.income),
       reportMeta: `${this.tr(life.sex)} · ${this.age(life.age)} · ${life.family.partner?.married ? this.tx('已婚','已婚','Married') : this.tr('single')} · ${life.family.children.length} ${this.tr('children')}`,
       stats: Object.entries(life.stats).map(([key,value]) => ({ key, label: this.tr(key), value: Math.round(value), width: Math.max(0,Math.min(100,value)) })),
-      finances: [fact(this.tr('wealth'),this.amount(game.netWorth(life))),fact(this.tx('现金','現金','Cash'),this.amount(life.money)),fact(this.tr('income'),this.amount(life.income))],
+      finances: [fact(this.tr('wealth'),this.compactAmount(game.netWorth(life))),fact(this.tx('现金','現金','Cash'),this.compactAmount(life.money)),fact(this.tr('income'),this.compactAmount(life.income))],
       facts, identityFacts, family, assets: [fact(this.tx('现金','現金','Cash'),this.amount(life.money)),...Object.entries(life.assets || {}).filter(([,v]) => v > 0).map(([key,value]) => fact(assetNames[key] ? this.tx(...assetNames[key]) : key,this.amount(value))),fact(this.tx('负债','負債','Debt'),this.amount(life.debt))],
       companions: (life.companions || []).map(item => { const gone=life.age>=item.deathAge,snapshot=(item.years||[]).find(row=>row.age===life.age)||(item.years||[]).slice(-1)[0];return {name:this.L(item.name),meta:`${this.L(item.born.name)} · ${this.tr(item.sex)}`,gone,status:gone?`${this.age(item.deathAge)} · ${this.tr('goneAt')}`:snapshot?.job?this.L(snapshot.job):game.educationText(snapshot?.education,this.store.settings.language)};}),
       yearMap:Array.from({length:Math.max(96,life.age+1)},(_,age)=>{const snapshot=life.years.find(row=>row.age===age);return {age,current:life.age===age,color:snapshot?`hsl(${55+snapshot.happiness*.95},28%,${83-snapshot.happiness*.46}%)`:''};}),
@@ -338,23 +343,27 @@ Page({
       if(action==='candle'){const item=this.store.history.find(item=>item.id===value)||life;if(!item||item.phase!=='dead')return;const previousLit=item.candleLit,previousCandles=item.candles,lit=item.candleLit??item.candles>0;item.candleLit=!lit;item.candles=Math.max(0,(item.candles||0)+(lit?-1:1));if(!this.persist()){item.candleLit=previousLit;item.candles=previousCandles;}return this.render();}
       if(action==='music'){if(Date.now()-(this._musicMoved||0)<350)return;this.setData({musicPlaying:platform.toggleMusic()});return;}
       if(action==='capture-ending'){
-        if(!life||life.phase!=='dead')return;
+        if(!life||life.phase!=='dead'||this._savingPhoto)return;
+        this._savingPhoto=true;
+        try{
+        if(!await platform.albumAuthorized()){
         const consent=await new Promise(resolve=>wx.showModal({
           title:this.tx('保存纪念照片','儲存紀念照片','Save a memorial photo'),
-          content:this.tx('照片包含这段人生的姓名和记录，只在本机生成。确认后会保存到手机相册，不会上传。','照片包含這段人生的姓名和紀錄，只在本機產生。確認後會儲存到手機相簿，不會上傳。','This photo includes the character’s name and life story. It is created on your device and saved to your photos only with your consent.'),
-          confirmText:this.tx('生成并保存','產生並儲存','Save photo'),
+          content:this.tx('需要申请保存图片到相册的权限，用于保存这段人生的纪念照。照片包含角色姓名和记录，仅在本机生成，不会上传。','照片包含這段人生的姓名和紀錄，只在本機產生。確認後會儲存到手機相簿，不會上傳。','This photo includes the character’s name and life story. It is created on your device and saved to your photos only with your consent.'),
+          confirmText:this.tx('允许保存','允許儲存','Allow'),
           success:result=>resolve(!!result.confirm),fail:()=>resolve(false)
         }));
         if(!consent)return;
+        await platform.requestAlbumAccess();
+        }
         wx.showLoading({title:this.tx('保存照片中','儲存照片中','Saving photo')});
-        try{
           this._photo ||= await platform.captureMemorial(this,life,{language:this.store.settings.language});
           await platform.saveImage(this._photo);
           this.notify(this.tx('已保存到手机相册','已儲存到手機相簿','Saved to your photos'));
         }catch(error){
           if(/auth deny|authorize|permission|scope\.writePhotosAlbum/i.test(error?.errMsg||''))wx.showModal({title:this.tx('允许保存照片','允許儲存照片','Allow photo access'),content:this.tx('请在微信设置中允许保存到相册，然后重试。','請在微信設定中允許儲存到相簿，然後重試。','Allow photo access in WeChat settings, then try again.'),confirmText:this.tx('去设置','去設定','Settings'),success:result=>{if(result.confirm)wx.openSetting({});}});
           else this.notify(this.tx('照片未保存，请重试','照片未儲存，請重試','Photo not saved. Try again.'));
-        }finally{wx.hideLoading();}
+        }finally{this._savingPhoto=false;wx.hideLoading();}
         return;
       }
     }catch(error){console.error('Action failed',action,error);wx.hideLoading();this.notify(this.tx('这次操作未完成，请重试。人生记录仍在。','這次操作未完成，請重試。人生紀錄仍在。','Please try again. Your life is still saved.'));}
