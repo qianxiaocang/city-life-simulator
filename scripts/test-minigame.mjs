@@ -20,6 +20,7 @@ test('standalone Mini Game has the requested AppID and a native Canvas entry', (
   assert.equal(config.compileType, 'game');
   assert.ok(size(gameRoot) < 2 * 1024 * 1024);
   assert.match(source('game.js'), /wx\.createCanvas\(\)/);
+  assert.doesNotMatch(source('game.js'), /qa-preview|qa-state|__life_ui_qa__/);
   assert.doesNotMatch(source('game.js'), /\bPage\s*\(|document\.|window\./);
   assert.doesNotMatch(source('runtime/controller.js'), /\bPage\s*\(/);
   assert.equal(source('lib/game.js'), readFileSync(resolve(root, 'miniprogram/lib/game.js'), 'utf8'));
@@ -49,12 +50,12 @@ test('save records preserve their checksum when the runtime normalizes stored ob
   assert.equal(readStore({ version: 1, settings: {}, current: null, history: [] }).current.age, 10);
 });
 
-function uiHarness() {
+function uiHarness(windowInfo = {}) {
   const noop = () => {};
   const context = Object.fromEntries(['beginPath','moveTo','lineTo','quadraticCurveTo','closePath','fill','stroke','fillText','clearRect','setTransform','save','restore','rect','clip','translate','drawImage'].map(name => [name, noop]));
   context.measureText = text => ({ width: Array.from(String(text)).length * 8 });
   const canvas = { getContext: () => context, requestAnimationFrame: () => 1 };
-  const wx = { getWindowInfo: () => ({ windowWidth: 390, windowHeight: 844, pixelRatio: 1, statusBarHeight: 20, safeArea: { bottom: 810 } }) };
+  const wx = { getWindowInfo: () => ({ windowWidth: 390, windowHeight: 844, pixelRatio: 1, statusBarHeight: 20, safeArea: { bottom: 810 }, ...windowInfo }) };
   const actions = [], shares = [];
   wx.shareAppMessage = data => shares.push(data);
   const page = { data: { view: 'life', theme: 'light', automatic: false, modal: 'choice', choice: {
@@ -66,7 +67,7 @@ function uiHarness() {
   vm.runInNewContext(source('runtime/canvas-ui.js'), sandbox);
   const ui = new sandbox.module.exports(canvas, page);
   ui.p = ui.palette();
-  return { ui, page, actions, shares };
+  return { ui, page, actions, shares, canvas };
 }
 
 test('choice dialog fits its content and its options remain tappable', () => {
@@ -85,4 +86,41 @@ test('birth sharing removes Mini Program page routes from Mini Game share data',
   const { ui, shares } = uiHarness();
   ui.action({ action: 'share-birth' });
   assert.deepEqual(copy(shares), [{ title: '出生卡', imageUrl: 'birth-card.png' }]);
+});
+
+test('scrolling content cannot intercept touches in the navigation or modal header', () => {
+  const { ui } = uiHarness();
+  ui.viewportBottom = 600; ui.scroll = 150;
+  ui.hit(15, 0, 200, 60, 'star', 'hidden');
+  assert.equal(ui.hits.length, 0);
+  ui.hit(15, 150, 200, 50, 'star', 'visible');
+  assert.equal(ui.hits[0].y, ui.navHeight);
+  ui.modalBounds = { x: 15, y: 220, w: 360, h: 200 }; ui.modalScroll = 100;
+  ui.hit(25, 250, 200, 60, 'choose', 'hidden', 'modal-content');
+  assert.equal(ui.modalHits.length, 0);
+  ui.hit(25, 300, 200, 60, 'choose', 'partial', 'modal-content');
+  assert.equal(ui.modalHits[0].y, 220);
+  assert.equal(ui.modalHits[0].h, 40);
+});
+
+test('a swipe scrolls without selecting the record under the finger', () => {
+  const { ui, page, actions } = uiHarness();
+  page.data.modal = ''; ui.viewportBottom = 650; ui.contentHeight = 1800;
+  ui.hits = [{ x: 10, y: 350, w: 370, h: 100, action: 'star', value: 'record' }];
+  ui.touchStart({ touches: [{ clientX: 190, clientY: 400 }] });
+  ui.touchMove({ touches: [{ clientX: 190, clientY: 300 }] });
+  ui.touchEnd({ changedTouches: [{ clientX: 190, clientY: 300 }] });
+  assert.equal(ui.scroll, 100);
+  assert.equal(actions.length, 0);
+});
+
+test('narrow devices keep the native navigation safe and map touches to the layout', () => {
+  const { ui, canvas } = uiHarness({ windowWidth: 320, windowHeight: 568, pixelRatio: 2, statusBarHeight: 20, safeArea: { bottom: 548 } });
+  assert.equal(canvas.width, 640); assert.equal(canvas.height, 1136);
+  assert.ok(ui.navHeight * ui.deviceScale >= 64);
+  const point = ui.point({ touches: [{ clientX: 160, clientY: 200 }] });
+  assert.equal(point.x, 195);
+  assert.ok(Math.abs(point.y * ui.deviceScale - 200) < .001);
+  const rows = ui.lines('生活开支 ¥12,345。', 62, 14);
+  assert.ok(rows.some(row => row.includes('¥12,345')), 'a currency amount wraps as a complete token');
 });

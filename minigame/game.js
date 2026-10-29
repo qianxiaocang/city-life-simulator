@@ -17,7 +17,7 @@ page.onShow();
 wx.onTouchStart?.(event => ui.touchStart(event));
 wx.onTouchMove?.(event => ui.touchMove(event));
 wx.onTouchEnd?.(event => ui.touchEnd(event));
-wx.onTouchCancel?.(event => ui.touchEnd(event));
+wx.onTouchCancel?.(() => ui.touchCancel());
 wx.onWindowResize?.(() => ui.resize());
 wx.onHide?.(() => { page.onHide(); require('./lib/platform').suspendMusic(); });
 wx.onShow?.(() => { page.onShow(); require('./lib/platform').resumeMusic(); ui.invalidate(); });
