@@ -19,7 +19,8 @@ function signature(text) {
   return `${text.length}-${(a >>> 0).toString(36)}-${(b >>> 0).toString(36)}`;
 }
 function normalize(source, defaults) {
-  return { ...clone(defaults), ...source, version: 1, settings: { ...defaults.settings, ...source.settings }, current: source.current || null, history: Array.isArray(source.history) ? source.history.slice(0, 12) : [] };
+  if (source.history != null && !Array.isArray(source.history)) throw new Error('人生馆藏存档格式损坏。');
+  return { ...clone(defaults), ...source, version: 1, settings: { ...defaults.settings, ...source.settings }, current: source.current == null ? null : source.current, history: Array.isArray(source.history) ? source.history.slice(0, 12) : [] };
 }
 function loadRecord(ref) {
   if (!ref || typeof ref.key !== 'string' || !ref.key.startsWith(PREFIX)) throw new Error('人生存档索引损坏。');
@@ -44,9 +45,14 @@ function loadRecord(ref) {
 }
 function readStore(defaults) {
   const metadata = wx.getStorageSync(SAVE_KEY);
-  if (!metadata || metadata.version !== 1) return clone(defaults);
-  if (metadata.storageVersion !== 2) return normalize(metadata, defaults);
-  const records = metadata.records || {};
+  if (!metadata) return clone(defaults);
+  if (metadata.version !== 1) throw new Error('无法读取不支持的存档版本。');
+  if (metadata.storageVersion === undefined) return normalize(metadata, defaults);
+  if (metadata.storageVersion !== 2) throw new Error('无法读取不支持的存档格式。');
+  if (!metadata.records || typeof metadata.records !== 'object' || Array.isArray(metadata.records)) throw new Error('人生存档索引损坏。');
+  if (metadata.currentId != null && (typeof metadata.currentId !== 'string' || !metadata.currentId)) throw new Error('人生存档身份损坏。');
+  if (metadata.historyIds != null && (!Array.isArray(metadata.historyIds) || metadata.historyIds.some(id => typeof id !== 'string' || !id))) throw new Error('人生馆藏索引损坏。');
+  const records = metadata.records;
   const loaded = new Map();
   const get = id => {
     if (!id) return null;

@@ -12,9 +12,10 @@ Page({
   onLoad() {
     this.store = { version: 1, settings: { ...DEFAULTS }, current: null, history: [], savedMomentToastCount: 0 };
     try {
-      this.store = storage.readStore(this.store);
-      this.store.history = (this.store.history || []).filter(validLife).slice(0,12);
-    } catch (error) { console.warn('Could not read save', error); }
+      const loaded = storage.readStore(this.store);
+      if ((loaded.current != null && !validLife(loaded.current)) || loaded.history.some(life => !validLife(life))) throw new Error('人生存档内容损坏。');
+      this.store = loaded;
+    } catch (error) { console.warn('Could not read save', error); this._storageReadFailed = true; }
     if (!validLife(this.store.current)) this.store.current = null;
     if (!game.LANGUAGES.some(item => item.id === this.store.settings.language)) this.store.settings.language = 'zh-CN';
     if (!REGIONS.includes(this.store.settings.scope)) this.store.settings.scope = 'all';
@@ -28,6 +29,7 @@ Page({
     if(musicPosition&&Number.isFinite(musicPosition.x)&&Number.isFinite(musicPosition.y)){this._musicPosition={x:Math.max(0,Math.min((windowInfo.windowWidth||390)-56,musicPosition.x)),y:Math.max(0,Math.min((windowInfo.windowHeight||844)-100,musicPosition.y))};this.setData({musicX:this._musicPosition.x,musicY:this._musicPosition.y});}
     this._foreground = true; this._editable = null; this._viewed = null; this._minimized = null;
     this.render();
+    if (this._storageReadFailed) this.notify(this.tx('存档读取失败，请重启小程序后重试','存檔讀取失敗，請重新開啟小程式後重試','Could not read your save. Please restart the app.'));
     this._timer = setInterval(() => this.tick(), 120);
   },
   onShow() { this._foreground = true; this._lastTick = Date.now(); },
@@ -42,9 +44,10 @@ Page({
   age(value) { return this.store.settings.language === 'en' ? `${value} years` : `${value}${this.tr('age')}`; },
   currentLife() { return this._viewed || this.store.current; },
   persist() {
-    if (!this.store) return;
-    try { storage.writeStore(this.store); }
-    catch (error) { console.error('Save failed', error); this.notify(this.tr('saveError')); }
+    if (!this.store) return false;
+    if (this._storageReadFailed) { this.notify(this.tx('存档读取失败，请重启小程序后重试','存檔讀取失敗，請重新開啟小程式後重試','Could not read your save. Please restart the app.')); return false; }
+    try { storage.writeStore(this.store); return true; }
+    catch (error) { console.error('Save failed', error); this.notify(this.tr('saveError')); return false; }
   },
   notify(text) {
     clearTimeout(this._toastTimer); this.setData({ toast: text });
@@ -176,6 +179,7 @@ Page({
   },
   async newLife() {
     if (this._creating) return;
+    if (this._storageReadFailed) { this.persist(); return; }
     this._creating=true;
     try {
       if (this.store.current && this.store.current.phase!=='dead') {
@@ -210,6 +214,7 @@ Page({
     if (life.focus) life.focusTime[life.focus]=(life.focusTime[life.focus]||0)+amount;
     life.uiProgress=this._progress;
     const timeline=game.processTimeline(life,this._progress);
+    if (life.pending) this._fast=false;
     if (life.phase==='dead') return this.finishLife();
     if (timeline.changed) {this.persist();this.render();}
     else if (this.data.progress!==Math.round(this._progress*100)) this.setData({progress:Math.round(this._progress*100)});
@@ -223,7 +228,8 @@ Page({
   },
   makeChoice(id,automatic=false) {
     const life=this.store.current;if(!life?.pending)return;
-    if(automatic)game.autoChoose(life);else game.choose(life,id,this.data.reflectionDraft||'');
+    const accepted=automatic ? game.autoChoose(life) : game.choose(life,id,this.data.reflectionDraft||'');
+    if(!accepted)return;
     this.setData({modal:'',reflectionDraft:''});this._minimized=null;this._autoDeadline=0;
     if(life.autopilot?.enabled)game.runAutopilot(life);
     this.persist();if(life.phase==='dead')return this.finishLife();this.render();
@@ -247,7 +253,7 @@ Page({
       if(action==='back')return this.navigate(this._view==='report'&&this._viewed?'archive':'home');
       if(action==='archive')return this.navigate('archive');
       if(action==='review'){const found=this.store.history.find(item=>item.id===value);if(found)return this.navigate('report',found);return;}
-      if(action==='resume')return this.navigate(this.store.current.phase==='dead'?'report':this.store.current.phase==='birth'?'certificate':'life');
+      if(action==='resume'){if(!this.store.current)return;const next=this.store.current.phase==='dead'?'report':this.store.current.phase==='birth'?'certificate':'life';this.navigate(next);if(next==='life'){this._paused=false;this.render();}return;}
       if(action==='begin'){game.startLife(this.store.current);this.navigate('life');this._paused=false;this.persist();return this.render();}
       if(action==='world'){if(['past','now'].includes(value))this.store.settings.world=value;this.persist();return this.render();}
       if(action==='pace'){if([30,60,90].includes(Number(value)))this.store.settings.pace=Number(value);this.persist();return this.render();}
@@ -274,23 +280,24 @@ Page({
       }
       if(action==='star'){
         if(this._view!=='life'||life?.phase!=='life')return;
-        life.stars ||= [];const removing=life.stars.includes(value);life.stars=removing?life.stars.filter(id=>id!==value):[...life.stars,value];
+        life.stars ||= [];const previousStars=life.stars, previousCount=this.store.savedMomentToastCount;const removing=life.stars.includes(value);life.stars=removing?life.stars.filter(id=>id!==value):[...life.stars,value];
         const explained=Number(this.store.savedMomentToastCount||0)<3;
         if(!removing&&explained)this.store.savedMomentToastCount=Number(this.store.savedMomentToastCount||0)+1;
-        this.persist();this.render();
+        if(!this.persist()){life.stars=previousStars;this.store.savedMomentToastCount=previousCount;this.render();return;}this.render();
         if(removing){clearTimeout(this._toastTimer);this.setData({toast:''});}else this.notify(explained?this.tx('已收藏，人生结束后将成为人生瞬间','已收藏，人生結束後將成為人生瞬間','Saved as a life moment'):this.tx('已收藏','已收藏','Saved'));return;
       }
       if(action==='earlier'){this._logLimit+=30;return this.render();}
       if(action==='more-moments'){this._momentLimit+=24;return this.render();}
-      if(action==='end-done'){this._view='report';this._logLimit=30;return this.render();}
+      if(action==='end-done'){this._view='report';this._logLimit=30;this.render();wx.pageScrollTo({scrollTop:0,duration:0});return;}
       if(action==='edit-review'){if(this._editable!==life?.id||this._view!=='report'||this._viewed)return;this.setData({modal:'review',reviewDraft:life.farewell||''});return;}
-      if(action==='save-review'){if(this._editable!==life?.id||this._view!=='report'||this.data.modal!=='review'||this._viewed)return;life.farewell=this.data.reviewDraft.trim().slice(0,300);this.persist();this.setData({modal:''});this.render();return this.notify(this.tr('saved'));}
+      if(action==='save-review'){if(this._editable!==life?.id||this._view!=='report'||this.data.modal!=='review'||this._viewed)return;const previous=life.farewell;life.farewell=this.data.reviewDraft.trim().slice(0,300);if(!this.persist()){life.farewell=previous;return;}this.setData({modal:''});this.render();return this.notify(this.tr('saved'));}
       if(action==='memorialize'){
         if(this._view!=='report'||life?.phase!=='dead'||this._viewed)return;
+        if(this._storageReadFailed){this.persist();return;}
         if(!this.store.history.some(item=>item.id===life.id)){const old=this.store.history;this.store.history=[life,...old].slice(0,12);try{storage.writeStore(this.store);}catch(error){this.store.history=old;throw error;}}
         this.render();return this.notify(this.tx('这一生已放入追思馆','這一生已放入追思館','Placed in the memorial hall'));
       }
-      if(action==='candle'){const item=this.store.history.find(item=>item.id===value)||life;if(!item||item.phase!=='dead')return;const lit=item.candleLit??item.candles>0;item.candleLit=!lit;item.candles=Math.max(0,(item.candles||0)+(lit?-1:1));this.persist();return this.render();}
+      if(action==='candle'){const item=this.store.history.find(item=>item.id===value)||life;if(!item||item.phase!=='dead')return;const previousLit=item.candleLit,previousCandles=item.candles,lit=item.candleLit??item.candles>0;item.candleLit=!lit;item.candles=Math.max(0,(item.candles||0)+(lit?-1:1));if(!this.persist()){item.candleLit=previousLit;item.candles=previousCandles;}return this.render();}
       if(action==='music'){if(Date.now()-(this._musicMoved||0)<350)return;this.setData({musicPlaying:platform.toggleMusic()});return;}
       if(action==='capture-ending'||action==='birth-card'||action==='life-card'){
         if(!life)return;wx.showLoading({title:this.tx('生成纪念照片','產生紀念照片','Creating photo')});

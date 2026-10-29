@@ -85,7 +85,7 @@ function loadStorage(wx) {
   return sandbox.module.exports;
 }
 
-function pageHarness(initialStore, initialStorage) {
+function pageHarness(initialStore, initialStorage, overrides = {}) {
   let definition;
   const storage = new Map(initialStorage ? [...initialStorage].map(([key,value]) => [key,clone(value)]) : initialStore ? [[SAVE_KEY, clone(initialStore)]] : []);
   const platform = { generateScene: async () => '/mock-scene.png', toggleMusic: () => true, stopMusic() {}, captureMemorial: async () => '/mock-photo.png', saveImage: async () => {} };
@@ -98,12 +98,12 @@ function pageHarness(initialStore, initialStorage) {
     showModal: options => options.success({ confirm: true }),
   };
   const storageApi = loadStorage(wx);
-  const sandbox = { require: path => path.endsWith('/game') ? mini : path.endsWith('/storage') ? storageApi : platform, Page: value => { definition = value; }, wx, console, Date, Math, setInterval: () => 1, clearInterval() {}, setTimeout: () => 1, clearTimeout() {} };
+  const sandbox = { require: path => path.endsWith('/game') ? { ...mini, ...overrides } : path.endsWith('/storage') ? storageApi : platform, Page: value => { definition = value; }, wx, console, Date, Math, setInterval: () => 1, clearInterval() {}, setTimeout: () => 1, clearTimeout() {} };
   vm.runInNewContext(pageSource, sandbox, { filename: 'miniprogram/pages/index/index.js' });
   const page = { ...definition, data: clone(definition.data), setData(patch, done) { Object.assign(this.data, clone(patch)); if (done) done(); } };
   page.onLoad();
   const action = (action, value) => page.onAction({ currentTarget: { dataset: { action, value } } });
-  return { page, storage, action, saved: () => storageApi.readStore(page.store) };
+  return { page, storage, storageApi, action, saved: () => storageApi.readStore(page.store) };
 }
 
 test('native page creates and resumes lives, and profile dialog restores prior playback state', async () => {
@@ -141,6 +141,7 @@ test('native page creates and resumes lives, and profile dialog restores prior p
   assert.equal(restored.page.store.current.id, page.store.current.id);
   await restored.action('resume');
   assert.equal(restored.page.data.view, 'life');
+  assert.equal(restored.page._paused, false, 'continue resumes the life clock');
   page.onUnload(); restored.page.onUnload();
 });
 
@@ -237,4 +238,62 @@ test('native storage reloads twelve lives and a large full journal within WeChat
   expected.history = expected.history.slice(0, 1); api.writeStore(expected);
   assert.equal(api.readStore(defaults).history.length, 1);
   assert.ok([...memory.keys()].every(key => !key.includes('archive-1.')), 'removed lives are collected after successful commits');
+});
+
+
+test('midyear choices stop fast-forward and stale taps keep the pending choice and typed text', async () => {
+  const trigger = life => { life.pending = { id: 'midyear-test', action: 'reflect', title: { zhCN: '回想' }, description: { zhCN: '写下来' }, input: true, options: [{ id: 'write', label: { zhCN: '写下' } }] }; return { changed: true }; };
+  const { page, action } = pageHarness(null, null, { processTimeline: trigger });
+  page.store.current = mini.startLife(mini.createLife({ location: mini.locations[0], seed: 'midyear-native', birthYear: 2000 }));
+  page.navigate('life'); page._paused = false; page._fast = true; page._lastTick = Date.now() - 120;
+  page.tick();
+  assert.equal(page._fast, false, 'fast-forward must stop at a calendar event choice');
+  assert.equal(page.data.modal, 'choice');
+  page.onReflectionInput({ detail: { value: '写下的想法' } });
+  await action('choose', 'stale-option');
+  assert.equal(page.store.current.pending.id, 'midyear-test');
+  assert.equal(page.data.modal, 'choice');
+  assert.equal(page.data.reflectionDraft, '写下的想法');
+  page.onUnload();
+});
+
+test('save failures do not report a successful favorite or review, and corrupt saves are not overwritten', async () => {
+  const { page, storageApi, action } = pageHarness();
+  const life = mini.startLife(mini.createLife({ location: mini.locations[0], seed: 'save-failure-native', birthYear: 2000 }));
+  page.store.current = life; page.navigate('life');
+  const originalWrite = storageApi.writeStore;
+  storageApi.writeStore = () => { throw new Error('injected save failure'); };
+  await action('star', life.log[0].id);
+  assert.equal((life.stars || []).length, 0);
+  assert.equal(page.store.savedMomentToastCount, 0);
+  assert.notEqual(page.data.toast, '已收藏');
+  assert.doesNotMatch(page.data.toast, /已收藏/);
+  storageApi.writeStore = originalWrite;
+  life.phase = 'dead'; life.death = { cause: { zhCN: '疾病' } }; page.finishLife(); await action('end-done');
+  await action('edit-review'); page.onReviewInput({ detail: { value: '需要保存的留言' } });
+  storageApi.writeStore = () => { throw new Error('injected save failure'); };
+  await action('save-review');
+  assert.equal(page.data.modal, 'review');
+  assert.equal(page.data.reviewDraft, '需要保存的留言');
+  assert.equal(life.farewell, undefined);
+  storageApi.writeStore = originalWrite;
+  const bad = new Map([[SAVE_KEY, { version: 1, storageVersion: 2, currentId: 'missing', records: {}, historyIds: [] }]]);
+  const restored = pageHarness(null, bad);
+  assert.equal(restored.page._storageReadFailed, true);
+  const before = clone(restored.storage.get(SAVE_KEY));
+  assert.equal(restored.page.persist(), false);
+  assert.deepEqual(restored.storage.get(SAVE_KEY), before, 'unreadable metadata is never replaced with an empty save');
+  await restored.action('born');
+  assert.equal(restored.page.data.view, 'home', 'do not start an unsavable life when previous storage is unreadable');
+  const future = pageHarness({ version: 2, history: [] });
+  assert.equal(future.page._storageReadFailed, true, 'an unknown version is not silently overwritten');
+  future.page.onUnload();
+  for (const invalid of [{ version: 1, storageVersion: 3, currentId: null, records: {}, historyIds: [] }, { version: 1, storageVersion: 2, currentId: '', records: {}, historyIds: [] }, { version: 1, current: false, history: [] }, { version: 1, current: { id: 'bad' }, history: [] }, { version: 1, current: null, history: [{ id: 'bad' }] }, { version: 1, current: null, history: 'bad' }]) {
+    const checked = pageHarness(invalid);
+    assert.equal(checked.page._storageReadFailed, true, 'unsupported or malformed existing lives must be protected');
+    assert.equal(checked.page.persist(), false);
+    assert.deepEqual(checked.storage.get(SAVE_KEY), invalid);
+    checked.page.onUnload();
+  }
+  page.onUnload(); restored.page.onUnload();
 });
