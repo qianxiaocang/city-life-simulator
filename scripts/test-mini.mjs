@@ -263,12 +263,12 @@ test('native page stages choices, saves records and only memorializes after the 
   const favorite = life.log[0].id;
   for (let n = 0; n < 4; n++) {
     await action('star', favorite); assert.ok(life.stars.includes(favorite));
-    if (n < 3) assert.match(page.data.toast, /人生瞬间/);
-    else assert.equal(page.data.toast, '', 'favorites are silent after the third explanation');
+    assert.match(page.data.toast, /人生瞬间/, 'every successful favorite explains where it will appear');
+    assert.doesNotMatch(page.data.toast, /[\r\n]/);
     await action('star', favorite); assert.equal(page.data.toast, '');
   }
   await action('star', favorite);
-  assert.equal(page.store.savedMomentToastCount, 3);
+  assert.match(page.data.toast, /人生瞬间/);
   let stageChoices = 0;
   for (let n = 0; n < 200 && life.age < 22; n++) {
     if (life.pending) {

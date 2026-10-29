@@ -168,3 +168,10 @@
 .choice-panel .modal-head{justify-content:flex-end;min-height:66rpx;padding-top:5rpx;padding-bottom:5rpx}
 .choice-countdown{margin-right:auto;color:var(--green);font-size:23rpx;font-weight:500;font-variant-numeric:tabular-nums}
 .survival-chart{display:block;width:100%;height:auto;margin-top:12rpx}
+
+.modal-heading{display:flex;flex-direction:column;gap:5rpx;min-width:0;margin-right:auto}
+.modal-heading .choice-countdown{margin:0;font-size:20rpx;color:var(--muted);line-height:1.3}
+.choice-panel .modal-head{justify-content:space-between;min-height:72rpx;padding-top:10rpx;padding-bottom:10rpx}
+.life-records-heading{display:flex;align-items:center;gap:12rpx;margin:26rpx 6rpx 2rpx;padding:8rpx 0;color:var(--green);font-size:29rpx;font-weight:700;letter-spacing:2rpx}
+.life-records-mark{width:7rpx;height:28rpx;border-radius:6rpx;background:var(--green);box-shadow:5rpx 0 0 var(--tint)}
+.toast{font-size:23rpx;padding:18rpx 24rpx;white-space:nowrap;box-sizing:border-box;max-width:calc(100vw - 24rpx)}
