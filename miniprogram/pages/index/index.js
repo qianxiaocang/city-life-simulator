@@ -1,6 +1,8 @@
 const game = require('../../lib/game');
 const platform = require('../../lib/platform');
 const storage = require('../../lib/storage');
+const AUTO_CHOICE_DELAY_MS = 2000;
+const remainingChoiceSeconds = (deadline, now = Date.now()) => Math.max(1, Math.ceil(((deadline || now + AUTO_CHOICE_DELAY_MS) - now) / 1000));
 const REGIONS = ['all', 'mainland', 'taiwan', 'hongkong', 'macau'];
 const DEFAULTS = { language: 'zh-CN', theme: 'light', world: 'now', birthYear: 1980, scope: 'all', province: 'all', pace: 30, overviewCollapsed: false };
 const validLife = life => life && life.version === 1 && life.name && life.born && life.location && Array.isArray(life.log) && life.family && life.stats;
@@ -8,7 +10,7 @@ const clone = value => JSON.parse(JSON.stringify(value));
 game.configureLocations(game.locations);
 
 Page({
-  data: { navHeight: 64, navTop: 20, navBarHeight: 44, navSide: 96, view: 'home', theme: 'light', modal: '', toast: '', person: null, logs: [], momentGroups: [], archiveList: [], archiveFacts: [], memories: [], speeds: [1, 2, 4, 8, 12, 16], speed: 1, paused: true, progress: 0, musicPlaying: false, musicX: 0, musicY: 480, reviewDraft: '', reflectionDraft: '', birthShareReady: false, autoChoiceSeconds: '2.2' },
+  data: { navHeight: 64, navTop: 20, navBarHeight: 44, navSide: 96, view: 'home', theme: 'light', modal: '', toast: '', person: null, logs: [], momentGroups: [], archiveList: [], archiveFacts: [], memories: [], speeds: [1, 2, 4, 8, 12, 16], speed: 1, paused: true, progress: 0, musicPlaying: false, musicX: 0, musicY: 480, reviewDraft: '', reflectionDraft: '', birthShareReady: false, autoChoiceSeconds: 2 },
   onLoad() {
     this.store = { version: 1, settings: { ...DEFAULTS }, current: null, history: [], savedMomentToastCount: 0 };
     try {
@@ -218,7 +220,7 @@ Page({
     const momentGroups = [...groups].map(([decade,events])=>({title:decade===0?this.tx('童年','童年','Childhood'):decade===1?this.tx('十几岁','十幾歲','Teenage years'):this.tx(`${decade*10}多岁`,`${decade*10}多歲`,`${decade*10}s`),years:events.length===1?String(events[0].year):`${events[0].year}–${events[events.length-1].year}`,events}));
     const pending = this.store.current?.pending;
     if (this._view === 'life' && pending && (!this.data.modal || this.data.modal === 'choice') && this._minimized !== pending.id) {
-      if (this.data.choice?.id !== pending.id) this._autoDeadline = this.store.current.autopilot?.enabled ? Date.now() + 2200 : 0;
+      if (this.data.choice?.id !== pending.id) this._autoDeadline = this.store.current.autopilot?.enabled ? Date.now() + AUTO_CHOICE_DELAY_MS : 0;
       this.data.modal = 'choice';
     } else if (this.data.modal === 'choice' && !pending) this.data.modal = '';
     let visibleOptions = pending?.options || [];
@@ -235,7 +237,7 @@ Page({
     const optionDescriptions = visibleOptions.map(option => this.L(option.description).trim());
     const repeatedDescription = optionDescriptions.length > 1 && optionDescriptions.every(text => text === optionDescriptions[0]);
     const choice = pending ? { id: pending.id, title: this.L(pending.title), description: pending.action==='focus-stage' ? this.tx('选择这一阶段的生活重心，下个阶段可以重新选择。','選擇這一階段的生活重心，下個階段可以重新選擇。','Choose your focus for this stage. You can choose again at the next stage.') : this.L(pending.description), meta: `${this.age(this.store.current.age)} · ${this.store.current.year}`, input: !!pending.input, options: visibleOptions.map((option,index)=>({id:option.id,number:index+1,label:this.L(option.label),description:repeatedDescription ? '' : optionDescriptions[index]})) } : null;
-    this.setData({ view:this._view,theme:settings.theme,ui,settings:{...settings},languageLabels:game.LANGUAGES.map(item=>({label:item.label,value:item.id})),languageIndex:game.LANGUAGES.findIndex(item=>item.id===settings.language),years,yearIndex:Math.max(0,years.findIndex(item=>item.value===settings.birthYear)),regions:regionOptions,regionIndex:REGIONS.indexOf(settings.scope),provinces,provinceIndex:Math.max(0,provinces.findIndex(item=>item.value===settings.province)),advancedOpen:!!this._advanced,available:places.filter(place=>settings.province==='all'||place.province.id===settings.province).length,resume:this.store.current&&this.store.current.phase!=='dead'?{name:this.L(this.store.current.name),age:this.age(this.store.current.age),place:this.L(this.store.current.location.name)}:null,homeCover:this.scene({id:'home',type:'family',age:30,text:{zhCN:'一家人在城市里生活'}},{id:'home',seed:'home',age:30,log:[],family:{children:[]}}),memories:cards.slice(0,8),person:this.personFor(life),cover:life?this.coverFor(life):'',logs,paused:this._paused,speed:this._speed,progress:Math.round(this._progress*100),fast:!!this._fast,automatic:!!this.store.current?.autopilot?.enabled,archiveFacts,archiveList:cards,momentGroups,hasMoreMoments:this._view==='report'&&life?.phase==='dead'&&game.selectLifeMoments(life).length>this._momentLimit,fromArchive:!!this._viewed,memorialSaved:!!life&&history.some(item=>item.id===life.id),endingText:life?.phase==='dead'?game.lifeEndingNarrative(life,settings.language):'',modal:this.data.modal,choice,autoChoiceSeconds:(Math.max(0,(this._autoDeadline||Date.now()+2200)-Date.now())/1000).toFixed(1),hasPending:!!pending });
+    this.setData({ view:this._view,theme:settings.theme,ui,settings:{...settings},languageLabels:game.LANGUAGES.map(item=>({label:item.label,value:item.id})),languageIndex:game.LANGUAGES.findIndex(item=>item.id===settings.language),years,yearIndex:Math.max(0,years.findIndex(item=>item.value===settings.birthYear)),regions:regionOptions,regionIndex:REGIONS.indexOf(settings.scope),provinces,provinceIndex:Math.max(0,provinces.findIndex(item=>item.value===settings.province)),advancedOpen:!!this._advanced,available:places.filter(place=>settings.province==='all'||place.province.id===settings.province).length,resume:this.store.current&&this.store.current.phase!=='dead'?{name:this.L(this.store.current.name),age:this.age(this.store.current.age),place:this.L(this.store.current.location.name)}:null,homeCover:this.scene({id:'home',type:'family',age:30,text:{zhCN:'一家人在城市里生活'}},{id:'home',seed:'home',age:30,log:[],family:{children:[]}}),memories:cards.slice(0,8),person:this.personFor(life),cover:life?this.coverFor(life):'',logs,paused:this._paused,speed:this._speed,progress:Math.round(this._progress*100),fast:!!this._fast,automatic:!!this.store.current?.autopilot?.enabled,archiveFacts,archiveList:cards,momentGroups,hasMoreMoments:this._view==='report'&&life?.phase==='dead'&&game.selectLifeMoments(life).length>this._momentLimit,fromArchive:!!this._viewed,memorialSaved:!!life&&history.some(item=>item.id===life.id),endingText:life?.phase==='dead'?game.lifeEndingNarrative(life,settings.language):'',modal:this.data.modal,choice,autoChoiceSeconds:remainingChoiceSeconds(this._autoDeadline),hasPending:!!pending });
     wx.setNavigationBarTitle({title:this._view==='home'?ui.brand:this._view==='life'?ui.living:this._view==='certificate'?ui.certificate:this._view==='archive'?ui.archive:ui.report});
     const darkNav=settings.theme==='dark'||this._view==='ending';
     wx.setNavigationBarColor({frontColor:darkNav?'#ffffff':'#000000',backgroundColor:this._view==='ending'?'#101b15':darkNav?'#1d2420':'#f3f0e8',animation:{duration:150,timingFunc:'easeIn'}});
@@ -273,8 +275,8 @@ Page({
     if (!this._foreground || this._view!=='life' || life?.phase!=='life' || this._paused) return;
     if (life.pending) {
       if (life.autopilot?.enabled && (!this.data.modal||this.data.modal==='choice')) {
-        this._autoDeadline ||= now+2200;
-        const seconds=(Math.max(0,this._autoDeadline-now)/1000).toFixed(1);
+        this._autoDeadline ||= now+AUTO_CHOICE_DELAY_MS;
+        const seconds=remainingChoiceSeconds(this._autoDeadline,now);
         if(this.data.autoChoiceSeconds!==seconds)this.setData({autoChoiceSeconds:seconds});
         if (now>=this._autoDeadline) this.makeChoice(null,true);
       }
@@ -358,7 +360,7 @@ Page({
         if(this._view!=='life'||life?.phase!=='life')return;
         life.stars ||= [];const previousStars=life.stars, previousCount=this.store.savedMomentToastCount;const removing=life.stars.includes(value);life.stars=removing?life.stars.filter(id=>id!==value):[...life.stars,value];
         if(!this.persist()){life.stars=previousStars;this.store.savedMomentToastCount=previousCount;this.render();return;}this.render();
-        if(removing){clearTimeout(this._toastTimer);this.setData({toast:''});}else this.notify(this.tx('已收藏，人生结束后加入人生瞬间','已收藏，人生結束後加入人生瞬間','Saved · a life moment when this life ends'));return;
+        if(removing){clearTimeout(this._toastTimer);this.setData({toast:''});}else this.notify(this.tx('收藏成功！已为您记录下此刻的人生瞬间！','收藏成功！已為您記錄下此刻的人生瞬間！','Saved! This life moment is now recorded!'));return;
       }
       if(action==='more-moments'){this._momentLimit+=24;return this.render();}
       if(action==='end-done'){this._view='report';this.render();wx.pageScrollTo({scrollTop:0,duration:0});return;}

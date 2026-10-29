@@ -182,16 +182,19 @@ test('music has five distinct local tracks and chooses a new track on every play
   assert.equal(new Set(files.map(bytes=>bytes.toString('base64'))).size,5,'all melodies must contain different audio samples');
 });
 
-test('autopilot uses the existing 2.2-second deadline and a manual choice cancels it', async () => {
+test('autopilot waits two seconds, displays whole seconds and cancels on a manual choice', async () => {
   const {page,action,saved}=pageHarness();
   const life=mini.startLife(mini.createLife({location:mini.locations[0],seed:'countdown-manual',birthYear:1980}));
   life.age=6;life.year=1986;life.school={stage:'primary'};
   life.pending={id:'countdown-test',action:'focus-stage',data:{stage:'child-school'},title:{zhCN:'安排'},description:{zhCN:'安排'},options:mini.getFocusOptions(life)};
   life.autopilot={enabled:true,strategy:'balanced'};
   page.store.current=life;page._view='life';page._paused=false;page.render();
-  assert.ok(page._autoDeadline-Date.now()>2000&&page._autoDeadline-Date.now()<=2200);
+  assert.ok(page._autoDeadline-Date.now()>1800&&page._autoDeadline-Date.now()<=2000);
   page._autoDeadline=Date.now()+1400;page.tick();
-  assert.ok(Number(page.data.autoChoiceSeconds)<=1.4&&Number(page.data.autoChoiceSeconds)>1);
+  assert.equal(page.data.autoChoiceSeconds,2);
+  page._autoDeadline=Date.now()+800;page.tick();
+  assert.equal(page.data.autoChoiceSeconds,1);
+  assert.equal(Number.isInteger(page.data.autoChoiceSeconds),true);
   await action('choose','stale-option');assert.equal(life.autopilot.enabled,true);
   await action('choose','balance');
   assert.equal(life.focus,'balance');assert.equal(life.autopilot.enabled,false);
@@ -263,7 +266,7 @@ test('native page stages choices, saves records and only memorializes after the 
   const favorite = life.log[0].id;
   for (let n = 0; n < 4; n++) {
     await action('star', favorite); assert.ok(life.stars.includes(favorite));
-    assert.match(page.data.toast, /人生瞬间/, 'every successful favorite explains where it will appear');
+    assert.equal(page.data.toast, '收藏成功！已为您记录下此刻的人生瞬间！');
     assert.doesNotMatch(page.data.toast, /[\r\n]/);
     await action('star', favorite); assert.equal(page.data.toast, '');
   }
