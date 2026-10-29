@@ -12,7 +12,9 @@
     "preview": "node scripts/dev-server.mjs --dir dist",
     "build": "node scripts/build.mjs",
     "build:mini": "node scripts/build-mini.mjs",
+    "build:minigame": "node scripts/build-mini.mjs && node scripts/build-minigame.mjs",
     "test:mini": "node --test scripts/test-mini.mjs",
+    "test:minigame": "node --test scripts/test-minigame.mjs",
     "test": "node --test"
   },
   "devDependencies": {
