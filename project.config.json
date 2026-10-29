@@ -1,0 +1,38 @@
+{
+  "appid": "wxd60ef0cc4d0a579e",
+  "projectname": "14亿分之一",
+  "description": "14亿分之一 · 中国城市人生模拟",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "miniprogram/",
+  "libVersion": "3.7.10",
+  "setting": {
+    "es6": true,
+    "minified": true,
+    "minifyWXML": true,
+    "minifyWXSS": true,
+    "postcss": true,
+    "enhance": true,
+    "urlCheck": true,
+    "useCompilerPlugins": false,
+    "packNpmManually": false,
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmRelationList": [],
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "condition": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  },
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "condition": {},
+  "simulatorPluginLibVersion": {},
+  "editorSetting": {}
+}

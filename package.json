@@ -11,6 +11,8 @@
     "dev": "node scripts/build.mjs && node scripts/dev-server.mjs --dir dist",
     "preview": "node scripts/dev-server.mjs --dir dist",
     "build": "node scripts/build.mjs",
+    "build:mini": "node scripts/build-mini.mjs",
+    "test:mini": "node --test scripts/test-mini.mjs",
     "test": "node --test"
   },
   "devDependencies": {

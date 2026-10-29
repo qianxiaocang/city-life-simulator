@@ -4,7 +4,8 @@ const sentence = (record, language) => {
   const original = valueText(record.text, language) || '';
   const text = record.date && original.startsWith(`${record.date} · `)
     ? original.slice(record.date.length + 3) : original;
-  const first = language === 'en' ? text.split(/(?<=[.!?])\s+/)[0] : text.split(/(?<=[。！？])/)[0];
+  // Avoid lookbehind so the shared renderer also runs on older WeChat JS engines.
+  const first = language === 'en' ? (text.match(/^[\s\S]*?[.!?](?=\s)/)?.[0] || text) : (text.match(/^[^。！？]*[。！？]/)?.[0] || text);
   const limit = language === 'en' ? 110 : 48;
   return first.length > limit ? `${first.slice(0, limit).replace(/[，、,\s]+$/u, '')}…` : first.trim();
 };

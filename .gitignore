@@ -11,3 +11,8 @@ research/
 游戏网页研究文档.md
 life-sim-v2-audit-kit/
 life-sim-v2-audit-kit.zip
+
+# WeChat DevTools local machine settings and generated QA images
+project.private.config.json
+miniprogram/.ide/
+qa/mini-*.png

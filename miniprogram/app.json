@@ -1,0 +1,13 @@
+{
+  "pages": ["pages/index/index"],
+  "window": {
+    "navigationBarTitleText": "14亿分之一",
+    "navigationBarBackgroundColor": "#f3f0e8",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f3f0e8",
+    "backgroundTextStyle": "dark"
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}
