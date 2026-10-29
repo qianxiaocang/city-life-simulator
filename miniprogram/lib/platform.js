@@ -143,12 +143,29 @@ function albumAuthorized() {
 function requestAlbumAccess() {
   return new Promise((resolve, reject) => wx.authorize({scope:'scope.writePhotosAlbum',success:resolve,fail:reject}));
 }
-function saveImage(filePath) {
-  return new Promise((resolve, reject) => wx.saveImageToPhotosAlbum({
-    filePath,
-    success: () => resolve(filePath),
-    fail: reject
-  }));
+function memorialFileName(life, language) {
+  const name = [...String(game.valueText(life.name, language) || '人生纪念')
+    .replace(/[\\/:*?"<>|\u0000-\u001f]/g, '_').replace(/\s+/g, '-')].slice(0, 24).join('');
+  const date = new Date(), pad = value => String(value).padStart(2, '0');
+  const stamp = `${date.getFullYear()}${pad(date.getMonth()+1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}-${String(date.getMilliseconds()).padStart(3,'0')}`;
+  const unique = `${++imageSequence}-${Math.random().toString(36).slice(2,6).padEnd(4,'0')}`;
+  return `14亿分之一_${name}_${Number(life.birthYear)||0}-${Number(life.year)||0}_${stamp}_${unique}.png`;
+}
+async function saveImage(filePath, life, language = 'zh-CN') {
+  const manager = life ? wx.getFileSystemManager() : null;
+  const savedPath = life ? `${wx.env.USER_DATA_PATH}/${memorialFileName(life, language)}` : filePath;
+  // Album APIs accept a path, not a fileName. Give every export a descriptive,
+  // unique local basename, including when the same cached poster is saved again.
+  if (manager) await new Promise((resolve, reject) => manager.copyFile({srcPath:filePath,destPath:savedPath,success:resolve,fail:reject}));
+  try {
+    return await new Promise((resolve, reject) => wx.saveImageToPhotosAlbum({
+      filePath: savedPath,
+      success: () => resolve(savedPath),
+      fail: reject
+    }));
+  } finally {
+    if (manager) manager.unlink({filePath:savedPath,fail(){}});
+  }
 }
 const MUSIC_TRACKS = ['/assets/music.wav', '/assets/music-2.wav', '/assets/music-3.wav', '/assets/music-4.wav', '/assets/music-5.wav'];
 let audio = null, musicWanted = false, suspended = false, lastTrack = -1;

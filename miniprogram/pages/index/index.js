@@ -390,7 +390,7 @@ Page({
         }
         wx.showLoading({title:this.tx('保存照片中','儲存照片中','Saving photo')});
           this._photo ||= await platform.captureMemorial(this,life,{language:this.store.settings.language});
-          await platform.saveImage(this._photo);
+          await platform.saveImage(this._photo,life,this.store.settings.language);
           this.notify(this.tx('已保存到手机相册','已儲存到手機相簿','Saved to your photos'));
         }catch(error){
           if(/auth deny|authorize|permission|scope\.writePhotosAlbum/i.test(error?.errMsg||''))wx.showModal({title:this.tx('允许保存照片','允許儲存照片','Allow photo access'),content:this.tx('请在微信设置中允许保存到相册，然后重试。','請在微信設定中允許儲存到相簿，然後重試。','Allow photo access in WeChat settings, then try again.'),confirmText:this.tx('去设置','去設定','Settings'),success:result=>{if(result.confirm)wx.openSetting({});}});

@@ -219,6 +219,28 @@ test('survival chart draws a continuous age curve and a current-age marker', asy
   assert.ok(labels.includes('当前 65岁'));
 });
 
+test('every memorial save uses a descriptive unique filename and cleans its export copy', async () => {
+  const copied=[],saved=[],removed=[];
+  let deny=false;
+  const wx={env:{USER_DATA_PATH:'/mock'},getFileSystemManager:()=>({
+    copyFile(options){copied.push(options);options.success();},
+    unlink(options){removed.push(options.filePath);}
+  }),saveImageToPhotosAlbum(options){saved.push(options.filePath);if(deny)options.fail(new Error('permission denied'));else options.success();}};
+  const sandbox={module:{exports:{}},require:()=>mini,wx,console};
+  vm.runInNewContext(readFileSync(resolve(miniRoot,'lib/platform.js'),'utf8'),sandbox);
+  const platform=sandbox.module.exports,life={name:{zhCN:'蔡嘉怡'},birthYear:2026,year:2112};
+  await platform.saveImage('/mock/cached.png',life,'zh-CN');
+  await platform.saveImage('/mock/cached.png',life,'zh-CN');
+  assert.match(saved[0],/^\/mock\/14亿分之一_蔡嘉怡_2026-2112_\d{8}-\d{6}-\d{3}_\d+-[a-z0-9]+\.png$/);
+  assert.notEqual(saved[0],saved[1],'resaving the same cached poster must not reuse its filename');
+  assert.ok(copied.every(options=>options.srcPath==='/mock/cached.png'));
+  assert.deepEqual(removed,saved);
+  deny=true;
+  await assert.rejects(platform.saveImage('/mock/cached.png',{...life,name:{zhCN:'蔡/嘉:怡?'}},'zh-CN'),/permission denied/);
+  assert.match(saved[2],/蔡_嘉_怡_/);
+  assert.deepEqual(removed,saved,'failed album writes also clean only the temporary export copies');
+});
+
 test('native page creates and resumes lives, and profile dialog restores prior playback state', async () => {
   const { page, action, storage } = pageHarness();
   assert.equal(page.data.view, 'home');
