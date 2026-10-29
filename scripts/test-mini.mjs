@@ -172,8 +172,8 @@ test('native page stages choices, saves records and only memorializes after the 
   const favorite = life.log[0].id;
   for (let n = 0; n < 4; n++) {
     await action('star', favorite); assert.ok(life.stars.includes(favorite));
-    assert.ok(page.data.toast);
-    if (n < 3) assert.match(page.data.toast, /人生瞬间/); else assert.equal(page.data.toast, '已收藏');
+    if (n < 3) assert.match(page.data.toast, /人生瞬间/);
+    else assert.equal(page.data.toast, '', 'favorites are silent after the third explanation');
     await action('star', favorite); assert.equal(page.data.toast, '');
   }
   await action('star', favorite);
@@ -219,6 +219,22 @@ test('native page stages choices, saves records and only memorializes after the 
   await action('edit-review');
   assert.equal(page.data.modal, '', 'leaving the report permanently ends the editing session');
   assert.equal(saved().history[0].farewell, life.farewell);
+  page.onUnload();
+});
+
+test('home memorial previews stop at eight and both life views show every record', () => {
+  const { page } = pageHarness();
+  const life = mini.startLife(mini.createLife({ location: mini.locations[0], seed: 'all-visible-records', birthYear: 2000, world: 'past' }));
+  for (let index = 0; index < 70; index++) life.log.unshift({ id: `extra-${index}`, age: index, year: 2000 + index, type: 'daily', text: { zhCN: `第 ${index} 条记录` } });
+  page.store.current = life;
+  page.navigate('life');
+  assert.equal(page.data.logs.length, life.log.length);
+  life.phase = 'dead';
+  page.navigate('report');
+  assert.equal(page.data.logs.length, life.log.length);
+  page.store.history = Array.from({ length: 9 }, (_, index) => ({ ...life, id: `memorial-${index}` }));
+  page.navigate('home');
+  assert.equal(page.data.memories.length, 8);
   page.onUnload();
 });
 
