@@ -42,3 +42,7 @@
   .speed-row .control{font-size:22rpx;padding-left:3rpx;padding-right:3rpx}
   .control{padding-left:15rpx;padding-right:15rpx}
 }
+
+/* Keep the status and capsule area opaque while page content scrolls underneath. */
+.navigation-background{position:fixed;top:0;left:0;right:0;background:var(--page);z-index:9;pointer-events:none}
+.screen-ending .navigation-background{background:#101b15}

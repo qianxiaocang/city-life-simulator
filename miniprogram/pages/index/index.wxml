@@ -1,4 +1,5 @@
 <view style="padding-top:{{navHeight}}px" class="screen {{theme === 'dark' ? 'dark' : ''}} {{view === 'life' ? 'screen-life' : view === 'ending' ? 'screen-ending' : ''}}">
+  <view class="navigation-background" style="height:{{navHeight}}px" aria-hidden="true"></view>
   <view wx:if="{{toast}}" class="toast" style="top:{{navHeight + 8}}px" role="alert">{{toast}}</view>
   <view wx:if="{{view !== 'home' && view !== 'ending'}}" class="page-header" style="top:{{navHeight}}px"><view aria-role="button" hover-class="tap-hover" class="tap-control back" data-action="back" bindtap="onAction" aria-label="{{ui.back}}">‹</view><text class="header-title">{{view === 'life' ? ui.living : view === 'archive' ? ui.archive : view === 'certificate' ? ui.certificate : ui.lifetime}}</text><view class="header-space"></view></view>
 
