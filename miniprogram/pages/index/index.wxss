@@ -164,3 +164,7 @@
 .choice-body .option-description{font-size:21rpx;line-height:1.35;margin-top:3rpx}
 .choice-body .reflection-input{height:100rpx;margin-top:12rpx;padding:12rpx;font-size:24rpx}
 @media(max-height:650px){.choice-body .choice-description{font-size:20rpx}.choice-body .option-description{font-size:20rpx}.choice-option{padding:9rpx 12rpx}.choice-body{padding-top:10rpx;padding-bottom:12rpx}}
+
+.choice-panel .modal-head{justify-content:flex-end;min-height:66rpx;padding-top:5rpx;padding-bottom:5rpx}
+.choice-countdown{margin-right:auto;color:var(--green);font-size:23rpx;font-weight:500;font-variant-numeric:tabular-nums}
+.survival-chart{display:block;width:100%;height:auto;margin-top:12rpx}

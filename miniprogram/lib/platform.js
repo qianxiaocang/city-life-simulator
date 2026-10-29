@@ -105,6 +105,32 @@ async function createBirthShare(life, language = 'zh-CN') {
   context.fillText(language === 'en' ? 'One in 1.4 Billion' : '14亿分之一', 104, 441, 450);
   return canvasFile(canvas);
 }
+async function generateSurvivalChart(life, dark = false, language = 'zh-CN') {
+  const canvas = offscreen(640, 320), c = canvas.getContext('2d');
+  const ink = dark ? '#b1b6a9' : '#888477', line = dark ? '#424c40' : '#e4dfd3';
+  const green = dark ? '#9bceb7' : '#267b65', gold = dark ? '#d0ae66' : '#bc9349';
+  c.fillStyle = dark ? '#2a332c' : '#fffdfa'; c.fillRect(0, 0, 640, 320);
+  const x = age => 56 + age / 120 * 560, y = p => 28 + (1-p)*230;
+  const probability = age => Math.exp(-Math.exp((age-life.profile.lifeExpectancy-4)/11));
+  c.font = '19px sans-serif'; c.lineWidth = 1;
+  for (const p of [0, .5, 1]) {
+    c.strokeStyle = line; c.beginPath(); c.moveTo(x(0),y(p)); c.lineTo(x(120),y(p)); c.stroke();
+    c.fillStyle = ink; c.textAlign = 'right'; c.fillText(`${p*100}%`,48,y(p)+6);
+  }
+  c.beginPath(); c.moveTo(x(0),y(0));
+  for(let age=0;age<=120;age++)c.lineTo(x(age),y(probability(age)));
+  c.lineTo(x(120),y(0)); c.closePath(); c.fillStyle = dark ? '#9bceb718' : '#267b6512'; c.fill();
+  c.beginPath();
+  for(let age=0;age<=120;age++){if(age===0)c.moveTo(x(age),y(probability(age)));else c.lineTo(x(age),y(probability(age)));}
+  c.strokeStyle=green;c.lineWidth=3;c.stroke();
+  const age=Math.max(0,Math.min(120,life.age));
+  c.strokeStyle=gold;c.lineWidth=2;c.setLineDash([5,5]);c.beginPath();c.moveTo(x(age),y(1));c.lineTo(x(age),y(0));c.stroke();c.setLineDash([]);
+  c.fillStyle=gold;c.beginPath();c.arc(x(age),y(probability(age)),5,0,Math.PI*2);c.fill();
+  c.textAlign='center';c.fillStyle=ink;
+  for(const tick of [0,30,60,90,120])c.fillText(String(tick),x(tick),285);
+  c.textAlign='right';c.fillStyle=gold;c.fillText(language==='en'?`Age ${life.age}`:`${language==='zh-TW'?'目前':'当前'} ${life.age}${language==='zh-TW'?'歲':'岁'}`,616,314);
+  return canvasFile(canvas);
+}
 function cleanSceneFiles() {
   const manager = wx.getFileSystemManager();
   manager.readdir({ dirPath: wx.env.USER_DATA_PATH, success: result => {
@@ -146,4 +172,4 @@ function toggleMusic() {
 function stopMusic() { musicWanted = false; if (audio) audio.stop(); }
 function suspendMusic() { suspended = true; if (audio) audio.pause(); }
 function resumeMusic() { suspended = false; if (musicWanted) musicContext().play(); }
-module.exports = { drawScene, generateScene, captureMemorial, createBirthShare, albumAuthorized, requestAlbumAccess, saveImage, cleanSceneFiles, toggleMusic, stopMusic, suspendMusic, resumeMusic };
+module.exports = { drawScene, generateScene, generateSurvivalChart, captureMemorial, createBirthShare, albumAuthorized, requestAlbumAccess, saveImage, cleanSceneFiles, toggleMusic, stopMusic, suspendMusic, resumeMusic };

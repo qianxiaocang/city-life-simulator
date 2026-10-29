@@ -8,7 +8,7 @@ const clone = value => JSON.parse(JSON.stringify(value));
 game.configureLocations(game.locations);
 
 Page({
-  data: { navHeight: 64, navTop: 20, navBarHeight: 44, navSide: 96, view: 'home', theme: 'light', modal: '', toast: '', person: null, logs: [], momentGroups: [], archiveList: [], archiveFacts: [], memories: [], speeds: [1, 2, 4, 8, 12, 16], speed: 1, paused: true, progress: 0, musicPlaying: false, musicX: 0, musicY: 480, reviewDraft: '', reflectionDraft: '', birthShareReady: false },
+  data: { navHeight: 64, navTop: 20, navBarHeight: 44, navSide: 96, view: 'home', theme: 'light', modal: '', toast: '', person: null, logs: [], momentGroups: [], archiveList: [], archiveFacts: [], memories: [], speeds: [1, 2, 4, 8, 12, 16], speed: 1, paused: true, progress: 0, musicPlaying: false, musicX: 0, musicY: 480, reviewDraft: '', reflectionDraft: '', birthShareReady: false, autoChoiceSeconds: '2.2' },
   onLoad() {
     this.store = { version: 1, settings: { ...DEFAULTS }, current: null, history: [], savedMomentToastCount: 0 };
     try {
@@ -93,6 +93,8 @@ Page({
       advance: ['推进一年','推進一年','Next year'], autopilot: ['托管人生','託管人生','Autopilot'], takeControl: ['恢复手动','恢復手動','Take control'],
       automatic: ['抉择已交给自动 · 点此恢复手动','抉擇已交給自動 · 點此恢復手動','Choices are automatic · Take control'],
       pending: ['人生抉择','人生抉擇','Life choices'],
+      autoChoiceSuffix: ['秒后自动选择','秒後自動選擇','s until automatic choice'],
+      autoChoicePaused: ['自动选择已暂停','自動選擇已暫停','Automatic choice paused'],
       moments: ['人生瞬间','人生瞬間','Life moments'], wholeLife: ['这一生','這一生','This life'], report: ['一段人生','一段人生','A lifetime'],
       write: ['写下你的话','寫下你的話','Add your words'], yourWords: ['你想写的话','你想寫的話','Your words'], save: ['保存','儲存','Save'],
       reviewPlaceholder: ['你想对这段人生说点什么吗？','你想對這段人生說點什麼嗎？','What would you like to say to this life?'],
@@ -133,6 +135,18 @@ Page({
     const picks = life.phase === 'dead' ? game.selectLifeMoments(life) : [];
     return this.scene(picks.find(item => item.type !== 'birth') || life.log[life.log.length - 1] || { type: 'birth', age: 0 }, life);
   },
+  survivalChart(life) {
+    const key=`survival:${life.id}:${life.age}:${life.profile.lifeExpectancy}:${this.store.settings.theme}:${this.store.settings.language}`;
+    if(this._imageCache.has(key))return this._imageCache.get(key);
+    if(!this._imagePending.has(key)){
+      this._imagePending.add(key);
+      platform.generateSurvivalChart(life,this.store.settings.theme==='dark',this.store.settings.language).then(path=>{
+        this._imageCache.set(key,path);this._imagePending.delete(key);
+        if(this._foreground&&this.data.modal==='details')this.render();
+      }).catch(error=>{this._imagePending.delete(key);this._imageCache.set(key,'');console.warn('Survival chart unavailable',error);});
+    }
+    return '';
+  },
   prepareBirthShare(life) {
     const key = `${life.id}:${this.store.settings.language}`;
     if (this._birthShareKey === key && this.data.birthShareReady) return Promise.resolve(this._birthSharePath);
@@ -169,7 +183,7 @@ Page({
       facts, identityFacts, family, assets: [fact(this.tx('现金','現金','Cash'),this.amount(life.money)),...Object.entries(life.assets || {}).filter(([,v]) => v > 0).map(([key,value]) => fact(assetNames[key] ? this.tx(...assetNames[key]) : key,this.amount(value))),fact(this.tx('负债','負債','Debt'),this.amount(life.debt))],
       companions: (life.companions || []).map(item => { const gone=life.age>=item.deathAge,snapshot=(item.years||[]).find(row=>row.age===life.age)||(item.years||[]).slice(-1)[0];return {name:this.L(item.name),meta:`${this.L(item.born.name)} · ${this.tr(item.sex)}`,gone,status:gone?`${this.age(item.deathAge)} · ${this.tr('goneAt')}`:snapshot?.job?this.L(snapshot.job):game.educationText(snapshot?.education,this.store.settings.language)};}),
       yearMap:Array.from({length:Math.max(96,life.age+1)},(_,age)=>{const snapshot=life.years.find(row=>row.age===age);return {age,current:life.age===age,color:snapshot?`hsl(${55+snapshot.happiness*.95},28%,${83-snapshot.happiness*.46}%)`:''};}),
-      survivalPoints:[0,30,60,90,120].map(age=>({age,percent:Math.round(100*Math.exp(-Math.exp((age-life.profile.lifeExpectancy-4)/11)))})),
+      survivalCurve:this.data.modal==='details'?this.survivalChart(life):'',
       journal:(life.journal||[]).map(entry=>({age:this.age(entry.age),year:entry.year,text:entry.text})),
       birthText: this.L(life.log[life.log.length - 1]?.text), cover: this.coverFor(life), tagline: this.tagline(life), review: game.memorialReview(life,this.store.settings.language).text,
       canEditReview: this._editable === life.id && life.phase === 'dead' && !this._viewed, candles: life.candles || 0
@@ -203,7 +217,7 @@ Page({
     const momentGroups = [...groups].map(([decade,events])=>({title:decade===0?this.tx('童年','童年','Childhood'):decade===1?this.tx('十几岁','十幾歲','Teenage years'):this.tx(`${decade*10}多岁`,`${decade*10}多歲`,`${decade*10}s`),years:events.length===1?String(events[0].year):`${events[0].year}–${events[events.length-1].year}`,events}));
     const pending = this.store.current?.pending;
     if (this._view === 'life' && pending && (!this.data.modal || this.data.modal === 'choice') && this._minimized !== pending.id) {
-      if (this.data.choice?.id !== pending.id) this._autoDeadline = Date.now() + 2200;
+      if (this.data.choice?.id !== pending.id) this._autoDeadline = this.store.current.autopilot?.enabled ? Date.now() + 2200 : 0;
       this.data.modal = 'choice';
     } else if (this.data.modal === 'choice' && !pending) this.data.modal = '';
     let visibleOptions = pending?.options || [];
@@ -220,7 +234,7 @@ Page({
     const optionDescriptions = visibleOptions.map(option => this.L(option.description).trim());
     const repeatedDescription = optionDescriptions.length > 1 && optionDescriptions.every(text => text === optionDescriptions[0]);
     const choice = pending ? { id: pending.id, title: this.L(pending.title), description: pending.action==='focus-stage' ? this.tx('选择这一阶段的生活重心，下个阶段可以重新选择。','選擇這一階段的生活重心，下個階段可以重新選擇。','Choose your focus for this stage. You can choose again at the next stage.') : this.L(pending.description), meta: `${this.age(this.store.current.age)} · ${this.store.current.year}`, input: !!pending.input, options: visibleOptions.map((option,index)=>({id:option.id,label:this.L(option.label),description:repeatedDescription ? '' : optionDescriptions[index]})) } : null;
-    this.setData({ view:this._view,theme:settings.theme,ui,settings:{...settings},languageLabels:game.LANGUAGES.map(item=>({label:item.label,value:item.id})),languageIndex:game.LANGUAGES.findIndex(item=>item.id===settings.language),years,yearIndex:Math.max(0,years.findIndex(item=>item.value===settings.birthYear)),regions:regionOptions,regionIndex:REGIONS.indexOf(settings.scope),provinces,provinceIndex:Math.max(0,provinces.findIndex(item=>item.value===settings.province)),advancedOpen:!!this._advanced,available:places.filter(place=>settings.province==='all'||place.province.id===settings.province).length,resume:this.store.current&&this.store.current.phase!=='dead'?{name:this.L(this.store.current.name),age:this.age(this.store.current.age),place:this.L(this.store.current.location.name)}:null,homeCover:this.scene({id:'home',type:'family',age:30,text:{zhCN:'一家人在城市里生活'}},{id:'home',seed:'home',age:30,log:[],family:{children:[]}}),memories:cards.slice(0,8),person:this.personFor(life),cover:life?this.coverFor(life):'',logs,paused:this._paused,speed:this._speed,progress:Math.round(this._progress*100),fast:!!this._fast,automatic:!!this.store.current?.autopilot?.enabled,archiveFacts,archiveList:cards,momentGroups,hasMoreMoments:this._view==='report'&&life?.phase==='dead'&&game.selectLifeMoments(life).length>this._momentLimit,fromArchive:!!this._viewed,memorialSaved:!!life&&history.some(item=>item.id===life.id),endingText:life?.phase==='dead'?game.lifeEndingNarrative(life,settings.language):'',modal:this.data.modal,choice,hasPending:!!pending });
+    this.setData({ view:this._view,theme:settings.theme,ui,settings:{...settings},languageLabels:game.LANGUAGES.map(item=>({label:item.label,value:item.id})),languageIndex:game.LANGUAGES.findIndex(item=>item.id===settings.language),years,yearIndex:Math.max(0,years.findIndex(item=>item.value===settings.birthYear)),regions:regionOptions,regionIndex:REGIONS.indexOf(settings.scope),provinces,provinceIndex:Math.max(0,provinces.findIndex(item=>item.value===settings.province)),advancedOpen:!!this._advanced,available:places.filter(place=>settings.province==='all'||place.province.id===settings.province).length,resume:this.store.current&&this.store.current.phase!=='dead'?{name:this.L(this.store.current.name),age:this.age(this.store.current.age),place:this.L(this.store.current.location.name)}:null,homeCover:this.scene({id:'home',type:'family',age:30,text:{zhCN:'一家人在城市里生活'}},{id:'home',seed:'home',age:30,log:[],family:{children:[]}}),memories:cards.slice(0,8),person:this.personFor(life),cover:life?this.coverFor(life):'',logs,paused:this._paused,speed:this._speed,progress:Math.round(this._progress*100),fast:!!this._fast,automatic:!!this.store.current?.autopilot?.enabled,archiveFacts,archiveList:cards,momentGroups,hasMoreMoments:this._view==='report'&&life?.phase==='dead'&&game.selectLifeMoments(life).length>this._momentLimit,fromArchive:!!this._viewed,memorialSaved:!!life&&history.some(item=>item.id===life.id),endingText:life?.phase==='dead'?game.lifeEndingNarrative(life,settings.language):'',modal:this.data.modal,choice,autoChoiceSeconds:(Math.max(0,(this._autoDeadline||Date.now()+2200)-Date.now())/1000).toFixed(1),hasPending:!!pending });
     wx.setNavigationBarTitle({title:this._view==='home'?ui.brand:this._view==='life'?ui.living:this._view==='certificate'?ui.certificate:this._view==='archive'?ui.archive:ui.report});
     const darkNav=settings.theme==='dark'||this._view==='ending';
     wx.setNavigationBarColor({frontColor:darkNav?'#ffffff':'#000000',backgroundColor:this._view==='ending'?'#101b15':darkNav?'#1d2420':'#f3f0e8',animation:{duration:150,timingFunc:'easeIn'}});
@@ -259,6 +273,8 @@ Page({
     if (life.pending) {
       if (life.autopilot?.enabled && (!this.data.modal||this.data.modal==='choice')) {
         this._autoDeadline ||= now+2200;
+        const seconds=(Math.max(0,this._autoDeadline-now)/1000).toFixed(1);
+        if(this.data.autoChoiceSeconds!==seconds)this.setData({autoChoiceSeconds:seconds});
         if (now>=this._autoDeadline) this.makeChoice(null,true);
       }
       return;
@@ -283,6 +299,10 @@ Page({
   },
   makeChoice(id,automatic=false) {
     const life=this.store.current;if(!life?.pending)return;
+    if(!automatic){
+      if(!life.pending.options.some(option=>option.id===id))return;
+      game.setAutopilot(life,false,life.autopilot?.strategy||'balanced');
+    }
     const accepted=automatic ? game.autoChoose(life) : game.choose(life,id,this.data.reflectionDraft||'');
     if(!accepted)return;
     this.setData({modal:'',reflectionDraft:''});this._minimized=null;this._autoDeadline=0;

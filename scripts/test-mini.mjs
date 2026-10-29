@@ -88,7 +88,7 @@ function loadStorage(wx) {
 function pageHarness(initialStore, initialStorage, overrides = {}) {
   let definition;
   const storage = new Map(initialStorage ? [...initialStorage].map(([key,value]) => [key,clone(value)]) : initialStore ? [[SAVE_KEY, clone(initialStore)]] : []);
-  const platform = { albumAuthorized: async () => false, requestAlbumAccess: async () => {}, generateScene: async () => '/mock-scene.png', createBirthShare: async () => '/mock-birth-share.png', toggleMusic: () => true, stopMusic() {}, captureMemorial: async () => '/mock-photo.png', saveImage: async () => {} };
+  const platform = { generateSurvivalChart: async () => '/mock-survival.png', albumAuthorized: async () => false, requestAlbumAccess: async () => {}, generateScene: async () => '/mock-scene.png', createBirthShare: async () => '/mock-birth-share.png', toggleMusic: () => true, stopMusic() {}, captureMemorial: async () => '/mock-photo.png', saveImage: async () => {} };
   const wx = {
     getStorageSync: key => storage.has(key) ? clone(storage.get(key)) : '',
     setStorageSync: (key, value) => storage.set(key, clone(value)),
@@ -180,6 +180,40 @@ test('music has five distinct local tracks and chooses a new track on every play
   for(let n=1;n<tracks.length;n++)assert.notEqual(tracks[n],tracks[n-1]);
   const files=[...new Set(tracks)].map(track=>readFileSync(resolve(miniRoot,track.slice(1))));
   assert.equal(new Set(files.map(bytes=>bytes.toString('base64'))).size,5,'all melodies must contain different audio samples');
+});
+
+test('autopilot uses the existing 2.2-second deadline and a manual choice cancels it', async () => {
+  const {page,action,saved}=pageHarness();
+  const life=mini.startLife(mini.createLife({location:mini.locations[0],seed:'countdown-manual',birthYear:1980}));
+  life.age=6;life.year=1986;life.school={stage:'primary'};
+  life.pending={id:'countdown-test',action:'focus-stage',data:{stage:'child-school'},title:{zhCN:'安排'},description:{zhCN:'安排'},options:mini.getFocusOptions(life)};
+  life.autopilot={enabled:true,strategy:'balanced'};
+  page.store.current=life;page._view='life';page._paused=false;page.render();
+  assert.ok(page._autoDeadline-Date.now()>2000&&page._autoDeadline-Date.now()<=2200);
+  page._autoDeadline=Date.now()+1400;page.tick();
+  assert.ok(Number(page.data.autoChoiceSeconds)<=1.4&&Number(page.data.autoChoiceSeconds)>1);
+  await action('choose','stale-option');assert.equal(life.autopilot.enabled,true);
+  await action('choose','balance');
+  assert.equal(life.focus,'balance');assert.equal(life.autopilot.enabled,false);
+  assert.equal(saved().current.autopilot.enabled,false);
+  assert.equal(page._autoDeadline,0);
+  life.pending={id:'automatic-expiry',action:'focus-stage',data:{stage:'child-school'},title:{zhCN:'安排'},description:{zhCN:'安排'},options:mini.getFocusOptions(life)};
+  life.autopilot.enabled=true;page.render();page._autoDeadline=Date.now()-1;page.tick();
+  assert.notEqual(life.pending?.id,'automatic-expiry');assert.equal(life.autopilot.enabled,true,'expiry keeps autopilot enabled');
+  page.onUnload();
+});
+
+test('survival chart draws a continuous age curve and a current-age marker', async () => {
+  const lines=[],labels=[];
+  const c={fillRect(){},beginPath(){},moveTo(){},lineTo(x,y){lines.push([x,y]);},closePath(){},fill(){},stroke(){},setLineDash(){},arc(){},fillText(text){labels.push(text);}};
+  const canvas={getContext:()=>c,toDataURL:()=> 'data:image/png;base64,aW1hZ2U='};
+  const wx={createOffscreenCanvas:()=>canvas,env:{USER_DATA_PATH:'/mock'},getFileSystemManager:()=>({writeFile:options=>options.success()})};
+  const sandbox={module:{exports:{}},require:()=>mini,wx,console};
+  vm.runInNewContext(readFileSync(resolve(miniRoot,'lib/platform.js'),'utf8'),sandbox);
+  await sandbox.module.exports.generateSurvivalChart({age:65,profile:{lifeExpectancy:80}},false,'zh-CN');
+  assert.ok(lines.length>240,'curve and shaded area contain yearly points, not five bars');
+  assert.ok(labels.includes('100%')&&labels.includes('50%')&&labels.includes('120'));
+  assert.ok(labels.includes('当前 65岁'));
 });
 
 test('native page creates and resumes lives, and profile dialog restores prior playback state', async () => {
