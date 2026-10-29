@@ -106,6 +106,25 @@ function pageHarness(initialStore, initialStorage, overrides = {}) {
   return { page, storage, storageApi, action, saved: () => storageApi.readStore(page.store) };
 }
 
+test('navigation geometry keeps the centered title clear of the WeChat capsule', () => {
+  const { page } = pageHarness();
+  for (const [width, status, capsule] of [
+    [390, 47, { top: 51, height: 32, left: 287 }],
+    [320, 20, { top: 24, height: 32, left: 220 }],
+    [360, 24, { top: 30, height: 32, left: 252 }]
+  ]) {
+    const nav = page.navigationMetrics({ windowWidth: width, statusBarHeight: status }, capsule);
+    assert.ok(nav.navHeight >= capsule.top + capsule.height);
+    assert.ok(width - nav.navSide < capsule.left, 'title right edge must stop before capsule');
+    assert.ok(width - 2 * nav.navSide >= 64, 'title always has a readable area');
+    assert.ok(nav.navBarHeight >= 44, 'navigation row keeps a usable tap target');
+  }
+  const fallback = page.navigationMetrics({ windowWidth: 320, statusBarHeight: 20 }, null);
+  assert.equal(fallback.navHeight, 64);
+  assert.equal(fallback.navSide, 96);
+  page.onUnload();
+});
+
 test('native page creates and resumes lives, and profile dialog restores prior playback state', async () => {
   const { page, action, storage } = pageHarness();
   assert.equal(page.data.view, 'home');

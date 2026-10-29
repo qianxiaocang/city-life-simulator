@@ -8,7 +8,7 @@ const clone = value => JSON.parse(JSON.stringify(value));
 game.configureLocations(game.locations);
 
 Page({
-  data: { view: 'home', theme: 'light', modal: '', toast: '', person: null, logs: [], momentGroups: [], archiveList: [], archiveFacts: [], memories: [], speeds: [1, 2, 4, 8, 12, 16], speed: 1, paused: true, progress: 0, musicPlaying: false, musicX: 0, musicY: 480, reviewDraft: '', reflectionDraft: '' },
+  data: { navHeight: 64, navTop: 20, navBarHeight: 44, navSide: 96, view: 'home', theme: 'light', modal: '', toast: '', person: null, logs: [], momentGroups: [], archiveList: [], archiveFacts: [], memories: [], speeds: [1, 2, 4, 8, 12, 16], speed: 1, paused: true, progress: 0, musicPlaying: false, musicX: 0, musicY: 480, reviewDraft: '', reflectionDraft: '' },
   onLoad() {
     this.store = { version: 1, settings: { ...DEFAULTS }, current: null, history: [], savedMomentToastCount: 0 };
     try {
@@ -24,7 +24,8 @@ Page({
     this._paused = true; this._speed = 1; this._progress = this.store.current?.uiProgress || 0;
     this._view = 'home'; this._logLimit = 24; this._momentLimit = 24; this._imageCache = new Map(); this._imagePending = new Set();
     const windowInfo = typeof wx.getWindowInfo === 'function' ? wx.getWindowInfo() : wx.getSystemInfoSync();
-    this.setData({ navHeight: (windowInfo.statusBarHeight || 20) + 44, musicX: Math.max(12,(windowInfo.windowWidth || 390) - 66), musicY: Math.max(100,(windowInfo.windowHeight || 844) - 150) });
+    this.updateNavigation(windowInfo);
+    this.setData({ musicX: Math.max(12,(windowInfo.windowWidth || 390) - 66), musicY: Math.max(100,(windowInfo.windowHeight || 844) - 150) });
     const musicPosition=this.store.settings.musicPosition;
     if(musicPosition&&Number.isFinite(musicPosition.x)&&Number.isFinite(musicPosition.y)){this._musicPosition={x:Math.max(0,Math.min((windowInfo.windowWidth||390)-56,musicPosition.x)),y:Math.max(0,Math.min((windowInfo.windowHeight||844)-100,musicPosition.y))};this.setData({musicX:this._musicPosition.x,musicY:this._musicPosition.y});}
     this._foreground = true; this._editable = null; this._viewed = null; this._minimized = null;
@@ -33,6 +34,23 @@ Page({
     this._timer = setInterval(() => this.tick(), 120);
   },
   onShow() { this._foreground = true; this._lastTick = Date.now(); },
+  onResize() { this.updateNavigation(); },
+  navigationMetrics(windowInfo, capsule) {
+    const width = Math.max(240, Number(windowInfo?.windowWidth) || 390);
+    const status = Math.max(0, Number(windowInfo?.statusBarHeight) || 20);
+    const valid = capsule && Number.isFinite(capsule.top) && Number.isFinite(capsule.height) && Number.isFinite(capsule.left) && capsule.height > 0 && capsule.top >= status && capsule.left > width / 2 && capsule.left < width;
+    const gap = valid ? Math.max(0, capsule.top - status) : 4;
+    const barHeight = Math.max(44, valid ? capsule.height + gap * 2 : 44);
+    const rightClearance = valid ? width - capsule.left + 8 : 96;
+    return { navTop: status, navBarHeight: barHeight, navHeight: status + barHeight, navSide: Math.max(56, Math.min((width - 64) / 2, rightClearance)) };
+  },
+  updateNavigation(windowInfo) {
+    let info = windowInfo;
+    try { if (!info) info = typeof wx.getWindowInfo === 'function' ? wx.getWindowInfo() : wx.getSystemInfoSync(); } catch (error) { info = {}; }
+    let capsule;
+    try { if (typeof wx.getMenuButtonBoundingClientRect === 'function') capsule = wx.getMenuButtonBoundingClientRect(); } catch (error) { /* Use conservative geometry on unsupported clients. */ }
+    this.setData(this.navigationMetrics(info || {}, capsule));
+  },
   onHide() { this._foreground = false; this._lastTick = 0; this.persist(); },
   onUnload() { clearInterval(this._timer); clearTimeout(this._toastTimer); this.persist(); platform.stopMusic(); },
   onShareAppMessage() { return { title: this.tr('brand'), path: '/pages/index/index' }; },

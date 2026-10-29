@@ -46,3 +46,10 @@
 /* Keep the status and capsule area opaque while page content scrolls underneath. */
 .navigation-background{position:fixed;top:0;left:0;right:0;background:var(--page);z-index:9;pointer-events:none}
 .screen-ending .navigation-background{background:#101b15}
+
+/* The custom title and back control share the capsule's navigation row. */
+.navigation-bar{position:fixed;left:0;right:0;z-index:10;display:flex;align-items:center;background:var(--page);border-bottom:1rpx solid var(--line)}
+.navigation-title{position:absolute;top:0;bottom:0;display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-family:Georgia,"Songti SC",serif;font-size:32rpx;font-weight:700;text-align:center;pointer-events:none}
+.screen .navigation-back{position:absolute;left:12px;top:0;bottom:0;min-width:44px;display:flex;align-items:center;justify-content:flex-start;font-family:Arial,sans-serif;font-size:54rpx;line-height:1}
+.home-top{justify-content:flex-end;min-height:72rpx}
+.home-controls{margin-left:auto}
