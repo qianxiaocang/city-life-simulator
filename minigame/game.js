@@ -1,4 +1,4 @@
-// 14亿分之一 · native WeChat Mini Game entry. No Page, WXML, WXSS or DOM.
+// 13亿分之一 · native WeChat Mini Game entry. No Page, WXML, WXSS or DOM.
 const definition = require('./runtime/controller');
 const CanvasUI = require('./runtime/canvas-ui');
 

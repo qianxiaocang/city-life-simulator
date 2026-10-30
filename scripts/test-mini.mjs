@@ -231,7 +231,7 @@ test('every memorial save uses a descriptive unique filename and cleans its expo
   const platform=sandbox.module.exports,life={name:{zhCN:'蔡嘉怡'},birthYear:2026,year:2112};
   await platform.saveImage('/mock/cached.png',life,'zh-CN');
   await platform.saveImage('/mock/cached.png',life,'zh-CN');
-  assert.match(saved[0],/^\/mock\/14亿分之一_蔡嘉怡_2026-2112_\d{8}-\d{6}-\d{3}_\d+-[a-z0-9]+\.png$/);
+  assert.match(saved[0],/^\/mock\/13亿分之一_蔡嘉怡_2026-2112_\d{8}-\d{6}-\d{3}_\d+-[a-z0-9]+\.png$/);
   assert.notEqual(saved[0],saved[1],'resaving the same cached poster must not reuse its filename');
   assert.ok(copied.every(options=>options.srcPath==='/mock/cached.png'));
   assert.deepEqual(removed,saved);

@@ -82,7 +82,7 @@ async function captureMemorial(page, life, options) {
   context.textAlign = 'left'; context.font = '28px sans-serif';
   wrapText(context, text, 64, 604, textWidth, lineHeight);
   context.fillStyle = birth ? '#297c65' : '#93c8b1'; context.font = '26px serif'; context.textAlign = 'center';
-  context.fillText(isEnglish ? 'One in 1.4 Billion' : '14亿分之一', width / 2, height - 90);
+  context.fillText(isEnglish ? 'One in 1.3 Billion' : '13亿分之一', width / 2, height - 90);
   context.font = '20px sans-serif'; context.fillStyle = birth ? '#777a70' : '#7d9083';
   context.fillText(isEnglish ? 'An ordinary, irreplaceable life' : language === 'zh-TW' ? '平凡，又不可替代的一生' : '平凡，又不可替代的一生', width / 2, height - 50);
   return canvasFile(canvas);
@@ -103,7 +103,7 @@ async function createBirthShare(life, language = 'zh-CN') {
   context.fillText(`${life.birthYear} · ${L(life.born.name)}`, 32, 409, 520);
   context.fillStyle = '#bc9349'; context.fillRect(32, 433, 58, 3);
   context.fillStyle = '#236b59'; context.font = '18px sans-serif';
-  context.fillText(language === 'en' ? 'One in 1.4 Billion' : '14亿分之一', 104, 441, 450);
+  context.fillText(language === 'en' ? 'One in 1.3 Billion' : '13亿分之一', 104, 441, 450);
   return canvasFile(canvas);
 }
 async function generateSurvivalChart(life, dark = false, language = 'zh-CN') {
@@ -150,7 +150,7 @@ function memorialFileName(life, language) {
   const date = new Date(), pad = value => String(value).padStart(2, '0');
   const stamp = `${date.getFullYear()}${pad(date.getMonth()+1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}-${String(date.getMilliseconds()).padStart(3,'0')}`;
   const unique = `${++imageSequence}-${Math.random().toString(36).slice(2,6).padEnd(4,'0')}`;
-  return `14亿分之一_${name}_${Number(life.birthYear)||0}-${Number(life.year)||0}_${stamp}_${unique}.png`;
+  return `13亿分之一_${name}_${Number(life.birthYear)||0}-${Number(life.year)||0}_${stamp}_${unique}.png`;
 }
 async function saveImage(filePath, life, language = 'zh-CN') {
   const manager = life ? wx.getFileSystemManager() : null;

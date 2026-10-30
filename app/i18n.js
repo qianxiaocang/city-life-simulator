@@ -5,7 +5,7 @@ export const LANGUAGES = [
 ];
 export const languageKey = language => LANGUAGES.find(x=>x.id===language)?.key || 'zhCN';
 const phrases = {
-  brand:['14亿分之一','14億分之一','1 in 1.4 Billion'],
+  brand:['13亿分之一','13億分之一','1 in 1.3 Billion'],
   brandSub:['城市人生','城市人生','A city. A lifetime.'],
   home:['开始','開始','Begin'],
   archive:['追思馆','追思館','Memorial hall'],
@@ -13,8 +13,8 @@ const phrases = {
   cities:['城市名录','城市名錄','Birthplace directory'],
   theme:['切换明暗','切換明暗','Toggle theme'],
   kicker:['一场关于出身、选择与相遇的人生模拟','一場關於出身、選擇與相遇的人生模擬','A life shaped by circumstance, choice and connection'],
-  heroTitle:['14亿分之<span>一</span>','14億分之<span>一</span>','1 in <span>1.4 Billion</span>'],
-  heroText:['14亿人之中，你会在哪里出生、成为谁？你那只有一次的人生，会从哪座中国城市开始？','14億人之中，你會在哪裡出生、成為誰？你那只有一次的人生，會從哪座中國城市開始？','Among 1.4 billion people, where in China will your one life begin, and who will you become?'],
+  heroTitle:['13亿分之<span>一</span>','13億分之<span>一</span>','1 in <span>1.3 Billion</span>'],
+  heroText:['13亿人之中，你会在哪里出生、成为谁？你那只有一次的人生，会从哪座中国城市开始？','13億人之中，你會在哪裡出生、成為誰？你那只有一次的人生，會從哪座中國城市開始？','Among 1.3 billion people, where in China will your one life begin, and who will you become?'],
   cityCount:['个出生地点','個出生地點','birthplaces'],
   regionsCount:['个地区','個地區','regions'],
   languagesCount:['种语言','種語言','languages'],
@@ -176,7 +176,7 @@ const phrases = {
   guide4:['保存与隐私','儲存與隱私','Saves & privacy'],
   guide4text:['不需要账户，也不发送人生到服务器。网页托管方可能记录普通访问日志。不同浏览器、不同域名和单文件版之间，请用导出/导入转移存档。','不需要帳戶，也不傳送人生到伺服器。網頁託管方可能記錄一般存取日誌。不同瀏覽器、不同網域和單檔版之間，請用匯出／匯入轉移存檔。','No account is needed and lives are not sent to a server. A web host may keep ordinary access logs. Use export/import between browsers, domains and the standalone edition.'],
   sourceSummary:['名录使用公开行政区资料；人口未填值。出生权重、城市发展指数和人生参数为可配置模拟值。详细来源与覆盖范围见项目 data-sources.md。','名錄使用公開行政區資料；人口未填值。出生權重、城市發展指數和人生參數為可設定模擬值。詳細來源與涵蓋範圍見專案 data-sources.md。','The directory uses public administrative data; population is intentionally unset. Birth weights, development indices and life parameters are configurable simulations. See data-sources.md for provenance and coverage.'],
-  footer:['14亿分之一 · 在每一座城，看见一个人。','14億分之一 · 在每一座城，看見一個人。','1 in 1.4 Billion · In every city, a person.'],
+  footer:['13亿分之一 · 在每一座城，看见一个人。','13億分之一 · 在每一座城，看見一個人。','1 in 1.3 Billion · In every city, a person.'],
   modelLabel:['模拟参数','模擬參數','Modeled parameters'],
   urban:['城区生活','城區生活','Urban home'],
   rural:['乡间生活','鄉間生活','Rural home'],

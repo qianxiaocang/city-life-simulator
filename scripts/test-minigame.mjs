@@ -153,7 +153,7 @@ test('home selectors and pace labels are centered in their own controls', () => 
     languageLabels: [{ label: '简体中文' }], regions: [{ label: '全部地区' }], regionIndex: 0,
     provinces: [{ label: '不限' }], provinceIndex: 0, memories: [], resume: null, homeCover: ''
   });
-  Object.assign(page.data.ui, { eyebrow: '人生模拟 · 中国城市', brand: '14亿分之一', heroText: '从这里开始。', pastPresent: '过去和现在', locationCount: '1,152 个出生地点', past: '过去', now: '现在', nowHint: '从现在出发。', birthSettings: '出生地与游玩设置', scope: '出生范围', province: '省 / 县市', pace: '一段人生的节奏', minutes: '分钟', born: '出生', rememberedLives: '安放在追思馆的人生', viewAll: '查看全部', memorialEmpty: '暂无人生' });
+  Object.assign(page.data.ui, { eyebrow: '人生模拟 · 中国城市', brand: '13亿分之一', heroText: '从这里开始。', pastPresent: '过去和现在', locationCount: '1,152 个出生地点', past: '过去', now: '现在', nowHint: '从现在出发。', birthSettings: '出生地与游玩设置', scope: '出生范围', province: '省 / 县市', pace: '一段人生的节奏', minutes: '分钟', born: '出生', rememberedLives: '安放在追思馆的人生', viewAll: '查看全部', memorialEmpty: '暂无人生' });
   ui.p = ui.palette();
   const texts = [], boxes = [], originalText = ui.text.bind(ui), originalBox = ui.box.bind(ui);
   ui.text = (value, ...args) => { texts.push({ value, x: args[0], y: args[1], size: args[2] }); return originalText(value, ...args); };
