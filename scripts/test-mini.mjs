@@ -318,7 +318,7 @@ test('native page creates and resumes lives, and profile dialog restores prior p
   page.onUnload(); restored.page.onUnload();
 });
 
-test('native page stages choices, saves records and only memorializes after the explicit user action', async () => {
+test('native page stages choices and automatically archives completed lives', async () => {
   const { page, action, storage, saved } = pageHarness();
   const life = mini.startLife(mini.createLife({ location: mini.locations[0], locations: mini.locations, seed: 'native-controller-positive', birthYear: 2000, world: 'past' }));
   life.mortalityRisk.budget = 1e9;
@@ -346,8 +346,9 @@ test('native page stages choices, saves records and only memorializes after the 
   while (life.pending) page.makeChoice(null, true);
   life.mortalityRisk.budget = 0; page.completeYear();
   assert.equal(page.data.view, 'ending');
-  assert.equal(page.store.history.length, 0);
-  assert.equal(saved().history.length, 0, 'death must not automatically add the life to the memorial hall');
+  await page.archiveLife(life);
+  assert.equal(page.store.history.length, 1);
+  assert.equal(saved().history.length, 1, 'completed lives are automatically retained');
   await action('end-done');
   assert.equal(page.data.view, 'report');
   assert.ok(page.data.person.canEditReview);
@@ -359,9 +360,9 @@ test('native page stages choices, saves records and only memorializes after the 
   assert.equal(life.farewell, '愿你在这段人生里留下自己的光。');
   await action('edit-review'); page.onReviewInput({ detail: { value: '愿你拥有安稳而鲜活的日常。' } }); await action('save-review');
   assert.equal(life.farewell, '愿你拥有安稳而鲜活的日常。', 'repeat edits are allowed before leaving');
-  await action('memorialize');
+  await page.archiveLife(life);
   assert.equal(page.store.history.length, 1);
-  await action('memorialize');
+  await page.archiveLife(life);
   assert.equal(page.store.history.length, 1, 'explicit archive action is idempotent');
   await action('replay');
   assert.equal(page.data.view, 'home');
@@ -385,14 +386,14 @@ test('failed cloud publication stays unpublished and can be retried', async () =
   page.navigate('report');
   const publish = cloud.publish;
   cloud.publish = async () => { throw new Error('offline'); };
-  await action('memorialize');
-  assert.equal(page.store.history.length, 0);
-  assert.equal(saved().history.length, 0);
+  await page.archiveLife(life);
+  assert.equal(page.store.history.length, 1);
+  assert.equal(saved().history[0].cloudMemorialPending, true);
   assert.equal(cloudRows.length, 0);
   assert.equal(page.data.memorialSaved, false);
-  assert.match(page.data.toast, /安放失败/);
+  assert.equal(life.cloudMemorialPending, true);
   cloud.publish = publish;
-  await action('memorialize');
+  await page.archiveLife(life);
   assert.equal(page.store.history.length, 1);
   assert.equal(cloudRows.length, 1);
   assert.equal(page.data.memorialSaved, true);
@@ -510,4 +511,16 @@ test('save failures do not report a successful favorite or review, and corrupt s
     checked.page.onUnload();
   }
   page.onUnload(); restored.page.onUnload();
+});
+
+
+test('photo permission requests the album scope and resumes after enabling it in settings', async () => {
+  for(const denied of [false,true]){
+    let requested=0,opened=0;
+    const wx={getSetting:o=>o.success({authSetting:denied?{'scope.writePhotosAlbum':false}:{}}),authorize:o=>{requested++;assert.equal(o.scope,'scope.writePhotosAlbum');o.success();},showModal:o=>o.success({confirm:true}),openSetting:o=>{opened++;o.success({authSetting:{'scope.writePhotosAlbum':true}});}};
+    const sandbox={module:{exports:{}},require:()=>mini,wx,Date,Math,console};
+    vm.runInNewContext(readFileSync(resolve(miniRoot,'lib/platform.js'),'utf8'),sandbox);
+    await sandbox.module.exports.requestAlbumAccess();
+    assert.equal(requested,denied?0:1);assert.equal(opened,denied?1:0);
+  }
 });

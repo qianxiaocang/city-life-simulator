@@ -189,3 +189,5 @@
 .moment-group{margin-top:19rpx}
 .decade-head{min-height:64rpx;box-sizing:border-box;border:1rpx solid var(--line);border-left:7rpx solid var(--gold);border-radius:12rpx;background:var(--surface);padding:12rpx 18rpx;font-size:31rpx}
 .moment-grid{margin-top:13rpx;row-gap:20rpx}
+
+.review-title{display:block;font:600 27rpx/1.5 sans-serif;color:var(--green);letter-spacing:3rpx;margin-bottom:16rpx}.review-note{padding:26rpx 28rpx;border-left:5rpx solid var(--green);border-radius:0 22rpx 22rpx 0}

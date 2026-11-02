@@ -32,13 +32,14 @@ Page({
     const musicPosition=this.store.settings.musicPosition;
     if(musicPosition&&Number.isFinite(musicPosition.x)&&Number.isFinite(musicPosition.y)){this._musicPosition={x:Math.max(0,Math.min((windowInfo.windowWidth||390)-56,musicPosition.x)),y:Math.max(0,Math.min((windowInfo.windowHeight||844)-100,musicPosition.y))};this.setData({musicX:this._musicPosition.x,musicY:this._musicPosition.y});}
     this._foreground = true; this._editable = null; this._viewed = null; this._minimized = null;
-    this._cloudRows = []; this._archiveLoading = false; this._archiveError = false; this._archiveLoaded = false; this._publishing = false; this._publishedIds = new Map();
+    this._cloudRows = []; this._archiveLoading = false; this._archiveError = false; this._archiveLoaded = false; this._publishing = false; this._publishedIds = new Map(); this._archiveJobs = new Map();
     this.render();
     this.loadCloudArchive();
+    this.retryAutomaticArchives();
     if (this._storageReadFailed) this.notify(this.tx('存档读取失败，请重启小程序后重试','存檔讀取失敗，請重新開啟小程式後重試','Could not read your save. Please restart the app.'));
     this._timer = setInterval(() => this.tick(), 120);
   },
-  onShow() { this._foreground = true; this._lastTick = Date.now(); },
+  onShow() { this._foreground = true; this._lastTick = Date.now(); this.retryAutomaticArchives(); },
   onResize() { this.updateNavigation(); },
   navigationMetrics(windowInfo, capsule) {
     const width = Math.max(240, Number(windowInfo?.windowWidth) || 390);
@@ -90,6 +91,27 @@ Page({
     clearTimeout(this._toastTimer); this.setData({ toast: text });
     this._toastTimer = setTimeout(() => this.setData({ toast: '' }), 2600);
   },
+  retryAutomaticArchives() {
+    if(!this._archiveJobs)return;
+    const lives=[this.store.current,...this.store.history].filter(life=>life?.phase==='dead'&&(life===this.store.current||life.cloudMemorialPending));
+    for(const life of new Map(lives.map(life=>[life.id,life])).values())if(!this._publishedIds.has(life.id))this.archiveLife(life);
+  },
+  archiveLife(life) {
+    if(this._archiveJobs.has(life.id))return this._archiveJobs.get(life.id);
+    life.cloudMemorialPending=true;
+    if(!this.store.history.some(row=>row.id===life.id))this.store.history=[life,...this.store.history].slice(0,12);
+    this.persist();this._publishing=true;this.render();
+    const job=(async()=>{
+      try {
+        const preview=game.selectLifeMoments(life).find(item=>item.type!=='birth')||life.log[life.log.length-1];
+        const result=await memorialCloud.publish(clone(life),preview?.id);
+        this._publishedIds.set(life.id,result.id);life.cloudMemorialPending=false;this.persist();
+        await this.loadCloudArchive(true);
+      } catch(error){console.warn('Automatic memorial upload failed',error);}
+      finally{this._archiveJobs.delete(life.id);this._publishing=this._archiveJobs.size>0;this.render();}
+    })();
+    this._archiveJobs.set(life.id,job);return job;
+  },
   async loadCloudArchive(force = false) {
     if (this._archiveLoading || (this._archiveLoaded && !force)) return;
     this._archiveLoading = true; this._archiveError = false;
@@ -129,7 +151,7 @@ Page({
       moments: ['人生瞬间','人生瞬間','Life moments'], wholeLife: ['这一生','這一生','This life'], report: ['一段人生','一段人生','A lifetime'],
       write: ['写下你的话','寫下你的話','Add your words'], yourWords: ['你想写的话','你想寫的話','Your words'], save: ['保存','儲存','Save'],
       reviewPlaceholder: ['你想对这段人生说点什么吗？','你想對這段人生說點什麼嗎？','What would you like to say to this life?'],
-      reviewHint: ['离开本页后便不能修改；主动放入追思馆才会珍藏这段人生。','離開本頁後便不能修改；主動放入追思館才會珍藏這段人生。','You can edit until you leave this page. Choose to place this life in the memorial hall to keep it.'],
+      reviewHint: ['人生结束后会自动珍藏到追思馆。离开本页前，可以写下或修改你的话。','離開本頁後便不能修改；主動放入追思館才會珍藏這段人生。','You can edit until you leave this page. Choose to place this life in the memorial hall to keep it.'],
       photo: ['拍照纪念','拍照紀念','Save a photo'], memorialize: ['放入追思馆','放入追思館','Place in memorial hall'],
       memorialSaved: ['已放入追思馆','已放入追思館','In the memorial hall'], replay: ['重活一遍','重活一遍','Live again'],
       all: ['查看全部','查看全部','View all'], memories: ['安放在追思馆的人生','安放在追思館的人生','Lives remembered'],
@@ -300,6 +322,7 @@ Page({
     } finally {this._creating=false;wx.hideLoading();}
   },
   tick() {
+    if(this._foreground&&Date.now()-(this._lastArchiveRetry||0)>30000){this._lastArchiveRetry=Date.now();this.retryAutomaticArchives();}
     const now=Date.now(),dt=Math.min(.25,Math.max(0,(now-(this._lastTick||now))/1000));this._lastTick=now;
     const life=this.store?.current;
     if (!this._foreground || this._view!=='life' || life?.phase!=='life' || this._paused) return;
@@ -342,7 +365,7 @@ Page({
     if(life.autopilot?.enabled)game.runAutopilot(life);
     this.persist();if(life.phase==='dead')return this.finishLife();this.render();
   },
-  finishLife(){this._paused=true;this._editable=this.store.current.id;this._view='ending';this._viewed=null;this.setData({modal:''});this.persist();this.render();wx.pageScrollTo({scrollTop:0,duration:0});},
+  finishLife(){this._paused=true;this._editable=this.store.current.id;this._view='ending';this._viewed=null;this.setData({modal:''});this.persist();this.render();this.archiveLife(this.store.current);wx.pageScrollTo({scrollTop:0,duration:0});},
   onSetting(event) {
     const key=event.currentTarget.dataset.key,index=Number(event.detail.value);
     const options={language:this.data.languageLabels,birthYear:this.data.years,scope:this.data.regions,province:this.data.provinces};
@@ -402,21 +425,8 @@ Page({
       if(action==='more-moments'){this._momentLimit+=24;return this.render();}
       if(action==='end-done'){this._view='report';this.render();wx.pageScrollTo({scrollTop:0,duration:0});return;}
       if(action==='edit-review'){if(this._editable!==life?.id||this._view!=='report'||this._viewed)return;this.setData({modal:'review',reviewDraft:life.farewell||''});return;}
-      if(action==='save-review'){if(this._editable!==life?.id||this._view!=='report'||this.data.modal!=='review'||this._viewed)return;const previous=life.farewell;life.farewell=this.data.reviewDraft.trim().slice(0,300);if(!this.persist()){life.farewell=previous;return;}this.setData({modal:''});this.render();return this.notify(this.tr('saved'));}
-      if(action==='memorialize'){
-        if(this._view!=='report'||life?.phase!=='dead'||this._viewed||this._publishing)return;
-        if(this._storageReadFailed){this.persist();return;}
-        this._publishing=true;this.render();
-        try {
-          const preview=game.selectLifeMoments(life).find(item=>item.type!=='birth')||life.log[life.log.length-1];
-          const published=await memorialCloud.publish(clone(life),preview?.id);
-          this._publishedIds.set(life.id,published.id);
-          if(!this.store.history.some(item=>item.id===life.id)){const old=this.store.history;this.store.history=[life,...old].slice(0,12);if(!this.persist())this.store.history=old;}
-          this._archiveLoaded=false;await this.loadCloudArchive(true);
-          return this.notify(this.tx('这一生已放入追思馆','這一生已放入追思館','Placed in the memorial hall'));
-        } catch(error) { console.warn('Could not publish memorial',error);return this.notify(this.tx('安放失败，请检查网络后重试','安放失敗，請檢查網路後重試','Could not publish. Check your connection and retry.')); }
-        finally {this._publishing=false;this.render();}
-      }
+      if(action==='save-review'){if(this._editable!==life?.id||this._view!=='report'||this.data.modal!=='review'||this._viewed)return;const previous=life.farewell;life.farewell=this.data.reviewDraft.trim().slice(0,300);if(!this.persist()){life.farewell=previous;return;}this.setData({modal:''});this._publishedIds.delete(life.id);this.archiveLife(life);this.render();return this.notify(this.tr('saved'));}
+      if(action==='memorialize')return;
       if(action==='candle'){
         if(!this._cloudRows.some(item=>item.id===value)&&![...this._publishedIds.values()].includes(value))return;
         try { const result=await memorialCloud.candle(value);const item=this._cloudRows.find(row=>row.id===value);if(item)item.candles=result.candles;if(this._viewed?.id===value)this._viewed.candles=result.candles;if(this.store.current?.id===(item?.sourceId||[...this._publishedIds].find(([,id])=>id===value)?.[0]))this.store.current.candles=result.candles;this.render(); }
@@ -431,7 +441,7 @@ Page({
         if(!await platform.albumAuthorized()){
         const consent=await new Promise(resolve=>wx.showModal({
           title:this.tx('保存纪念照片','儲存紀念照片','Save a memorial photo'),
-          content:this.tx('需要申请保存图片到相册的权限，用于保存这段人生的纪念照。照片包含角色姓名和记录，仅在本机生成，不会上传。','照片包含這段人生的姓名和紀錄，只在本機產生。確認後會儲存到手機相簿，不會上傳。','This photo includes the character’s name and life story. It is created on your device and saved to your photos only with your consent.'),
+          content:this.tx('需要申请保存图片到相册的权限，用于保存这段人生的纪念照。纪念照片仅在本机生成并保存。','照片包含這段人生的姓名和紀錄，只在本機產生。確認後會儲存到手機相簿，不會上傳。','This photo includes the character’s name and life story. It is created on your device and saved to your photos only with your consent.'),
           confirmText:this.tx('允许保存','允許儲存','Allow'),
           success:result=>resolve(!!result.confirm),fail:()=>resolve(false)
         }));
@@ -443,7 +453,8 @@ Page({
           await platform.saveImage(this._photo,life,this.store.settings.language);
           this.notify(this.tx('已保存到手机相册','已儲存到手機相簿','Saved to your photos'));
         }catch(error){
-          if(/auth deny|authorize|permission|scope\.writePhotosAlbum/i.test(error?.errMsg||''))wx.showModal({title:this.tx('允许保存照片','允許儲存照片','Allow photo access'),content:this.tx('请在微信设置中允许保存到相册，然后重试。','請在微信設定中允許儲存到相簿，然後重試。','Allow photo access in WeChat settings, then try again.'),confirmText:this.tx('去设置','去設定','Settings'),success:result=>{if(result.confirm)wx.openSetting({});}});
+          if(error?.cancelled)return;
+          if(/auth deny|authorize|permission|scope\.writePhotosAlbum/i.test(error?.errMsg||error?.message||''))wx.showModal({title:this.tx('允许保存照片','允許儲存照片','Allow photo access'),content:this.tx('请在微信设置中允许保存到相册，然后重试。','請在微信設定中允許儲存到相簿，然後重試。','Allow photo access in WeChat settings, then try again.'),confirmText:this.tx('去设置','去設定','Settings'),success:result=>{if(result.confirm)wx.openSetting({});}});
           else this.notify(this.tx('照片未保存，请重试','照片未儲存，請重試','Photo not saved. Try again.'));
         }finally{this._savingPhoto=false;wx.hideLoading();}
         return;

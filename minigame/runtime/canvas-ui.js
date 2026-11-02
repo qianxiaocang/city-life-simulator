@@ -325,8 +325,8 @@ class CanvasUI {
   }
   report() {
     const d=this.page.data,p=this.p,P=d.person,W=this.width,x=13,w=W-26;let y=13;if(!P)return y;
-    const rows=Math.ceil(P.facts.length/2),reviewRows=this.lines(P.review,w-52,15,0,'serif'),reviewHeight=24+reviewRows.length*27+(P.canEditReview?28:0);
-    const cardH=121+17+35+27+39+28+rows*52+19+reviewHeight+20+42+18;
+    const rows=Math.ceil(P.facts.length/2),reviewRows=this.lines(P.review,w-52,15,0,'serif'),reviewHeight=55+reviewRows.length*27+(P.canEditReview?28:0);
+    const cardH=121+17+35+27+39+28+rows*52+19+reviewHeight+20+18;
     this.box(x,y,w,cardH,p.paper,16,p.line);this.roundedImage(P.cover,x,y,w,121,15,true);let cy=y+136;
     this.title(P.name,x+15,cy,26,p.ink);cy+=36;this.text(P.date,x+15,cy,13,p.muted);cy+=29;
     this.title(P.tagline,x+14,cy,16,p.ink,w-28);cy+=31;
@@ -334,9 +334,10 @@ class CanvasUI {
     P.facts.forEach((f,i)=>{const fx=x+15+(i%2)*(w-30)/2,fy=cy+Math.floor(i/2)*52;this.text(f.label,fx,fy,12,p.muted);this.text(f.value,fx,fy+21,14.5,p.ink,'bold',(w-40)/2);});cy+=rows*52+4;
     this.line(x+14,cy,w-28);cy+=16;
     this.box(x+14,cy,w-28,reviewHeight,p.paper2,11);this.box(x+14,cy,2,reviewHeight,p.green);
-    this.prose(P.review,x+27,cy+12,w-53,15,27,p.ink);
+    this.text('人生寄语',x+27,cy+13,13,p.green,'bold');
+    this.prose(P.review,x+27,cy+39,w-53,15,27,p.ink);
     if(P.canEditReview){this.text(d.ui.writeWords+' ↗',W-129,cy+reviewHeight-23,12,p.green,'bold');this.hit(W-148,cy+reviewHeight-30,126,30,'edit-review');}
-    cy+=reviewHeight+17;this.text('🕯 '+P.candles,x+16,cy+2,13,p.muted);this.hit(x+10,cy,w-20,36,'candle',P.id);
+    cy+=reviewHeight+17;
     y+=cardH+28;
     if(d.momentGroups.length){
       this.title(d.ui.moments,x,y,22,p.ink);y+=42;
@@ -358,7 +359,7 @@ class CanvasUI {
     const heights=logRows.map(({rows})=>Math.max(47,18+rows.length*22+12));const total=heights.reduce((a,b)=>a+b,0);
     this.box(x,y,w,total+3,p.paper,15,p.line);let ly=y+2;
     logRows.forEach(({item,rows},i)=>{const h=heights[i];if(ly+h>=this.scroll-10&&ly<this.scroll+(this.viewportBottom-this.navHeight)+10){const color=['death','illness','danger'].includes(item.type)?'#d1644d':['positive','asset'].includes(item.type)?p.green:p.ink;this.text(item.age,x+15,ly+12,11,p.muted);rows.forEach((row,j)=>this.text(row,x+45,ly+11+j*22,14,color,'normal',w-63,'serif'));this.line(x+14,ly+h-1,w-28);}ly+=h;});y+=total+25;
-    if(!d.fromArchive){if(!d.memorialSaved){this.button(d.publishing?'正在安放…':d.ui.memorialize,x,y,w,45,d.publishing?'noop':'memorialize',null,'primary');y+=60;}else{this.text('✓ '+d.ui.memorialSaved,x+(w-130)/2,y+14,13,p.green);y+=58;}this.button(d.ui.replay,x,y,w,44,'replay',null,'outline');y+=68;}
+    if(!d.fromArchive){this.text(d.publishing?'正在同步追思馆…':d.memorialSaved?'✓ 已珍藏到追思馆':'待联网自动同步追思馆',x+12,y+14,12,p.green);y+=40;this.button(d.ui.replay,x,y,w,44,'replay',null,'outline');y+=68;}
     return y;
   }
   modal() {

@@ -16,7 +16,11 @@ exports.main = async event => {
     if (Buffer.byteLength(JSON.stringify(life)) > 700000) return fail('人生记录过长，暂时无法安放');
     const id = 'm_' + digest(openid + ':' + life.id);
     const existing = await lives.doc(id).get().catch(() => null);
-    if (existing?.data?._id) return { ok: true, id, alreadySaved: true };
+    if (existing?.data?._id) {
+      const farewell=String(life.farewell||'').slice(0,300);
+      await lives.doc(id).update({data:{'life.farewell':farewell,'summary.farewell':farewell}});
+      return { ok: true, id, alreadySaved: true };
+    }
     const previewEvent = life.log.find(row => row.id === event.previewEventId) || life.log.find(row => row.type !== 'birth') || life.log[0];
     const summary = {
       id, sourceId: life.id, name: life.name, birthYear: life.birthYear, year: life.year, age: life.age,

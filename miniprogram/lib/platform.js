@@ -176,8 +176,18 @@ function cleanSceneFiles() {
 function albumAuthorized() {
   return new Promise(resolve => wx.getSetting({success: result => resolve(!!result.authSetting['scope.writePhotosAlbum']), fail: () => resolve(false)}));
 }
-function requestAlbumAccess() {
-  return new Promise((resolve, reject) => wx.authorize({scope:'scope.writePhotosAlbum',success:resolve,fail:reject}));
+async function requestAlbumAccess() {
+  if (typeof wx.requirePrivacyAuthorize === 'function') await new Promise((resolve,reject)=>wx.requirePrivacyAuthorize({success:resolve,fail:reject}));
+  const settings = await new Promise(resolve=>wx.getSetting({success:r=>resolve(r.authSetting||{}),fail:()=>resolve({})}));
+  if(settings['scope.writePhotosAlbum'])return;
+  if(settings['scope.writePhotosAlbum']!==false){
+    try { await new Promise((resolve,reject)=>wx.authorize({scope:'scope.writePhotosAlbum',success:resolve,fail:reject})); return; }
+    catch(error){ if(!/auth deny|authorize|permission|scope/i.test(error.errMsg||''))throw error; }
+  }
+  const consent=await new Promise(resolve=>wx.showModal({title:'允许保存纪念照片',content:'保存照片需要相册权限。请点击去授权，并开启“保存到相册”，授权后将自动继续保存。',confirmText:'去授权',success:r=>resolve(r.confirm),fail:()=>resolve(false)}));
+  if(!consent)throw {cancelled:true};
+  const result=await new Promise((resolve,reject)=>wx.openSetting({success:resolve,fail:reject}));
+  if(!result.authSetting?.['scope.writePhotosAlbum'])throw {cancelled:true};
 }
 function memorialFileName(life, language) {
   const name = [...String(game.valueText(life.name, language) || '人生纪念')
