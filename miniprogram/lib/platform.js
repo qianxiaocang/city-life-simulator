@@ -89,20 +89,56 @@ async function captureMemorial(page, life, options) {
 async function createBirthShare(life, language = 'zh-CN') {
   const L = value => game.valueText(value, language);
   const canvas = offscreen(600, 480), context = canvas.getContext('2d');
-  context.fillStyle = '#f3f0e8'; context.fillRect(0, 0, 600, 480);
-  const birth = (life.log || []).find(event => event.type === 'birth') || { type: 'birth', age: 0 };
-  const scene = offscreen(640, 280);
-  game.drawHighlightScene(scene, birth, life);
-  context.drawImage(scene, 24, 24, 552, 242);
-  context.fillStyle = '#236b59'; context.font = 'bold 20px sans-serif'; context.textAlign = 'left';
-  context.fillText(language === 'en' ? 'BIRTH CARD' : language === 'zh-TW' ? '出生登記' : '出生登记', 32, 301);
-  context.fillStyle = '#242b26'; context.font = 'bold 44px serif';
-  context.fillText(L(life.name), 32, 363, 520);
-  context.fillStyle = '#75796f'; context.font = '23px sans-serif';
-  context.fillText(`${life.birthYear} · ${L(life.born.name)}`, 32, 409, 520);
-  context.fillStyle = '#bc9349'; context.fillRect(32, 433, 58, 3);
-  context.fillStyle = '#236b59'; context.font = '18px sans-serif';
-  context.fillText(language === 'en' ? 'One in 1.3 Billion' : '13亿分之一', 104, 441, 450);
+  const birth = (life.log || []).find(event => event.type === 'birth');
+  const place = game.locationLabel(life.born, language);
+  const story = game.birthPlaceNarrative(L(birth?.text), life.born, language);
+  const title = language === 'en' ? 'BIRTH REGISTRATION' : language === 'zh-TW' ? '出生登記' : '出生登记';
+  const sameMoment = language === 'en' ? 'BORN AT THE SAME MOMENT' : language === 'zh-TW' ? '同一刻出生的人' : '同一刻出生的人';
+  const drawClamped = (text, x, y, width, lineHeight, maxLines) => {
+    let remaining = String(text || ''), lines = [];
+    while (remaining && lines.length < maxLines) {
+      let line = '';
+      for (const char of Array.from(remaining)) {
+        if (context.measureText(line + char).width > width && line) break;
+        line += char;
+      }
+      remaining = remaining.slice(line.length);
+      if (lines.length === maxLines - 1 && remaining) {
+        while (line && context.measureText(line + '…').width > width) line = line.slice(0, -1);
+        line += '…';
+      }
+      lines.push(line);
+    }
+    lines.forEach((line, index) => context.fillText(line, x, y + index * lineHeight));
+  };
+  context.fillStyle = '#202823'; context.fillRect(0, 0, 600, 480);
+  context.fillStyle = '#a1ceb9'; context.font = 'bold 20px sans-serif'; context.textAlign = 'left';
+  context.fillText(title, 30, 45);
+  context.fillStyle = '#f4f0e6'; context.font = 'bold 48px serif';
+  context.fillText(L(life.name), 30, 105, 390);
+  context.fillStyle = '#bac0b5'; context.font = '20px sans-serif';
+  drawClamped(`${game.t(life.sex, language)} · ${place} · ${game.t(`class${life.classRank}`, language)}`, 30, 140, 397, 27, 2);
+  context.fillStyle = '#f0eee4'; context.font = '22px serif';
+  drawClamped(story, 30, 199, 538, 31, 2);
+  context.fillStyle = '#465146'; context.fillRect(30, 259, 540, 1);
+  const facts = [
+    [language === 'en' ? 'GENDER' : '性别', game.t(life.sex, language)],
+    [language === 'en' ? 'BIRTHPLACE' : language === 'zh-TW' ? '出生地' : '出生地', place],
+    [language === 'en' ? 'BIRTH YEAR' : '出生年份', String(life.birthYear)],
+    [language === 'en' ? 'FAMILY' : '出身家庭', game.t(`class${life.classRank}`, language)]
+  ];
+  facts.forEach(([label, value], index) => {
+    const fx = 30 + (index % 2) * 275, fy = 289 + Math.floor(index / 2) * 68;
+    context.fillStyle = '#aeb9ad'; context.font = '16px sans-serif'; context.fillText(label, fx, fy);
+    context.fillStyle = '#f0eee4'; context.font = 'bold 20px sans-serif';
+    drawClamped(value, fx, fy + 27, 256, 23, 1);
+  });
+  context.fillStyle = '#a1ceb9'; context.font = 'bold 18px sans-serif'; context.fillText(sameMoment, 30, 428);
+  const companions = (life.companions || []).slice(0, 3).map(person => L(person.name));
+  context.fillStyle = '#e8e8de'; context.font = '19px sans-serif';
+  drawClamped(companions.join('   ·   '), 30, 459, 415, 23, 1);
+  context.fillStyle = '#a1ceb9'; context.font = 'bold 16px serif'; context.textAlign = 'right';
+  context.fillText(language === 'en' ? 'One in 1.3 Billion' : '13亿分之一', 570, 457);
   return canvasFile(canvas);
 }
 async function generateSurvivalChart(life, dark = false, language = 'zh-CN') {

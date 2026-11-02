@@ -251,7 +251,7 @@ class CanvasUI {
     if(this.ctx.createLinearGradient){const rainbow=this.ctx.createLinearGradient(x,0,x+w,0);rainbow.addColorStop(0,'#257963');rainbow.addColorStop(.35,'#9fa772');rainbow.addColorStop(.65,'#c3a25d');rainbow.addColorStop(1,'#ac3c56');this.box(x,y,w,3.5,rainbow);}else ['#257963','#9fa772','#c3a25d','#ac3c56'].forEach((color,i)=>this.box(x+i*w/4,y,w/4,3.5,color));
     this.ctx.restore();
     this.text(d.ui.overview,x+12,y+18,12,p.green,'bold');this.text(P.year+' · '+P.age,x+83,y+19,10.5,p.muted);
-    this.box(W-70,y+11,46,27,p.inset,7,p.line);this.text(expanded?d.ui.collapse:d.ui.expand,W-63,y+20,11.5,p.green);this.chevron(W-32,y+24,6,expanded,p.green);this.hit(W-74,y+7,54,35,'toggle-overview');
+    this.box(W-70,y+11,46,27,p.inset,7,p.line);this.centerText(expanded?d.ui.collapse:d.ui.expand,W-69,y+11,28,27,11.5,p.green);this.chevron(W-32,y+24.5,6,expanded,p.green);this.hit(W-74,y+7,54,35,'toggle-overview');
     this.box(x+12,y+45,33,33,p.paper2,10);this.centerText(P.initial,x+12,y+45,33,33,19,p.green,'bold','serif');
     this.title(P.name,x+53,y+44,20,p.ink,w-78);this.text(P.meta,x+53,y+69,11,p.muted,'normal',w-68);
     this.line(x,y+91,w);
@@ -341,12 +341,14 @@ class CanvasUI {
     if(d.momentGroups.length){
       this.title(d.ui.moments,x,y,22,p.ink);y+=42;
       for(const group of d.momentGroups){
-        this.box(x,y,3,29,p.gold,2);this.title(group.title,x+14,y+6,16,p.ink);this.text(group.years,x+92,y+8,12,p.muted);y+=37;
+        this.box(x,y,w,36,p.paper,8,p.line);this.box(x,y,4,36,p.gold,2);this.title(group.title,x+14,y+8,17,p.ink);
+        this.ctx.font='bold 17px Georgia, "Songti SC", serif';const titleWidth=this.ctx.measureText(group.title).width;
+        this.text(group.years,x+23+titleWidth,y+10,12,p.muted);y+=44;
         const cw=(w-10)/2;
         for(let start=0;start<group.events.length;start+=2){
           const pair=group.events.slice(start,start+2);const rowH=87+Math.max(...pair.map(item=>this.lines(item.text,cw,13,0,'serif').length))*21.5;
           pair.forEach((item,i)=>{const left=x+i*(cw+10);this.box(left,y,cw,60,p.inset,2,p.gold);this.image(item.cover,left+3,y+3,cw-6,54);this.title(item.age,left,y+67,13,p.ink);const ageWidth=this.ctx.measureText(item.age).width;this.text(String(item.year),left+ageWidth+8,y+68,11.5,p.muted);this.prose(item.text,left,y+87,cw,13,21.5,p.ink);});
-          y+=rowH+12;
+          y+=rowH+8;
         }
       }
       if(d.hasMoreMoments){this.button(d.ui.moreMoments,x,y,w,40,'more-moments',null,'outline');y+=54;}
@@ -365,7 +367,7 @@ class CanvasUI {
     const head=kind==='choice'?(d.automatic?57:43):kind==='review'?42:51;
     let choiceHeight=0;
     if(kind==='choice'&&d.choice){
-      const choice=d.choice,optionHeights=choice.options.reduce((sum,item)=>sum+17+this.lines(item.label,W-88,13,2).length*18+(item.description?3+this.lines(item.description,W-88,11).length*15:0),0);
+      const choice=d.choice,optionHeights=choice.options.reduce((sum,item)=>sum+17+this.lines(item.label,W-81,14.5,2).length*20+(item.description?3+this.lines(item.description,W-81,11.5).length*15:0),0);
       choiceHeight=head+12+23+this.lines(choice.title,W-54,16.5,0,'serif').length*23+5+this.lines(choice.description,W-54,11.5).length*17+9+(choice.input?63:0)+optionHeights+10;
     }
     const maxH=H-this.navHeight-this.safeBottom-16;
@@ -390,10 +392,10 @@ class CanvasUI {
           this.hit(x+13,y,w-26,55,'input-reflection',null,'modal-content');y+=63;
         }
         for(const item of ch.options){
-          const labels=this.lines(item.label,w-60,13,2),desc=item.description?this.lines(item.description,w-60,11):[],oh=12+labels.length*18+(desc.length?3+desc.length*15:0);
-          this.box(x+12,y,w-24,oh,p.paper2,8,p.line);this.box(x+20,y+8,17,17,p.paper,5);
-          this.centerText(item.number,x+20,y+8,17,17,11.5,p.green,'bold','serif');labels.forEach((label,i)=>this.text(label,x+45,y+6+i*18,13,p.green,'bold',w-60));
-          desc.forEach((line,i)=>this.text(line,x+45,y+6+labels.length*18+3+i*15,11,p.muted,'normal',w-60));
+          const labels=this.lines(item.label,w-53,14.5,2),desc=item.description?this.lines(item.description,w-53,11.5):[],oh=12+labels.length*20+(desc.length?3+desc.length*15:0);
+          this.box(x+12,y,w-24,oh,p.paper2,8,p.line);this.box(x+19,y+8,17,17,p.paper,5);
+          this.centerText(item.number,x+19,y+8,17,17,11.5,p.green,'bold','serif');labels.forEach((label,i)=>this.text(label,x+41,y+6+i*20,14.5,p.green,'bold',w-53));
+          desc.forEach((line,i)=>this.text(line,x+41,y+6+labels.length*20+3+i*15,11.5,p.muted,'normal',w-53));
           if(this.isPressed('choose',item.id))this.box(x+12,y,w-24,oh,'#ffffff20',8);
           this.hit(x+12,y,w-24,oh,'choose',item.id,'modal-content');y+=oh+5;
         }

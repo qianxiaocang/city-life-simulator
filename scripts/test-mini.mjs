@@ -76,6 +76,37 @@ test('native images retain saved records and event-specific pixel scenes', () =>
   assert.equal(mini.describeHighlight(events[2], life).motif, 'baby');
 });
 
+test('birthplace labels retain province and district context across regions', () => {
+  const find = (name, region) => mini.locations.find(place => place.name.zhCN === name && (!region || place.region === region));
+  assert.equal(mini.locationLabel(find('成都市')), '四川省 · 成都市');
+  assert.equal(mini.locationLabel(find('南区', 'hongkong')), '中国香港 · 南区');
+  assert.equal(mini.locationLabel(find('大堂区')), '中国澳门 · 大堂区');
+  assert.match(mini.locationLabel(find('中正区')), /中国台湾 · 台北市 · 中正区/);
+  assert.equal(mini.birthPlaceNarrative('你出生在南区，一个温暖的家庭。', find('南区', 'hongkong')), '你出生在中国香港 · 南区，一个温暖的家庭。');
+});
+
+test('birth share cover includes complete location and reserves its upper-right corner', async () => {
+  const labels = [];
+  const context2d = {
+    fillRect() {},
+    fillText(value, x, y, maxWidth) { labels.push({ value: String(value), x, y, maxWidth }); },
+    measureText(value) { return { width: Array.from(String(value)).length * 12 }; },
+  };
+  const wx = {
+    env: { USER_DATA_PATH: '/tmp' },
+    createOffscreenCanvas: () => ({ getContext: () => context2d, toDataURL: () => 'data:image/png;base64,AA==' }),
+    getFileSystemManager: () => ({ writeFile: ({ success }) => success() }),
+  };
+  const sandbox = { module: { exports: {} }, require: () => mini, wx, Date, Math, console };
+  vm.runInNewContext(readFileSync(resolve(miniRoot, 'lib/platform.js'), 'utf8'), sandbox);
+  const place = mini.locations.find(item => item.name.zhCN === '南区' && item.region === 'hongkong');
+  const life = mini.startLife(mini.createLife({ location: place, locations: [place], seed: 'share-location', birthYear: 2026 }));
+  await sandbox.module.exports.createBirthShare(life);
+  assert.ok(labels.some(item => item.value.includes('中国香港 · 南区')));
+  assert.ok(labels.some(item => item.value === '同一刻出生的人'));
+  assert.ok(labels.filter(item => item.y < 170).every(item => item.x < 430 && item.x + (item.maxWidth || 0) <= 430));
+});
+
 const pageSource = readFileSync(resolve(miniRoot, 'pages/index/index.js'), 'utf8');
 const SAVE_KEY = 'one-in-1-4-billion.mini.v1';
 
