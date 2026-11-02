@@ -1,6 +1,6 @@
 > **微信小游戏版（miniGame 分支）**
 >
-> 原生小游戏入口为 `minigame/`，AppID 为 `wxf0a6d9946d36da31`。运行 `npm run build:minigame` 后，在微信开发者工具中导入 `minigame/`；运行 `npm run test:minigame` 验证。完整说明见 [微信小游戏文档](docs/微信小游戏.md)。
+> 原生小游戏入口为 `minigame/`，AppID 为 `wxed5e2570a223e4a7`。运行 `npm run build:minigame` 后，在微信开发者工具中导入 `minigame/`；运行 `npm run test:minigame` 验证。完整说明见 [微信小游戏文档](docs/微信小游戏.md)。
 >
 > **微信小程序版（mini 分支）**
 >

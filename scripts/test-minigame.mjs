@@ -16,7 +16,7 @@ function size(dir) {
 
 test('standalone Mini Game has the requested AppID and a native Canvas entry', () => {
   const config = JSON.parse(source('project.config.json'));
-  assert.equal(config.appid, 'wxf0a6d9946d36da31');
+  assert.equal(config.appid, 'wxed5e2570a223e4a7');
   assert.equal(config.compileType, 'game');
   assert.ok(size(gameRoot) < 2 * 1024 * 1024);
   assert.match(source('game.js'), /wx\.createCanvas\(\)/);

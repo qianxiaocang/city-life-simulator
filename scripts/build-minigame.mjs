@@ -49,4 +49,4 @@ async function bytes(dir) {
 }
 const size = await bytes(gameRoot);
 if (size >= 2 * 1024 * 1024) throw new Error(`微信小游戏主包超过 2 MiB: ${size}`);
-console.log(`Built native WeChat mini game: ${Math.round(size / 1024)} KiB / 2048 KiB; AppID wxf0a6d9946d36da31`);
+console.log(`Built native WeChat mini game: ${Math.round(size / 1024)} KiB / 2048 KiB; AppID wxed5e2570a223e4a7`);
