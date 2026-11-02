@@ -120,6 +120,13 @@ function pageHarness(initialStore, initialStorage, overrides = {}) {
   let definition;
   const storage = new Map(initialStorage ? [...initialStorage].map(([key,value]) => [key,clone(value)]) : initialStore ? [[SAVE_KEY, clone(initialStore)]] : []);
   const platform = { generateSurvivalChart: async () => '/mock-survival.png', albumAuthorized: async () => false, requestAlbumAccess: async () => {}, generateScene: async () => '/mock-scene.png', createBirthShare: async () => '/mock-birth-share.png', toggleMusic: () => true, stopMusic() {}, captureMemorial: async () => '/mock-photo.png', saveImage: async () => {} };
+  const cloudRows = [];
+  const cloud = {
+    async publish(life) { if (!cloudRows.some(row => row.id === life.id)) cloudRows.unshift(clone(life)); return { ok: true, id: life.id }; },
+    async list() { return { ok: true, items: clone(cloudRows), hasMore: false }; },
+    async get(id) { return { ok: true, life: clone(cloudRows.find(row => row.id === id)) }; },
+    async candle(id) { const row=cloudRows.find(item=>item.id===id);row.candles=(row.candles||0)+1;return {ok:true,candles:row.candles}; },
+  };
   const wx = {
     getStorageSync: key => storage.has(key) ? clone(storage.get(key)) : '',
     setStorageSync: (key, value) => storage.set(key, clone(value)),
@@ -129,12 +136,12 @@ function pageHarness(initialStore, initialStorage, overrides = {}) {
     showModal: options => options.success({ confirm: true }),
   };
   const storageApi = loadStorage(wx);
-  const sandbox = { require: path => path.endsWith('/game') ? { ...mini, ...overrides } : path.endsWith('/storage') ? storageApi : platform, Page: value => { definition = value; }, wx, console, Date, Math, setInterval: () => 1, clearInterval() {}, setTimeout: () => 1, clearTimeout() {} };
+  const sandbox = { require: path => path.endsWith('/game') ? { ...mini, ...overrides } : path.endsWith('/storage') ? storageApi : path.endsWith('/memorial-cloud') ? cloud : platform, Page: value => { definition = value; }, wx, console, Date, Math, setInterval: () => 1, clearInterval() {}, setTimeout: () => 1, clearTimeout() {} };
   vm.runInNewContext(pageSource, sandbox, { filename: 'miniprogram/pages/index/index.js' });
   const page = { ...definition, data: clone(definition.data), setData(patch, done) { Object.assign(this.data, clone(patch)); if (done) done(); } };
   page.onLoad();
   const action = (action, value) => page.onAction({ currentTarget: { dataset: { action, value } } });
-  return { page, storage, storageApi, platform, wx, action, saved: () => storageApi.readStore(page.store) };
+  return { page, storage, storageApi, platform, cloud, cloudRows, wx, action, saved: () => storageApi.readStore(page.store) };
 }
 
 test('birth card uses native forwarding with a prepared image and memorial photo saves after consent', async () => {
@@ -369,6 +376,31 @@ test('native page stages choices, saves records and only memorializes after the 
   page.onUnload();
 });
 
+test('failed cloud publication stays unpublished and can be retried', async () => {
+  const { page, action, cloud, cloudRows, saved } = pageHarness();
+  const life = mini.startLife(mini.createLife({ location: mini.locations[0], seed: 'cloud-retry', birthYear: 2000, world: 'past' }));
+  life.phase = 'dead';
+  life.death = { age: life.age, year: life.year, cause: 'test' };
+  page.store.current = life;
+  page.navigate('report');
+  const publish = cloud.publish;
+  cloud.publish = async () => { throw new Error('offline'); };
+  await action('memorialize');
+  assert.equal(page.store.history.length, 0);
+  assert.equal(saved().history.length, 0);
+  assert.equal(cloudRows.length, 0);
+  assert.equal(page.data.memorialSaved, false);
+  assert.match(page.data.toast, /安放失败/);
+  cloud.publish = publish;
+  await action('memorialize');
+  assert.equal(page.store.history.length, 1);
+  assert.equal(cloudRows.length, 1);
+  assert.equal(page.data.memorialSaved, true);
+  await action('archive');
+  assert.equal(page.data.archiveList.length, 1);
+  page.onUnload();
+});
+
 test('home memorial previews stop at eight and both life views show every record', () => {
   const { page } = pageHarness();
   const life = mini.startLife(mini.createLife({ location: mini.locations[0], seed: 'all-visible-records', birthYear: 2000, world: 'past' }));
@@ -379,7 +411,7 @@ test('home memorial previews stop at eight and both life views show every record
   life.phase = 'dead';
   page.navigate('report');
   assert.equal(page.data.logs.length, life.log.length);
-  page.store.history = Array.from({ length: 9 }, (_, index) => ({ ...life, id: `memorial-${index}` }));
+  page._cloudRows = Array.from({ length: 9 }, (_, index) => ({ ...life, id: `memorial-${index}` }));
   page.navigate('home');
   assert.equal(page.data.memories.length, 8);
   page.onUnload();

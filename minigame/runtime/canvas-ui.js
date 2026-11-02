@@ -311,7 +311,7 @@ class CanvasUI {
     y+=this.paragraph(d.ui.archiveIntro,x,y,w,14,26,p.muted)+18;
     const facts=d.archiveFacts||[];this.box(x,y,w,138,p.paper,16,p.line);
     facts.forEach((f,i)=>{const fw=(w-16)/3,fx=x+8+(i%3)*fw,fy=y+17+Math.floor(i/3)*62;this.centerText(f.value,fx,fy,fw,26,20,p.green,'bold','serif');this.centerText(f.label,fx,fy+29,fw,20,11.5,p.muted);});y+=155;
-    if(!d.archiveList.length){this.box(x,y,w,106,p.paper,12,p.line);this.text(d.ui.noLives,x+15,y+18,14,p.muted);this.button(d.ui.born,x+14,y+53,w-28,39,'home',null,'primary');return y+122;}
+    if(!d.archiveList.length){this.box(x,y,w,106,p.paper,12,p.line);this.text(d.archiveLoading?'正在读取追思馆…':d.archiveError?'读取失败，请重试':d.ui.noLives,x+15,y+18,14,p.muted);this.button(d.archiveError?'重新读取':d.ui.born,x+14,y+53,w-28,39,d.archiveError?'retry-archive':'home',null,'primary');return y+122;}
     for(const item of d.archiveList){
       const rows=this.lines(item.review,w-28,13,3),h=121+86+rows.length*23+58;
       this.box(x,y,w,h,p.paper,14,p.line);this.roundedImage(item.cover,x,y,w,121,14,true);
@@ -358,7 +358,7 @@ class CanvasUI {
     const heights=logRows.map(({rows})=>Math.max(47,18+rows.length*22+12));const total=heights.reduce((a,b)=>a+b,0);
     this.box(x,y,w,total+3,p.paper,15,p.line);let ly=y+2;
     logRows.forEach(({item,rows},i)=>{const h=heights[i];if(ly+h>=this.scroll-10&&ly<this.scroll+(this.viewportBottom-this.navHeight)+10){const color=['death','illness','danger'].includes(item.type)?'#d1644d':['positive','asset'].includes(item.type)?p.green:p.ink;this.text(item.age,x+15,ly+12,11,p.muted);rows.forEach((row,j)=>this.text(row,x+45,ly+11+j*22,14,color,'normal',w-63,'serif'));this.line(x+14,ly+h-1,w-28);}ly+=h;});y+=total+25;
-    if(!d.fromArchive){if(!d.memorialSaved){this.button(d.ui.memorialize,x,y,w,45,'memorialize',null,'primary');y+=60;}else{this.text('✓ '+d.ui.memorialSaved,x+(w-130)/2,y+14,13,p.green);y+=58;}this.button(d.ui.replay,x,y,w,44,'replay',null,'outline');y+=68;}
+    if(!d.fromArchive){if(!d.memorialSaved){this.button(d.publishing?'正在安放…':d.ui.memorialize,x,y,w,45,d.publishing?'noop':'memorialize',null,'primary');y+=60;}else{this.text('✓ '+d.ui.memorialSaved,x+(w-130)/2,y+14,13,p.green);y+=58;}this.button(d.ui.replay,x,y,w,44,'replay',null,'outline');y+=68;}
     return y;
   }
   modal() {
