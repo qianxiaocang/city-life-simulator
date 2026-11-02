@@ -67,7 +67,7 @@ Page({
     return { title: this.tr('brand'), path: '/pages/index/index' };
   },
   onShareTimeline() { return { title: this.tr('brand') }; },
-  L(value) { return game.valueText(value, this.store.settings.language).replace(/模型支出|模型支出/g,'费用').replace(/模型總價|模型总价/g,'总价').replace(/模型首付|模型頭期款/g,'首付').replace(/模型购车款|模型購車款/g,'购车费用').replace(/情景模型|情境模型/g,'').replace(/模型/g,'').replace(/Modeled cost:?/gi,'Estimated cost:').replace(/modeled spending/gi,'spending').replace(/modeled /gi,''); },
+  L(value) { return game.valueText(value, this.store.settings.language).replace(/你的(?:模拟中考标准分|模擬中考標準分)[\s\S]*|本地(?:学业评估模拟分|學業評估模擬分)[\s\S]*|这一时期的升学制度受到时代影响，本次不采用现代中考分数线。[\s\S]*/g,'毕业评估已经结束。结合自己的兴趣、学业表现和家庭安排，选择接下来的求学之路。').replace(/(?:模拟考核分|模擬考核分)\s*\d+\/100。/g,'').replace(/本次(?:模拟|模擬)标准分[\s\S]*|本次模擬標準分[\s\S]*/g,'成绩已经公布。结合升学机会和家庭安排，决定接下来的路。').replace(/这项安排会改变当前机会和时间分配；具体结果随人生状态而定。|這項安排會改變目前機會及時間分配；具體結果隨人生狀態而定。/g,'').replace(/需要申请和评估；金额与结果为情景模型。/g,'向学校递交申请，争取减轻学费和生活费负担。').replace(/模型支出|模型支出/g,'费用').replace(/模型總價|模型总价/g,'总价').replace(/模型首付|模型頭期款/g,'首付').replace(/模型购车款|模型購車款/g,'购车费用').replace(/情景模型|情境模型/g,'').replace(/模型/g,'').replace(/Modeled cost:?/gi,'Estimated cost:').replace(/modeled spending/gi,'spending').replace(/modeled /gi,''); },
   tr(key) { return game.t(key, this.store.settings.language); },
   tx(cn, tw, en) { return this.L({ zhCN: cn, zhTW: tw, en }); },
   amount(value) { return game.money(Number(value) || 0, this.store.settings.language, this.currentLife()); },

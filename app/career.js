@@ -99,8 +99,8 @@ export function offerCareers(life,env,title=T('寻找下一份工作','尋找下
     const gate=qualificationFor(job,life.year);
     const qualified=!gate||life.qualifications[job.id];
     const description=T(
-      SECTOR_NAMES[job.sector].zhCN+' · 模型年收入 ¥'+job.salary.toLocaleString('en-US')+(qualified?'':' · 先参加'+ENTRY_NAMES[gate].zhCN),
-      SECTOR_NAMES[job.sector].zhTW+' · 模型年收入 ¥'+job.salary.toLocaleString('en-US')+(qualified?'':' · 先參加'+ENTRY_NAMES[gate].zhTW),
+      SECTOR_NAMES[job.sector].zhCN+' · 预计年收入 ¥'+job.salary.toLocaleString('en-US')+(qualified?'':' · 先参加'+ENTRY_NAMES[gate].zhCN),
+      SECTOR_NAMES[job.sector].zhTW+' · 预计年收入 ¥'+job.salary.toLocaleString('en-US')+(qualified?'':' · 先參加'+ENTRY_NAMES[gate].zhTW),
       SECTOR_NAMES[job.sector].en+' · Modeled annual CNY '+job.salary.toLocaleString('en-US')+(qualified?'':' · First complete '+ENTRY_NAMES[gate].en.toLowerCase()));
     const firstRural=!life.urban&&!life.everWorked;const manual=/farmer|livestock|fishery|mechanic|factory|textile|welder/.test(job.id);
     return env.option('career-'+i,job.name,description,job.sector==='agriculture'&&firstRural?9:manual&&life.education==='vocational'?5:job.sector==='civil-service'?.9:2);
@@ -166,7 +166,7 @@ export function resolveCareerDecision(life,pending,id,env){
     if(id==='defer'&&pending.data.flexible){
       life.flags.retirementDeferredUntil=life.year+3;
       life.flags.retirementOffered=false;
-      env.log(life,T('你与单位协商，按模型延后最多三年退休。','你與單位協商，依模型延後最多三年退休。','You agreed a modeled delay of up to three years with your employer.'),'work');
+      env.log(life,T('你与单位协商，计划延后最多三年退休。','你與單位協商，計劃延後最多三年退休。','You agreed a planned delay of up to three years with your employer.'),'work');
     }else retireWithContributions(life,env);
     return true;
   }
@@ -201,7 +201,7 @@ export function careerYear(life,env){
     const score=clamp(28+life.stats.knowledge*.65+env.normal(life)*11+(life.flags.examPreparation||0)*2,0,100);
     const threshold=preparation.gate==='civil-exam'?79:preparation.gate==='public-exam'?72:65;
     const passed=eligible&&score>=threshold&&env.chance(life,preparation.gate==='civil-exam'?.65:.85);
-    const result=T('模拟考核分 '+Math.round(score)+'/100。'+(passed?'你通过了考试与后续考核，可以接受岗位。':'这次未能完成全部录用条件。'),'模擬考核分 '+Math.round(score)+'/100。'+(passed?'你通過考試與後續考核，可以接受職位。':'這次未能完成全部錄用條件。'),'Modeled assessment '+Math.round(score)+'/100. '+(passed?'You passed the examination and subsequent assessment.':'You did not meet every recruitment condition this time.'));
+    const result=T((passed?'你通过了考试与后续考核，可以接受岗位。':'这次未能完成全部录用条件。'),(passed?'你通過考試與後續考核，可以接受職位。':'這次未能完成全部錄用條件。'),(passed?'You passed the examination and subsequent assessment.':'You did not meet every recruitment condition this time.'));
     env.decision(life,'career-result',ENTRY_NAMES[preparation.gate],result,passed?[
       env.option('accept',T('接受岗位','接受職位','Accept the post'),preparation.job.name,3),
       env.option('decline',T('保留现有安排','保留現有安排','Keep your current plans'))]:
@@ -237,8 +237,8 @@ export function retirementMilestone(life,fraction,env){
   const years=Math.floor(rule.ageMonths/12),months=rule.ageMonths%12;
   const flexible=rule.statutory&&life.year>=2025&&!life.flags.retirementDeferredUntil;
   const description=T(
-    (rule.statutory?'按出生年月、性别与原退休类别，本次法定退休年龄为':'此岗位采用游戏退休参考年龄：')+years+'岁'+(months?months+'个月':'')+'。养老金另需满足缴费条件；当前模型缴费'+Math.floor(life.contributionYears)+'年。',
-    (rule.statutory?'依出生年月、性別與原退休類別，本次法定退休年齡為':'此職位採用遊戲退休參考年齡：')+years+'歲'+(months?months+'個月':'')+'。退休給付另須符合繳費條件；目前模型繳費'+Math.floor(life.contributionYears)+'年。',
+    (rule.statutory?'按出生年月、性别与原退休类别，本次法定退休年龄为':'此岗位采用预计退休年龄：')+years+'岁'+(months?months+'个月':'')+'。养老金另需满足缴费条件；目前已缴费'+Math.floor(life.contributionYears)+'年。',
+    (rule.statutory?'依出生年月、性別與原退休類別，本次法定退休年齡為':'此職位採用預計退休年齡：')+years+'歲'+(months?months+'個月':'')+'。退休給付另須符合繳費條件；目前已繳費'+Math.floor(life.contributionYears)+'年。',
     (rule.statutory?'The statutory age for your birth month, sex and original category is ':'This job uses a modeled retirement reference of ')+years+' years '+months+' months. Pension entitlement is separate. Modeled contribution years: '+Math.floor(life.contributionYears)+'.');
   const options=[env.option('retire',T('办理退休，安排下一阶段','辦理退休，安排下一階段','Retire and plan the next stage'),undefined,3)];
   if(flexible)options.push(env.option('defer',T('与单位协商弹性延后','與單位協商彈性延後','Discuss flexible postponement'),T('延后三年需要与单位协商，并非人人自动适用','延後三年須與單位協商，並非人人自動適用','A three-year delay requires agreement and is not automatic for every worker'),.6));
@@ -275,7 +275,7 @@ export function retireWithContributions(life,env){
   life.income=life.pension+life.basicSupport;life.focus='family';
   const record=env.log(life,T(
     region==='hongkong'?'你结束工作并提取强积金个人账户，开始安排退休生活。':'你结束了这段工作。'+(life.pension>0?'从这一年起，你开始领取退休给付。':'目前没有达到领取养老金的条件，之后需要依靠积蓄安排生活。'),
-    region==='hongkong'?'你結束工作並提取模型強積金個人帳戶；這不是自動發放的年金。':'你結束了這段工作。'+(life.pension>0?'按本地模型條件安排退休給付。':'尚未符合當地退休金條件，日後依積蓄安排生活。'),
+    region==='hongkong'?'你結束工作並提取強積金個人帳戶；這不是自動發放的年金。':'你結束了這段工作。'+(life.pension>0?'按當地規定領取退休給付。':'尚未符合當地退休金條件，日後依積蓄安排生活。'),
     region==='hongkong'?'You left work and withdrew the modeled MPF account; this is not an automatic annuity.':'You left work. '+(life.pension>0?'A simplified local retirement benefit applies.':'The modeled local pension conditions are not met; later living depends on savings.')),'work',{health:3,happiness:3});
   record.sourceIds=life.retirementRule?.sourceIds||[];
 }

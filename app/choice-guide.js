@@ -6,6 +6,7 @@ const D={
   hobby:{music:T('音乐会逐年带来情绪和社交收益。','音樂會逐年帶來情緒及社交收益。','Music adds small recurring mood and social benefits.'),drawing:T('绘画会逐年带来情绪和专注收益。','繪畫會逐年帶來情緒及專注收益。','Drawing adds small recurring mood and focus benefits.'),sport:T('运动会逐年改善健康，也占用一点学习时间。','運動會逐年改善健康，也佔用一點學習時間。','Sport gradually improves health and takes some study time.'),reading:T('阅读会逐年增加知识，并占用一点社交时间。','閱讀會逐年增加知識，並佔用一點社交時間。','Reading gradually builds knowledge and takes some social time.')},
   'edu-suspended':{work:T('先工作或学习技能；停招年份不会获得普通高校录取。','先工作或學習技能；停招年份不會獲得普通高校錄取。','Work or learn skills; ordinary admission is unavailable this year.')},
   'edu-recommendation':{recommend:T('需满足实践与推荐审核；可能得到录取，也可能落选。','需符合實踐及推薦審查；可能錄取，也可能落選。','Practice and recommendation review are required; admission is uncertain.'),work:T('保留工作经验，今后仍可关注新的求学机会。','保留工作經驗，日後仍可留意新的求學機會。','Keep practical experience and consider later study opportunities.')},
+  'edu-college':{work:T('先找一份工作，积累收入与经验；以后仍可申请继续教育。','先找一份工作，累積收入與經驗；日後仍可申請繼續教育。','Start earning and gaining experience, while keeping further study open.')},
   'edu-admission':{work:T('开始赚取收入，并推迟这次全日制入学。','開始賺取收入，並推遲這次全日制入學。','Begin earning and forgo this full-time admission round.')},
   'edu-funding':{family:T('使用已确认的家庭支持与奖助，不新增助学债务。','使用已確認的家庭支持與獎助，不新增助學債務。','Use confirmed family support and aid without new student debt.'),cheaper:T('转向费用较低的公办专科，学历路径也随之改变。','轉向費用較低的公辦專科，學歷途徑亦會改變。','Choose a lower-cost public associate route with a different qualification.'),work:T('推迟入学；工作可带来收入，但会耽误本次学业。','推遲入學；工作可帶來收入，但會延遲本次學業。','Defer study; work can bring income but delays this qualification.')},
   'edu-postgraduate':{apply:T('参加选拔并承担进一步学习的时间与费用。','參加選拔並承擔進一步學習的時間及費用。','Face selective admission and the time and cost of more study.'),work:T('立即积累工资与工作经验，暂不取得更高学位。','即時累積工資及工作經驗，暫不取得更高學位。','Gain earnings and experience now without this higher degree.')},
@@ -30,5 +31,5 @@ export function describeChoice(action,option,life){
   if(option.description && Object.values(option.description).some(Boolean))return option.description;
   if(action==='move'&&option.id.startsWith('city-'))return T('支付约当年典型收入 8% 的搬迁费，职业与人际环境可能变化。','支付約當年典型收入 8% 的搬遷費，職業及人際環境可能改變。','Pay moving costs of about 8% of modeled annual typical income; work and relationships may change.');
   if(action==='career-result'&&option.id==='accept')return T('接受已通过考核的岗位与对应工资，离开原工作。','接受已通過考核的職位及相應工資，離開原工作。','Take the approved post and salary, leaving your prior work.');
-  return D[action]?.[option.id]||T('这项安排会改变当前机会和时间分配；具体结果随人生状态而定。','這項安排會改變目前機會及時間分配；具體結果隨人生狀態而定。','This changes current opportunities and time use; the result depends on your situation.');
+  return D[action]?.[option.id]||T('','','');
 }

@@ -544,3 +544,13 @@ test('memorial poster uses a native exportable game canvas and saves the generat
  await platform.saveImage(poster,life,'zh-CN');
  assert.equal(exported,1);assert.ok(painted>10);assert.match(saved,/13亿分之一_.*\.png$/);
 });
+
+test('legacy exam and generic choice descriptions use player-facing copy',()=>{
+ const {page}=pageHarness();
+ const oldExam='本次模拟标准分 99/100。分段只用于游戏，不代表真实省级录取线；本科／专科与公办／民办是两个不同维度。';
+ assert.match(page.L(oldExam),/成绩已经公布/);
+ assert.doesNotMatch(page.L(oldExam),/模拟|标准分|99\/100|游戏|维度/);
+ assert.equal(page.L('这项安排会改变当前机会和时间分配；具体结果随人生状态而定。'),'');
+ assert.doesNotMatch(page.L('你的模拟中考标准分为98/100。它不是本市真实分数线。'),/模拟|标准分|真实分数线/);
+ page.onUnload();
+});
