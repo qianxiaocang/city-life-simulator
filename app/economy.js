@@ -1,4 +1,4 @@
-import {loanPolicyInModelUnits} from './data/money-basis.js';
+import {loanPolicyInModelUnits,moneyBasisText} from './data/money-basis.js';
 import {ensureAccounts,recordFlow,reconcile,changeAsset,noteAssetChange,noteCashChange,bookNetWorth} from './accounting.js';
 import {housingTier,REGION_ECONOMY} from './data/development.js';
 import { CHINA_CONSUMPTION, INVESTMENT_AVAILABILITY, investmentAvailable } from './data/china-society.js';
@@ -93,7 +93,7 @@ export function spend(life,amount,purpose='optional'){
     const expense=EXPENSE_NAMES[purpose];
     const label=expense?T(`这次${expense.zhCN}支出`,`這次${expense.zhTW}支出`,`${expense.en} expense`):T('这笔支出','這筆支出','expense');
     life.logSequence??=life.log.length;
-    life.log.unshift({id:`${life.id}-${life.logSequence++}`,age:life.age,year:life.year,type:'money',text:T(`${label.zhCN} ¥${total} 中，原生家庭资助 ¥${aid}，你支付 ¥${own}。`,`${label.zhTW} ¥${total} 中，原生家庭資助 ¥${aid}，你支付 ¥${own}。`,`Of the ¥${total} ${label.en}, your birth family contributed ¥${aid} and you paid ¥${own}.`)});
+    life.log.unshift({id:`${life.id}-${life.logSequence++}`,age:life.age,year:life.year,type:'money',text:moneyBasisText(life,T(`${label.zhCN} ¥${total} 中，原生家庭资助 ¥${aid}，你支付 ¥${own}。`,`${label.zhTW} ¥${total} 中，原生家庭資助 ¥${aid}，你支付 ¥${own}。`,`Of the ¥${total} ${label.en}, your birth family contributed ¥${aid} and you paid ¥${own}.`))});
   }
   return true;
 }

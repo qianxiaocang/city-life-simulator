@@ -195,8 +195,11 @@ export function valueText(value,language='zh-CN') {
   if(typeof value==='string'||typeof value==='number')return String(value);
   return value[languageKey(language)] || value.zhCN || value.zhTW || value.en || '';
 }
-export function money(value,language='zh-CN') {
-  return new Intl.NumberFormat(language==='en'?'en-US':language,{style:'currency',currency:'CNY',maximumFractionDigits:0}).format(Number.isFinite(Number(value))?value:0);
+export function money(value,language='zh-CN',life=null) {
+  const formatted=new Intl.NumberFormat(language==='en'?'en-US':language,{style:'currency',currency:'CNY',maximumFractionDigits:0}).format(Number.isFinite(Number(value))?value:0);
+  if(!life||life.year>=1990&&life.location?.region==='mainland')return formatted;
+  const basis=life.year<1990?['2025基准模型折算人民币（非当年实付）','2025基準模型折算人民幣（非當年實付）','2025-reference model estimate, not a historical payment: ']:['模型折合人民币','模型折合人民幣','Modeled CNY equivalent: '];
+  return basis[language==='en'?2:language==='zh-TW'?1:0]+formatted;
 }
 export const educationNames={
   preschool:['学龄前','學齡前','Preschool'],none:['未完成小学','未完成小學','No primary certificate'],primary:['小学','小學','Primary school'],junior:['初中','國中','Junior secondary'],high:['高中','高中','High school'],vocational:['职业教育','職業教育','Vocational education'],associate:['高职／专科','高職／專科','Associate / higher vocational'],university:['本科','大學','University'],masters:['研究生','研究所','Postgraduate'],doctorate:['博士','博士','Doctorate']

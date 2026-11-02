@@ -67,7 +67,7 @@ function programFor(life,stage,ownership,label,extra={}) {
 function enroll(life,program,env) {
   const state=ensureEducationState(life);
   if (HIGHER.has(program.stage) && life.age + (program.duration || DURATIONS[program.stage]) > 45) {
-    env.log(life,T('这一阶段的课程无法在本作设定的继续教育年龄范围内完成。你保留已有学历，重新安排工作和学习。','這階段課程無法在本作設定的進修年齡範圍內完成。你保留既有學歷，重新安排工作與學習。','This course cannot be completed within the game’s continuing-education age range. You keep the qualification already earned and reconsider work and study.'),'education');
+    env.log(life,T('这一阶段的课程还未完成，你保留已有学历，重新安排工作和学习。','這階段課程尚未完成，你保留既有學歷，重新安排工作與學習。','This course remains incomplete at this stage. You keep the qualification already earned and reconsider work and study.'),'education');
     env.offerWork(life);return false;
   }
   if(life.location.region==='mainland'&&life.year>=1966&&life.year<=1969&&HIGHER.has(program.stage)&&!program.wasEnrolled){
@@ -152,7 +152,7 @@ function higherDecision(life,env,{restored=false}={}) {
   if(route.id==='recommendation') {
     const experience=life.workHistory?.reduce((sum,item)=>sum+(item.years || 0),0) || life.job?.years || Math.max(0,life.age-18);
     const eligible=experience>=2&&(life.flags.communityRecommendation||env.chance(life,.35));
-    env.decision(life,'edu-recommendation',T('推荐选拔时期的求学机会','推薦選拔時期的求學機會','A recommendation-based study opportunity'),T('1970至1976年部分高校通过工农兵推荐选拔招生，不是现代高考。本作要求至少两年实践经历，并将推荐审核简化为有不确定性的情景。','1970至1976年部分高校透過工農兵推薦選拔招生，並非現代高考。本作要求至少兩年實踐經歷，推薦審查為有不確定性的簡化情景。','Some universities used recommendation-based worker, farmer and soldier selection in 1970–1976, not the modern entrance exam. The model requires two years of practical experience and uncertain recommendation review.'),[...(eligible?[option(env,'recommend',T('申请推荐与学校复审','申請推薦與學校複審','Seek recommendation and institutional review'),undefined,.8)]:[]),option(env,'work',T('继续实践并保留学习','繼續實踐並保留學習','Continue practical work and learning'),undefined,2)],{eligible,sourceIds:['gaokao-history','higher-education-aid-history']});
+    env.decision(life,'edu-recommendation',T('推荐选拔时期的求学机会','推薦選拔時期的求學機會','A recommendation-based study opportunity'),T('1970至1976年部分高校通过工农兵推荐选拔招生，不是现代高考。申请前通常需要至少两年实践经历，推荐审核也有不确定性。','1970至1976年部分高校透過工農兵推薦選拔招生，並非現代高考。申請前通常需要至少兩年實踐經歷，推薦審查也有不確定性。','Some universities used recommendation-based worker, farmer and soldier selection in 1970–1976, not the modern entrance exam. Applicants generally need two years of practical experience, and recommendation review remains uncertain.'),[...(eligible?[option(env,'recommend',T('申请推荐与学校复审','申請推薦與學校複審','Seek recommendation and institutional review'),undefined,.8)]:[]),option(env,'work',T('继续实践并保留学习','繼續實踐並保留學習','Continue practical work and learning'),undefined,2)],{eligible,sourceIds:['gaokao-history','higher-education-aid-history']});
     return;
   }
   const score=modelScore(life,mainland?'gaokao':'local-assessment',env);
@@ -223,7 +223,7 @@ export function finishEducation(life,env) {
       school.segmentDelayedAcademicYears+=incomplete;
       school.completedAcademicYears=Math.max(0,school.completedAcademicYears-incomplete);
       school.unfundedAcademicYears=0;school.lastFundingReviewYear=life.year;
-      env.log(life,T('本学年的高教学费没有付清，本作将这一课程年视为未完成，毕业时间顺延。未付部分不变成消费债务；你可以重新申请资金、选择合资格低收费路径，或保留进度休学工作。','本學年的高教學費未付清，本作將此課程年視為未完成，畢業時間順延。未付部分不轉為消費債務；你可重新申請資金、選合資格低收費途徑，或保留進度休學工作。','This year’s higher-education tuition was not fully funded. The model treats the academic year as incomplete and delays graduation. No consumer debt is created. Reapply for support, choose an eligible lower-cost route or retain progress while taking leave to work.'),'education');
+      env.log(life,T('本学年的高教学费没有付清，这一课程年暂未完成，毕业时间顺延。未付部分不变成消费债务；你可以重新申请资金、选择合资格低收费路径，或保留进度休学工作。','本學年的高教學費未付清，此課程年暫未完成，畢業時間順延。未付部分不轉為消費債務；你可重新申請資金、選合資格低收費途徑，或保留進度休學工作。','This year’s higher-education tuition was not fully funded. The academic year remains incomplete and delays graduation. No consumer debt is created. Reapply for support, choose an eligible lower-cost route or retain progress while taking leave to work.'),'education');
       fundingDecision(life,{...school,duration:Math.max(1,school.endsAt-life.age),resuming:true,loanAttempted:false,aidAttempted:false},env);
       return false;
     }
@@ -363,7 +363,7 @@ export function resolveEducationDecision(life,pending,optionId,env) {
         if(HIGHER.has(program.stage)) {
           life.educationState.suspendedStudy={...program,remainingYears:program.duration,pausedAt:life.age,startedAt:program.startedAt ?? life.age};
           life.school=null;
-          env.log(life,T('你保留已完成的学习进度，暂时休学寻找收入。以后每年可以重新申请求学资金；本作不为休学自动增加消费贷款。','你保留已完成的學習進度，暫時休學尋找收入。日後每年可重新申請求學資金；本作不因休學自動增加消費貸款。','You retained completed study progress and took modeled academic leave to seek income. Funding can be reviewed again each year; leave creates no automatic consumer loan.'),'education');
+          env.log(life,T('你保留已完成的学习进度，暂时休学寻找收入。以后每年可以重新申请求学资金；休学不会自动增加消费贷款。','你保留已完成的學習進度，暫時休學尋找收入。日後每年可重新申請求學資金；休學不會自動增加消費貸款。','You retained completed study progress and took modeled academic leave to seek income. Funding can be reviewed again each year; leave creates no automatic consumer loan.'),'education');
         }
         env.offerWork(life);
       }

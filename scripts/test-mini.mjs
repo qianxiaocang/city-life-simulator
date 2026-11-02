@@ -163,7 +163,7 @@ test('stage choices show four distinct usable options in the compact dialog', ()
   assert.equal(life.pending.options.length,6);
   page.store.current=life;page._view='life';page.render();
   assert.equal(page.data.ui.choice,'人生抉择');
-  assert.deepEqual(clone(page.data.choice.options.map(option=>option.id)),['study','balance','family','sport']);
+  assert.deepEqual(clone(page.data.choice.options.map(option=>option.id)),['study','balance','family',life.urban?'sport':'familyHelp']);
   for(const option of page.data.choice.options)assert.ok(life.pending.options.some(original=>original.id===option.id));
   page.onUnload();
 });

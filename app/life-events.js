@@ -7,8 +7,8 @@ const adultChildren=l=>l.family?.children?.some(p=>p.alive&&p.age>=18);
 const siblings=l=>l.family?.siblings?.some(p=>p.alive);
 const healthy=l=>(l.stats?.health??80)>=45;
 const entries=[];
-function group(prefix,min,max,rows,{when=()=>true,from=1950,effects={happiness:1},topics=[]}={}){
-  rows.forEach(([zhCN,zhTW,en],i)=>entries.push({id:prefix+'-'+(i+1),topic:topics[i]||prefix,min,max,from,when,effects,text:T(zhCN,zhTW,en)}));
+function group(prefix,min,max,rows,{when=()=>true,from=1950,effects={happiness:1},topics=[],rowWhen=[]}={}){
+  rows.forEach(([zhCN,zhTW,en],i)=>entries.push({id:prefix+'-'+(i+1),topic:topics[i]||prefix,min,max:Math.min(max,95),from,when:l=>when(l)&&(!rowWhen[i]||rowWhen[i](l)),effects,text:T(zhCN,zhTW,en)}));
 }
 group('infancy',0,2,[
  ['你追着拨浪鼓的声音转头，逗得照看你的人笑了。','你追著撥浪鼓的聲音轉頭，逗得照看你的人笑了。','You turned toward a rattle, making your caregiver smile.'],
@@ -17,7 +17,7 @@ group('infancy',0,2,[
  ['你盯着镜子里的小脸，伸手碰了碰。','你盯著鏡子裡的小臉，伸手碰了碰。','You reached toward the little face in the mirror.'],
  ['你爬过垫子，终于够到了喜欢的玩具。','你爬過墊子，終於夠到了喜歡的玩具。','You crawled across the mat to reach your favourite toy.'],
  ['你在熟悉的怀抱里听着窗外的雨声，慢慢睡着了。','你在熟悉的懷抱裡聽著窗外的雨聲，慢慢睡著了。','You fell asleep in familiar arms to the sound of rain.'],
-],{topics:['baby-play','baby-growth','baby-rest','baby-discovery','baby-growth','baby-rest']});
+],{topics:['baby-play','baby-growth','baby-rest','baby-discovery','baby-growth','baby-rest'],rowWhen:{3:l=>l.age>=1,4:l=>l.age>=1}});
 group('toddler',2,5,[
  ['你追着地上的影子跑，发现它总是跟着自己。','你追著地上的影子跑，發現它總是跟著自己。','You chased your shadow and found it always followed you.'],
  ['雨后的小水洼映着天空，你蹲下来看了很久。','雨後的小水窪映著天空，你蹲下來看了很久。','You watched the sky reflected in a puddle after rain.'],
@@ -57,7 +57,13 @@ group('school',6,22,[
  ['你和同学整理借来的资料，各自记下还想继续了解的内容。','你和同學整理借來的資料，各自記下還想繼續了解的內容。','Sorting borrowed materials with classmates, you noted what to explore next.'],
  ['一次课堂讨论中，你尝试把自己的理由讲得更清楚。','一次課堂討論中，你嘗試把自己的理由講得更清楚。','You tried to explain your reasoning clearly during a class discussion.'],
  ['你翻到以前的作业，才发觉许多当时不会的事已经学会。','你翻到以前的作業，才發覺許多當時不會的事已經學會。','Old homework showed how much you had learned since then.'],
-],{when:hasSchool,effects:{knowledge:1,happiness:.5},topics:['school-help','school-confidence','school-reading','school-community','school-sport','school-study','school-outdoors','school-confidence','school-friends','school-sport','school-friends','school-study','school-memory','school-discovery','school-confidence','school-reflection']});
+],{when:hasSchool,effects:{knowledge:1,happiness:.5},topics:['school-help','school-confidence','school-reading','school-community','school-sport','school-study','school-outdoors','school-confidence','school-friends','school-sport','school-friends','school-study','school-memory','school-discovery','school-confidence','school-reflection'],rowWhen:{2:l=>l.urban&&l.year>=1980,10:l=>l.urban&&l.year>=1980,12:l=>l.urban&&l.year>=1980,14:l=>l.urban&&l.year>=1980}});
+group('school-rural',6,22,[
+ ['你把借来的旧书读完，和同学交换了各自记住的故事。','你把借來的舊書讀完，和同學交換了各自記住的故事。','You finished a borrowed old book and exchanged stories with a classmate.'],
+ ['放学后你帮家里收好柴草，做完才拿出功课。','放學後你幫家裡收好柴草，做完才拿出功課。','After school you gathered firewood at home before opening your homework.'],
+ ['你在田埂边和同伴核对一道算术题，终于想明白了。','你在田埂邊和同伴核對一道算術題，終於想明白了。','You compared arithmetic answers with a friend beside the field and understood the problem.'],
+ ['老师把一页纸传到各桌，你和同学仔细读完并记下要点。','老師把一頁紙傳到各桌，你和同學仔細讀完並記下要點。','Your teacher passed a page around, and you carefully noted its main points.'],
+],{when:l=>hasSchool(l)&&!l.urban,effects:{knowledge:1,happiness:.5}});
 group('youth',10,25,[
  ['收音机响起熟悉的歌，你跟着轻轻哼了起来。','收音機響起熟悉的歌，你跟著輕輕哼了起來。','A familiar song on the radio made you hum along.'],
  ['你在日记里写下小烦恼，合上本子时轻松了一点。','你在日記裡寫下小煩惱，合上本子時輕鬆了一點。','Writing a worry in your diary left you feeling lighter.'],
@@ -67,7 +73,10 @@ group('youth',10,25,[
  ['你学会缝牢松掉的扣子，发现照顾自己也有不少门道。','你學會縫牢鬆掉的扣子，發現照顧自己也有不少門道。','Sewing on a button showed you the skills of caring for yourself.'],
  ['你帮忙收拾公共活动场地，和几位同龄人熟悉起来。','你幫忙收拾公共活動場地，和幾位同齡人熟悉起來。','Tidying a shared activity space helped you meet people your age.'],
  ['你和伙伴约好再跑一圈，最后一段路彼此打着气。','你和夥伴約好再跑一圈，最後一段路彼此打著氣。','You ran another lap with a companion, encouraging each other at the end.'],
-],{topics:['youth-culture','youth-reflection','youth-friends','youth-discovery','youth-friends','home-skills','community-service','youth-sport']});
+],{topics:['youth-culture','youth-reflection','youth-friends','youth-discovery','youth-friends','home-skills','community-service','youth-sport'],rowWhen:{0:l=>l.urban&&l.year>=1970}});
+group('youth-rural-broadcast',10,25,[
+ ['村头喇叭传来熟悉的曲调，你跟着轻轻哼了起来。','村頭喇叭傳來熟悉的曲調，你跟著輕輕哼了起來。','A familiar tune came from the village loudspeaker, and you hummed along.'],
+],{when:l=>!l.urban});
 group('young-adult',18,40,[
  ['你摸清常走路线的一条近道，日子开始有了自己的节奏。','你摸清常走路線的一條近道，日子開始有了自己的節奏。','Finding a shortcut helped you settle into your own rhythm.'],
  ['你照着做法完成一道菜，味道不算完美，却很满足。','你照著做法完成一道菜，味道不算完美，卻很滿足。','You cooked from a recipe; imperfect, but satisfying.'],
@@ -93,11 +102,20 @@ group('work',16,75,[
  ['同事遇到难处，你先听对方说完，没有急着出主意。','同事遇到難處，你先聽對方說完，沒有急著出主意。','You listened to a struggling colleague before offering advice.'],
  ['你把生疏的操作练熟，处理同类事情时更有把握。','你把生疏的操作練熟，處理同類事情時更有把握。','Practising an unfamiliar task gave you more confidence.'],
  ['休息日你没安排太多事情，让紧绷的心慢慢松下来。','休息日你沒安排太多事情，讓緊繃的心慢慢鬆下來。','Leaving a day off unplanned helped you slowly unwind.'],
-],{when:working,effects:{knowledge:.7,happiness:1},topics:['work-learning','work-method','work-friends','work-detail','work-recognition','work-help','work-communication','work-rest','work-routine','work-friends','work-learning','work-rest']});
+],{when:working,effects:{knowledge:.7,happiness:1},topics:['work-learning','work-method','work-friends','work-detail','work-recognition','work-help','work-communication','work-rest','work-routine','work-friends','work-learning','work-rest'],rowWhen:{8:l=>l.urban&&l.year>=1980&&l.age<=65}});
+group('work-rural',16,65,[
+ ['走过田埂时你认出地里又换了时节，许多活计还等着安排。','走過田埂時你認出田裡又換了時節，許多活計還等著安排。','Walking the field path, you saw the season changing and planned the work ahead.'],
+],{when:l=>working(l)&&!l.urban});
 group('unemployed',18,60,[
  ['你重新整理自己会做的事，给找工作定下具体的小目标。','你重新整理自己會做的事，給找工作定下具體的小目標。','Reviewing your skills helped set concrete goals for finding work.'],
  ['熟人聊起招工消息，你记下可以进一步打听的线索。','熟人聊起招工消息，你記下可以進一步打聽的線索。','An acquaintance mentioned a job lead, and you noted how to follow it up.'],
+ ['你把手头开支列出来，先留足眼前的生活费。','你把手頭開支列出來，先留足眼前的生活費。','You listed your expenses and set aside enough for daily needs.'],
+ ['等消息的日子里，你练习一项能用得上的本事。','等消息的日子裡，你練習一項能用得上的本事。','While waiting for news, you practised a useful skill.'],
+ ['你向熟人打听新的工作路子，记下值得再去问问的地方。','你向熟人打聽新的工作門路，記下值得再問的地方。','You asked people you knew about work and noted places to follow up.'],
 ],{when:l=>!l.job&&!l.school&&!l.retired,effects:{knowledge:1}});
+group('layoff',18,60,[
+ ['原来的岗位没有了，你和熟人交换消息，摸索下一步生计。','原來的崗位沒有了，你與熟人交換消息，摸索下一步生計。','Your former job was gone, so you exchanged leads with acquaintances and considered your next step.'],
+],{when:l=>l.urban&&!l.job&&!l.school&&!l.retired&&l.year<=2003,from:1993,effects:{knowledge:1}});
 group('partner',18,110,[
  ['你和伴侣散步时聊起一天的小事，路不长，却走得很慢。','你和伴侶散步時聊起一天的小事，路不長，卻走得很慢。','A slow walk with your partner gave time to share the day’s small details.'],
  ['你和伴侣重新分了分家务，决定让彼此都少累一点。','你和伴侶重新分了分家務，決定讓彼此都少累一點。','You and your partner shared out chores to ease each other’s load.'],
@@ -123,6 +141,10 @@ group('parenting',18,80,[
  ['你陪孩子认路边植物，孩子记住的名字比你想的还多。','你陪孩子認路邊植物，孩子記住的名字比你想的還多。','Naming plants together, you found your child remembered more than expected.'],
  ['孩子睡着后，你把散落的小东西归好，屋子安静下来。','孩子睡著後，你把散落的小東西歸好，屋子安靜下來。','After your child fell asleep, you tidied little things in the quiet house.'],
 ],{when:children,effects:{relationships:1,happiness:1},topics:['child-learning','child-memory','child-care','child-outdoors','child-care']});
+group('parenting-challenges',25,65,[
+ ['孩子的学费和日常开支挤在一起，你和家人重新排好轻重缓急。','孩子的學費和日常開支擠在一起，你和家人重新排好輕重緩急。','School costs and daily expenses came together, so your family reset its priorities.'],
+ ['孩子考试失利后，你先听完他的委屈，再一起商量下一步。','孩子考試失利後，你先聽完他的委屈，再一起商量下一步。','After your child struggled with an exam, you listened first and then discussed what came next.'],
+],{when:children,effects:{relationships:1}});
 group('adult-child',35,120,[
  ['长大的孩子自己拿定主意，你试着先听理由，再给建议。','長大的孩子自己拿定主意，你試著先聽理由，再給建議。','Your grown child made a decision, and you listened before advising.'],
  ['成年子女聊起近况，你认真记住生活里那些小变化。','成年子女聊起近況，你認真記住生活裡那些小變化。','Your grown child shared news, and you remembered the small changes.'],
@@ -139,6 +161,7 @@ group('midlife',35,70,[
  ['熟悉地方的门面换了，记忆里的声音却还在。','熟悉地方的門面換了，記憶裡的聲音卻還在。','A familiar place had a new facade, though its old sounds stayed in memory.'],
  ['有人请教你熟悉的事，那些不起眼的经验竟也能帮上忙。','有人請教你熟悉的事，那些不起眼的經驗竟也能幫上忙。','Someone’s question showed how useful your ordinary experience could be.'],
  ['你给旧照片标上名字和年份，怕忘记那些具体的日子。','你給舊照片標上名字和年份，怕忘記那些具體的日子。','You labelled old photos to preserve their names, years and specific days.'],
+ ['一边照应家里的老小一边工作，你把能分担的事与家人商量清楚。','一邊照應家中老小一邊工作，你把能分擔的事與家人商量清楚。','While balancing work and family care, you discussed how everyone could share the load.'],
 ],{topics:['adult-home','adult-reflection','friend-support','adult-health','adult-rest','adult-learning','adult-resilience','adult-memory','adult-learning','adult-memory']});
 group('retirement',40,120,[
  ['不用赶着上班的早晨，你按自己的节奏安排好一天。','不用趕著上班的早晨，你按自己的節奏安排好一天。','Without rushing to work, you planned a day at your own pace.'],
@@ -170,6 +193,12 @@ group('elder',60,120,[
  ['别人顺手帮你一件小事，你的感谢让对方也露出笑容。','別人順手幫你一件小事，你的感謝讓對方也露出笑容。','Someone helped with a little task, and your thanks made them smile.'],
  ['你把一段想了很久的话慢慢说清，听的人也放慢了语速。','你把一段想了很久的話慢慢說清，聽的人也放慢了語速。','You explained a long-held thought slowly, and your listener slowed down too.'],
 ],{topics:['elder-social','elder-rest','elder-memory','elder-learning','elder-home','elder-social','elder-care','elder-health','elder-rest','elder-memory','elder-social','elder-home','elder-reflection','elder-care','elder-reflection','elder-memory','elder-health','elder-social','elder-rest','elder-home','elder-reflection','elder-learning']});
+// Separate the more active early senior years from later years without changing save IDs.
+for(const e of entries.filter(item=>item.id.startsWith('elder-'))){
+  const number=Number(e.id.slice(6));
+  if(number<=11)e.max=74;
+  else {e.min=75;e.max=89;}
+}
 group('rural',6,95,[
  ['雨后田埂有泥土气味，你沿着熟悉的小路慢慢走。','雨後田埂有泥土氣味，你沿著熟悉的小路慢慢走。','The field path smelled of earth as you walked after rain.'],
  ['周围田地换了一季颜色，你从日常景色里认出时节。','周圍田地換了一季顏色，你從日常景色裡認出時節。','Changing field colours marked a new season.'],
@@ -186,7 +215,24 @@ group('festival',6,110,[
  ['中秋夜你看看月亮，想起此刻也许有人做着相同的事。','中秋夜你看看月亮，想起此刻也許有人做著相同的事。','At Mid-Autumn, you imagined others watching the same moon.'],
  ['元宵时你认真猜灯谜，揭晓答案后忍不住笑了。','元宵時你認真猜燈謎，揭曉答案後忍不住笑了。','A lantern riddle’s answer made you laugh after much thought.'],
  ['端午前后，你听人讲不同地方包粽子的习惯。','端午前後，你聽人講不同地方包粽子的習慣。','Around Dragon Boat Festival, you learned different local zongzi traditions.'],
-],{topics:['festival-newyear','festival-newyear','festival-autumn','festival-lantern','festival-dragonboat']});
+],{topics:['festival-newyear','festival-newyear','festival-autumn','festival-lantern','festival-dragonboat'],rowWhen:{0:l=>l.location?.region==='mainland',3:l=>l.location?.region==='mainland'}});
+group('festival-mainland',6,95,[
+ ['过节时你和邻里互道吉祥话，熟悉的街巷多了几分热闹。','過節時你和鄰里互道吉祥話，熟悉的街巷多了幾分熱鬧。','At festival time, you exchanged good wishes with neighbours along familiar streets.'],
+],{when:l=>l.location?.region==='mainland'});
+group('festival-hkmo',6,95,[
+ ['年节时你和家人一起逛花市，选了一枝合眼缘的花。','年節時你和家人一起逛花市，選了一枝合眼緣的花。','At New Year you visited a flower market with family and chose a favourite bloom.'],
+ ['节日里你尝了家人准备的糕点，聊起各自记得的旧年。','節日裡你嚐了家人準備的糕點，聊起各自記得的舊年。','Over festival pastries, your family shared memories of earlier years.'],
+ ['街坊相约看节庆灯饰，你走慢些，听见身边的笑声。','街坊相約看節慶燈飾，你放慢腳步，聽見身邊的笑聲。','Neighbours gathered to see festive lights, and you slowed down to enjoy the company.'],
+ ['中秋时你把月饼分给熟人，也听他们讲不同的口味。','中秋時你把月餅分給熟人，也聽他們說不同的口味。','At Mid-Autumn you shared mooncakes and heard everyone’s favourite flavours.'],
+ ['端午前后，你和家人说起龙舟比赛，想起往年河边的热闹。','端午前後，你與家人談起龍舟比賽，想起往年河邊的熱鬧。','Around Dragon Boat Festival, you recalled the lively riverside races with family.'],
+],{when:l=>['hongkong','macau'].includes(l.location?.region)});
+group('festival-taiwan',6,95,[
+ ['过年围炉时，你给家人夹了菜，听他们说起这一年的事。','過年圍爐時，你給家人夾了菜，聽他們說起這一年的事。','At the New Year family meal, you served food and listened to stories from the past year.'],
+ ['元宵时你沿街看灯，停下来读一张手写的祝福。','元宵時你沿街看燈，停下來讀一張手寫的祝福。','At Lantern Festival you paused by the lights to read a handwritten wish.'],
+ ['清明前后，你陪家人整理旧照片，想起许久未见的亲人。','清明前後，你陪家人整理舊照片，想起許久未見的親人。','Around Qingming, you sorted old photos with family and remembered relatives.'],
+ ['中秋夜你与邻居聊起烤肉香，顺手分享了家里的点心。','中秋夜你與鄰居聊起烤肉香，順手分享了家裡的點心。','On Mid-Autumn night, you shared snacks with neighbours amid the smell of barbecue.'],
+ ['端午时你和家人聊起不同粽子的包法，尝了熟悉的味道。','端午時你和家人聊起不同粽子的包法，嚐了熟悉的味道。','At Dragon Boat Festival, you tasted familiar zongzi and compared how families made them.'],
+],{when:l=>l.location?.region==='taiwan'});
 group('ordinary',10,120,[
  ['有人向你问路，你还提醒了一处容易走错的路口。','有人向你問路，你還提醒了一處容易走錯的路口。','You gave directions and warned about an easily missed turn.'],
  ['发现有人落下小东西，你赶上去还给了对方。','發現有人落下小東西，你趕上去還給了對方。','You caught up with someone to return a dropped item.'],
@@ -218,6 +264,10 @@ group('technology',16,110,[
  ['你跟免费教学视频学一个技巧，暂停重看了好几遍。','你跟免費教學影片學一個技巧，暫停重看了好幾遍。','You replayed a free tutorial to learn a useful little skill.'],
  ['你把手机放远一会儿，做完了总被打断的一件小事。','你把手機放遠一會兒，做完了總被打斷的一件小事。','Putting your phone away helped finish a usually interrupted task.'],
 ],{from:2012,topics:['technology-learning','technology-social','technology-rest','technology-safety','technology-memory','technology-learning','technology-rest']});
+group('digital-childhood',6,15,[
+ ['你借家人的手机看完一段短视频，又把屏幕还了回去。','你借家人的手機看完一段短影片，又把螢幕還了回去。','You watched a short video on a family member’s phone and handed it back.'],
+ ['上网课时你记下一道没听懂的题，课后再慢慢弄清。','上網課時你記下一道沒聽懂的題，課後再慢慢弄清。','During an online lesson, you noted a question and worked it out afterward.'],
+],{from:2013,when:hasSchool,effects:{knowledge:1},rowWhen:{1:l=>l.year>=2020}});
 export const LIFE_EVENTS=Object.freeze(entries);
 function stateFor(life){
   const state=life.routineState||={seen:[],topics:{}};state.seen||=[];state.topics||={};

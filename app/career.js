@@ -241,7 +241,7 @@ export function retirementMilestone(life,fraction,env){
     (rule.statutory?'依出生年月、性別與原退休類別，本次法定退休年齡為':'此職位採用遊戲退休參考年齡：')+years+'歲'+(months?months+'個月':'')+'。退休給付另須符合繳費條件；目前模型繳費'+Math.floor(life.contributionYears)+'年。',
     (rule.statutory?'The statutory age for your birth month, sex and original category is ':'This job uses a modeled retirement reference of ')+years+' years '+months+' months. Pension entitlement is separate. Modeled contribution years: '+Math.floor(life.contributionYears)+'.');
   const options=[env.option('retire',T('办理退休，安排下一阶段','辦理退休，安排下一階段','Retire and plan the next stage'),undefined,3)];
-  if(flexible)options.push(env.option('defer',T('与单位协商弹性延后','與單位協商彈性延後','Discuss flexible postponement'),T('本作简化为延后三年，需协商；不是所有人自动适用','本作簡化為延後三年，須協商；並非人人自動適用','A simplified three-year delay by agreement; not automatic for every worker'),.6));
+  if(flexible)options.push(env.option('defer',T('与单位协商弹性延后','與單位協商彈性延後','Discuss flexible postponement'),T('延后三年需要与单位协商，并非人人自动适用','延後三年須與單位協商，並非人人自動適用','A three-year delay requires agreement and is not automatic for every worker'),.6));
   env.decision(life,'retirement-law',T('退休与下一段生活','退休與下一段生活','Retirement and the next stage'),description,options,{rule,flexible});
   return true;
 }
@@ -275,7 +275,7 @@ export function retireWithContributions(life,env){
   life.income=life.pension+life.basicSupport;life.focus='family';
   const record=env.log(life,T(
     region==='hongkong'?'你结束工作并提取强积金个人账户，开始安排退休生活。':'你结束了这段工作。'+(life.pension>0?'从这一年起，你开始领取退休给付。':'目前没有达到领取养老金的条件，之后需要依靠积蓄安排生活。'),
-    region==='hongkong'?'你結束工作並提取模型強積金個人帳戶；這不是自動發放的年金。':'你結束了這段工作。'+(life.pension>0?'按本地模型條件安排退休給付。':'尚未符合本作的本地退休金條件，日後依積蓄安排生活。'),
+    region==='hongkong'?'你結束工作並提取模型強積金個人帳戶；這不是自動發放的年金。':'你結束了這段工作。'+(life.pension>0?'按本地模型條件安排退休給付。':'尚未符合當地退休金條件，日後依積蓄安排生活。'),
     region==='hongkong'?'You left work and withdrew the modeled MPF account; this is not an automatic annuity.':'You left work. '+(life.pension>0?'A simplified local retirement benefit applies.':'The modeled local pension conditions are not met; later living depends on savings.')),'work',{health:3,happiness:3});
   record.sourceIds=life.retirementRule?.sourceIds||[];
 }

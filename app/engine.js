@@ -2,6 +2,7 @@ import {ensureAccounts,transferCash,changeAsset,bookNetWorth,reconcile} from './
 import {describeChoice} from './choice-guide.js';
 import {siblingWeights,maternalFirstBirthAge,idealMarriageAge,fecundity,canConceive} from './family-model.js';
 import { CHINA_JOBS } from './data/china-society.js';
+import {moneyBasisText} from './data/money-basis.js';
 import { ensureEducationState, educationMilestones, resolveEducationDecision, refreshEducationDecision, finishEducation } from './education.js';
 import { routineYear } from './life-events.js';
 import { offerLifeDecision, resolveLifeDecision, lifeDecisionYear, notifyLifeMilestone } from './life-decisions.js';
@@ -106,21 +107,24 @@ const CLASS_NAMES = [T('经济拮据的家庭', '經濟拮据的家庭', 'a fina
 const TEMPERAMENTS = { curious: T('好奇', '好奇', 'Curious'), caring: T('体贴', '體貼', 'Caring'), resilient: T('坚韧', '堅韌', 'Resilient'), outgoing: T('开朗', '開朗', 'Outgoing') };
 export const JOBS = CHINA_JOBS;
 const FOCUS = {
-  study: { label: T('认真学习', '認真學習', 'Study'), description: T('知识↑，少一点玩耍时间', '知識↑，少一點玩耍時間', 'Knowledge ↑; less time to play'), effects: { knowledge: 4.8, happiness: -1, relationships: -.6 } },
-  friends: { label: T('朋友与玩耍', '朋友與玩耍', 'Friends & play'), description: T('人际↑，幸福↑', '人際↑，幸福↑', 'Relationships ↑; happiness ↑'), effects: { relationships: 4.2, happiness: 3.5 } },
-  family: { label: T('陪伴家人', '陪伴家人', 'Family'), description: T('关系↑，幸福↑', '關係↑，幸福↑', 'Relationships ↑; happiness ↑'), effects: { relationships: 4.8, happiness: 2.5 } },
-  sport: { label: T('运动', '運動', 'Exercise'), description: T('健康↑，幸福略↑', '健康↑，幸福略↑', 'Health ↑; happiness slightly ↑'), effects: { health: 4.8, happiness: 1.8, relationships: .6 } },
-  hobby: { label: T('兴趣', '興趣', 'Hobbies'), description: T('幸福↑，技能成长', '幸福↑，技能成長', 'Happiness ↑; develop a skill'), effects: { happiness: 4, knowledge: .7, relationships: .8 } },
-  work: { label: T('专注工作', '專注工作', 'Career'), description: T('收入与晋升↑，健康与关系略↓', '收入與升遷↑，健康與關係略↓', 'Income & promotion ↑; health & relationships slightly ↓'), effects: { health: -2, happiness: -1, relationships: -2 } },
-  balance: { label: T('保持均衡', '保持均衡', 'Balance'), description: T('给每件重要的事留一点时间', '給每件重要的事留一點時間', 'Make time for what matters'), effects: { health: 1.4, happiness: 1.6, relationships: 1.4, knowledge: .7 } },
-  health: { label: T('照顾身体', '照顧身體', 'Health'), description: T('健康↑，少量支出', '健康↑，少量支出', 'Health ↑; a small expense'), effects: { health: 6, happiness: 1 } },
-  learn: { label: T('自我提升', '自我提升', 'Keep learning'), description: T('知识↑，职业机会↑', '知識↑，職涯機會↑', 'Knowledge ↑; career opportunities ↑'), effects: { knowledge: 3.4, happiness: -.5 } },
-  rest: { label: T('好好休息', '好好休息', 'Rest'), description: T('健康↑，幸福↑', '健康↑，幸福↑', 'Health ↑; happiness ↑'), effects: { health: 2.8, happiness: 2 } },
-  volunteer: { label: T('志愿服务', '志願服務', 'Volunteer'), description: T('关系↑，幸福↑', '關係↑，幸福↑', 'Relationships ↑; happiness ↑'), effects: { relationships: 4, happiness: 3.2, knowledge: .5 } },
+  study: { label: T('认真学习', '認真學習', 'Study'), description: T('知识上升，幸福下降', '知識上升，幸福下降', 'Knowledge rises; happiness falls'), effects: { knowledge: 4.8, happiness: -1, relationships: -.6 } },
+  friends: { label: T('朋友与玩耍', '朋友與玩耍', 'Friends & play'), description: T('人际关系上升，幸福上升', '人際關係上升，幸福上升', 'Relationships and happiness rise'), effects: { relationships: 4.2, happiness: 3.5 } },
+  family: { label: T('陪伴家人', '陪伴家人', 'Family'), description: T('人际关系上升，幸福上升', '人際關係上升，幸福上升', 'Relationships and happiness rise'), effects: { relationships: 4.8, happiness: 2.5 } },
+  familyHelp: { label: T('帮衬家里', '幫襯家裡', 'Help at home'), description: T('人际关系上升，知识略上升', '人際關係上升，知識略上升', 'Relationships rise; knowledge slightly rises'), effects: { relationships: 3, knowledge: 1 } },
+  sport: { label: T('运动', '運動', 'Exercise'), description: T('健康上升，幸福略上升', '健康上升，幸福略上升', 'Health rises; happiness slightly rises'), effects: { health: 4.8, happiness: 1.8, relationships: .6 } },
+  hobby: { label: T('兴趣', '興趣', 'Hobbies'), description: T('幸福上升，知识略上升', '幸福上升，知識略上升', 'Happiness rises; knowledge slightly rises'), effects: { happiness: 4, knowledge: .7, relationships: .8 } },
+  work: { label: T('专注工作', '專注工作', 'Career'), description: T('健康下降，人际关系下降', '健康下降，人際關係下降', 'Health and relationships fall'), effects: { health: -2, happiness: -1, relationships: -2 } },
+  balance: { label: T('保持均衡', '保持均衡', 'Balance'), description: T('健康略上升，幸福略上升，人际关系略上升，知识略上升', '健康略上升，幸福略上升，人際關係略上升，知識略上升', 'Health, happiness, relationships and knowledge rise slightly'), effects: { health: 1.4, happiness: 1.6, relationships: 1.4, knowledge: .7 } },
+  health: { label: T('照顾身体', '照顧身體', 'Health'), description: T('健康上升，幸福略上升', '健康上升，幸福略上升', 'Health rises; happiness slightly rises'), effects: { health: 6, happiness: 1 } },
+  learn: { label: T('自我提升', '自我提升', 'Keep learning'), description: T('知识上升，幸福下降', '知識上升，幸福下降', 'Knowledge rises; happiness falls'), effects: { knowledge: 3.4, happiness: -.5 } },
+  budget: { label: T('管好开支', '管好開支', 'Manage expenses'), description: T('知识略上升，幸福略上升', '知識略上升，幸福略上升', 'Knowledge and happiness rise slightly'), effects: { knowledge: 1, happiness: 1 } },
+  rest: { label: T('好好休息', '好好休息', 'Rest'), description: T('健康上升，幸福上升', '健康上升，幸福上升', 'Health and happiness rise'), effects: { health: 2.8, happiness: 2 } },
+  volunteer: { label: T('志愿服务', '志願服務', 'Volunteer'), description: T('人际关系上升，幸福上升', '人際關係上升，幸福上升', 'Relationships and happiness rise'), effects: { relationships: 4, happiness: 3.2, knowledge: .5 } },
 };
 export function getFocusOptions(life) {
   if (life.age < 6 || life.phase === 'dead') return [];
-  const ids = life.school ? ['study', 'balance', 'friends', 'family', 'sport', 'hobby'] : life.age < 16 ? ['balance', 'friends', 'family', 'sport', 'hobby', 'learn'] : life.retired ? ['balance', 'family', 'health', 'learn', 'hobby', 'volunteer', 'rest'] : life.job ? ['work', 'balance', 'family', 'health', 'learn', 'hobby'] : ['balance', 'learn', 'family', 'health', 'hobby', 'rest'];
+  const earlyChild=life.age<12&&(!life.urban||life.year<1985);
+  const ids = life.school ? earlyChild?['study', 'balance', 'friends', 'family', 'familyHelp', 'hobby']:['study', 'balance', 'friends', 'family', 'sport', 'hobby'] : life.age < 16 ? ['balance', 'friends', 'family', 'sport', 'familyHelp', 'learn'] : life.retired ? ['balance', 'family', 'health', 'learn', 'hobby', 'volunteer', 'rest'] : life.job ? ['work', 'balance', 'family', 'health', 'learn', 'hobby'] : ['balance', 'learn', 'family', 'health', 'hobby', 'budget'];
   return ids.map(id => ({ id, label: FOCUS[id].label, description: FOCUS[id].description }));
 }
 export function setFocus(life, id) {
@@ -159,7 +163,8 @@ export function offerFocusStage(life){
   if(life.flags.focusStagesOffered[stage])return false;
   const choices=getFocusOptions(life);
   if(!choices.length)return false;
-  const value=decision(life,'focus-stage',FOCUS_STAGES[stage],
+  const stageTitle=stage==='child-school'&&(!life.urban||life.year<1985)?T('功课和家里的活，怎样安排时间？','功課和家裡的活，如何安排時間？','How will you share time between school and home chores?'):FOCUS_STAGES[stage];
+  const value=decision(life,'focus-stage',stageTitle,
     T('这一阶段，你想给哪些事多留一点时间？选择会影响接下来的日常安排；进入新的生活阶段时，还会有重新选择的机会。','這一階段，你想給哪些事多留一點時間？選擇會影響接下來的日常安排；進入新的生活階段時，仍有重新選擇的機會。','What would you make more time for in this stage? Your choice shapes daily life until a new stage offers another chance to choose.'),
     choices.map(item=>option(item.id,item.label,item.description,item.id===(life.school?'study':life.retired?'health':life.job?'balance':'learn')?3:1)),{stage});
   if(!value)return false;
@@ -204,6 +209,7 @@ function effects(life, changes) {
   }
 }
 function log(life, text, type = 'life', changes = null) {
+  text=moneyBasisText(life,text);
   life.log.unshift({ id: `${life.id}-${life.logSequence++}`, age: life.age, year: life.year, type, text, effects: changes });
   if (changes) effects(life, changes);
   return life.log[0];
@@ -315,7 +321,7 @@ export function startLife(life) {
 function option(id, label, description = T('', '', ''), autoWeight = 1) { return { id, label, description, autoWeight }; }
 function decision(life, id, title, description, options, data = {}, kind = 'choice') {
   const sequence=life.flags.decisionSequence=(life.flags.decisionSequence||0)+1;
-  const value = { id: `${id}-${life.age}-${sequence}`, action: id, kind, title, description, options:options.map(o=>({...o,description:describeChoice(id,o,life)})), data };
+  const value = { id: `${id}-${life.age}-${sequence}`, action: id, kind, title:moneyBasisText(life,title), description:moneyBasisText(life,description), options:options.map(o=>({...o,description:moneyBasisText(life,describeChoice(id,o,life))})), data };
   if (kind === 'reflection') value.input = true;
   // Keep room for a retirement milestone due later within this calendar year.
   if(!isEssentialDecision(value)&&life.job&&!life.retired&&!life.flags.retirementOffered&&decisionSlots(life)<=1&&retirementFor(life).retirementYear===life.year)return false;
@@ -347,7 +353,7 @@ function finishContinuingEducation(life) {
   // Older saves may contain a course started before the current age rule.
   // Keep the work and study history without granting a late qualification.
   if (life.age > 45) {
-    log(life, T('这段在职学习没有在本作设定的年龄范围内完成，你保留已有学历。', '這段在職進修沒有在本作設定的年齡範圍內完成，你保留既有學歷。', 'This part-time course did not finish within the game’s age range. You keep your existing qualification.'), 'education');
+    log(life, T('这段在职学习尚未完成，你保留已有学历。', '這段在職進修尚未完成，你保留既有學歷。', 'This part-time course remains incomplete. You keep your existing qualification.'), 'education');
     return;
   }
   if (chance(life, clamp(.25 + life.stats.knowledge / 150, .35, .9))) {
@@ -358,12 +364,12 @@ function finishContinuingEducation(life) {
 function arrangeAge(life) {
   const age = life.age;
   if (age === 1) log(life, T('你迈出了第一步，家人紧张地伸出手，又笑了起来。', '你邁出了第一步，家人緊張地伸出手，又笑了起來。', 'You took your first steps. Your family reached out, then burst into smiles.'), 'warm');
-  if (age === 2) decision(life, 'temperament', T('你开始探索世界', '你開始探索世界', 'A world to discover'), T('陌生的公园里，你最先被什么吸引？一次小小的选择，成为气质的一部分。', '陌生的公園裡，你最先被什麼吸引？一次小小的選擇，成為氣質的一部分。', 'In a new park, what catches your attention first? A small choice becomes part of your temperament.'), [option('curious', T('看看树叶背面的纹路', '看看樹葉背面的紋路', 'Examine the patterns on a leaf')), option('caring', T('陪一陪哭泣的小朋友', '陪一陪哭泣的小朋友', 'Sit with a child who is crying')), option('resilient', T('跌倒后再试一次', '跌倒後再試一次', 'Get up and try again')), option('outgoing', T('加入正在玩耍的人群', '加入正在玩耍的人群', 'Join the children playing'))]);
+  if (age === 3) decision(life, 'temperament', T('你开始探索世界', '你開始探索世界', 'A world to discover'), life.urban?T('陌生的公园里，你最先被什么吸引？一次小小的选择，成为气质的一部分。', '陌生的公園裡，你最先被什麼吸引？一次小小的選擇，成為氣質的一部分。', 'In a new park, what catches your attention first? A small choice becomes part of your temperament.'):T('村边的空地上，你最先留意到什么？这个小小的选择，慢慢成为你的气质。','村邊的空地上，你最先留意到什麼？這個小小的選擇，慢慢成為你的氣質。','On the open ground near home, what catches your attention first? This small choice shapes your temperament.'), [option('curious', T('看看树叶背面的纹路', '看看樹葉背面的紋路', 'Examine the patterns on a leaf')), option('caring', T('陪一陪哭泣的小朋友', '陪一陪哭泣的小朋友', 'Sit with a child who is crying')), option('resilient', T('跌倒后再试一次', '跌倒後再試一次', 'Get up and try again')), option('outgoing', T('加入正在玩耍的人群', '加入正在玩耍的人群', 'Join the children playing'))]);
   if ([5, 15, 30, 50, 70].includes(age) && !life.flags[`reflection-${age}`]) {
     life.flags[`reflection-${age}`] = true;
     reflection(life);
   }
-  if (age === 7) decision(life, 'hobby', T('找到喜欢的事', '找到喜歡的事', 'Something you love'), T('放学后的时间，你想慢慢学会一件自己的事。', '放學後的時間，你想慢慢學會一件自己的事。', 'After school, you would like to learn something just for yourself.'), [option('music', T('音乐', '音樂', 'Music')), option('drawing', T('画画', '畫畫', 'Drawing')), option('sport', T('球类运动', '球類運動', 'Ball games')), option('reading', T('阅读', '閱讀', 'Reading'))]);
+  if (age === 7&&life.school) decision(life, 'hobby', T('找到喜欢的事', '找到喜歡的事', 'Something you love'), life.urban?T('放学后的时间，你想慢慢学会一件自己的事。', '放學後的時間，你想慢慢學會一件自己的事。', 'After school, you would like to learn something just for yourself.'):T('功课和家务之外，你想慢慢练熟哪件喜欢的事？','功課和家務之外，你想慢慢練熟哪件喜歡的事？','Between school and helping at home, what would you like to practise?'), life.urban?[option('music', T('音乐', '音樂', 'Music')), option('drawing', T('画画', '畫畫', 'Drawing')), option('sport', T('球类运动', '球類運動', 'Ball games')), option('reading', T('阅读', '閱讀', 'Reading'))]:[option('music', T('唱歌', '唱歌', 'Singing')),option('drawing',T('画画','畫畫','Drawing')),option('sport',T('户外游戏','戶外遊戲','Outdoor games')),option('reading',T('读书','讀書','Reading'))]);
   if(!hasStudyPlan(life))educationMilestones(life,modelEnv(life));
   if(age>=16&&!life.school&&!life.job&&!life.retired&&!life.pending&&!life.pendingQueue.length&&!life.careerPreparation&&!life.flags.repeatExam)offerWork(life);
   familyMilestone(life);
@@ -537,9 +543,32 @@ function die(life, explicitCause=null, metadata={}) {
   log(life, T(`在${life.location.name.zhCN}，你因${cause.zhCN}离开了人世。这段人生走到了最后。`, `在${life.location.name.zhTW}，你因${cause.zhTW}離開了人世。這段人生走到了最後。`, `In ${life.location.name.en}, your life ended from ${cause.en}. This particular journey came to its close.`), 'death');
   ageSnapshot(life);
 }
+export function marriageChoicePolicy(year){
+  return {early:year<1980,separationWeight:year<1980?.04:.25,divorceWeight:year<1980?.08:year<2000?.35:1,
+    title:year<1980?T('要不要登记结婚？','要不要登記結婚？','Would you register your marriage?'):T('要不要一起生活','要不要一起生活','A life together')};
+}
 function marriageDecision(life) {
   if(!marriageAllowed(life))return;
-  decision(life, 'marriage', T('要不要一起生活', '要不要一起生活', 'A life together'), T('你们已经了解彼此，也开始认真谈论未来。', '你們已經了解彼此，也開始認真談論未來。', 'You have come to know each other and are talking seriously about the future.'), [option('marry', T('共同建立一个家', '共同建立一個家', 'Build a home together'), undefined, 2.6), option('wait', T('再相处一段时间', '再相處一段時間', 'Give it more time')), option('separate', T('坦诚地结束这段关系', '坦誠地結束這段關係', 'Part honestly'), undefined, .25)]);
+  const policy=marriageChoicePolicy(life.year);
+  const offered=decision(life, 'marriage', policy.title, T('你们已经了解彼此，也开始认真谈论未来。', '你們已經了解彼此，也開始認真談論未來。', 'You have come to know each other and are talking seriously about the future.'), [option('marry', T('共同建立一个家', '共同建立一個家', 'Build a home together'), undefined, 2.6), option('wait', T('再相处一段时间', '再相處一段時間', 'Give it more time')), option('separate', T('坦诚地结束这段关系', '坦誠地結束這段關係', 'Part honestly'), undefined, policy.separationWeight)]);
+  if(offered&&policy.early&&!life.flags.earlyMarriagePressure){
+    life.flags.earlyMarriagePressure=true;
+    log(life,T('谈起登记结婚，亲友的意见接连而来；你也感到那时结束婚姻会承受不小的议论。','談起登記結婚，親友的意見接連而來；你也感到那時結束婚姻會承受不少議論。','As marriage came up, relatives offered opinions, and you sensed how much social pressure surrounded separation then.'),'family');
+  }
+}
+// Simplified mainland policy windows only. Minority, autonomous-area and border
+// exceptions are intentionally not modeled as a uniform national rule.
+export function childPolicy(life){
+ const count=life.family?.children?.length||0;
+ if(life.location?.region!=='mainland')return {maxChildren:3,offerChance:.55,tryWeight:2};
+ if(life.year<1980)return {maxChildren:4,offerChance:.82,tryWeight:4};
+ if(life.year<2016){
+   const ruralSecond=life.year>=1984&&!life.urban&&life.family?.children?.[0]?.sex==='female';
+   return {maxChildren:ruralSecond?2:1,offerChance:count? .12:.55,tryWeight:count? .15:2};
+ }
+ // Annual lives are evaluated at year-end unless a save has a finer date.
+ if(life.year<2021||life.year===2021&&((life.month??12)<8||(life.month===8&&(life.day??31)<20)))return {maxChildren:2,offerChance:.65,tryWeight:3};
+ return {maxChildren:3,offerChance:.65,tryWeight:3};
 }
 function familyMilestone(life){
  if(life.pending||life.pendingQueue.length||life.age<18)return;
@@ -552,16 +581,16 @@ function familyMilestone(life){
   if(chance(life,.45*decay))decision(life,'romance',T('认识一个新的人','認識一個新的人','Meeting someone new'),T('是否开始了解彼此，由你决定。','是否開始了解彼此，由你決定。','You decide whether to get to know each other.'),[option('date',T('试着了解彼此','試著了解彼此','Get to know each other'),undefined,3),option('alone',T('保留自己的节奏','保留自己的節奏','Keep your own pace'))]);
  }else if(!partner.married&&partner.yearsTogether>=2&&marriageAllowed(life)&&chance(life,.8*Math.exp(-Math.max(0,life.age-ideal-3)/8)))marriageDecision(life);
  else if(partner.married&&canConceive(life)&&life.age>=20&&life.age-(life.flags.lastChildOffer??-10)>=2&&
-   life.family.children.length<(life.location.region==='mainland'&&life.birthYear<=1965&&life.year<1980?4:life.location.region==='mainland'&&life.birthYear<=1965?2:1)&&
-   chance(life,life.birthYear<=1965?.82:.55)){
+   life.family.children.length<childPolicy(life).maxChildren&&
+   chance(life,childPolicy(life).offerChance)){
   life.flags.lastChildOffer=life.age;
-  decision(life,'child',T('是否迎接一个孩子','是否迎接一個孩子','Thinking about a child'),T('这需要双方商量，也意味着长期的时间和经济责任。','這需要雙方商量，也意味著長期的時間及經濟責任。','This takes a joint decision and a long commitment of time and money.'),[option('try',T('尝试迎接新生命','嘗試迎接新生命','Try to have a child'),undefined,life.birthYear<=1965?4:2),option('later',T('现在还没准备好','現在還沒準備好','We are not ready yet'))]);
+  decision(life,'child',T('是否迎接一个孩子','是否迎接一個孩子','Thinking about a child'),T('这需要双方商量，也意味着长期的时间和经济责任。','這需要雙方商量，也意味著長期的時間及經濟責任。','This takes a joint decision and a long commitment of time and money.'),[option('try',T('尝试迎接新生命','嘗試迎接新生命','Try to have a child'),undefined,childPolicy(life).tryWeight),option('later',T('现在还没准备好','現在還沒準備好','We are not ready yet'))]);
  }
  else if(partner.married && life.age<75 && chance(life,life.year>=2000?.045:.015)) {
   decision(life,'marriage-crisis',T('这段关系的下一步','這段關係的下一步','The next step in the relationship'),
     T('长期相处中出现了难以回避的分歧。你们需要认真决定如何往前走。','長期相處中出現難以迴避的分歧。你們需要認真決定如何往前走。','A lasting disagreement calls for a thoughtful decision about the relationship.'),
     [option('repair',T('沟通并尝试修复关系','溝通並嘗試修復關係','Talk and try to repair the relationship'),undefined,2),
-     option('divorce',T('协商结束婚姻','協商結束婚姻','End the marriage by agreement'),undefined,1)]);
+     option('divorce',T('协商结束婚姻','協商結束婚姻','End the marriage by agreement'),undefined,marriageChoicePolicy(life.year).divorceWeight)]);
  }
 }
 function randomDecision(life) {
@@ -570,7 +599,7 @@ function randomDecision(life) {
   if (life.age <= 17) { possibilities.push('familyhelp'); if(life.school)possibilities.push('schoolfriend'); if(life.year>=1980)possibilities.push('screen'); }
 
 
-  if (canConceive(life) && life.age >= 20 && life.family.children.length < 3 && life.age - (life.flags.lastChildOffer ?? -10) >= 4) possibilities.push('child');
+  if (canConceive(life) && life.age >= 20 && life.family.children.length < childPolicy(life).maxChildren && life.age - (life.flags.lastChildOffer ?? -10) >= 4) possibilities.push('child');
   if (life.job && life.age < 62 && life.job.years >= 4) possibilities.push('career', 'worklife');
   if (life.age >= 22 && life.age < 70 && life.age - (life.flags.lastMoveOffer ?? -20) > 9 && locations.length > 1 && life.money>=life.profile.typicalIncome*.08*(historicalContext(life).migrationCostMultiplier||1)) possibilities.push('move');
   if (life.year>=1980 && life.age >= 28 && life.age <= 60 && life.money > life.profile.typicalIncome * .55 && !life.flags.business) possibilities.push('startup');
@@ -585,7 +614,7 @@ function randomDecision(life) {
     case 'familyhelp': decision(life, type, T('家里忙碌的一天', '家裡忙碌的一天', 'A busy day at home'), T('家人今天很忙，你还有自己的作业和安排。', '家人今天很忙，你還有自己的作業和安排。', 'Your family is busy today, and you also have homework and plans.'), [option('help', T('分担一些家务', '分擔一些家務', 'Help with chores'), undefined, 2), option('study', T('先完成学习任务', '先完成學習任務', 'Finish your schoolwork first'))]); break;
     case 'romance': decision(life, type, T('认识一个新的人', '認識一個新的人', 'Meeting someone new'), T('一次普通的相遇，让你开始期待下一次见面。', '一次普通的相遇，讓你開始期待下一次見面。', 'An ordinary encounter leaves you looking forward to seeing someone again.'), [option('date', T('试着了解彼此', '試著了解彼此', 'Get to know each other'), undefined, 2), option('alone', T('暂时保持自己的节奏', '暫時保持自己的節奏', 'Keep your own pace for now'))]); break;
     case 'marriage': marriageDecision(life); break;
-    case 'child': life.flags.lastChildOffer = life.age; decision(life, type, T('是否迎接一个孩子', '是否迎接一個孩子', 'Thinking about a child'), T('这是期待，也意味着长期的陪伴、时间和开支。', '這是期待，也意味著長期的陪伴、時間和開支。', 'It is a hope, and a long commitment of care, time and money.'), [option('try', T('尝试迎接新生命', '嘗試迎接新生命', 'Try to have a child'), undefined, 1.5), option('later', T('现在还没准备好', '現在還沒準備好', 'We are not ready yet'))]); break;
+    case 'child': life.flags.lastChildOffer = life.age; decision(life, type, T('是否迎接一个孩子', '是否迎接一個孩子', 'Thinking about a child'), T('这是期待，也意味着长期的陪伴、时间和开支。', '這是期待，也意味著長期的陪伴、時間和開支。', 'It is a hope, and a long commitment of care, time and money.'), [option('try', T('尝试迎接新生命', '嘗試迎接新生命', 'Try to have a child'), undefined, childPolicy(life).tryWeight), option('later', T('现在还没准备好', '現在還沒準備好', 'We are not ready yet'))]); break;
     case 'career': offerWork(life, T('新的职业机会', '新的職涯機會', 'A new career opportunity')); break;
     case 'worklife': decision(life, type, T('工作的边界', '工作的邊界', 'The boundaries of work'), T('一个重要项目需要更多时间。你也答应了家人一起度过周末。', '一個重要專案需要更多時間。你也答應了家人一起度過週末。', 'An important project needs more time. You also promised your family the weekend.'), [option('project', T('投入项目，争取机会', '投入專案，爭取機會', 'Commit to the project'), undefined, 1.3), option('boundary', T('沟通安排，留住周末', '溝通安排，留住週末', 'Discuss the schedule and protect the weekend'), undefined, 1.7)]); break;
     case 'move': {

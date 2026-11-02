@@ -35,7 +35,7 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&a
 const button = (action, label, extra = '') => `<button data-action="${action}" ${extra}>${label}</button>`;
 const ageUnit = age => store.settings.language === 'en' && age === 1 ? 'year' : tr('age');
 const ageLabel = age => store.settings.language === 'en' ? `${age} ${ageUnit(age)}` : `${age}${ageUnit(age)}`;
-const formatMoney = number => money(number, store.settings.language);
+const formatMoney = number => money(number, store.settings.language, currentLife());
 const currentLife = () => viewedLife || store.current;
 const placeLabel = place => L(place?.name);
 const regionLabel = region => tr(region);

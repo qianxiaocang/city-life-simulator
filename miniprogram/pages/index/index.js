@@ -66,11 +66,14 @@ Page({
   L(value) { return game.valueText(value, this.store.settings.language); },
   tr(key) { return game.t(key, this.store.settings.language); },
   tx(cn, tw, en) { return this.L({ zhCN: cn, zhTW: tw, en }); },
-  amount(value) { return game.money(Number(value) || 0, this.store.settings.language); },
+  amount(value) { return game.money(Number(value) || 0, this.store.settings.language, this.currentLife()); },
   compactAmount(value) {
     const n=Number(value)||0,abs=Math.abs(n),en=this.store.settings.language==='en';
     const unit=en?(abs>=1e6?1e6:abs>=1e4?1e3:1):(abs>=1e8?1e8:abs>=1e4?1e4:1);
-    return unit===1?this.amount(n):`¥${(n/unit).toFixed(1)}${en?(unit===1e6?'M':'K'):(unit===1e8?'亿':'万')}`;
+    if(unit===1)return this.amount(n);
+    const abbreviated=`¥${(n/unit).toFixed(1)}${en?(unit===1e6?'M':'K'):(unit===1e8?'亿':'万')}`;
+    const life=this.currentLife();
+    return life?.year<1990?`${this.tx('2025基准模型折算人民币（非当年实付）','2025基準模型折算人民幣（非當年實付）','2025-reference model estimate, not a historical payment: ')}${abbreviated}`:life?.location?.region!=='mainland'?`${this.tx('模型折合人民币','模型折合人民幣','Modeled CNY equivalent: ')}${abbreviated}`:abbreviated;
   },
   age(value) { return this.store.settings.language === 'en' ? `${value} years` : `${value}${this.tr('age')}`; },
   currentLife() { return this._viewed || this.store.current; },
@@ -226,7 +229,7 @@ Page({
     let visibleOptions = pending?.options || [];
     if (visibleOptions.length > 4) {
       const preferred = pending.action === 'focus-stage'
-        ? (this.store.current.school ? ['study','balance','family','sport'] : this.store.current.retired ? ['balance','family','health','hobby'] : ['work','balance','family','health'])
+        ? (this.store.current.school ? ['study','balance','family',this.store.current.urban&&this.store.current.year>=1985?'sport':'familyHelp'] : this.store.current.retired ? ['balance','family','health','hobby'] : ['work','balance','family','health'])
         : [];
       const selected = preferred.map(id=>visibleOptions.find(option=>option.id===id)).filter(Boolean);
       for (const option of visibleOptions) if (selected.length < 4 && !selected.includes(option)) selected.push(option);
