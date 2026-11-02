@@ -23,13 +23,15 @@ async function loadPage(offset=0,scope='all'){
  const previous=totals[scope];
  const stats=offset===0||!previous?await call('stats',{scope}):previous;
  accountKey=stats.cacheKey;totals[scope]=stats;
- let cached;try{cached=wx.getStorageSync(cacheName(scope));}catch{}
- const unchanged=cached&&cached.total===stats.total&&Array.isArray(cached.items);
- if(!unchanged&&offset>0)offset=0;
- if(unchanged&&cached.items.length>=Math.min(offset+8,stats.total))return {ok:true,total:stats.total,items:cached.items.slice(offset,offset+8),hasMore:offset+8<stats.total,offset};
+ let meta;try{meta=wx.getStorageSync(cacheName(scope));}catch{}
+ const unchanged=meta&&meta.total===stats.total&&typeof meta.token==='string';
+ if(!unchanged){if(offset>0)offset=0;meta={total:stats.total,token:Date.now().toString(36)+Math.random().toString(36)};}
+ const pageKey=cacheName(scope)+'.page.'+offset;
+ let cached;try{cached=wx.getStorageSync(pageKey);}catch{}
+ if(unchanged&&cached?.token===meta.token&&Array.isArray(cached.items))return {ok:true,total:stats.total,items:cached.items,hasMore:offset+cached.items.length<stats.total,offset};
  const result=stats.total===0?{ok:true,total:0,items:[],hasMore:false}:await list(offset,scope);
- const rows=offset===0?result.items:[...(unchanged?cached.items:[]).slice(0,offset),...result.items];
- try{wx.setStorageSync(cacheName(scope),{total:result.total,items:rows});}catch(error){console.warn('Parallel life cache unavailable');}
+ meta.total=result.total;totals[scope]={...stats,total:result.total};
+ try{wx.setStorageSync(cacheName(scope),meta);wx.setStorageSync(pageKey,{token:meta.token,items:result.items});}catch(error){console.warn('Parallel life cache unavailable');}
  return {...result,offset};
 }
 function invalidate(){totals={};if(accountKey)for(const scope of ['all','mine'])try{wx.removeStorageSync(cacheName(scope));}catch{}}
