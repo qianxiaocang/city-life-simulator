@@ -526,3 +526,21 @@ test('photo permission requests the album scope and resumes after enabling it in
     assert.equal(requested,denied?0:1);assert.equal(opened,denied?1:0);
   }
 });
+
+test('memorial poster uses a native exportable game canvas and saves the generated PNG', async()=>{
+ let exported=0,painted=0,saved='';
+ const context2d=new Proxy({measureText:text=>({width:String(text).length*16})},{get:(target,key)=>key in target?target[key]:(...args)=>{painted++;}});
+ const wx={env:{USER_DATA_PATH:'/mock'},
+  createOffscreenCanvas:({width,height})=>({width,height,getContext:()=>context2d}),
+  createCanvas:()=>({width:0,height:0,getContext:()=>context2d,toTempFilePathSync(options){exported++;assert.equal(options.width,750);assert.ok(options.height>=1030);assert.equal(options.fileType,'png');return '/mock/poster.png';}}),
+  getFileSystemManager:()=>({copyFile:o=>{assert.equal(o.srcPath,'/mock/poster.png');o.success();},unlink(){}}),
+  saveImageToPhotosAlbum:o=>{saved=o.filePath;o.success();}
+ };
+ const sandbox={module:{exports:{}},require:()=>mini,wx,Date,Math,console};
+ vm.runInNewContext(readFileSync(resolve(miniRoot,'lib/platform.js'),'utf8'),sandbox);
+ const life=mini.startLife(mini.createLife({location:mini.locations[0],seed:'native-memorial-export',birthYear:2000,world:'past'}));life.phase='dead';
+ const platform=sandbox.module.exports;
+ const poster=await platform.captureMemorial({},life,{language:'zh-CN'});
+ await platform.saveImage(poster,life,'zh-CN');
+ assert.equal(exported,1);assert.ok(painted>10);assert.match(saved,/13亿分之一_.*\.png$/);
+});

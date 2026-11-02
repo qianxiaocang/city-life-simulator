@@ -10,6 +10,12 @@ function offscreen(width, height) {
   const canvas = wx.createCanvas(); canvas.width = width; canvas.height = height; return canvas;
 }
 function canvasFile(canvas) {
+  const options={x:0,y:0,width:canvas.width,height:canvas.height,destWidth:canvas.width,destHeight:canvas.height,fileType:'png'};
+  if(typeof canvas.toTempFilePathSync==='function') {
+    try { const path=canvas.toTempFilePathSync(options); if(!path)throw new Error('纪念图片导出为空'); return Promise.resolve(path); }
+    catch(error){return Promise.reject(error);}
+  }
+  if(typeof canvas.toTempFilePath==='function')return new Promise((resolve,reject)=>canvas.toTempFilePath({...options,success:r=>r.tempFilePath?resolve(r.tempFilePath):reject(new Error('纪念图片导出为空')),fail:reject}));
   if (typeof canvas.toDataURL === 'function') {
     const base64 = canvas.toDataURL('image/png').split(',')[1];
     const filePath = `${wx.env.USER_DATA_PATH}/life-scene-${Date.now()}-${++imageSequence}.png`;
@@ -68,11 +74,16 @@ async function captureMemorial(page, life, options) {
   measure.font = '28px sans-serif';
   const bodyEnd = wrapText(measure, text, 0, 0, textWidth, lineHeight);
   const height = Math.max(1030, 680 + bodyEnd + 150);
-  const canvas = offscreen(width, height), context = canvas.getContext('2d');
+  // Use an exportable Mini Game Canvas for the final poster. OffscreenCanvas
+  // is suitable for drawing but does not expose the Mini Game file-export API.
+  const canvas = typeof wx.createCanvas==='function' ? wx.createCanvas() : offscreen(width,height);
+  canvas.width=width;canvas.height=height;
+  const context=canvas.getContext('2d');
   context.fillStyle = birth ? '#f3f0e8' : '#101916'; context.fillRect(0, 0, width, height);
   const moments = game.selectLifeMoments(life);
   const event = birth ? (life.log || []).find(item => item.type === 'birth') : moments.find(item => item.type !== 'birth') || (life.log || [])[life.log.length - 1];
-  const scene = offscreen(640, 280);
+  const scene = typeof wx.createCanvas==='function' ? wx.createCanvas() : offscreen(640,280);
+  scene.width=640;scene.height=280;
   game.drawHighlightScene(scene, event || { type: 'warm', text: { zhCN: '在熟悉的地方散步' } }, life);
   context.drawImage(scene, 48, 60, 654, 286);
   context.textAlign = 'center'; context.fillStyle = birth ? '#292b27' : '#f3efe2';
