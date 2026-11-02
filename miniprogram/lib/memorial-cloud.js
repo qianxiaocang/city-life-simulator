@@ -20,4 +20,17 @@ function list(offset = 0) { return call('list', { offset }); }
 function get(id) { return call('get', { id }); }
 function candle(id) { return call('candle', { id }); }
 
-module.exports = { publish, list, get, candle };
+async function shareCover(filePath) {
+  const base64=await new Promise((resolve,reject)=>wx.getFileSystemManager().readFile({filePath,encoding:'base64',success:r=>resolve(r.data),fail:reject}));
+  const result=await call('shareCover',{base64});
+  if(!/^https:\/\//.test(result.imageUrl||''))throw new Error('分享封面地址不可用');
+  if(typeof wx.createImage==='function')await new Promise((resolve,reject)=>{
+    const image=wx.createImage();
+    const timeout=setTimeout(()=>reject(new Error('分享封面加载超时')),15000);
+    image.onload=()=>{clearTimeout(timeout);resolve();};
+    image.onerror=()=>{clearTimeout(timeout);reject(new Error('分享封面加载失败'));};
+    image.src=result.imageUrl;
+  });
+  return result.imageUrl;
+}
+module.exports = { publish, list, get, candle, shareCover };

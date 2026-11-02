@@ -36,7 +36,7 @@ function harness() {
     },
   };
   let openid = 'person-one';
-  const sdk = { DYNAMIC_CURRENT_ENV: 'dynamic', init() {}, database: () => database, getWXContext: () => ({ OPENID: openid }) };
+  const sdk = { uploadFile: async()=>({fileID:'cloud://birth-cover'}), getTempFileURL:async()=>({fileList:[{tempFileURL:'https://example.com/birth-cover.png'}]}), DYNAMIC_CURRENT_ENV: 'dynamic', init() {}, database: () => database, getWXContext: () => ({ OPENID: openid }) };
   const sandbox = { exports: {}, require: name => name === 'wx-server-sdk' ? sdk : crypto, Buffer };
   vm.runInNewContext(readFileSync(resolve(root, 'cloudfunctions/memorial/index.js'), 'utf8'), sandbox);
   return { main: sandbox.exports.main, collections, setOpenid: value => { openid = value; } };
@@ -62,4 +62,12 @@ test('memorial cloud function publishes once, lists cloud records, opens full li
   assert.equal((await main({ action: 'candle', id: first.id })).candles, 2);
   assert.equal((await main({ action: 'list' })).items[0].candles, 2);
   assert.equal((await main({ action: 'publish', life: { ...life, phase: 'life' } })).ok, false);
+});
+
+
+test('birth cover returns a HTTPS image URL and rejects invalid image data', async()=>{
+ const {main}=harness();
+ const cover=await main({action:'shareCover',base64:Buffer.from('89504e470d0a1a0a','hex').toString('base64')});
+ assert.equal(cover.ok,true);assert.equal(cover.imageUrl,'https://example.com/birth-cover.png');
+ assert.equal((await main({action:'shareCover',base64:'not-an-image'})).ok,false);
 });

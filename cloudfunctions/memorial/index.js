@@ -10,6 +10,18 @@ const fail = (message) => ({ ok: false, message });
 exports.main = async event => {
   const openid = cloud.getWXContext().OPENID;
   if (!openid) return fail('请在微信中登录后重试');
+  if(event.action==='shareCover') {
+    const encoded=event.base64;
+    if(typeof encoded!=='string'||encoded.length>1000000||!/^[A-Za-z0-9+/=]+$/.test(encoded))return fail('封面图片无效');
+    const bytes=Buffer.from(encoded,'base64');
+    if(bytes.length<8||bytes.subarray(0,8).toString('hex')!=='89504e470d0a1a0a')return fail('封面必须为PNG图片');
+    const cloudPath='birth-covers/'+digest(openid)+'/'+digest(encoded)+'.png';
+    const uploaded=await cloud.uploadFile({cloudPath,fileContent:bytes});
+    const urls=await cloud.getTempFileURL({fileList:[uploaded.fileID]});
+    const imageUrl=urls.fileList?.[0]?.tempFileURL;
+    if(!imageUrl||!imageUrl.startsWith('https://'))return fail('封面暂时无法读取，请重试');
+    return {ok:true,imageUrl};
+  }
   if (event.action === 'publish') {
     const life = event.life;
     if (!life || life.phase !== 'dead' || life.version !== 1 || typeof life.id !== 'string' || !life.name || !life.born || !Array.isArray(life.log) || !Array.isArray(life.years)) return fail('人生存档不完整');

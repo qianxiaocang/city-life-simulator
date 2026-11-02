@@ -82,9 +82,9 @@ test('choice dialog fits its content and its options remain tappable', () => {
   assert.equal(actions[0].value, 'study');
 });
 
-test('birth sharing removes Mini Program page routes from Mini Game share data', () => {
+test('birth sharing removes Mini Program page routes from Mini Game share data', async () => {
   const { ui, shares } = uiHarness();
-  ui.action({ action: 'share-birth' });
+  await ui.action({ action: 'share-birth' });
   assert.deepEqual(copy(shares), [{ title: '出生卡', imageUrl: 'birth-card.png' }]);
 });
 
@@ -248,4 +248,14 @@ test('life moment groups have a compact gap without overlapping their descriptio
   const description = texts.find(item => item.value === '童年的一次相遇。'), nextTitle = texts.find(item => item.value === '十几岁');
   const gap = nextTitle.y - (description.y + description.size);
   assert.ok(gap >= 0 && gap <= 32, `unexpected group spacing: ${gap}`);
+});
+
+test('birth sharing waits for cover preparation and does not share a missing cover', async()=>{
+ const {ui,page,shares}=uiHarness();let done;
+ page.prepareBirthShare=()=>new Promise(resolve=>{done=resolve;});
+ const pending=ui.action({action:'share-birth'});
+ assert.equal(shares.length,0);
+ done();await pending;assert.equal(shares.length,1);
+ page.prepareBirthShare=async()=>{};page.onShareAppMessage=()=>({title:'出生卡'});
+ await ui.action({action:'share-birth'});assert.equal(shares.length,1);
 });

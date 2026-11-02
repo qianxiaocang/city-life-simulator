@@ -203,13 +203,14 @@ const pageDefinition = {
   },
   prepareBirthShare(life) {
     const key = `${life.id}:${this.store.settings.language}`;
-    if (this._birthShareKey === key && this.data.birthShareReady) return Promise.resolve(this._birthSharePath);
+    if (this._birthShareKey === key && this.data.birthShareReady && Date.now() < (this._birthShareExpires || 0)) return Promise.resolve(this._birthSharePath);
     if (this._birthSharePendingKey === key) return this._birthSharePending;
     this._birthShareKey = key; this._birthSharePath = ''; this._birthSharePendingKey = key;
     this.setData({ birthShareReady: false });
     this._birthSharePending = platform.createBirthShare(life, this.store.settings.language, this.store.settings.theme)
-      .then(path => { if (this._birthShareKey === key) { this._birthSharePath = path; this.setData({ birthShareReady: true }); } return path; })
-      .catch(error => { console.warn('Birth share image unavailable', error); if (this._birthShareKey === key) this.setData({ birthShareReady: true }); return ''; })
+      .then(path => memorialCloud.shareCover(path))
+      .then(path => { if (this._birthShareKey === key) { this._birthSharePath = path; this._birthShareExpires=Date.now()+5*60*1000; this.setData({ birthShareReady: true }); } return path; })
+      .catch(error => { console.warn('Birth share image unavailable', error); if (this._birthShareKey === key) this.setData({ birthShareReady: false }); return ''; })
       .then(path => { if (this._birthSharePendingKey === key) { this._birthSharePendingKey = ''; this._birthSharePending = null; } return path; });
     return this._birthSharePending;
   },

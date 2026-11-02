@@ -454,9 +454,13 @@ class CanvasUI {
       this.picker=null;this.modalScroll=0;return this.invalidate();
     }
     if(hit.action==='share-birth'){
-      const {path, ...data}=this.page.onShareAppMessage();
-      if(wx.shareAppMessage)wx.shareAppMessage(data);
-      return;
+      if(this.sharingBirth)return;
+      this.sharingBirth=true;
+      return Promise.resolve(this.page.prepareBirthShare?.(this.page.store?.current)).then(()=>{
+        const {path,...data}=this.page.onShareAppMessage();
+        if(!data.imageUrl){this.page.notify?.('分享封面未准备好，请重试');return;}
+        wx.shareAppMessage?.(data);
+      }).catch(()=>this.page.notify?.('分享封面生成失败，请重试')).finally(()=>{this.sharingBirth=false;});
     }
     if(hit.action==='input-review'||hit.action==='input-reflection')return this.keyboard(hit.action==='input-review'?'review':'reflection');
     this.page.onAction({currentTarget:{dataset:{action:hit.action,value:hit.value}}});

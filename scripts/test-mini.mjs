@@ -123,6 +123,7 @@ function pageHarness(initialStore, initialStorage, overrides = {}) {
   const platform = { generateSurvivalChart: async () => '/mock-survival.png', albumAuthorized: async () => false, requestAlbumAccess: async () => {}, generateScene: async () => '/mock-scene.png', createBirthShare: async () => '/mock-birth-share.png', toggleMusic: () => true, stopMusic() {}, captureMemorial: async () => '/mock-photo.png', saveImage: async () => {} };
   const cloudRows = [];
   const cloud = {
+    async shareCover(path) { return 'https://example.com/birth-cover.png'; },
     async publish(life) { if (!cloudRows.some(row => row.id === life.id)) cloudRows.unshift(clone(life)); return { ok: true, id: life.id }; },
     async list() { return { ok: true, items: clone(cloudRows), hasMore: false }; },
     async get(id) { return { ok: true, life: clone(cloudRows.find(row => row.id === id)) }; },
@@ -152,7 +153,7 @@ test('birth card uses native forwarding with a prepared image and memorial photo
   assert.doesNotMatch(template, /data-action="birth-card"|data-action="save-photo"/);
   await action('born');
   assert.equal(page.data.birthShareReady, true);
-  assert.equal(page.onShareAppMessage().imageUrl, '/mock-birth-share.png');
+  assert.equal(page.onShareAppMessage().imageUrl, 'https://example.com/birth-cover.png');
   assert.match(page.onShareAppMessage().title, /出生卡/);
   let asked = 0, rendered = 0, saved = 0, authorized = 0;
   platform.requestAlbumAccess = async () => { authorized++; };
