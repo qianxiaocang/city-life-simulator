@@ -1,4 +1,5 @@
 const game = require('../../lib/game');
+const {safeText}=require('../../lib/safe-text');
 const platform = require('../../lib/platform');
 const storage = require('../../lib/storage');
 const memorialCloud = require('../../lib/memorial-cloud');
@@ -32,7 +33,7 @@ Page({
     const musicPosition=this.store.settings.musicPosition;
     if(musicPosition&&Number.isFinite(musicPosition.x)&&Number.isFinite(musicPosition.y)){this._musicPosition={x:Math.max(0,Math.min((windowInfo.windowWidth||390)-56,musicPosition.x)),y:Math.max(0,Math.min((windowInfo.windowHeight||844)-100,musicPosition.y))};this.setData({musicX:this._musicPosition.x,musicY:this._musicPosition.y});}
     this._foreground = true; this._editable = null; this._viewed = null; this._minimized = null;
-    this._cloudRows = []; this._archiveLoading = false; this._archiveError = false; this._archiveLoaded = false; this._publishing = false; this._publishedIds = new Map(); this._archiveJobs = new Map();
+    this._allCloudRows=[];this._archiveScope='all';this._archiveTotal=0;this._archiveHasMore=false;this._cloudRows = []; this._archiveLoading = false; this._archiveError = false; this._archiveLoaded = false; this._publishing = false; this._publishedIds = new Map(); this._archiveJobs = new Map();
     this.render();
     this.loadCloudArchive();
     this.retryAutomaticArchives();
@@ -69,7 +70,7 @@ Page({
     return { title: this.tr('brand'), path: '/pages/index/index' };
   },
   onShareTimeline() { return { title: this.tr('brand') }; },
-  L(value) { return game.valueText(value, this.store.settings.language).replace(/你的(?:模拟中考标准分|模擬中考標準分)[\s\S]*|本地(?:学业评估模拟分|學業評估模擬分)[\s\S]*|这一时期的升学制度受到时代影响，本次不采用现代中考分数线。[\s\S]*/g,'毕业评估已经结束。结合自己的兴趣、学业表现和家庭安排，选择接下来的求学之路。').replace(/(?:模拟考核分|模擬考核分)\s*\d+\/100。/g,'').replace(/本次(?:模拟|模擬)标准分[\s\S]*|本次模擬標準分[\s\S]*/g,'成绩已经公布。结合升学机会和家庭安排，决定接下来的路。').replace(/这项安排会改变当前机会和时间分配；具体结果随人生状态而定。|這項安排會改變目前機會及時間分配；具體結果隨人生狀態而定。/g,'').replace(/需要申请和评估；金额与结果为情景模型。/g,'向学校递交申请，争取减轻学费和生活费负担。').replace(/模型支出|模型支出/g,'费用').replace(/模型總價|模型总价/g,'总价').replace(/模型首付|模型頭期款/g,'首付').replace(/模型购车款|模型購車款/g,'购车费用').replace(/情景模型|情境模型/g,'').replace(/模型/g,'').replace(/Modeled cost:?/gi,'Estimated cost:').replace(/modeled spending/gi,'spending').replace(/modeled /gi,''); },
+  L(value) { return game.valueText(value, this.store.settings.language).replace(/追思[馆館]/g,'平行人生').replace(/你的(?:模拟中考标准分|模擬中考標準分)[\s\S]*|本地(?:学业评估模拟分|學業評估模擬分)[\s\S]*|这一时期的升学制度受到时代影响，本次不采用现代中考分数线。[\s\S]*/g,'毕业评估已经结束。结合自己的兴趣、学业表现和家庭安排，选择接下来的求学之路。').replace(/(?:模拟考核分|模擬考核分)\s*\d+\/100。/g,'').replace(/本次(?:模拟|模擬)标准分[\s\S]*|本次模擬標準分[\s\S]*/g,'成绩已经公布。结合升学机会和家庭安排，决定接下来的路。').replace(/这项安排会改变当前机会和时间分配；具体结果随人生状态而定。|這項安排會改變目前機會及時間分配；具體結果隨人生狀態而定。/g,'').replace(/需要申请和评估；金额与结果为情景模型。/g,'向学校递交申请，争取减轻学费和生活费负担。').replace(/模型支出|模型支出/g,'费用').replace(/模型總價|模型总价/g,'总价').replace(/模型首付|模型頭期款/g,'首付').replace(/模型购车款|模型購車款/g,'购车费用').replace(/情景模型|情境模型/g,'').replace(/模型/g,'').replace(/Modeled cost:?/gi,'Estimated cost:').replace(/modeled spending/gi,'spending').replace(/modeled /gi,''); },
   tr(key) { return game.t(key, this.store.settings.language); },
   tx(cn, tw, en) { return this.L({ zhCN: cn, zhTW: tw, en }); },
   amount(value) { return game.money(Number(value) || 0, this.store.settings.language, this.currentLife()); },
@@ -108,33 +109,25 @@ Page({
         const preview=game.selectLifeMoments(life).find(item=>item.type!=='birth')||life.log[life.log.length-1];
         const result=await memorialCloud.publish(clone(life),preview?.id);
         this._publishedIds.set(life.id,result.id);life.cloudMemorialPending=false;this.persist();
-        await this.loadCloudArchive(true);
+        memorialCloud.invalidate();await this.loadCloudArchive(true);
       } catch(error){console.warn('Automatic memorial upload failed',error);}
       finally{this._archiveJobs.delete(life.id);this._publishing=this._archiveJobs.size>0;this.render();}
     })();
     this._archiveJobs.set(life.id,job);return job;
   },
-  async loadCloudArchive(force = false) {
-    if (this._archiveLoading || (this._archiveLoaded && !force)) return;
-    this._archiveLoading = true; this._archiveError = false;
-    if (force) this._cloudRows = [];
-    this.render();
-    try {
-      let offset = 0, rows = [], hasMore;
-      do {
-        const result = await memorialCloud.list(offset);
-        rows = rows.concat(result.items || []);
-        offset = rows.length;
-        this._cloudRows = rows;
-        this.render();
-        hasMore = !!result.hasMore && offset < 10000;
-      } while (hasMore);
-      this._archiveLoaded = true;
-    } catch (error) {
-      console.warn('Could not load memorial hall', error);
-      this._archiveLoaded = false;
-      this._archiveError = true;
-    } finally { this._archiveLoading = false; this.render(); }
+  async loadCloudArchive(force=false,more=false) {
+    if(this._archiveLoading)return;
+    this._archiveLoading=true;this._archiveError=false;this.render();
+    const scope=this._archiveScope||'all';
+    try{
+      const offset=more?this._cloudRows.length:0;
+      const result=await memorialCloud.loadPage(offset,scope);
+      if(scope!==this._archiveScope)return;
+      this._cloudRows=result.offset>0?[...this._cloudRows,...result.items]:result.items;
+      this._archiveTotal=result.total;this._archiveHasMore=result.hasMore;this._archiveLoaded=true;
+      if(scope==='all')this._allCloudRows=this._cloudRows;
+    }catch(error){this._archiveError=true;this._archiveLoaded=false;console.warn('Could not load parallel lives',error);}
+    finally{this._archiveLoading=false;this.render();if(scope!==this._archiveScope)this.loadCloudArchive();}
   },
   uiLabels() {
     const keys = ['brand','heroText','archive','past','now','year','scope','province','pace','minutes','born','resume','resumeText','certificate','beginLife','shareBirth','sameMoment','companionHint','health','happiness','knowledge','relationships','wealth','income','identity','family','education','career','mother','father','partner','children','birthplace','currentCity','close','back','pause','play','viewReport','saved','noLives','single','noJob','urban','rural','moneyUnit','lifeMap','lifeMapHint','survival','survivalHint'];
@@ -153,11 +146,11 @@ Page({
       moments: ['人生瞬间','人生瞬間','Life moments'], wholeLife: ['这一生','這一生','This life'], report: ['一段人生','一段人生','A lifetime'],
       write: ['写下你的话','寫下你的話','Add your words'], yourWords: ['你想写的话','你想寫的話','Your words'], save: ['保存','儲存','Save'],
       reviewPlaceholder: ['你想对这段人生说点什么吗？','你想對這段人生說點什麼嗎？','What would you like to say to this life?'],
-      reviewHint: ['人生结束后会自动珍藏到追思馆。离开本页前，可以写下或修改你的话。','離開本頁後便不能修改；主動放入追思館才會珍藏這段人生。','You can edit until you leave this page. Choose to place this life in the memorial hall to keep it.'],
-      photo: ['拍照纪念','拍照紀念','Save a photo'], memorialize: ['放入追思馆','放入追思館','Place in memorial hall'],
-      memorialSaved: ['已放入追思馆','已放入追思館','In the memorial hall'], replay: ['重活一遍','重活一遍','Live again'],
-      all: ['查看全部','查看全部','View all'], memories: ['安放在追思馆的人生','安放在追思館的人生','Lives remembered'],
-      archiveIntro: ['这些人生，是有人把它活到了最后，想长久珍藏而安放在这里的。欢迎来看，点亮烛光，留下一句话。','這些人生，是有人把它活到了最後，想長久珍藏而安放在這裡的。歡迎來看，點亮燭光，留下一句話。','These lives were lived to the end and kept here to remember. Come in and light a candle.'],
+      reviewHint: ['人生结束后会自动珍藏到平行人生。离开本页前，可以写下或修改你的话。','離開本頁後便不能修改；主動放入平行人生才會珍藏這段人生。','You can edit until you leave this page. Choose to place this life in the parallel lives to keep it.'],
+      photo: ['拍照纪念','拍照紀念','Save a photo'], memorialize: ['放入平行人生','放入平行人生','Place in parallel lives'],
+      memorialSaved: ['已放入平行人生','已放入平行人生','In the parallel lives'], replay: ['重活一遍','重活一遍','Live again'],
+      all: ['查看全部','查看全部','View all'], memories: ['平行人生','平行人生','Parallel lives'],
+      archiveIntro: ['每一次选择，都通往不同的一生。看看别人的故事，也收藏自己的另一种可能。','每一次選擇，都通往不同的一生。看看別人的故事，也收藏自己的另一種可能。','Every choice leads to a different life. Explore other stories and revisit your own possibilities.'],
       kicker: ['人生模拟 · 中国城市','人生模擬 · 中國城市','A life in a Chinese city'], locations: ['个出生地点','個出生地點','birthplaces'],
       reflectionPlaceholder: ['写下此刻的想法（可选）','寫下此刻的想法（可選）','Your thoughts (optional)'],
       pastHint: ['从所选年份出发，经历时代变化。历史条件为简化模型。','從所選年份出發，經歷時代變化。歷史條件為簡化模型。','Start in the chosen year and live through changing times.'],
@@ -204,7 +197,7 @@ Page({
   },
   async openSharedLife(query) {
     const id=query?.memorial;
-    if(!/^m_[a-f0-9]{40}$/.test(id||'')||this._openingSharedLife===id)return;
+    if(!/^(?:[A-Za-z0-9]{46}|m_[a-f0-9]{40})$/.test(id||'')||this._openingSharedLife===id)return;
     this._openingSharedLife=id;wx.showLoading?.({title:'正在读取这段人生'});
     try {const result=await memorialCloud.get(id);this.navigate('report',result.life);}
     catch(error){this.notify('这段人生暂时无法读取，请稍后重试');}
@@ -214,7 +207,7 @@ Page({
     const life=this.currentLife();if(life?.phase!=='dead')throw new Error('人生尚未结束');
     const key=life.id+':'+(life.farewell||'')+':'+this.store.settings.theme;
     if(this._lifeShare?.key===key&&Date.now()<this._lifeShare.expires)return this._lifeShare;
-    let id=/^m_[a-f0-9]{40}$/.test(life.id)?life.id:this._publishedIds.get(life.id)||this._cloudRows.find(row=>row.sourceId===life.id)?.id;
+    let id=/^(?:[A-Za-z0-9]{46}|m_[a-f0-9]{40})$/.test(life.id)?life.id:this._publishedIds.get(life.id)||this._cloudRows.find(row=>row.sourceId===life.id)?.id;
     if(!id){await this.archiveLife(life);id=this._publishedIds.get(life.id);}
     if(!id)throw new Error('人生尚未同步');
     const file=await platform.createLifeShare(life,this.store.settings.language,this.store.settings.theme);
@@ -261,7 +254,7 @@ Page({
       yearMap:Array.from({length:Math.max(96,life.age+1)},(_,age)=>{const snapshot=life.years.find(row=>row.age===age);return {age,current:life.age===age,color:snapshot?`hsl(${55+snapshot.happiness*.95},28%,${83-snapshot.happiness*.46}%)`:''};}),
       survivalCurve:this.data.modal==='details'?this.survivalChart(life):'',
       journal:(life.journal||[]).map(entry=>({age:this.age(entry.age),year:entry.year,text:entry.text})),
-      birthText: game.birthPlaceNarrative(this.L((life.log || []).find(item => item.type === 'birth')?.text), life.born, this.store.settings.language), cover: this.coverFor(life), tagline: this.tagline(life), review: game.memorialReview(life,this.store.settings.language).text,
+      birthText: game.birthPlaceNarrative(this.L((life.log || []).find(item => item.type === 'birth')?.text), life.born, this.store.settings.language), cover: this.coverFor(life), tagline: this.tagline(life), review: safeText(game.memorialReview(life,this.store.settings.language).text,200),
       canEditReview: this._editable === life.id && life.phase === 'dead' && !this._viewed, candles: life.candles || 0
     };
   },
@@ -280,8 +273,8 @@ Page({
     const recordList=this._view==='report'?[...(life?.log || [])].reverse():this._view==='life'?(life?.log || []):[];
     const logs = recordList.map(event => ({ id: event.id, age: event.age, date: event.date || '', text: this.eventText(event), type: event.type, starred: (life.stars || []).includes(event.id), effects: Object.entries(event.effects || {}).filter(([key]) => key in life.stats).map(([key,value]) => `${this.tr(key)} ${value > 0 ? '+' : ''}${Math.round(value * 10) / 10}`).join(' · ') }));
     const history = this._cloudRows || [];
-    const cards = history.map(item => ({ id: item.id, name: this.L(item.name), date: `${item.birthYear}–${item.year} · ${this.L(item.born.name)} · ${this.age(item.age)}`, tagline: this.tagline(item), review: game.memorialReview(item,settings.language).text, cover: this.coverFor(item), candles: item.candles || 0 }));
-    const archiveFacts = [[this.tx('馆藏人生','館藏人生','Lives remembered'),history.length],[this.tx('累计岁月','累計歲月','Years lived'),history.reduce((sum,item)=>sum+item.age,0)],[this.tx('最长一生','最長一生','Longest life'),Math.max(0,...history.map(item=>item.age))],[this.tx('到过地点','到過地點','Places reached'),new Set(history.flatMap(item=>(item.visited || []).map(place=>place.id))).size],[this.tx('珍藏瞬间','珍藏瞬間','Saved moments'),history.reduce((sum,item)=>sum+(item.stars || []).length,0)],[this.tx('点亮烛光','點亮燭光','Candles lit'),history.reduce((sum,item)=>sum+(item.candles || 0),0)]].map(([label,value])=>({label,value}));
+    const cards = history.map(item => ({ id: item.id, name: this.L(item.name), date: `${item.birthYear}–${item.year} · ${this.L(item.born.name)} · ${this.age(item.age)}`, tagline: this.tagline(item), review: safeText(game.memorialReview(item,settings.language).text,200), cover: this.coverFor(item), candles: item.candles || 0 }));
+    const archiveFacts=[{label:this._archiveScope==='mine'?'我的人生':'平行人生',value:this._archiveTotal||0},{label:'已加载记录',value:history.length}];
     const groups = new Map();
     if (this._view === 'report' && life?.phase === 'dead') {
       for (const event of game.selectLifeMoments(life).slice(0,this._momentLimit)) {
@@ -310,18 +303,19 @@ Page({
     const optionDescriptions = visibleOptions.map(option => this.L(option.description).trim());
     const repeatedDescription = optionDescriptions.length > 1 && optionDescriptions.every(text => text === optionDescriptions[0]);
     const choice = pending ? { id: pending.id, title: this.L(pending.title), description: pending.action==='focus-stage' ? this.tx('选择这一阶段的生活重心，下个阶段可以重新选择。','選擇這一階段的生活重心，下個階段可以重新選擇。','Choose your focus for this stage. You can choose again at the next stage.') : this.L(pending.description), meta: `${this.age(this.store.current.age)} · ${this.store.current.year}`, input: !!pending.input, options: visibleOptions.map((option,index)=>({id:option.id,number:index+1,label:this.L(option.label),description:repeatedDescription ? '' : optionDescriptions[index]})) } : null;
-    this.setData({ view:this._view,theme:settings.theme,ui,settings:{...settings},languageLabels:game.LANGUAGES.map(item=>({label:item.label,value:item.id})),languageIndex:game.LANGUAGES.findIndex(item=>item.id===settings.language),years,yearIndex:Math.max(0,years.findIndex(item=>item.value===settings.birthYear)),regions:regionOptions,regionIndex:REGIONS.indexOf(settings.scope),provinces,provinceIndex:Math.max(0,provinces.findIndex(item=>item.value===settings.province)),advancedOpen:!!this._advanced,available:places.filter(place=>settings.province==='all'||place.province.id===settings.province).length,resume:this.store.current&&this.store.current.phase!=='dead'?{name:this.L(this.store.current.name),age:this.age(this.store.current.age),place:game.locationLabel(this.store.current.location,settings.language)}:null,homeCover:this.scene({id:'home',type:'family',age:30,text:{zhCN:'一家人在城市里生活'}},{id:'home',seed:'home',age:30,log:[],family:{children:[]}}),memories:cards.slice(0,8),person:this.personFor(life),cover:life?this.coverFor(life):'',logs,paused:this._paused,speed:this._speed,progress:Math.round(this._progress*100),fast:!!this._fast,automatic:!!this.store.current?.autopilot?.enabled,archiveFacts,archiveList:cards,archiveLoading:this._archiveLoading,archiveError:this._archiveError,publishing:this._publishing,momentGroups,hasMoreMoments:this._view==='report'&&life?.phase==='dead'&&game.selectLifeMoments(life).length>this._momentLimit,fromArchive:!!this._viewed,memorialSaved:!!life&&(this._publishedIds.has(life.sourceId||life.id)||history.some(item=>item.id===life.id||item.sourceId===life.id)),endingText:life?.phase==='dead'?game.lifeEndingNarrative(life,settings.language):'',modal:this.data.modal,choice,autoChoiceSeconds:remainingChoiceSeconds(this._autoDeadline),hasPending:!!pending });
-    wx.setNavigationBarTitle({title:this._view==='home'?ui.brand:this._view==='life'?ui.living:this._view==='certificate'?ui.certificate:this._view==='archive'?ui.archive:ui.report});
+    this.setData({ view:this._view,theme:settings.theme,ui,settings:{...settings},languageLabels:game.LANGUAGES.map(item=>({label:item.label,value:item.id})),languageIndex:game.LANGUAGES.findIndex(item=>item.id===settings.language),years,yearIndex:Math.max(0,years.findIndex(item=>item.value===settings.birthYear)),regions:regionOptions,regionIndex:REGIONS.indexOf(settings.scope),provinces,provinceIndex:Math.max(0,provinces.findIndex(item=>item.value===settings.province)),advancedOpen:!!this._advanced,available:places.filter(place=>settings.province==='all'||place.province.id===settings.province).length,resume:this.store.current&&this.store.current.phase!=='dead'?{name:this.L(this.store.current.name),age:this.age(this.store.current.age),place:game.locationLabel(this.store.current.location,settings.language)}:null,homeCover:this.scene({id:'home',type:'family',age:30,text:{zhCN:'一家人在城市里生活'}},{id:'home',seed:'home',age:30,log:[],family:{children:[]}}),memories:(this._archiveScope==='mine'?(this._allCloudRows||[]).map(item=>({id:item.id,name:this.L(item.name),date:item.birthYear+'–'+item.year,cover:this.coverFor(item)})):cards).slice(0,8),person:this.personFor(life),cover:life?this.coverFor(life):'',logs,paused:this._paused,speed:this._speed,progress:Math.round(this._progress*100),fast:!!this._fast,automatic:!!this.store.current?.autopilot?.enabled,archiveFacts,archiveList:cards,archiveTotal:this._archiveTotal,archiveHasMore:this._archiveHasMore,archiveMine:this._archiveScope==='mine',archiveLoading:this._archiveLoading,archiveError:this._archiveError,publishing:this._publishing,momentGroups,hasMoreMoments:this._view==='report'&&life?.phase==='dead'&&game.selectLifeMoments(life).length>this._momentLimit,fromArchive:!!this._viewed,memorialSaved:!!life&&(this._publishedIds.has(life.sourceId||life.id)||history.some(item=>item.id===life.id||item.sourceId===life.id)),endingText:life?.phase==='dead'?game.lifeEndingNarrative(life,settings.language):'',modal:this.data.modal,choice,autoChoiceSeconds:remainingChoiceSeconds(this._autoDeadline),hasPending:!!pending });
+    wx.setNavigationBarTitle({title:this._view==='home'?ui.brand:this._view==='life'?ui.living:this._view==='certificate'?ui.certificate:this._view==='my-lives'?'我的平行人生':this._view==='archive'?ui.archive:ui.report});
     const darkNav=settings.theme==='dark'||this._view==='ending';
     wx.setNavigationBarColor({frontColor:darkNav?'#ffffff':'#000000',backgroundColor:this._view==='ending'?'#101b15':darkNav?'#1d2420':'#f3f0e8',animation:{duration:150,timingFunc:'easeIn'}});
   },
   navigate(view, viewed=null) {
+    if(view==='home'){this._archiveScope='all';this._cloudRows=this._allCloudRows||[];}
     if ((this._view==='report'||this._view==='ending') && view!=='report' && view!=='ending') this._editable=null;
     this._lifeShare=null;this._view=view;this._viewed=viewed;this._paused=true;this._fast=false;this._minimized=null;this._momentLimit=24;this._autoDeadline=0;this._photo=null;this.setData({modal:''});
     if (view==='life' && this.store.current) game.offerFocusStage(this.store.current);
     this.persist();this.render();wx.pageScrollTo({scrollTop:0,duration:0});
     if (view==='certificate' && this.store.current) this.prepareBirthShare(this.store.current);
-    if (view==='archive') this.loadCloudArchive(true);
+    if(view==='archive'||view==='my-lives'||view==='home')this.loadCloudArchive(true);
   },
   async newLife() {
     if (this._creating) return;
@@ -394,8 +388,8 @@ Page({
     if(!options[key]?.[index])return;
     this.store.settings[key]=options[key][index].value;if(key==='scope')this.store.settings.province='all';this.persist();this.render();
   },
-  onReviewInput(event){this.setData({reviewDraft:event.detail.value.slice(0,300)});},
-  onReflectionInput(event){this.setData({reflectionDraft:event.detail.value.slice(0,300)});},
+  onReviewInput(event){this.setData({reviewDraft:safeText(event.detail.value,200)});},
+  onReflectionInput(event){this.setData({reflectionDraft:safeText(event.detail.value,200)});},
   onMusicMove(event){if(event.detail.source==='touch'){this._musicMoved=Date.now();this._musicPosition={x:event.detail.x,y:event.detail.y};this.store.settings.musicPosition=this._musicPosition;this.data.musicX=event.detail.x;this.data.musicY=event.detail.y;}},
   noop(){},
   async onAction(event) {
@@ -403,8 +397,10 @@ Page({
     try {
       if(action==='born'||action==='new')return await this.newLife();
       if(action==='home'||action==='replay')return this.navigate('home');
-      if(action==='back')return this.navigate(this._view==='report'&&this._viewed?'archive':'home');
-      if(action==='archive')return this.navigate('archive');
+      if(action==='back'&&this._view==='my-lives'){this._archiveScope='all';this._cloudRows=this._allCloudRows;return this.navigate('archive');}
+      if(action==='back')return this.navigate(this._view==='my-lives'?'archive':this._view==='report'&&this._viewed?(this._archiveScope==='mine'?'my-lives':'archive'):'home');
+      if(action==='archive'||action==='my-lives'){this._archiveScope=action==='my-lives'?'mine':'all';this._cloudRows=this._archiveScope==='all'?this._allCloudRows:[];return this.navigate(action==='my-lives'?'my-lives':'archive');}
+      if(action==='more-lives')return this.loadCloudArchive(false,true);
       if(action==='retry-archive')return this.loadCloudArchive(true);
       if(action==='review'){
         if(!this._cloudRows.some(item=>item.id===value))return;
@@ -446,8 +442,8 @@ Page({
       }
       if(action==='more-moments'){this._momentLimit+=24;return this.render();}
       if(action==='end-done'){this._view='report';this.render();wx.pageScrollTo({scrollTop:0,duration:0});return;}
-      if(action==='edit-review'){if(this._editable!==life?.id||this._view!=='report'||this._viewed)return;this.setData({modal:'review',reviewDraft:life.farewell||''});return;}
-      if(action==='save-review'){if(this._editable!==life?.id||this._view!=='report'||this.data.modal!=='review'||this._viewed)return;const previous=life.farewell;life.farewell=this.data.reviewDraft.trim().slice(0,300);if(!this.persist()){life.farewell=previous;return;}this.setData({modal:''});this._publishedIds.delete(life.id);this.archiveLife(life);this.render();return this.notify(this.tr('saved'));}
+      if(action==='edit-review'){if(this._editable!==life?.id||this._view!=='report'||this._viewed)return;this.setData({modal:'review',reviewDraft:safeText(life.farewell,200)});return;}
+      if(action==='save-review'){if(this._editable!==life?.id||this._view!=='report'||this.data.modal!=='review'||this._viewed)return;const previous=life.farewell;life.farewell=safeText(this.data.reviewDraft,200).trim();if(!this.persist()){life.farewell=previous;return;}this.setData({modal:''});this._publishedIds.delete(life.id);this.archiveLife(life);this.render();return this.notify(this.tr('saved'));}
       if(action==='memorialize')return;
       if(action==='candle'){
         if(!this._cloudRows.some(item=>item.id===value)&&![...this._publishedIds.values()].includes(value))return;

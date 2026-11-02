@@ -11,7 +11,8 @@ await mkdir(resolve(gameRoot, 'cloudfunctions/memorial'), { recursive: true });
 
 await copyFile(resolve(root, 'miniprogram/lib/game.js'), resolve(gameRoot, 'lib/game.js'));
 await copyFile(resolve(root, 'miniprogram/lib/memorial-cloud.js'), resolve(gameRoot, 'lib/memorial-cloud.js'));
-for (const file of ['index.js', 'package.json']) await copyFile(resolve(root, 'cloudfunctions/memorial', file), resolve(gameRoot, 'cloudfunctions/memorial', file));
+await copyFile(resolve(root,'miniprogram/lib/safe-text.js'),resolve(gameRoot,'lib/safe-text.js'));
+for (const file of ['index.js', 'package.json','safe-text.js']) await copyFile(resolve(root, 'cloudfunctions/memorial', file), resolve(gameRoot, 'cloudfunctions/memorial', file));
 let storage = await readFile(resolve(root, 'miniprogram/lib/storage.js'), 'utf8');
 // The game runtime's object storage can normalize nested object values. Store
 // the exact JSON string so the save checksum survives a complete restart.

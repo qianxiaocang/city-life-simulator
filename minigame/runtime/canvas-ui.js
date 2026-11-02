@@ -151,7 +151,7 @@ class CanvasUI {
     if(d.view!=='ending')this.line(0,this.navHeight-1,W);
     if(d.view!=='ending'){
       if(d.view!=='home'){this.text('‹',17,this.status+5,29,p.ink);this.hit(0,this.status,55,47,'back',null,'fixed');}
-      const label=d.view==='home'?d.ui.brand:d.view==='life'?d.ui.living:d.view==='archive'?d.ui.archive:d.view==='certificate'?d.ui.certificate:d.ui.report;
+      const label=d.view==='home'?d.ui.brand:d.view==='life'?d.ui.living:d.view==='my-lives'?'我的平行人生':d.view==='archive'?d.ui.archive:d.view==='certificate'?d.ui.certificate:d.ui.report;
       c.font='bold 18px Songti SC, STSong, serif';const tw=c.measureText(label).width;this.title(label,(W-tw)/2,this.status+12,18,p.ink);
     }
     c.save();c.beginPath();c.rect(0,this.navHeight,W,this.viewportBottom-this.navHeight);c.clip();c.translate(0,this.navHeight-this.scroll);
@@ -159,7 +159,7 @@ class CanvasUI {
     if(d.view==='home')end=this.home();
     else if(d.view==='certificate')end=this.certificate();
     else if(d.view==='life')end=this.life();
-    else if(d.view==='archive')end=this.archive();
+    else if(d.view==='archive'||d.view==='my-lives')end=this.archive();
     else if(d.view==='report')end=this.report();
     else if(d.view==='ending')end=this.ending();
     c.restore();
@@ -308,11 +308,12 @@ class CanvasUI {
   }
   archive() {
     const d=this.page.data,p=this.p,W=this.width,x=16,w=W-32;let y=22;
-    this.text('MEMORIAL HALL',x,y,12,p.green,'bold');y+=29;this.title(d.ui.archive,x,y,32,p.ink);y+=54;
-    y+=this.paragraph(d.ui.archiveIntro,x,y,w,14,26,p.muted)+18;
-    const facts=d.archiveFacts||[];this.box(x,y,w,138,p.paper,16,p.line);
-    facts.forEach((f,i)=>{const fw=(w-16)/3,fx=x+8+(i%3)*fw,fy=y+17+Math.floor(i/3)*62;this.centerText(f.value,fx,fy,fw,26,20,p.green,'bold','serif');this.centerText(f.label,fx,fy+29,fw,20,11.5,p.muted);});y+=155;
-    if(!d.archiveList.length){this.box(x,y,w,106,p.paper,12,p.line);this.text(d.archiveLoading?'正在读取追思馆…':d.archiveError?'读取失败，请重试':d.ui.noLives,x+15,y+18,14,p.muted);this.button(d.archiveError?'重新读取':d.ui.born,x+14,y+53,w-28,39,d.archiveError?'retry-archive':'home',null,'primary');return y+122;}
+    this.title(d.archiveMine?'我的平行人生':d.ui.archive,x,y,30,p.ink);y+=49;
+    if(!d.archiveMine){this.button('我的平行人生  ↗',x,y,w,43,'my-lives',null,'soft');y+=59;}
+    y+=this.paragraph(d.archiveMine?'这里保存着你走过的每一段人生，随时回来看看那些选择与瞬间。':d.ui.archiveIntro,x,y,w,14,26,p.muted)+18;
+    const facts=(d.archiveFacts||[]).map((f,i)=>i===0?{...f,value:d.archiveTotal||0}:f);this.box(x,y,w,86,p.paper,16,p.line);
+    facts.forEach((f,i)=>{const fw=(w-16)/2,fx=x+8+(i%2)*fw,fy=y+17;this.centerText(f.value,fx,fy,fw,26,20,p.green,'bold','serif');this.centerText(f.label,fx,fy+29,fw,20,11.5,p.muted);});y+=103;
+    if(!d.archiveList.length){this.box(x,y,w,106,p.paper,12,p.line);this.text(d.archiveLoading?'正在读取平行人生…':d.archiveError?'读取失败，请重试':d.ui.noLives,x+15,y+18,14,p.muted);this.button(d.archiveError?'重新读取':d.ui.born,x+14,y+53,w-28,39,d.archiveError?'retry-archive':'home',null,'primary');return y+122;}
     for(const item of d.archiveList){
       const rows=this.lines(item.review,w-28,13,3),h=121+86+rows.length*23+58;
       this.box(x,y,w,h,p.paper,14,p.line);this.roundedImage(item.cover,x,y,w,121,14,true);
@@ -322,6 +323,8 @@ class CanvasUI {
       this.text('🕯 '+item.candles,x+13,y+h-25,12,p.gold);
       if(this.isPressed('review',item.id))this.box(x,y,w,h,'#ffffff18',14);this.hit(x,y,w,h,'review',item.id);this.hit(x+9,y+h-39,75,38,'candle',item.id);y+=h+16;
     }
+    if(d.archiveHasMore){this.button(d.archiveLoading?'正在加载…':'查看更多平行人生',x,y,w,43,d.archiveLoading?'noop':'more-lives',null,'outline');y+=60;}
+    if(d.archiveError)this.button('读取失败，点击重试',x,y,w,40,'retry-archive',null,'outline');
     return y;
   }
   report() {
@@ -361,7 +364,7 @@ class CanvasUI {
     this.box(x,y,w,total+3,p.paper,15,p.line);let ly=y+2;
     logRows.forEach(({item,rows},i)=>{const h=heights[i];if(ly+h>=this.scroll-10&&ly<this.scroll+(this.viewportBottom-this.navHeight)+10){const color=['death','illness','danger'].includes(item.type)?'#d1644d':['positive','asset'].includes(item.type)?p.green:p.ink;this.text(item.age,x+15,ly+12,11,p.muted);rows.forEach((row,j)=>this.text(row,x+45,ly+11+j*22,14,color,'normal',w-63,'serif'));this.line(x+14,ly+h-1,w-28);}ly+=h;});y+=total+25;
     this.button('分享这段人生',x,y,w,46,'share-life',null,'primary');y+=61;
-    if(!d.fromArchive){this.text(d.publishing?'正在同步追思馆…':d.memorialSaved?'✓ 已珍藏到追思馆':'待联网自动同步追思馆',x+12,y+14,12,p.green);y+=40;this.button(d.ui.replay,x,y,w,44,'replay',null,'outline');y+=68;}
+    if(!d.fromArchive){this.text(d.publishing?'正在同步平行人生…':d.memorialSaved?'✓ 已珍藏到平行人生':'待联网自动同步平行人生',x+12,y+14,12,p.green);y+=40;this.button(d.ui.replay,x,y,w,44,'replay',null,'outline');y+=68;}
     return y;
   }
   modal() {
@@ -433,7 +436,7 @@ class CanvasUI {
     }else if(kind==='review'){
       y+=this.paragraph(d.ui.reviewHelp,x+17,y,w-34,12,19,p.muted)+12;
       this.text(d.ui.yourWords,x+17,y,14,p.green,'bold');y+=27;
-      this.box(x+17,y,w-34,84,p.inset,9,p.line);this.paragraph(d.reviewDraft||d.ui.reviewPlaceholder,x+26,y+11,w-52,12,18,d.reviewDraft?p.ink:p.muted,3);this.hit(x+17,y,w-34,84,'input-review',null,'modal-content');y+=91;this.text(Array.from(d.reviewDraft||'').length+' / 300',W-89,y,11,p.muted);y+=24;
+      this.box(x+17,y,w-34,84,p.inset,9,p.line);this.paragraph(d.reviewDraft||d.ui.reviewPlaceholder,x+26,y+11,w-52,12,18,d.reviewDraft?p.ink:p.muted,3);this.hit(x+17,y,w-34,84,'input-review',null,'modal-content');y+=91;this.text(Array.from(d.reviewDraft||'').length+' / 200',W-89,y,11,p.muted);y+=24;
       this.button(d.ui.save,x+17,y,w-34,38,'save-review',null,'primary','modal-content');y+=47;
     }else if(kind==='picker'){
       this.picker.options.forEach((item,index)=>{const py=y+index*44;this.text(item.label,x+22,py+10,14,index===this.picker.selected?p.green:p.ink,index===this.picker.selected?'bold':'normal',w-42);this.line(x+17,py+43,w-34);this.hit(x+14,py,w-28,44,'pick',index,'modal-content');});y+=this.picker.options.length*44;
@@ -475,7 +478,7 @@ class CanvasUI {
   keyboard(kind){
     this.keyboardKind=kind;
     const value=kind==='review'?this.page.data.reviewDraft:this.page.data.reflectionDraft;
-    if(wx.showKeyboard)wx.showKeyboard({defaultValue:value||'',maxLength:300,multiple:true,confirmHold:false});
+    if(wx.showKeyboard)wx.showKeyboard({defaultValue:value||'',maxLength:200,multiple:true,confirmHold:false});
     else wx.showModal?.({title:kind==='review'?this.page.data.ui.yourWords:this.page.data.ui.reflectionPlaceholder,editable:true,placeholderText:value||'',success:result=>{if(result.confirm)this.keyboardValue(result.content||'');}});
   }
   keyboardValue(value){

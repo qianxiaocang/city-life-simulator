@@ -8,7 +8,7 @@ const phrases = {
   brand:['13亿分之一','13億分之一','1 in 1.3 Billion'],
   brandSub:['城市人生','城市人生','A city. A lifetime.'],
   home:['开始','開始','Begin'],
-  archive:['追思馆','追思館','Memorial hall'],
+  archive:['平行人生','平行人生','Parallel lives'],
   guide:['玩法说明','玩法說明','How to play'],
   cities:['城市名录','城市名錄','Birthplace directory'],
   theme:['切换明暗','切換明暗','Toggle theme'],

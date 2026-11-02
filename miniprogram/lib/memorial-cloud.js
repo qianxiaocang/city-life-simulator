@@ -16,7 +16,24 @@ function call(action, data = {}) {
 function publish(life, previewEventId) {
   return call('publish', { life, previewEventId });
 }
-function list(offset = 0) { return call('list', { offset }); }
+function list(offset=0,scope='all'){return call('list',{offset,scope});}
+let accountKey='',totals={};
+const cacheName=scope=>'parallel-lives.v2.'+accountKey+'.'+scope;
+async function loadPage(offset=0,scope='all'){
+ const previous=totals[scope];
+ const stats=offset===0||!previous?await call('stats',{scope}):previous;
+ accountKey=stats.cacheKey;totals[scope]=stats;
+ let cached;try{cached=wx.getStorageSync(cacheName(scope));}catch{}
+ const unchanged=cached&&cached.total===stats.total&&Array.isArray(cached.items);
+ if(!unchanged&&offset>0)offset=0;
+ if(unchanged&&cached.items.length>=Math.min(offset+8,stats.total))return {ok:true,total:stats.total,items:cached.items.slice(offset,offset+8),hasMore:offset+8<stats.total,offset};
+ const result=stats.total===0?{ok:true,total:0,items:[],hasMore:false}:await list(offset,scope);
+ const rows=offset===0?result.items:[...(unchanged?cached.items:[]).slice(0,offset),...result.items];
+ try{wx.setStorageSync(cacheName(scope),{total:result.total,items:rows});}catch(error){console.warn('Parallel life cache unavailable');}
+ return {...result,offset};
+}
+function invalidate(){totals={};if(accountKey)for(const scope of ['all','mine'])try{wx.removeStorageSync(cacheName(scope));}catch{}}
+
 function get(id) { return call('get', { id }); }
 function candle(id) { return call('candle', { id }); }
 
@@ -33,4 +50,4 @@ async function shareCover(filePath) {
   });
   return result.imageUrl;
 }
-module.exports = { publish, list, get, candle, shareCover };
+module.exports = { publish, list, get, candle, shareCover, loadPage, invalidate };

@@ -117,12 +117,15 @@ function loadStorage(wx) {
   return sandbox.module.exports;
 }
 
+const safeContext={module:{exports:{}}};vm.runInNewContext(readFileSync(resolve(miniRoot,'lib/safe-text.js'),'utf8'),safeContext);const safeTextApi=safeContext.module.exports;
 function pageHarness(initialStore, initialStorage, overrides = {}) {
   let definition;
   const storage = new Map(initialStorage ? [...initialStorage].map(([key,value]) => [key,clone(value)]) : initialStore ? [[SAVE_KEY, clone(initialStore)]] : []);
   const platform = { createLifeShare:async()=>'/mock/life-share.png', generateSurvivalChart: async () => '/mock-survival.png', albumAuthorized: async () => false, requestAlbumAccess: async () => {}, generateScene: async () => '/mock-scene.png', createBirthShare: async () => '/mock-birth-share.png', toggleMusic: () => true, stopMusic() {}, captureMemorial: async () => '/mock-photo.png', saveImage: async () => {} };
   const cloudRows = [];
   const cloud = {
+    invalidate(){},
+    async loadPage(offset=0){return {ok:true,offset,total:cloudRows.length,items:clone(cloudRows.slice(offset,offset+8)),hasMore:offset+8<cloudRows.length};},
     async shareCover(path) { return 'https://example.com/birth-cover.png'; },
     async publish(life) { if (!cloudRows.some(row => row.id === life.id)) cloudRows.unshift(clone(life)); return { ok: true, id: life.id }; },
     async list() { return { ok: true, items: clone(cloudRows), hasMore: false }; },
@@ -138,7 +141,7 @@ function pageHarness(initialStore, initialStorage, overrides = {}) {
     showModal: options => options.success({ confirm: true }),
   };
   const storageApi = loadStorage(wx);
-  const sandbox = { require: path => path.endsWith('/game') ? { ...mini, ...overrides } : path.endsWith('/storage') ? storageApi : path.endsWith('/memorial-cloud') ? cloud : platform, Page: value => { definition = value; }, wx, console, Date, Math, setInterval: () => 1, clearInterval() {}, setTimeout: () => 1, clearTimeout() {} };
+  const sandbox = { require: path => path.endsWith('/game') ? { ...mini, ...overrides } : path.endsWith('/safe-text') ? safeTextApi : path.endsWith('/storage') ? storageApi : path.endsWith('/memorial-cloud') ? cloud : platform, Page: value => { definition = value; }, wx, console, Date, Math, setInterval: () => 1, clearInterval() {}, setTimeout: () => 1, clearTimeout() {} };
   vm.runInNewContext(pageSource, sandbox, { filename: 'miniprogram/pages/index/index.js' });
   const page = { ...definition, data: clone(definition.data), setData(patch, done) { Object.assign(this.data, clone(patch)); if (done) done(); } };
   page.onLoad();
@@ -414,7 +417,7 @@ test('home memorial previews stop at eight and both life views show every record
   life.phase = 'dead';
   page.navigate('report');
   assert.equal(page.data.logs.length, life.log.length);
-  page._cloudRows = Array.from({ length: 9 }, (_, index) => ({ ...life, id: `memorial-${index}` }));
+  page._allCloudRows = page._cloudRows = Array.from({ length: 9 }, (_, index) => ({ ...life, id: `memorial-${index}` }));
   page.navigate('home');
   assert.equal(page.data.memories.length, 8);
   page.onUnload();
@@ -565,4 +568,27 @@ test('completed life sharing includes its cloud record and opens a read-only rep
  await recipient.page.openSharedLife({memorial:id});
  assert.equal(recipient.page.data.view,'report');assert.equal(recipient.page.data.fromArchive,true);assert.equal(recipient.page.store.current.id,original);assert.equal(recipient.page.data.person.canEditReview,false);
  sender.page.onUnload();recipient.page.onUnload();
+});
+
+test('parallel life cache compares totals, pages eight at a time, and isolates user caches',async()=>{
+ const data=new Map();let total=17,user='one',listCalls=0,statsCalls=0;
+ const wx={getStorageSync:key=>data.get(key),setStorageSync:(key,value)=>data.set(key,value),removeStorageSync:key=>data.delete(key),cloud:{init(){},async callFunction({data:request}){
+  if(request.action==='stats'){statsCalls++;return {result:{ok:true,total,cacheKey:user}};}
+  listCalls++;const offset=request.offset;return {result:{ok:true,total,items:Array.from({length:Math.min(8,total-offset)},(_,i)=>({id:user+'-'+(offset+i)})),hasMore:offset+8<total}};
+ }}};
+ const sandbox={module:{exports:{}},wx,console,setTimeout,clearTimeout};vm.runInNewContext(readFileSync(resolve(miniRoot,'lib/memorial-cloud.js'),'utf8'),sandbox);const api=sandbox.module.exports;
+ assert.equal((await api.loadPage()).items.length,8);assert.equal(listCalls,1);
+ await api.loadPage();assert.equal(listCalls,1);assert.equal(statsCalls,2);
+ assert.equal((await api.loadPage(8)).items.length,8);assert.equal(listCalls,2);
+ await api.loadPage(8);assert.equal(listCalls,2);
+ total=18;await api.loadPage();assert.equal(listCalls,3);
+ await api.loadPage(0,'mine');assert.equal(listCalls,4);
+ user='two';const result=await api.loadPage();assert.equal(result.items[0].id,'two-0');assert.equal(listCalls,5);
+});
+
+test('farewell limit counts Unicode characters and removes executable markup',()=>{
+ const {safeText}=safeTextApi;
+ assert.equal(Array.from(safeText('🙂'.repeat(201))).length,200);
+ assert.equal(safeText('<script>alert(1)</script><img src=x onerror=alert(2)>留下的话'),'留下的话');
+ assert.equal(safeText({toString:()=>'<script>'}),'');
 });
