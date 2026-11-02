@@ -48,7 +48,7 @@ function choice(id,label,description,cost=0,effects={},extra={}){
 }
 function paid(life,id,label,ratio,effects={},purpose='family'){
   const cost=Math.round(scale(life)*ratio);
-  return choice(id,label,T(`模型支出约 ¥${amount(cost)}，按可用家庭预算与本人积蓄安排，不为此借款。`,`模型支出約 ¥${amount(cost)}，依可用家庭預算與本人積蓄安排，不為此借款。`,`Modeled cost: CNY ${amount(cost)}, using eligible family support and personal savings, without borrowing.`),cost,effects,{purpose});
+  return choice(id,label,T(`预计花费约 ¥${amount(cost)}，从家庭预算和积蓄中安排，量力而行。`,`預計花費約 ¥${amount(cost)}，依可用家庭預算與本人積蓄安排，不為此借款。`,`Estimated cost: CNY ${amount(cost)}, using eligible family support and personal savings, without borrowing.`),cost,effects,{purpose});
 }
 const free=(id,label,description,effects={})=>choice(id,label,description,0,effects);
 function ceremony(life,occasion){
@@ -81,14 +81,14 @@ function ordinaryScenarios(life){
   if(adult&&life.age<=65&&!life.assets.house&&shop.some(x=>['house','house-cash'].includes(x.id))){
     const terms=homeTerms(life),cash=shop.find(x=>x.id==='house-cash'),mortgage=shop.find(x=>x.id==='house');
     const options=[];
-    if(cash?.available)options.push(choice('cash',T('用积蓄全款买房','用積蓄全款買房','Buy a home outright'),T(`模型总价 ¥${amount(terms.totalPrice)}，不新增房贷。`,`模型總價 ¥${amount(terms.totalPrice)}，不新增房貸。`,`Modeled price CNY ${amount(terms.totalPrice)}; no mortgage.`),cash.cost,{}, {purchase:'house-cash'}));
-    if(mortgage?.available)options.push(choice('mortgage',T('支付首付，申请住房按揭','支付頭期款，申請住房按揭','Pay a down payment and take a mortgage'),T(`模型首付 ¥${amount(terms.down)}，此后约每年还款 ¥${amount(terms.annualPayment)}、${terms.years}年。需通过收入与还款能力检查。`,`模型頭期款 ¥${amount(terms.down)}，此後約每年還款 ¥${amount(terms.annualPayment)}、${terms.years}年。須符合收入與還款能力檢查。`,`Modeled down payment CNY ${amount(terms.down)}, then about CNY ${amount(terms.annualPayment)} a year for ${terms.years} years, subject to income and repayment checks.`),mortgage.cost,{}, {purchase:'house'}));
+    if(cash?.available)options.push(choice('cash',T('用积蓄全款买房','用積蓄全款買房','Buy a home outright'),T(`总价 ¥${amount(terms.totalPrice)}，不新增房贷。`,`總價 ¥${amount(terms.totalPrice)}，不新增房貸。`,`Price CNY ${amount(terms.totalPrice)}; no mortgage.`),cash.cost,{}, {purchase:'house-cash'}));
+    if(mortgage?.available)options.push(choice('mortgage',T('支付首付，申请住房按揭','支付頭期款，申請住房按揭','Pay a down payment and take a mortgage'),T(`首付 ¥${amount(terms.down)}，此后约每年还款 ¥${amount(terms.annualPayment)}、${terms.years}年。需通过收入与还款能力检查。`,`頭期款 ¥${amount(terms.down)}，此後約每年還款 ¥${amount(terms.annualPayment)}、${terms.years}年。須符合收入與還款能力檢查。`,`Down payment CNY ${amount(terms.down)}, then about CNY ${amount(terms.annualPayment)} a year for ${terms.years} years, subject to income and repayment checks.`),mortgage.cost,{}, {purchase:'house'}));
     options.push(free('save',T('继续攒钱，暂不买房','繼續存錢，暫不買房','Keep saving and postpone buying'),T('没有合适的资金方案就先维持居住安排，不新增债务。','沒有合適資金方案就先維持居住安排，不新增債務。','Keep your current home and create no debt without an affordable plan.'),{happiness:1}));
-    add('home',T('安一个家，先算清这笔账','安一個家，先算清這筆帳','A home starts with a budget'),T(`你看了看住房和积蓄。相似住房的模型总价约 ¥${amount(terms.totalPrice)}，全款和首付按揭需要分别衡量。买不起时，可以继续攒钱。`,`你比較住房與積蓄。相似住房的模型總價約 ¥${amount(terms.totalPrice)}，全款與頭期款按揭需分別衡量。買不起時，可繼續存錢。`,`You compare housing with savings. A similar modeled home costs about CNY ${amount(terms.totalPrice)}. Consider outright purchase, an affordable mortgage or more saving.`),options,4);
+    add('home',T('安一个家，先算清这笔账','安一個家，先算清這筆帳','A home starts with a budget'),T(`你看了看住房和积蓄。相似住房的总价约 ¥${amount(terms.totalPrice)}，全款和首付按揭需要分别衡量。买不起时，可以继续攒钱。`,`你比較住房與積蓄。相似住房的總價約 ¥${amount(terms.totalPrice)}，全款與頭期款按揭需分別衡量。買不起時，可繼續存錢。`,`You compare housing with savings. A similar home costs about CNY ${amount(terms.totalPrice)}. Consider outright purchase, an affordable mortgage or more saving.`),options,4);
   }
   const car=shop.find(x=>x.id==='car');
   if(car?.available&&!life.assets.car&&life.age<=70)add('car',T('要不要添置一辆车？','要不要添置一輛車？','Would a car fit your life?'),T('通勤、接送与出门的需要变多了。买车方便，也会带来持续的养车支出。','通勤、接送與出門的需要變多了。買車方便，也會帶來持續養車支出。','Travel needs are growing. A car can help, while creating continuing running costs.'),[
-    ...(car.available?[choice('buy',T('买一辆适合预算的家庭用车','買一輛適合預算的家庭用車','Buy a car within the budget'),T(`模型购车款 ¥${amount(car.cost)}；之后每年还有使用与维护费用。`,`模型購車款 ¥${amount(car.cost)}；此後每年另有使用及維護費用。`,`Modeled purchase CNY ${amount(car.cost)}, followed by annual running and maintenance costs.`),car.cost,{}, {purchase:'car'})]:[]),
+    ...(car.available?[choice('buy',T('买一辆适合预算的家庭用车','買一輛適合預算的家庭用車','Buy a car within the budget'),T(`购车费用 ¥${amount(car.cost)}；之后每年还有使用与维护费用。`,`購車費用 ¥${amount(car.cost)}；此後每年另有使用及維護費用。`,`Purchase price CNY ${amount(car.cost)}, followed by annual running and maintenance costs.`),car.cost,{}, {purchase:'car'})]:[]),
     free('transit',T('继续步行、骑车或乘公共交通','繼續步行、騎車或乘公共運輸','Keep walking, cycling or using public transport'),T('不新增购车款，按现有生活条件出行。','不新增購車款，依現有生活條件出行。','Add no car purchase and use your current travel options.'),{health:1}),
     free('later',T('先把钱留给更需要的地方','先把錢留給更需要的地方','Keep the money for other needs'),T('暂缓买车，不产生汽车贷款。','暫緩買車，不產生汽車貸款。','Postpone buying without a car loan.'),{happiness:1})],6);
   if(adult&&life.age<=65&&life.year>=1980&&!s.petAdopted&&life.everWorked)add('pet',T('家里适合迎接一只宠物吗？','家裡適合迎接一隻寵物嗎？','Is there room in your life for a pet?'),T('养宠物意味着每天的陪伴、清洁和照护，也有长期食物与医疗预算。先确认住处和家人都能接纳。','養寵物意味每天陪伴、清潔及照護，也有長期食物與醫療預算。先確認住處與家人都能接納。','A pet needs daily care, cleaning, food and a healthcare budget. First consider the home and everyone sharing it.'),[
@@ -120,7 +120,7 @@ function ordinaryScenarios(life){
     free('local',T('到熟悉的公园走走','到熟悉公園走走','Spend time in a familiar park'),T('不增加旅费，给自己一些休息时间。','不增加旅費，給自己休息時間。','Add no travel expense and take time to rest.'),{health:2,happiness:2})],6);
   const furniture=shop.find(x=>['furniture','appliances'].includes(x.id)&&x.available);
   if(furniture&&adult)add('home-goods',T('家里有件东西，该换新了吗？','家裡有件東西，該換新了嗎？','Is it time to replace something at home?'),T('你重新看了看家中的起居用品。改善舒适，也要留足日常生活的积蓄。','你重新看看家中起居用品。改善舒適，也要留足日常生活積蓄。','You review household furnishings. Comfort matters, along with keeping enough savings for daily life.'),[
-    choice('replace',furniture.name,T(`模型支出约 ¥${amount(furniture.cost)}；按当前年代添置。`,`模型支出約 ¥${amount(furniture.cost)}；依當前年代添置。`,`Modeled cost CNY ${amount(furniture.cost)}, appropriate to the period.`),furniture.cost,{}, {purchase:furniture.id}),
+    choice('replace',furniture.name,T(`预计花费约 ¥${amount(furniture.cost)}；按当前年代添置。`,`預計花費約 ¥${amount(furniture.cost)}；依當前年代添置。`,`Estimated cost CNY ${amount(furniture.cost)}, appropriate to the period.`),furniture.cost,{}, {purchase:furniture.id}),
     free('repair',T('先整理保养，暂不更换','先整理保養，暫不更換','Care for what you have and wait'),T('这次不追加购买支出。','這次不追加購買支出。','Make no new purchase this time.'),{happiness:1})],7);
   if(life.retired)add('retirement-hobby',T('退休后的日子，想添点什么？','退休後的日子，想添些什麼？','What would you add to retirement?'),T('时间慢了下来，你想给每周留一件期待的小事。兴趣、邻里和休息，可以按自己的心意安排。','時間慢下來，你想每週留一件期待的小事。興趣、鄰里及休息，可按自己心意安排。','With more time, you want something to look forward to each week. Choose an interest, neighbors or rest in your own way.'),[
     paid(life,'learn',T('参加一项适合自己的兴趣活动','參加適合自己的興趣活動','Join an interest activity that suits you'),.012,{happiness:3,knowledge:1},'retirement-hobby'),
@@ -169,7 +169,7 @@ export function resolveLifeDecision(life,pending,optionId,env){
     return true;
   }
   env.effects(life,selected.effects||{});
-  if(selected.cost>0)env.log(life,T(`这次${selected.label.zhCN}，共安排模型支出 ¥${amount(selected.cost)}。`,`這次${selected.label.zhTW}，共安排模型支出 ¥${amount(selected.cost)}。`,`You chose “${selected.label.en}”, with modeled spending of CNY ${amount(selected.cost)}.`),'spending');
+  if(selected.cost>0)env.log(life,T(`这次${selected.label.zhCN}，共花费 ¥${amount(selected.cost)}。`,`這次${selected.label.zhTW}，共花费 ¥${amount(selected.cost)}。`,`You chose “${selected.label.en}”, with spending of CNY ${amount(selected.cost)}.`),'spending');
   if(data.occasionKey)s.completed[data.occasionKey]=life.age+1;
   if(data.scenario==='driving'&&optionId==='learn'){
     s.completed.driving=life.age+1;s.drivingAssessmentAge=life.age+1;

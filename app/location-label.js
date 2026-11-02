@@ -14,7 +14,7 @@ export function locationLabel(place, language = 'zh-CN') {
   if (regionNames[place.region]) parts.push(label(regionNames[place.region]));
   else if (place.province) parts.push(label(place.province));
   if (place.region === 'taiwan' && place.province) parts.push(label(place.province));
-  if (place.parentId && (place.region === 'mainland' || place.region === 'taiwan')) {
+  if (place.parentId && (place.region === 'taiwan' || (place.region === 'mainland' && !/市$/.test(valueText(place.name, 'zh-CN'))))) {
     const parent = locations.find(item => item.id === place.parentId);
     if (parent) parts.push(label(parent.name));
   }

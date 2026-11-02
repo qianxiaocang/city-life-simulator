@@ -87,9 +87,11 @@ async function captureMemorial(page, life, options) {
   context.fillText(isEnglish ? 'An ordinary, irreplaceable life' : language === 'zh-TW' ? '平凡，又不可替代的一生' : '平凡，又不可替代的一生', width / 2, height - 50);
   return canvasFile(canvas);
 }
-async function createBirthShare(life, language = 'zh-CN') {
+async function createBirthShare(life, language = 'zh-CN', theme = 'dark') {
   const L = value => game.valueText(value, language);
-  const canvas = offscreen(600, 480), context = canvas.getContext('2d');
+  const canvas = typeof wx.createCanvas==='function' ? wx.createCanvas() : offscreen(600,480);
+  canvas.width=600;canvas.height=480;
+  const context=canvas.getContext('2d');
   const birth = (life.log || []).find(event => event.type === 'birth');
   const place = game.locationLabel(life.born, language);
   const story = game.birthPlaceNarrative(L(birth?.text), life.born, language);
@@ -112,14 +114,16 @@ async function createBirthShare(life, language = 'zh-CN') {
     }
     lines.forEach((line, index) => context.fillText(line, x, y + index * lineHeight));
   };
-  context.fillStyle = '#202823'; context.fillRect(0, 0, 600, 480);
-  context.fillStyle = '#a1ceb9'; context.font = 'bold 20px sans-serif'; context.textAlign = 'left';
+  const dark=theme==='dark';
+  context.fillStyle = dark ? '#202823' : '#f3f0e8'; context.fillRect(0, 0, 600, 480);
+  context.fillStyle = dark ? '#344b40' : '#e3ece2'; context.fillRect(18,18,564,444);
+  context.fillStyle = dark ? '#a1ceb9' : '#267b65'; context.font = 'bold 20px sans-serif'; context.textAlign = 'left';
   context.fillText(title, 30, 45);
-  context.fillStyle = '#f4f0e6'; context.font = 'bold 48px serif';
+  context.fillStyle = dark ? '#f4f0e6' : '#292c28'; context.font = 'bold 48px serif';
   context.fillText(L(life.name), 30, 105, 390);
-  context.fillStyle = '#bac0b5'; context.font = '20px sans-serif';
+  context.fillStyle = dark ? '#bac0b5' : '#656c60'; context.font = '20px sans-serif';
   drawClamped(`${game.t(life.sex, language)} · ${place} · ${game.t(`class${life.classRank}`, language)}`, 30, 140, 397, 27, 2);
-  context.fillStyle = '#f0eee4'; context.font = '22px serif';
+  context.fillStyle = dark ? '#f0eee4' : '#292c28'; context.font = '22px serif';
   drawClamped(story, 30, 199, 538, 31, 2);
   context.fillStyle = '#465146'; context.fillRect(30, 259, 540, 1);
   const facts = [
@@ -130,16 +134,19 @@ async function createBirthShare(life, language = 'zh-CN') {
   ];
   facts.forEach(([label, value], index) => {
     const fx = 30 + (index % 2) * 275, fy = 289 + Math.floor(index / 2) * 68;
-    context.fillStyle = '#aeb9ad'; context.font = '16px sans-serif'; context.fillText(label, fx, fy);
-    context.fillStyle = '#f0eee4'; context.font = `bold ${index === 1 ? 18 : 20}px sans-serif`;
+    context.fillStyle = dark ? '#aeb9ad' : '#656c60'; context.font = '16px sans-serif'; context.fillText(label, fx, fy);
+    context.fillStyle = dark ? '#f0eee4' : '#292c28'; context.font = `bold ${index === 1 ? 18 : 20}px sans-serif`;
     drawClamped(value, fx, fy + 27, 256, 21, index === 1 ? 2 : 1);
   });
-  context.fillStyle = '#a1ceb9'; context.font = 'bold 18px sans-serif'; context.fillText(sameMoment, 30, 428);
+  context.fillStyle = dark ? '#a1ceb9' : '#267b65'; context.font = 'bold 18px sans-serif'; context.fillText(sameMoment, 30, 428);
   const companions = (life.companions || []).slice(0, 3).map(person => L(person.name));
-  context.fillStyle = '#e8e8de'; context.font = '19px sans-serif';
+  context.fillStyle = dark ? '#e8e8de' : '#292c28'; context.font = '19px sans-serif';
   drawClamped(companions.join('   ·   '), 30, 459, 415, 23, 1);
-  context.fillStyle = '#a1ceb9'; context.font = 'bold 16px serif'; context.textAlign = 'right';
+  context.fillStyle = dark ? '#a1ceb9' : '#267b65'; context.font = 'bold 16px serif'; context.textAlign = 'right';
   context.fillText(language === 'en' ? 'One in 1.3 Billion' : '13亿分之一', 570, 457);
+  // Mini Game sharing expects an exported canvas image, rather than a manually written wxfile URL.
+  if(typeof canvas.toTempFilePathSync==='function')return canvas.toTempFilePathSync({x:0,y:0,width:600,height:480,destWidth:600,destHeight:480,fileType:'png'});
+  if(typeof canvas.toTempFilePath==='function')return new Promise((resolve,reject)=>canvas.toTempFilePath({fileType:'png',success:r=>resolve(r.tempFilePath),fail:reject}));
   return canvasFile(canvas);
 }
 async function generateSurvivalChart(life, dark = false, language = 'zh-CN') {

@@ -79,6 +79,7 @@ test('native images retain saved records and event-specific pixel scenes', () =>
 test('birthplace labels retain province and district context across regions', () => {
   const find = (name, region) => mini.locations.find(place => place.name.zhCN === name && (!region || place.region === region));
   assert.equal(mini.locationLabel(find('成都市')), '四川省 · 成都市');
+  assert.equal(mini.locationLabel(find('建瓯市')), '福建省 · 建瓯市');
   assert.equal(mini.locationLabel(find('南区', 'hongkong')), '中国香港 · 南区');
   assert.equal(mini.locationLabel(find('大堂区')), '中国澳门 · 大堂区');
   assert.match(mini.locationLabel(find('中正区')), /中国台湾 · 台北市 · 中正区/);
@@ -94,14 +95,14 @@ test('birth share cover includes complete location and reserves its upper-right 
   };
   const wx = {
     env: { USER_DATA_PATH: '/tmp' },
-    createOffscreenCanvas: () => ({ getContext: () => context2d, toDataURL: () => 'data:image/png;base64,AA==' }),
+    createOffscreenCanvas: () => ({ getContext: () => context2d, toTempFilePathSync: () => '/tmp/birth-share-export.png' }),
     getFileSystemManager: () => ({ writeFile: ({ success }) => success() }),
   };
   const sandbox = { module: { exports: {} }, require: () => mini, wx, Date, Math, console };
   vm.runInNewContext(readFileSync(resolve(miniRoot, 'lib/platform.js'), 'utf8'), sandbox);
   const place = mini.locations.find(item => item.name.zhCN === '南区' && item.region === 'hongkong');
   const life = mini.startLife(mini.createLife({ location: place, locations: [place], seed: 'share-location', birthYear: 2026 }));
-  await sandbox.module.exports.createBirthShare(life);
+  assert.equal(await sandbox.module.exports.createBirthShare(life), '/tmp/birth-share-export.png');
   assert.ok(labels.some(item => item.value.includes('中国香港 · 南区')));
   assert.ok(labels.some(item => item.value === '同一刻出生的人'));
   assert.ok(labels.filter(item => item.y < 170).every(item => item.x < 430 && item.x + (item.maxWidth || 0) <= 430));
