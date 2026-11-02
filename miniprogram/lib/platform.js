@@ -130,8 +130,8 @@ async function createBirthShare(life, language = 'zh-CN') {
   facts.forEach(([label, value], index) => {
     const fx = 30 + (index % 2) * 275, fy = 289 + Math.floor(index / 2) * 68;
     context.fillStyle = '#aeb9ad'; context.font = '16px sans-serif'; context.fillText(label, fx, fy);
-    context.fillStyle = '#f0eee4'; context.font = 'bold 20px sans-serif';
-    drawClamped(value, fx, fy + 27, 256, 23, 1);
+    context.fillStyle = '#f0eee4'; context.font = `bold ${index === 1 ? 18 : 20}px sans-serif`;
+    drawClamped(value, fx, fy + 27, 256, 21, index === 1 ? 2 : 1);
   });
   context.fillStyle = '#a1ceb9'; context.font = 'bold 18px sans-serif'; context.fillText(sameMoment, 30, 428);
   const companions = (life.companions || []).slice(0, 3).map(person => L(person.name));
