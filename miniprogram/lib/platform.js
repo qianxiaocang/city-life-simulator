@@ -159,6 +159,26 @@ async function createBirthShare(life, language = 'zh-CN', theme = 'dark') {
   if(typeof canvas.toTempFilePath==='function')return new Promise((resolve,reject)=>canvas.toTempFilePath({fileType:'png',success:r=>resolve(r.tempFilePath),fail:reject}));
   return canvasFile(canvas);
 }
+async function createLifeShare(life,language='zh-CN',theme='dark') {
+  const L=value=>game.valueText(value,language),dark=theme==='dark';
+  const canvas=typeof wx.createCanvas==='function'?wx.createCanvas():offscreen(600,480);canvas.width=600;canvas.height=480;
+  const c=canvas.getContext('2d'),ink=dark?'#edece3':'#292c28',muted=dark?'#b1b6a9':'#77796d',green=dark?'#9bceb7':'#267b65';
+  c.fillStyle=dark?'#202823':'#f4f1e9';c.fillRect(0,0,600,480);
+  const scene=typeof wx.createCanvas==='function'?wx.createCanvas():offscreen(640,280);scene.width=640;scene.height=280;
+  const event=game.selectLifeMoments(life).find(row=>row.type!=='birth')||life.log[0];game.drawHighlightScene(scene,event,life);c.drawImage(scene,0,0,600,162);
+  const line=(text,x,y,width,size,color,weight='normal')=>{c.font=weight+' '+size+'px sans-serif';c.fillStyle=color;let value=String(text);while(value&&c.measureText(value).width>width)value=value.slice(0,-1);if(value!==String(text))value=value.slice(0,-1)+'…';c.fillText(value,x,y);};
+  line(L(life.name),26,212,548,36,ink,'bold');
+  line(life.birthYear+'—'+life.year+' · '+life.age+(language==='en'?' years':'岁'),26,246,548,20,muted);
+  line(game.locationLabel(life.born,language),26,275,548,19,muted);
+  const summary=game.summarize(life);line(L(summary.job)+' · '+game.educationText(life.education,language),26,311,548,21,ink,'bold');
+  c.fillStyle=dark?'#344b40':'#e3ece2';c.fillRect(22,333,556,103);
+  line(language==='en'?'Words to remember':'人生寄语',36,359,528,17,green,'bold');
+  c.font='20px serif';c.fillStyle=ink;
+  const note=game.memorialReview(life,language).text;let remaining=note;
+  for(let i=0;i<2&&remaining;i++){let row='';for(const ch of remaining){if(c.measureText(row+ch).width>528)break;row+=ch;}remaining=remaining.slice(row.length);if(i===1&&remaining)row=row.slice(0,-1)+'…';c.fillText(row,36,389+i*27);}
+  line(language==='en'?'One in 1.3 Billion · View this life':'13亿分之一 · 打开看看这一生',26,465,548,17,green);
+  return canvasFile(canvas);
+}
 async function generateSurvivalChart(life, dark = false, language = 'zh-CN') {
   const canvas = offscreen(640, 320), c = canvas.getContext('2d');
   const ink = dark ? '#b1b6a9' : '#888477', line = dark ? '#424c40' : '#e4dfd3';
@@ -253,4 +273,4 @@ function toggleMusic() {
 function stopMusic() { musicWanted = false; if (audio) audio.stop(); }
 function suspendMusic() { suspended = true; if (audio) audio.pause(); }
 function resumeMusic() { suspended = false; if (musicWanted) musicContext().play(); }
-module.exports = { drawScene, generateScene, generateSurvivalChart, captureMemorial, createBirthShare, albumAuthorized, requestAlbumAccess, saveImage, cleanSceneFiles, toggleMusic, stopMusic, suspendMusic, resumeMusic };
+module.exports = { createLifeShare, drawScene, generateScene, generateSurvivalChart, captureMemorial, createBirthShare, albumAuthorized, requestAlbumAccess, saveImage, cleanSceneFiles, toggleMusic, stopMusic, suspendMusic, resumeMusic };

@@ -52,7 +52,7 @@ test('save records preserve their checksum when the runtime normalizes stored ob
 
 function uiHarness(windowInfo = {}) {
   const noop = () => {};
-  const context = Object.fromEntries(['beginPath','moveTo','lineTo','quadraticCurveTo','closePath','fill','stroke','fillText','clearRect','setTransform','save','restore','rect','clip','translate','drawImage'].map(name => [name, noop]));
+  const context = Object.fromEntries(['arc','beginPath','moveTo','lineTo','quadraticCurveTo','closePath','fill','stroke','fillText','clearRect','setTransform','save','restore','rect','clip','translate','drawImage'].map(name => [name, noop]));
   context.measureText = text => ({ width: Array.from(String(text)).length * 8 });
   const canvas = { getContext: () => context, requestAnimationFrame: () => 1 };
   const wx = { getWindowInfo: () => ({ windowWidth: 390, windowHeight: 844, pixelRatio: 1, statusBarHeight: 20, safeArea: { bottom: 810 }, ...windowInfo }) };
@@ -164,6 +164,12 @@ test('home selectors and pace labels are centered in their own controls', () => 
   const count = texts.find(item => item.value === '1,152 个出生地点'), countWidth = Math.min(116, Array.from(count.value).length * 9 + 14);
   const badge = boxes.find(box => box[4] === ui.p.paper2 && box[2] === countWidth && box[3] === 26);
   assert.ok(Math.abs(count.x + Array.from(count.value).length * 4 - (badge[0] + badge[2] / 2)) < .01);
+  for(const value of ['过去','现在']) {
+    const text=texts.find(item=>item.value===value),hit=ui.hits.find(item=>item.action==='world'&&item.value===(value==='过去'?'past':'now'));
+    assert.ok(Math.abs(text.x+8-hit.x-hit.w/2)<.01);
+  }
+  const active=ui.hits.find(item=>item.action==='world'&&item.value==='now');
+  assert.ok(boxes.some(box=>box[0]===active.x&&box[1]+ui.navHeight-ui.scroll===active.y&&box[2]===active.w&&box[3]===active.h&&box[4]===ui.p.paper2));
   for (const pace of [30, 60, 90]) {
     const item = texts.find(text => text.value === `${pace} 分钟`), hit = ui.hits.find(target => target.action === 'pace' && target.value === pace);
     assert.ok(Math.abs(item.x + Array.from(item.value).length * 4 - (hit.x + hit.w / 2)) < .01);
@@ -258,4 +264,11 @@ test('birth sharing waits for cover preparation and does not share a missing cov
  done();await pending;assert.equal(shares.length,1);
  page.prepareBirthShare=async()=>{};page.onShareAppMessage=()=>({title:'出生卡'});
  await ui.action({action:'share-birth'});assert.equal(shares.length,1);
+});
+
+test('life share forwards the selected cloud life ID with its prepared cover',async()=>{
+ const {ui,page,shares}=uiHarness();
+ page.prepareLifeShare=async()=>({title:'张俊熙的一生',id:'m_'+'b'.repeat(40),imageUrl:'https://example.com/lifetime.png'});
+ await ui.action({action:'share-life'});
+ assert.deepEqual(copy(shares),[{title:'张俊熙的一生',query:'memorial=m_'+'b'.repeat(40),imageUrl:'https://example.com/lifetime.png'}]);
 });

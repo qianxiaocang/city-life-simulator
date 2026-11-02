@@ -120,7 +120,7 @@ function loadStorage(wx) {
 function pageHarness(initialStore, initialStorage, overrides = {}) {
   let definition;
   const storage = new Map(initialStorage ? [...initialStorage].map(([key,value]) => [key,clone(value)]) : initialStore ? [[SAVE_KEY, clone(initialStore)]] : []);
-  const platform = { generateSurvivalChart: async () => '/mock-survival.png', albumAuthorized: async () => false, requestAlbumAccess: async () => {}, generateScene: async () => '/mock-scene.png', createBirthShare: async () => '/mock-birth-share.png', toggleMusic: () => true, stopMusic() {}, captureMemorial: async () => '/mock-photo.png', saveImage: async () => {} };
+  const platform = { createLifeShare:async()=>'/mock/life-share.png', generateSurvivalChart: async () => '/mock-survival.png', albumAuthorized: async () => false, requestAlbumAccess: async () => {}, generateScene: async () => '/mock-scene.png', createBirthShare: async () => '/mock-birth-share.png', toggleMusic: () => true, stopMusic() {}, captureMemorial: async () => '/mock-photo.png', saveImage: async () => {} };
   const cloudRows = [];
   const cloud = {
     async shareCover(path) { return 'https://example.com/birth-cover.png'; },
@@ -553,4 +553,16 @@ test('legacy exam and generic choice descriptions use player-facing copy',()=>{
  assert.equal(page.L('这项安排会改变当前机会和时间分配；具体结果随人生状态而定。'),'');
  assert.doesNotMatch(page.L('你的模拟中考标准分为98/100。它不是本市真实分数线。'),/模拟|标准分|真实分数线/);
  page.onUnload();
+});
+
+test('completed life sharing includes its cloud record and opens a read-only report without replacing local progress', async()=>{
+ const sender=pageHarness();const life=mini.startLife(mini.createLife({location:mini.locations[0],seed:'share-life',birthYear:2000,world:'past'}));life.phase='dead';
+ const id='m_'+'a'.repeat(40);sender.page.store.current=life;sender.page._publishedIds.set(life.id,id);sender.page.navigate('report');
+ await sender.page.prepareLifeShare();const share=sender.page.onShareAppMessage();
+ assert.equal(share.query,'memorial='+id);assert.match(share.imageUrl,/^https:\/\//);assert.match(share.path,/memorial=/);
+ const recipient=pageHarness();await recipient.action('born');const original=recipient.page.store.current.id;
+ recipient.cloud.get=async received=>{assert.equal(received,id);return {life:{...clone(life),id,sourceId:life.id}};};
+ await recipient.page.openSharedLife({memorial:id});
+ assert.equal(recipient.page.data.view,'report');assert.equal(recipient.page.data.fromArchive,true);assert.equal(recipient.page.store.current.id,original);assert.equal(recipient.page.data.person.canEditReview,false);
+ sender.page.onUnload();recipient.page.onUnload();
 });

@@ -174,7 +174,7 @@ class CanvasUI {
     const d=this.page.data,p=this.p,saved=d.settings?.canvasMusicPosition;
     const pos=this.musicPosition||(saved&&Number.isFinite(saved.x)&&Number.isFinite(saved.y)?saved:{x:this.width-191,y:this.navHeight+8});
     this.musicPosition=this.clampMusicPosition(pos);const {x,y}=this.musicPosition;
-    this.box(x-4,y-4,58,58,'#54735f18',29);this.box(x,y,50,50,d.musicPlaying?'#288d71':'#43584d',25,'#ffffff30');
+    const c=this.ctx;c.beginPath();c.arc(x+25,y+25,29,0,Math.PI*2);c.fillStyle='#54735f18';c.fill();c.beginPath();c.arc(x+25,y+25,25,0,Math.PI*2);c.fillStyle=d.musicPlaying?'#288d71':'#43584d';c.fill();c.strokeStyle='#ffffff30';c.lineWidth=1;c.stroke();
     this.text('♪',x+12,y+11,27,'#f3f0e4');for(let i=0;i<3;i++){const h=d.musicPlaying?9+(Math.sin(Date.now()/210+i)+1)*4:8;this.box(x+29+i*4,y+26-h/2,2,h,'#f3f0e4',1);}
     this.hit(x-3,y-3,56,56,'music',null,'fixed');
     if(d.musicPlaying&&this.page._foreground!==false)this.invalidate();
@@ -198,9 +198,10 @@ class CanvasUI {
     const countText=d.ui.locationCount,countW=Math.min(116,Array.from(countText).length*9+14);
     this.box(W-32-countW,y+17,countW,26,p.paper2,14);this.centerText(countText,W-32-countW,y+17,countW,26,11,p.green);
     let row=y+56;this.box(x+16,row,w-32,46,p.inset,11,p.line);
-    const tabW=(w-32)/2;this.box(past?x+19:x+16+tabW,row+3,tabW-3,40,p.paper2,9);
-    this.title(d.ui.past,x+16+tabW*.38,row+12,16,past?p.green:p.ink);
-    this.title(d.ui.now,x+16+tabW+tabW*.38,row+12,16,past?p.ink:p.green);
+    const tabW=(w-32)/2;
+    this.ctx.save();this.ctx.clip();this.box(past?x+16:x+16+tabW,row,tabW,46,p.paper2);this.ctx.restore();
+    this.centerText(d.ui.past,x+16,row,tabW,46,16,past?p.green:p.ink,'bold');
+    this.centerText(d.ui.now,x+16+tabW,row,tabW,46,16,past?p.ink:p.green,'bold');
     this.hit(x+16,row,tabW,46,'world','past');this.hit(x+16+tabW,row,tabW,46,'world','now');row+=61;
     row+=this.paragraph(past?d.ui.pastHint:d.ui.nowHint,x+16,row,w-32,12,18,p.muted,2)+14;
     if(past){this.box(x+16,row,w-32,58,p.inset,11,p.line);this.text(d.ui.birthYear,x+28,row+21,13,p.muted,'bold');this.box(W-147,row+10,101,38,p.paper,9,p.line);this.text(String(d.settings.birthYear),W-136,row+20,16,p.ink,'bold');this.chevron(W-57,row+28,7);this.hit(x+16,row,w-32,58,'picker','birthYear');row+=70;}
@@ -359,6 +360,7 @@ class CanvasUI {
     const heights=logRows.map(({rows})=>Math.max(47,18+rows.length*22+12));const total=heights.reduce((a,b)=>a+b,0);
     this.box(x,y,w,total+3,p.paper,15,p.line);let ly=y+2;
     logRows.forEach(({item,rows},i)=>{const h=heights[i];if(ly+h>=this.scroll-10&&ly<this.scroll+(this.viewportBottom-this.navHeight)+10){const color=['death','illness','danger'].includes(item.type)?'#d1644d':['positive','asset'].includes(item.type)?p.green:p.ink;this.text(item.age,x+15,ly+12,11,p.muted);rows.forEach((row,j)=>this.text(row,x+45,ly+11+j*22,14,color,'normal',w-63,'serif'));this.line(x+14,ly+h-1,w-28);}ly+=h;});y+=total+25;
+    this.button('分享这段人生',x,y,w,46,'share-life',null,'primary');y+=61;
     if(!d.fromArchive){this.text(d.publishing?'正在同步追思馆…':d.memorialSaved?'✓ 已珍藏到追思馆':'待联网自动同步追思馆',x+12,y+14,12,p.green);y+=40;this.button(d.ui.replay,x,y,w,44,'replay',null,'outline');y+=68;}
     return y;
   }
@@ -452,6 +454,11 @@ class CanvasUI {
     if(hit.action==='pick'){
       const {key}=this.picker;this.page.onSetting({currentTarget:{dataset:{key}},detail:{value:hit.value}});
       this.picker=null;this.modalScroll=0;return this.invalidate();
+    }
+    if(hit.action==='share-life'){
+      if(this.sharingLife)return;
+      this.sharingLife=true;wx.showLoading?.({title:'准备分享封面'});
+      return this.page.prepareLifeShare().then(share=>{wx.hideLoading?.();wx.shareAppMessage?.({title:share.title,query:'memorial='+encodeURIComponent(share.id),imageUrl:share.imageUrl});}).catch(()=>this.page.notify?.('分享暂未准备好，请联网后重试')).finally(()=>{this.sharingLife=false;wx.hideLoading?.();});
     }
     if(hit.action==='share-birth'){
       if(this.sharingBirth)return;

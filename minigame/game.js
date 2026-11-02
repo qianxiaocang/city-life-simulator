@@ -11,7 +11,7 @@ page.setData = function (patch, done) {
   if (done) done();
 };
 ui = new CanvasUI(canvas, page);
-page.onLoad();
+page.onLoad(wx.getLaunchOptionsSync?.().query || {});
 page.onShow();
 
 wx.onTouchStart?.(event => ui.touchStart(event));
@@ -20,7 +20,7 @@ wx.onTouchEnd?.(event => ui.touchEnd(event));
 wx.onTouchCancel?.(() => ui.touchCancel());
 wx.onWindowResize?.(() => ui.resize());
 wx.onHide?.(() => { page.onHide(); require('./lib/platform').suspendMusic(); });
-wx.onShow?.(() => { page.onShow(); require('./lib/platform').resumeMusic(); ui.invalidate(); });
+wx.onShow?.(options => { page.onShow(); if(options?.query?.memorial)page.openSharedLife(options.query); require('./lib/platform').resumeMusic(); ui.invalidate(); });
 wx.onKeyboardInput?.(event => ui.keyboardValue(event.value));
 wx.onKeyboardConfirm?.(event => { ui.keyboardValue(event.value); wx.hideKeyboard?.(); });
 wx.showShareMenu?.({ withShareTicket: false });

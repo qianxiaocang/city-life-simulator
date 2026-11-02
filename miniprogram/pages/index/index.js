@@ -12,7 +12,7 @@ game.configureLocations(game.locations);
 
 Page({
   data: { navHeight: 64, navTop: 20, navBarHeight: 44, navSide: 96, view: 'home', theme: 'light', modal: '', toast: '', person: null, logs: [], momentGroups: [], archiveList: [], archiveFacts: [], archiveLoading: false, archiveError: false, publishing: false, memories: [], speeds: [1, 2, 4, 8, 12, 16], speed: 1, paused: true, progress: 0, musicPlaying: false, musicX: 0, musicY: 480, reviewDraft: '', reflectionDraft: '', birthShareReady: false, autoChoiceSeconds: 2 },
-  onLoad() {
+  onLoad(options = {}) {
     this.store = { version: 1, settings: { ...DEFAULTS }, current: null, history: [], savedMomentToastCount: 0 };
     try {
       const loaded = storage.readStore(this.store);
@@ -38,6 +38,7 @@ Page({
     this.retryAutomaticArchives();
     if (this._storageReadFailed) this.notify(this.tx('存档读取失败，请重启小程序后重试','存檔讀取失敗，請重新開啟小程式後重試','Could not read your save. Please restart the app.'));
     this._timer = setInterval(() => this.tick(), 120);
+    if(options.memorial)this.openSharedLife(options);
   },
   onShow() { this._foreground = true; this._lastTick = Date.now(); this.retryAutomaticArchives(); },
   onResize() { this.updateNavigation(); },
@@ -60,6 +61,7 @@ Page({
   onHide() { this._foreground = false; this._lastTick = 0; this.persist(); },
   onUnload() { clearInterval(this._timer); clearTimeout(this._toastTimer); this.persist(); platform.stopMusic(); },
   onShareAppMessage() {
+    if(this._view==='report'&&this._lifeShare){const share=this._lifeShare;return {title:share.title,query:'memorial='+encodeURIComponent(share.id),path:'/pages/index/index?memorial='+encodeURIComponent(share.id),imageUrl:share.imageUrl};}
     if (this._view === 'certificate' && this.store.current?.phase === 'birth') {
       const life = this.store.current;
       return { title: this.tx(`${this.L(life.name)}的出生卡`,`${this.L(life.name)}的出生卡`,`${this.L(life.name)}'s birth card`), path: '/pages/index/index', ...(this._birthSharePath ? { imageUrl: this._birthSharePath } : {}) };
@@ -200,6 +202,25 @@ Page({
     }
     return '';
   },
+  async openSharedLife(query) {
+    const id=query?.memorial;
+    if(!/^m_[a-f0-9]{40}$/.test(id||'')||this._openingSharedLife===id)return;
+    this._openingSharedLife=id;wx.showLoading?.({title:'正在读取这段人生'});
+    try {const result=await memorialCloud.get(id);this.navigate('report',result.life);}
+    catch(error){this.notify('这段人生暂时无法读取，请稍后重试');}
+    finally{this._openingSharedLife='';wx.hideLoading?.();}
+  },
+  async prepareLifeShare() {
+    const life=this.currentLife();if(life?.phase!=='dead')throw new Error('人生尚未结束');
+    const key=life.id+':'+(life.farewell||'')+':'+this.store.settings.theme;
+    if(this._lifeShare?.key===key&&Date.now()<this._lifeShare.expires)return this._lifeShare;
+    let id=/^m_[a-f0-9]{40}$/.test(life.id)?life.id:this._publishedIds.get(life.id)||this._cloudRows.find(row=>row.sourceId===life.id)?.id;
+    if(!id){await this.archiveLife(life);id=this._publishedIds.get(life.id);}
+    if(!id)throw new Error('人生尚未同步');
+    const file=await platform.createLifeShare(life,this.store.settings.language,this.store.settings.theme);
+    const imageUrl=await memorialCloud.shareCover(file);
+    this._lifeShare={key,id,imageUrl,title:this.L(life.name)+'的一生 · '+this.age(life.age),expires:Date.now()+5*60*1000};return this._lifeShare;
+  },
   prepareBirthShare(life) {
     const key = `${life.id}:${this.store.settings.language}`;
     if (this._birthShareKey === key && this.data.birthShareReady && Date.now() < (this._birthShareExpires || 0)) return Promise.resolve(this._birthSharePath);
@@ -296,7 +317,7 @@ Page({
   },
   navigate(view, viewed=null) {
     if ((this._view==='report'||this._view==='ending') && view!=='report' && view!=='ending') this._editable=null;
-    this._view=view;this._viewed=viewed;this._paused=true;this._fast=false;this._minimized=null;this._momentLimit=24;this._autoDeadline=0;this._photo=null;this.setData({modal:''});
+    this._lifeShare=null;this._view=view;this._viewed=viewed;this._paused=true;this._fast=false;this._minimized=null;this._momentLimit=24;this._autoDeadline=0;this._photo=null;this.setData({modal:''});
     if (view==='life' && this.store.current) game.offerFocusStage(this.store.current);
     this.persist();this.render();wx.pageScrollTo({scrollTop:0,duration:0});
     if (view==='certificate' && this.store.current) this.prepareBirthShare(this.store.current);
