@@ -272,3 +272,14 @@ test('life share forwards the selected cloud life ID with its prepared cover',as
  await ui.action({action:'share-life'});
  assert.deepEqual(copy(shares),[{title:'张俊熙的一生',query:'memorial=m_'+'b'.repeat(40),imageUrl:'https://example.com/lifetime.png'}]);
 });
+
+test('parallel lives retain six statistics and place my-lives entry below them',()=>{
+ const {ui,page}=uiHarness();ui.viewportBottom=3000;ui.p=ui.palette();
+ Object.assign(page.data,{archiveMine:false,archiveTotal:3,archiveList:[],archiveFacts:['馆藏人生','累计岁月','最长一生','到过地点','珍藏瞬间','点亮烛光'].map((label,i)=>({label,value:i+1}))});
+ Object.assign(page.data.ui,{archive:'平行人生',archiveIntro:'每一次选择，都通往不同的一生。',noLives:'暂无人生',born:'出生'});
+ const texts=[],boxes=[],box=ui.box.bind(ui),text=ui.text.bind(ui);ui.box=(...args)=>{boxes.push(args);box(...args);};ui.text=(value,...args)=>{texts.push({value,y:args[1]});text(value,...args);};
+ ui.archive();const statistics=boxes.find(row=>row[3]===138),entry=ui.hits.find(row=>row.action==='my-lives');
+ assert.ok(statistics);assert.ok(entry.y-ui.navHeight+ui.scroll>=statistics[1]+statistics[3]);
+ for(const fact of page.data.archiveFacts)assert.ok(texts.some(row=>row.value===fact.label));
+ assert.ok(texts.find(row=>row.value==='到过地点').y>texts.find(row=>row.value==='馆藏人生').y);
+});

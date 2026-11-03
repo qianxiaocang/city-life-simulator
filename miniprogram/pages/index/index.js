@@ -33,7 +33,7 @@ Page({
     const musicPosition=this.store.settings.musicPosition;
     if(musicPosition&&Number.isFinite(musicPosition.x)&&Number.isFinite(musicPosition.y)){this._musicPosition={x:Math.max(0,Math.min((windowInfo.windowWidth||390)-56,musicPosition.x)),y:Math.max(0,Math.min((windowInfo.windowHeight||844)-100,musicPosition.y))};this.setData({musicX:this._musicPosition.x,musicY:this._musicPosition.y});}
     this._foreground = true; this._editable = null; this._viewed = null; this._minimized = null;
-    this._allCloudRows=[];this._archiveScope='all';this._archiveTotal=0;this._archiveHasMore=false;this._cloudRows = []; this._archiveLoading = false; this._archiveError = false; this._archiveLoaded = false; this._publishing = false; this._publishedIds = new Map(); this._archiveJobs = new Map();
+    this._allCloudRows=[];this._archiveScope='all';this._archiveTotal=0;this._archiveStats={};this._archiveHasMore=false;this._cloudRows = []; this._archiveLoading = false; this._archiveError = false; this._archiveLoaded = false; this._publishing = false; this._publishedIds = new Map(); this._archiveJobs = new Map();
     this.render();
     this.loadCloudArchive();
     this.retryAutomaticArchives();
@@ -108,7 +108,7 @@ Page({
       try {
         const preview=game.selectLifeMoments(life).find(item=>item.type!=='birth')||life.log[life.log.length-1];
         const result=await memorialCloud.publish(clone(life),preview?.id);
-        this._publishedIds.set(life.id,result.id);life.cloudMemorialPending=false;this.persist();
+        this._publishedIds.set(life.id,result.id);life.cloudRecordId=result.id;life.cloudMemorialPending=false;this.persist();
         memorialCloud.invalidate();await this.loadCloudArchive(true);
       } catch(error){console.warn('Automatic memorial upload failed',error);}
       finally{this._archiveJobs.delete(life.id);this._publishing=this._archiveJobs.size>0;this.render();}
@@ -121,10 +121,17 @@ Page({
     const scope=this._archiveScope||'all';
     try{
       const offset=more?this._cloudRows.length:0;
-      const result=await memorialCloud.loadPage(offset,scope);
+      let result;
+      if(scope==='mine'){
+        const cached=memorialCloud.cachedPage?.(offset,'mine');
+        const local=this.store.history.filter(row=>row.phase==='dead'&&!row.cloudMemorialPending).map(row=>({...row,sourceId:row.id,id:row.cloudRecordId||this._publishedIds.get(row.id)||this._allCloudRows.find(item=>item.sourceId===row.id)?.id||row.id}));
+        if(cached&&!this._mineLocalOnly)result=cached;
+        else if(local.length){this._mineLocalOnly=true;result={offset,total:local.length,items:local.slice(offset,offset+8),hasMore:offset+8<local.length};}
+      }
+      result ||= await memorialCloud.loadPage(offset,scope);
       if(scope!==this._archiveScope)return;
       this._cloudRows=result.offset>0?[...this._cloudRows,...result.items]:result.items;
-      this._archiveTotal=result.total;this._archiveHasMore=result.hasMore;this._archiveLoaded=true;
+      this._archiveTotal=result.total;if(result.facts)this._archiveStats=result.facts;this._archiveHasMore=result.hasMore;this._archiveLoaded=true;
       if(scope==='all')this._allCloudRows=this._cloudRows;
     }catch(error){this._archiveError=true;this._archiveLoaded=false;console.warn('Could not load parallel lives',error);}
     finally{this._archiveLoading=false;this.render();if(scope!==this._archiveScope)this.loadCloudArchive();}
@@ -274,7 +281,8 @@ Page({
     const logs = recordList.map(event => ({ id: event.id, age: event.age, date: event.date || '', text: this.eventText(event), type: event.type, starred: (life.stars || []).includes(event.id), effects: Object.entries(event.effects || {}).filter(([key]) => key in life.stats).map(([key,value]) => `${this.tr(key)} ${value > 0 ? '+' : ''}${Math.round(value * 10) / 10}`).join(' · ') }));
     const history = this._cloudRows || [];
     const cards = history.map(item => ({ id: item.id, name: this.L(item.name), date: `${item.birthYear}–${item.year} · ${this.L(item.born.name)} · ${this.age(item.age)}`, tagline: this.tagline(item), review: safeText(game.memorialReview(item,settings.language).text,200), cover: this.coverFor(item), candles: item.candles || 0 }));
-    const archiveFacts=[{label:this._archiveScope==='mine'?'我的人生':'平行人生',value:this._archiveTotal||0},{label:'已加载记录',value:history.length}];
+    const summary=this._archiveScope==='all'?this._archiveStats:{total:this._archiveTotal,years:history.reduce((n,row)=>n+row.age,0),longest:Math.max(0,...history.map(row=>row.age)),places:new Set(history.flatMap(row=>(row.visited||[]).map(place=>place.id))).size,moments:history.reduce((n,row)=>n+(row.stars||[]).length,0),candles:history.reduce((n,row)=>n+(row.candles||0),0)};
+    const archiveFacts=[['馆藏人生','total'],['累计岁月','years'],['最长一生','longest'],['到过地点','places'],['珍藏瞬间','moments'],['点亮烛光','candles']].map(([label,key])=>({label,value:summary[key]||0}));
     const groups = new Map();
     if (this._view === 'report' && life?.phase === 'dead') {
       for (const event of game.selectLifeMoments(life).slice(0,this._momentLimit)) {
@@ -399,10 +407,11 @@ Page({
       if(action==='home'||action==='replay')return this.navigate('home');
       if(action==='back'&&this._view==='my-lives'){this._archiveScope='all';this._cloudRows=this._allCloudRows;return this.navigate('archive');}
       if(action==='back')return this.navigate(this._view==='my-lives'?'archive':this._view==='report'&&this._viewed?(this._archiveScope==='mine'?'my-lives':'archive'):'home');
-      if(action==='archive'||action==='my-lives'){this._archiveScope=action==='my-lives'?'mine':'all';this._cloudRows=this._archiveScope==='all'?this._allCloudRows:[];return this.navigate(action==='my-lives'?'my-lives':'archive');}
+      if(action==='archive'||action==='my-lives'){this._mineLocalOnly=false;this._archiveScope=action==='my-lives'?'mine':'all';this._cloudRows=this._archiveScope==='all'?this._allCloudRows:[];return this.navigate(action==='my-lives'?'my-lives':'archive');}
       if(action==='more-lives')return this.loadCloudArchive(false,true);
       if(action==='retry-archive')return this.loadCloudArchive(true);
       if(action==='review'){
+        if(this._archiveScope==='mine'){const local=this.store.history.find(row=>(row.cloudRecordId||row.id)===value||row.id===this._cloudRows.find(item=>item.id===value)?.sourceId);if(local)return this.navigate('report',{...clone(local),id:value,sourceId:local.id});}
         if(!this._cloudRows.some(item=>item.id===value))return;
         try { wx.showLoading?.({title:this.tx('读取人生','讀取人生','Loading')}); const result=await memorialCloud.get(value); this.navigate('report',result.life); }
         catch(error){console.warn('Could not open memorial',error);this.notify(this.tx('读取失败，请重试','讀取失敗，請重試','Could not load. Try again.'));}

@@ -12,6 +12,10 @@ async function resolveId(id){if(!/^m_/.test(id))return id;const alias=await alia
 const digest = value => crypto.createHash('sha256').update(value).digest('hex').slice(0, 40);
 const fail = (message) => ({ ok: false, message });
 
+async function collectFacts(owner){
+ const result=await lives.aggregate().match(owner?{owner}:{}).project({age:'$summary.age',moments:{$size:{$ifNull:['$summary.stars',[]]}},candles:{$ifNull:['$summary.candles',0]},places:{$map:{input:{$ifNull:['$summary.visited',[]]},as:'p',in:'$$p.id'}}}).group({_id:null,total:{$sum:1},years:{$sum:'$age'},longest:{$max:'$age'},moments:{$sum:'$moments'},candles:{$sum:'$candles'},places:{$addToSet:'$places'}}).project({_id:0,total:1,years:1,longest:1,moments:1,candles:1,places:{$size:{$reduce:{input:'$places',initialValue:[],in:{$setUnion:['$$value','$$this']}}}}}).end();
+ return (result.list||result.data||[])[0]||{total:0,years:0,longest:0,places:0,moments:0,candles:0};
+}
 exports.main = async event => {
   if(!event||typeof event!=='object'||['openid','owner','_openid'].some(key=>Object.hasOwn(event,key)))return fail('不允许指定用户身份');
   const openid = cloud.getWXContext().OPENID;
@@ -41,7 +45,7 @@ exports.main = async event => {
       if(existing.data.owner!==openid)return fail('无法修改其他用户的人生');
       const farewell=safeText(life.farewell,200);
       await lives.doc(id).update({data:{'life.farewell':farewell,'summary.farewell':farewell}});
-      return { ok: true, id, alreadySaved: true };
+      return { ok: true, id, cacheKey:digest(openid), alreadySaved: true };
     }
     const previewEvent = life.log.find(row => row.id === event.previewEventId) || life.log.find(row => row.type !== 'birth') || life.log[0];
     const summary = {
@@ -54,13 +58,13 @@ exports.main = async event => {
       candles: 0, phase: 'dead', log: previewEvent ? [previewEvent] : [], years: [],
     };
     await lives.doc(id).set({ data: { owner: openid, openid, createdAt: db.serverDate(), summary, life } });
-    return { ok: true, id, alreadySaved: false };
+    return { ok: true, id, cacheKey:digest(openid), alreadySaved: false };
   }
   if(event.action==='stats'||event.action==='list') {
     if(event.scope!==undefined&&!['all','mine'].includes(event.scope))return fail('无效的列表范围');
     const query=event.scope==='mine'?lives.where({owner:openid}):lives;
+    if(event.action==='stats'){const facts=await collectFacts(event.scope==='mine'?openid:null);return {ok:true,total:facts.total,facts,cacheKey:digest(openid)};}
     const total=(await query.count()).total;
-    if(event.action==='stats')return {ok:true,total,cacheKey:digest(openid)};
     const offset=Number(event.offset||0);if(!Number.isSafeInteger(offset)||offset<0||offset>100000)return fail('无效的分页参数');
     const result=await query.orderBy('createdAt','desc').skip(offset).limit(8).field({summary:true}).get();
     return {ok:true,total,items:(result.data||[]).map(row=>({...row.summary,id:row._id||row.summary.id,farewell:safeText(row.summary.farewell,200)})),hasMore:offset+(result.data||[]).length<total,cacheKey:digest(openid)};

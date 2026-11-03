@@ -592,3 +592,21 @@ test('farewell limit counts Unicode characters and removes executable markup',()
  assert.equal(safeText('<script>alert(1)</script><img src=x onerror=alert(2)>留下的话'),'留下的话');
  assert.equal(safeText({toString:()=>'<script>'}),'');
 });
+
+test('my parallel lives use local full records without list or detail requests',async()=>{
+ const {page,action,cloud}=pageHarness();
+ const life=mini.startLife(mini.createLife({location:mini.locations[0],seed:'mine-offline',birthYear:2000,world:'past'}));life.phase='dead';life.cloudMemorialPending=false;
+ page.store.history=[life];await Promise.resolve();
+ let calls=0;const previous=cloud.loadPage;
+ cloud.loadPage=async(offset,scope)=>{if(scope==='mine'){calls++;throw new Error('must not request mine');}return previous(offset,scope);};
+ await action('my-lives');assert.equal(page.data.view,'my-lives');assert.equal(page.data.archiveList.length,1);assert.equal(calls,0);
+ cloud.get=async()=>{calls++;throw new Error('must use local report');};
+ await action('review',life.id);assert.equal(page.data.view,'report');assert.equal(page.data.fromArchive,true);assert.equal(calls,0);page.onUnload();
+});
+
+test('cached mine page survives restart and makes zero cloud requests',async()=>{
+ const data=new Map([['parallel-current-cache-key','account'],['parallel-lives.v2.account.mine',{total:1,token:'page-token'}],['parallel-lives.v2.account.mine.page.0',{token:'page-token',items:[{id:'cached-life'}]}]]);
+ let calls=0;const wx={getStorageSync:key=>data.get(key),cloud:{init(){},callFunction:async()=>{calls++;throw new Error('offline');}}};
+ const sandbox={module:{exports:{}},wx,console,setTimeout,clearTimeout};vm.runInNewContext(readFileSync(resolve(miniRoot,'lib/memorial-cloud.js'),'utf8'),sandbox);
+ const result=await sandbox.module.exports.loadPage(0,'mine');assert.equal(result.items[0].id,'cached-life');assert.equal(calls,0);
+});

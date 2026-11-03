@@ -309,10 +309,10 @@ class CanvasUI {
   archive() {
     const d=this.page.data,p=this.p,W=this.width,x=16,w=W-32;let y=22;
     this.title(d.archiveMine?'我的平行人生':d.ui.archive,x,y,30,p.ink);y+=49;
-    if(!d.archiveMine){this.button('我的平行人生  ↗',x,y,w,43,'my-lives',null,'soft');y+=59;}
     y+=this.paragraph(d.archiveMine?'这里保存着你走过的每一段人生，随时回来看看那些选择与瞬间。':d.ui.archiveIntro,x,y,w,14,26,p.muted)+18;
-    const facts=(d.archiveFacts||[]).map((f,i)=>i===0?{...f,value:d.archiveTotal||0}:f);this.box(x,y,w,86,p.paper,16,p.line);
-    facts.forEach((f,i)=>{const fw=(w-16)/2,fx=x+8+(i%2)*fw,fy=y+17;this.centerText(f.value,fx,fy,fw,26,20,p.green,'bold','serif');this.centerText(f.label,fx,fy+29,fw,20,11.5,p.muted);});y+=103;
+    const facts=(d.archiveFacts||[]).map((f,i)=>i===0?{...f,value:d.archiveTotal||0}:f);this.box(x,y,w,138,p.paper,16,p.line);
+    facts.forEach((f,i)=>{const fw=(w-16)/3,fx=x+8+(i%3)*fw,fy=y+17+Math.floor(i/3)*62;this.centerText(f.value,fx,fy,fw,26,20,p.green,'bold','serif');this.centerText(f.label,fx,fy+29,fw,20,11.5,p.muted);});y+=155;
+    if(!d.archiveMine){this.button('我的平行人生  ↗',x,y,w,43,'my-lives',null,'soft');y+=59;}
     if(!d.archiveList.length){this.box(x,y,w,106,p.paper,12,p.line);this.text(d.archiveLoading?'正在读取平行人生…':d.archiveError?'读取失败，请重试':d.ui.noLives,x+15,y+18,14,p.muted);this.button(d.archiveError?'重新读取':d.ui.born,x+14,y+53,w-28,39,d.archiveError?'retry-archive':'home',null,'primary');return y+122;}
     for(const item of d.archiveList){
       const rows=this.lines(item.review,w-28,13,3),h=121+86+rows.length*23+58;

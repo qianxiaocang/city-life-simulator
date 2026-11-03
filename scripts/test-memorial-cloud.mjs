@@ -24,6 +24,7 @@ function harness() {
           async set({ data }) { rows.set(id, data); },
           async update({ data }) { const row = rows.get(id); for (const [key, value] of Object.entries(data)) { if (key === 'summary.candles') row.summary.candles = value; else row[key] = value; } },
         }; },
+        aggregate(){let filter={};const pipeline={match(value){filter=value;return this;},project(){return this;},group(){return this;},async end(){const list=[...rows.values()].filter(row=>Object.entries(filter).every(([key,value])=>row[key]===value));return {list:[{total:list.length,years:list.reduce((n,row)=>n+row.summary.age,0),longest:Math.max(0,...list.map(row=>row.summary.age)),places:new Set(list.flatMap(row=>(row.summary.visited||[]).map(p=>p.id))).size,moments:list.reduce((n,row)=>n+(row.summary.stars||[]).length,0),candles:list.reduce((n,row)=>n+(row.summary.candles||0),0)}]};}};return pipeline;},
         ...query(),
       };
       function query(filter={}){
@@ -75,6 +76,7 @@ test('parallel lives enforce trusted identity, alphanumeric IDs, 8-row paging an
  const {main,collections,setOpenid}=harness();
  const life=n=>({version:1,id:'source-'+n,phase:'dead',name:{zhCN:'人物'},born:{name:{zhCN:'北京'}},year:2100,birthYear:2026,age:74,location:{name:{zhCN:'北京'}},family:{children:[]},stats:{health:80},log:[],years:[],farewell:'<script>alert(1)</script>'+ '好'.repeat(220),openid:'forged'});
  for(let i=0;i<17;i++){const r=await main({action:'publish',life:life(i)});assert.match(r.id,/^[A-Za-z0-9]{46}$/);assert.match(r.id,/[A-Z]/);assert.match(r.id,/[a-z]/);assert.match(r.id,/[0-9]/);}
+ const facts=await main({action:'stats'});assert.equal(facts.facts.total,17);assert.equal(facts.facts.years,17*74);assert.equal(facts.facts.longest,74);
  const first=await main({action:'list',scope:'mine'});assert.equal(first.total,17);assert.equal(first.items.length,8);assert.equal(first.hasMore,true);
  const row=collections.get('memorial_lives').get(first.items[0].id);assert.equal(row.openid,'person-one');assert.equal(row.owner,'person-one');assert.equal(row.life.openid,undefined);assert.equal(Array.from(row.life.farewell).length,200);assert.doesNotMatch(row.life.farewell,/script|alert/);
  setOpenid('person-two');assert.equal((await main({action:'list',scope:'mine'})).total,0);
