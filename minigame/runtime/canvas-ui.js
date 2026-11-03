@@ -364,7 +364,7 @@ class CanvasUI {
     this.box(x,y,w,total+3,p.paper,15,p.line);let ly=y+2;
     logRows.forEach(({item,rows},i)=>{const h=heights[i];if(ly+h>=this.scroll-10&&ly<this.scroll+(this.viewportBottom-this.navHeight)+10){const color=['death','illness','danger'].includes(item.type)?'#d1644d':['positive','asset'].includes(item.type)?p.green:p.ink;this.text(item.age,x+15,ly+12,11,p.muted);rows.forEach((row,j)=>this.text(row,x+45,ly+11+j*22,14,color,'normal',w-63,'serif'));this.line(x+14,ly+h-1,w-28);}ly+=h;});y+=total+25;
     this.button('分享这段人生',x,y,w,46,'share-life',null,'primary');y+=61;
-    if(!d.fromArchive){this.text(d.publishing?'正在同步平行人生…':d.memorialSaved?'✓ 已珍藏到平行人生':'待联网自动同步平行人生',x+12,y+14,12,p.green);y+=40;this.button(d.ui.replay,x,y,w,44,'replay',null,'outline');y+=68;}
+    if(!d.fromArchive){this.button(d.ui.replay,x,y,w,44,'replay',null,'outline');y+=68;}
     return y;
   }
   modal() {
