@@ -296,3 +296,34 @@ test('light controls use light surfaces while dark controls retain their origina
   assert.equal(fill[4],theme==='light'?'#21745b':'#f1eee5');
  }
 });
+
+test('Hong Kong and Macao selectors expose districts and constrain the actual birthplace pool', () => {
+  const gameSandbox = { module: { exports: {} }, console };
+  vm.runInNewContext(source('lib/game.js'), gameSandbox);
+  const game = gameSandbox.module.exports;
+  const sandbox = { module: { exports: {} }, console, require: path => path === '../lib/game' ? game : {} };
+  vm.runInNewContext(source('runtime/controller.js'), sandbox);
+  const page = sandbox.module.exports;
+  page.L = value => value.zhCN;
+  page.tx = cn => cn;
+  page.tr = key => key;
+  for (const [scope, count] of [['hongkong', 18], ['macau', 7]]) {
+    const settings = { scope, province: 'all' };
+    const options = page.birthplaceOptions(settings);
+    assert.equal(options.length, count + 1);
+    assert.equal(options[0].value, 'all');
+    assert.equal(new Set(options.map(option => option.value)).size, count + 1);
+    for (const option of options.slice(1)) {
+      const pool = page.birthplacePool({ ...settings, province: option.value });
+      assert.equal(pool.length, 1);
+      assert.equal(pool[0].id, option.value);
+      assert.equal(pool[0].name.zhCN, option.label);
+      const life = game.createLife({ location: pool[0], locations: game.locations, seed: option.value, birthYear: 2026 });
+      assert.equal(life.born.id, option.value);
+    }
+    assert.equal(page.birthplacePool(settings).length, count + 1);
+  }
+  assert.ok(page.birthplaceOptions({ scope: 'mainland' }).some(option => option.value === 'cn-p-51'));
+  assert.ok(page.birthplacePool({ scope: 'mainland', province: 'cn-p-51' }).every(place => place.province.id === 'cn-p-51'));
+  assert.equal(page.birthplacePool({ scope: 'macau', province: 'hk-southern' }).length, 0);
+});

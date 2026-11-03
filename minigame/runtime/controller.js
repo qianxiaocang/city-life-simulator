@@ -271,12 +271,26 @@ const pageDefinition = {
     return years ? this.tx(`当了${years}年${job}的人生`,`當了${years}年${job}的人生`,`${years} years as ${job}`) : this.tx(`在${this.L(life.born.name)}度过的一生`,`在${this.L(life.born.name)}度過的一生`,`A life in ${this.L(life.born.name)}`);
   },
   eventText(event) { const text = this.L(event.text); return event.date && text.startsWith(`${event.date} · `) ? text.slice(event.date.length + 3) : text; },
+  birthplaceOptions(settings = this.store.settings) {
+    const places = game.locations.filter(place => settings.scope === 'all' || place.region === settings.scope);
+    const localDistricts = settings.scope === 'hongkong' || settings.scope === 'macau';
+    const entries = localDistricts
+      ? places.filter(place => place.parentId).map(place => [place.id, { value: place.id, label: this.L(place.name) }])
+      : places.map(place => [place.province.id, { value: place.province.id, label: this.L(place.province) }]);
+    return [{ value: 'all', label: localDistricts ? this.tx('不限','不限','Any district') : this.tr('allProvinces') }, ...new Map(entries).values()];
+  },
+  birthplacePool(settings = this.store.settings) {
+    return game.locations.filter(place => (settings.scope === 'all' || place.region === settings.scope)
+      && (settings.province === 'all' || place.id === settings.province || place.province.id === settings.province));
+  },
   render() {
     if (!this.store) return;
     const settings = this.store.settings, life = this.currentLife(), ui = this.uiLabels();
     const regionOptions = REGIONS.map(value => ({ value, label: this.tr(value === 'all' ? 'allRegions' : value) }));
     const places = game.locations.filter(place => settings.scope === 'all' || place.region === settings.scope);
-    const provinces = [{ value: 'all', label: this.tr('allProvinces') }, ...[...new Map(places.map(place => [place.province.id,{ value: place.province.id, label: this.L(place.province) }])).values()]];
+    const provinces = this.birthplaceOptions(settings);
+    if (!provinces.some(option => option.value === settings.province)) settings.province = 'all';
+    if (settings.scope === 'hongkong' || settings.scope === 'macau') ui.province = this.tx('地区','地區','District');
     const years = Array.from({length: new Date().getFullYear() - 1949}, (_,index) => ({label: String(1950 + index), value: 1950 + index}));
     const recordList=this._view==='report'?[...(life?.log || [])].reverse():this._view==='life'?(life?.log || []):[];
     const logs = recordList.map(event => ({ id: event.id, age: event.age, date: event.date || '', text: this.eventText(event), type: event.type, starred: (life.stars || []).includes(event.id), effects: Object.entries(event.effects || {}).filter(([key]) => key in life.stats).map(([key,value]) => `${this.tr(key)} ${value > 0 ? '+' : ''}${Math.round(value * 10) / 10}`).join(' · ') }));
@@ -312,7 +326,7 @@ const pageDefinition = {
     const optionDescriptions = visibleOptions.map(option => this.L(option.description).trim());
     const repeatedDescription = optionDescriptions.length > 1 && optionDescriptions.every(text => text === optionDescriptions[0]);
     const choice = pending ? { id: pending.id, title: this.L(pending.title), description: pending.action==='focus-stage' ? this.tx('选择这一阶段的生活重心，下个阶段可以重新选择。','選擇這一階段的生活重心，下個階段可以重新選擇。','Choose your focus for this stage. You can choose again at the next stage.') : this.L(pending.description), meta: `${this.age(this.store.current.age)} · ${this.store.current.year}`, input: !!pending.input, options: visibleOptions.map((option,index)=>({id:option.id,number:index+1,label:this.L(option.label),description:repeatedDescription ? '' : optionDescriptions[index]})) } : null;
-    this.setData({ view:this._view,theme:settings.theme,ui,settings:{...settings},languageLabels:game.LANGUAGES.map(item=>({label:item.label,value:item.id})),languageIndex:game.LANGUAGES.findIndex(item=>item.id===settings.language),years,yearIndex:Math.max(0,years.findIndex(item=>item.value===settings.birthYear)),regions:regionOptions,regionIndex:REGIONS.indexOf(settings.scope),provinces,provinceIndex:Math.max(0,provinces.findIndex(item=>item.value===settings.province)),advancedOpen:!!this._advanced,available:places.filter(place=>settings.province==='all'||place.province.id===settings.province).length,resume:this.store.current&&this.store.current.phase!=='dead'?{name:this.L(this.store.current.name),age:this.age(this.store.current.age),place:game.locationLabel(this.store.current.location,settings.language)}:null,homeCover:this.scene({id:'home',type:'family',age:30,text:{zhCN:'一家人在城市里生活'}},{id:'home',seed:'home',age:30,log:[],family:{children:[]}}),memories:(this._archiveScope==='mine'?(this._allCloudRows||[]).map(item=>({id:item.id,name:this.L(item.name),date:item.birthYear+'–'+item.year,cover:this.coverFor(item)})):cards).slice(0,8),person:this.personFor(life),cover:life?this.coverFor(life):'',logs,paused:this._paused,speed:this._speed,progress:Math.round(this._progress*100),fast:!!this._fast,automatic:!!this.store.current?.autopilot?.enabled,archiveFacts,archiveList:cards,archiveTotal:this._archiveTotal,archiveHasMore:this._archiveHasMore,archiveMine:this._archiveScope==='mine',archiveLoading:this._archiveLoading,archiveError:this._archiveError,publishing:this._publishing,momentGroups,hasMoreMoments:this._view==='report'&&life?.phase==='dead'&&game.selectLifeMoments(life).length>this._momentLimit,fromArchive:!!this._viewed,memorialSaved:!!life&&(this._publishedIds.has(life.sourceId||life.id)||history.some(item=>item.id===life.id||item.sourceId===life.id)),endingText:life?.phase==='dead'?game.lifeEndingNarrative(life,settings.language):'',modal:this.data.modal,choice,autoChoiceSeconds:remainingChoiceSeconds(this._autoDeadline),hasPending:!!pending });
+    this.setData({ view:this._view,theme:settings.theme,ui,settings:{...settings},languageLabels:game.LANGUAGES.map(item=>({label:item.label,value:item.id})),languageIndex:game.LANGUAGES.findIndex(item=>item.id===settings.language),years,yearIndex:Math.max(0,years.findIndex(item=>item.value===settings.birthYear)),regions:regionOptions,regionIndex:REGIONS.indexOf(settings.scope),provinces,provinceIndex:Math.max(0,provinces.findIndex(item=>item.value===settings.province)),advancedOpen:!!this._advanced,available:this.birthplacePool(settings).length,resume:this.store.current&&this.store.current.phase!=='dead'?{name:this.L(this.store.current.name),age:this.age(this.store.current.age),place:game.locationLabel(this.store.current.location,settings.language)}:null,homeCover:this.scene({id:'home',type:'family',age:30,text:{zhCN:'一家人在城市里生活'}},{id:'home',seed:'home',age:30,log:[],family:{children:[]}}),memories:(this._archiveScope==='mine'?(this._allCloudRows||[]).map(item=>({id:item.id,name:this.L(item.name),date:item.birthYear+'–'+item.year,cover:this.coverFor(item)})):cards).slice(0,8),person:this.personFor(life),cover:life?this.coverFor(life):'',logs,paused:this._paused,speed:this._speed,progress:Math.round(this._progress*100),fast:!!this._fast,automatic:!!this.store.current?.autopilot?.enabled,archiveFacts,archiveList:cards,archiveTotal:this._archiveTotal,archiveHasMore:this._archiveHasMore,archiveMine:this._archiveScope==='mine',archiveLoading:this._archiveLoading,archiveError:this._archiveError,publishing:this._publishing,momentGroups,hasMoreMoments:this._view==='report'&&life?.phase==='dead'&&game.selectLifeMoments(life).length>this._momentLimit,fromArchive:!!this._viewed,memorialSaved:!!life&&(this._publishedIds.has(life.sourceId||life.id)||history.some(item=>item.id===life.id||item.sourceId===life.id)),endingText:life?.phase==='dead'?game.lifeEndingNarrative(life,settings.language):'',modal:this.data.modal,choice,autoChoiceSeconds:remainingChoiceSeconds(this._autoDeadline),hasPending:!!pending });
     wx.setNavigationBarTitle?.({title:this._view==='home'?ui.brand:this._view==='life'?ui.living:this._view==='certificate'?ui.certificate:this._view==='my-lives'?'我的平行人生':this._view==='archive'?ui.archive:ui.report});
     const darkNav=settings.theme==='dark'||this._view==='ending';
     wx.setNavigationBarColor?.({frontColor:darkNav?'#ffffff':'#000000',backgroundColor:this._view==='ending'?'#101b15':darkNav?'#1d2420':'#f6f8f4',animation:{duration:150,timingFunc:'easeIn'}});
@@ -336,7 +350,7 @@ const pageDefinition = {
         if (!answer.confirm) return;
       }
       wx.showLoading({title:this.tx('准备出生','準備出生','Preparing')});
-      const s=this.store.settings,pool=game.locations.filter(place=>(s.scope==='all'||place.region===s.scope)&&(s.province==='all'||place.province.id===s.province));
+      const s=this.store.settings,pool=this.birthplacePool(s);
       if (!pool.length) throw new Error('Empty birthplace pool');
       let draw=Math.random()*pool.reduce((sum,item)=>sum+item.weight,0);
       const place=pool.find(item=>(draw-=item.weight)<=0)||pool[pool.length-1];
