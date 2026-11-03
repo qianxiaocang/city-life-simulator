@@ -71,7 +71,7 @@ const pageDefinition = {
     return { title: this.tr('brand'), path: '/pages/index/index' };
   },
   onShareTimeline() { return { title: this.tr('brand') }; },
-  L(value) { return game.valueText(value, this.store.settings.language).replace(/追思[馆館]/g,'平行人生').replace(/你的(?:模拟中考标准分|模擬中考標準分)[\s\S]*|本地(?:学业评估模拟分|學業評估模擬分)[\s\S]*|这一时期的升学制度受到时代影响，本次不采用现代中考分数线。[\s\S]*/g,'毕业评估已经结束。结合自己的兴趣、学业表现和家庭安排，选择接下来的求学之路。').replace(/(?:模拟考核分|模擬考核分)\s*\d+\/100。/g,'').replace(/本次(?:模拟|模擬)标准分[\s\S]*|本次模擬標準分[\s\S]*/g,'成绩已经公布。结合升学机会和家庭安排，决定接下来的路。').replace(/这项安排会改变当前机会和时间分配；具体结果随人生状态而定。|這項安排會改變目前機會及時間分配；具體結果隨人生狀態而定。/g,'').replace(/需要申请和评估；金额与结果为情景模型。/g,'向学校递交申请，争取减轻学费和生活费负担。').replace(/模型支出|模型支出/g,'费用').replace(/模型總價|模型总价/g,'总价').replace(/模型首付|模型頭期款/g,'首付').replace(/模型购车款|模型購車款/g,'购车费用').replace(/情景模型|情境模型/g,'').replace(/模型/g,'').replace(/Modeled cost:?/gi,'Estimated cost:').replace(/modeled spending/gi,'spending').replace(/modeled /gi,''); },
+  L(value) { return game.valueText(value, this.store.settings.language).replace(/2025基[准準]模型折[算合]人民币（非当年实付）|2025基準模型折算人民幣（非當年實付）|模型折合人民[币幣]|折合人民[币幣]|2025-reference model estimate, not a historical payment:\s*|Modeled CNY equivalent:?\s*/g,'').replace(/原生家庭/g,'家人').replace(/birth family/g,'family').replace(/追思[馆館]/g,'平行人生').replace(/你的(?:模拟中考标准分|模擬中考標準分)[\s\S]*|本地(?:学业评估模拟分|學業評估模擬分)[\s\S]*|这一时期的升学制度受到时代影响，本次不采用现代中考分数线。[\s\S]*/g,'毕业评估已经结束。结合自己的兴趣、学业表现和家庭安排，选择接下来的求学之路。').replace(/(?:模拟考核分|模擬考核分)\s*\d+\/100。/g,'').replace(/本次(?:模拟|模擬)标准分[\s\S]*|本次模擬標準分[\s\S]*/g,'成绩已经公布。结合升学机会和家庭安排，决定接下来的路。').replace(/这项安排会改变当前机会和时间分配；具体结果随人生状态而定。|這項安排會改變目前機會及時間分配；具體結果隨人生狀態而定。/g,'').replace(/需要申请和评估；金额与结果为情景模型。/g,'向学校递交申请，争取减轻学费和生活费负担。').replace(/模型支出|模型支出/g,'费用').replace(/模型總價|模型总价/g,'总价').replace(/模型首付|模型頭期款/g,'首付').replace(/模型购车款|模型購車款/g,'购车费用').replace(/情景模型|情境模型/g,'').replace(/模型/g,'').replace(/Modeled cost:?/gi,'Estimated cost:').replace(/modeled spending/gi,'spending').replace(/modeled /gi,''); },
   tr(key) { return game.t(key, this.store.settings.language); },
   tx(cn, tw, en) { return this.L({ zhCN: cn, zhTW: tw, en }); },
   amount(value) { return game.money(Number(value) || 0, this.store.settings.language, this.currentLife()); },
@@ -80,8 +80,7 @@ const pageDefinition = {
     const unit=en?(abs>=1e6?1e6:abs>=1e4?1e3:1):(abs>=1e8?1e8:abs>=1e4?1e4:1);
     if(unit===1)return this.amount(n);
     const abbreviated=`¥${(n/unit).toFixed(1)}${en?(unit===1e6?'M':'K'):(unit===1e8?'亿':'万')}`;
-    const life=this.currentLife();
-    return life?.year<1990?`${this.tx('2025基准模型折算人民币（非当年实付）','2025基準模型折算人民幣（非當年實付）','2025-reference model estimate, not a historical payment: ')}${abbreviated}`:life?.location?.region!=='mainland'?`${this.tx('模型折合人民币','模型折合人民幣','Modeled CNY equivalent: ')}${abbreviated}`:abbreviated;
+    return abbreviated;
   },
   age(value) { return this.store.settings.language === 'en' ? `${value} years` : `${value}${this.tr('age')}`; },
   currentLife() { return this._viewed || this.store.current; },
@@ -270,6 +269,11 @@ const pageDefinition = {
     const job = this.L(game.summarize(life).job), years = (life.years || []).filter(item => item.job && this.L(item.job) === job).length;
     return years ? this.tx(`当了${years}年${job}的人生`,`當了${years}年${job}的人生`,`${years} years as ${job}`) : this.tx(`在${this.L(life.born.name)}度过的一生`,`在${this.L(life.born.name)}度過的一生`,`A life in ${this.L(life.born.name)}`);
   },
+  visibleRecord(event) {
+    const text = game.valueText(event.text, 'zh-CN');
+    if (event.historicalEraId || /^(?:你生活的时代|你生活的時代|时代进入新的阶段|時代進入新的階段|Your historical setting|A new historical phase)[：:]/.test(text)) return false;
+    return !(event.age < 6 && /本年的(?:求学与生活|求學與生活|生活)开支|本年的(?:求學與生活|生活)開支|This year’s (?:study and )?living costs/.test(text));
+  },
   eventText(event) { const text = this.L(event.text); return event.date && text.startsWith(`${event.date} · `) ? text.slice(event.date.length + 3) : text; },
   birthplaceOptions(settings = this.store.settings) {
     const places = game.locations.filter(place => settings.scope === 'all' || place.region === settings.scope);
@@ -293,14 +297,14 @@ const pageDefinition = {
     if (settings.scope === 'hongkong' || settings.scope === 'macau') ui.province = this.tx('地区','地區','District');
     const years = Array.from({length: new Date().getFullYear() - 1949}, (_,index) => ({label: String(1950 + index), value: 1950 + index}));
     const recordList=this._view==='report'?[...(life?.log || [])].reverse():this._view==='life'?(life?.log || []):[];
-    const logs = recordList.map(event => ({ id: event.id, age: event.age, date: event.date || '', text: this.eventText(event), type: event.type, starred: (life.stars || []).includes(event.id), effects: Object.entries(event.effects || {}).filter(([key]) => key in life.stats).map(([key,value]) => `${this.tr(key)} ${value > 0 ? '+' : ''}${Math.round(value * 10) / 10}`).join(' · ') }));
+    const logs = recordList.filter(event => this.visibleRecord(event)).map(event => ({ id: event.id, age: event.age, date: event.date || '', text: this.eventText(event), type: event.type, starred: (life.stars || []).includes(event.id), effects: Object.entries(event.effects || {}).filter(([key]) => key in life.stats).map(([key,value]) => `${this.tr(key)} ${value > 0 ? '+' : ''}${Math.round(value * 10) / 10}`).join(' · ') }));
     const history = this._cloudRows || [];
     const cards = history.map(item => ({ id: item.id, name: this.L(item.name), date: `${item.birthYear}–${item.year} · ${this.L(item.born.name)} · ${this.age(item.age)}`, tagline: this.tagline(item), review: safeText(game.memorialReview(item,settings.language).text,200), cover: this.coverFor(item), candles: item.candles || 0 }));
     const summary=this._archiveScope==='all'?this._archiveStats:{total:this._archiveTotal,years:history.reduce((n,row)=>n+row.age,0),longest:Math.max(0,...history.map(row=>row.age)),places:new Set(history.flatMap(row=>(row.visited||[]).map(place=>place.id))).size,moments:history.reduce((n,row)=>n+(row.stars||[]).length,0),candles:history.reduce((n,row)=>n+(row.candles||0),0)};
     const archiveFacts=[['馆藏人生','total'],['累计岁月','years'],['最长一生','longest'],['到过地点','places'],['珍藏瞬间','moments'],['点亮烛光','candles']].map(([label,key])=>({label,value:summary[key]||0}));
     const groups = new Map();
     if (this._view === 'report' && life?.phase === 'dead') {
-      for (const event of game.selectLifeMoments(life).slice(0,this._momentLimit)) {
+      for (const event of game.selectLifeMoments(life).filter(event => this.visibleRecord(event)).slice(0,this._momentLimit)) {
         const decade = Math.floor(event.age/10);
         if (!groups.has(decade)) groups.set(decade,[]);
         groups.get(decade).push({id:event.id,age:this.age(event.age),year:event.year,text:this.eventText(event),cover:this.scene(event,life)});

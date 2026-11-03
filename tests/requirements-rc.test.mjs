@@ -79,7 +79,8 @@ test('cultural choices and child weights follow the current calendar period',()=
   assert.match(marriageChoicePolicy(1975).title.zhCN,/登记结婚/);
   assert.match(marriageChoicePolicy(2010).title.zhCN,/一起生活/);
   assert.ok(marriageChoicePolicy(1975).divorceWeight<marriageChoicePolicy(2010).divorceWeight);
-  assert.ok(!money(500,'zh-CN',life(30,1980)).startsWith('¥'));
-  assert.match(money(500,'zh-CN',life(30,1980)),/2025基准模型折算人民币（非当年实付）/);
-  assert.match(money(500,'zh-CN',life(30,2026,true,'hongkong')),/模型折合人民币/);
+  for (const region of ['mainland','hongkong','macau','taiwan']) {
+    for (const year of [1980,2026]) assert.equal(money(500,'zh-CN',life(30,year,true,region)),money(500,'zh-CN'));
+  }
+
 });

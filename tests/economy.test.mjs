@@ -90,18 +90,18 @@ test('unaffordable secondary tuition is not disguised as a child living subsidy 
   assert.equal(life.lastCashflow.unfundedEducation,46400);
   assert.equal(life.lastCashflow.unmetLiving,0);
   assert.equal(life.debt,0);
-  assert.ok(life.events.some(entry=>entry.text.zhCN.includes('原生家庭承担')));
+  assert.ok(life.events.some(entry=>entry.text.zhCN.includes('家人承担')));
 });
 test('working adults pay most of a supported expense themselves and lose support when parents are gone',()=>{
   const worker=make({age:27,classRank:4,money:10000,job:{salary:100000,years:1},log:[],logSequence:0});
   assert.equal(spend(worker,1000,'health'),true);
   assert.equal(worker.money,9200);
   assert.equal(worker.accounts.reconciliationError,0);
-  assert.ok(worker.log.some(entry=>entry.text.zhCN.includes('原生家庭资助 ¥200')));
+  assert.ok(worker.log.some(entry=>entry.text.zhCN.includes('家人资助 ¥200')));
   const alone=make({age:27,classRank:4,money:10000,job:{salary:100000,years:1},family:{mother:null,father:null,partner:null,children:[],siblings:[]},log:[],logSequence:0});
   assert.equal(spend(alone,1000,'health'),true);
   assert.equal(alone.money,9000);
-  assert.equal(alone.log.some(entry=>entry.text.zhCN.includes('原生家庭资助')),false);
+  assert.equal(alone.log.some(entry=>entry.text.zhCN.includes('家人资助')),false);
 });
 test('unfunded academic years survive a later cleared tuition gap and are recorded once per year',()=>{
   const life=make({school:{stage:'university',endsAt:24,annualTuition:30000,livingCost:8000,familyContribution:0,scholarship:0,loanApproved:true,financialNeed:true,studyRegion:'mainland'}});
@@ -248,4 +248,15 @@ test('legacy wages establish a current baseline without catch-up and pension inc
   retiree.year++;retiree.age++;retiree.profile.typicalIncome=180000;
   economyYear(retiree,env);
   assert.equal(retiree.income,27000);
+});
+
+test('young children receive family support without a household spending bill in their memories',()=>{
+  for(let age=0;age<6;age++){
+    const child=make({age,birthYear:2026-age,education:'preschool',log:[]});
+    economyYear(child,env);
+    assert.ok(child.lastCashflow.familySupport>0);
+    assert.equal((child.events||[]).some(event=>/本年的.*开支|原生家庭/.test(event.text.zhCN)),false);
+    assert.equal(child.debt,0);
+    assert.equal(child.accounts.reconciliationError,0);
+  }
 });

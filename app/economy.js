@@ -93,7 +93,7 @@ export function spend(life,amount,purpose='optional'){
     const expense=EXPENSE_NAMES[purpose];
     const label=expense?T(`这次${expense.zhCN}支出`,`這次${expense.zhTW}支出`,`${expense.en} expense`):T('这笔支出','這筆支出','expense');
     life.logSequence??=life.log.length;
-    life.log.unshift({id:`${life.id}-${life.logSequence++}`,age:life.age,year:life.year,type:'money',text:moneyBasisText(life,T(`${label.zhCN} ¥${total} 中，原生家庭资助 ¥${aid}，你支付 ¥${own}。`,`${label.zhTW} ¥${total} 中，原生家庭資助 ¥${aid}，你支付 ¥${own}。`,`Of the ¥${total} ${label.en}, your birth family contributed ¥${aid} and you paid ¥${own}.`))});
+    life.log.unshift({id:`${life.id}-${life.logSequence++}`,age:life.age,year:life.year,type:'money',text:moneyBasisText(life,T(`${label.zhCN} ¥${total} 中，家人资助 ¥${aid}，你支付 ¥${own}。`,`${label.zhTW} ¥${total} 中，家人資助 ¥${aid}，你支付 ¥${own}。`,`Of the ¥${total} ${label.en}, your family contributed ¥${aid} and you paid ¥${own}.`))});
   }
   return true;
 }
@@ -288,10 +288,10 @@ export function economyYear(life,env={}){
     envLog(env,life,T('本学年的教育费用仍有缺口，需要申请奖助、调整学校或与家人商量；没有生成普通消费贷款。','本學年的教育費用仍有缺口，需要申請獎助、調整學校或與家人商量；沒有產生一般消費貸款。','An education funding gap remains. Seek aid, discuss family support or consider another school; no consumer loan was created.'),'education');
   }else delete life.flags.educationFundingGap;
   const livingPaid=Math.min(life.money,living);life.money-=livingPaid;recordFlow(life,'household-consumption',-livingPaid);
-  if(familySupport>0){
+  if(familySupport>0&&life.age>=6){
     const amount=Math.round(familySupport).toLocaleString('zh-CN');
     const subject=school?T('本年的求学与生活开支','本年的求學與生活開支','This year’s study and living costs'):T('本年的生活开支','本年的生活開支','This year’s living costs');
-    envLog(env,life,T(`${subject.zhCN}中，原生家庭承担约 ¥${amount}。`,`${subject.zhTW}中，原生家庭承擔約 ¥${amount}。`,`${subject.en} included about ¥${amount} from your birth family.`),'money');
+    envLog(env,life,T(`${subject.zhCN}中，家人承担约 ¥${amount}。`,`${subject.zhTW}中，家人承擔約 ¥${amount}。`,`${subject.en} included about ¥${amount} from your family.`),'money');
   }
   const unmetLiving=Math.max(0,living-livingPaid);
   if(unmetLiving>0){

@@ -327,3 +327,24 @@ test('Hong Kong and Macao selectors expose districts and constrain the actual bi
   assert.ok(page.birthplacePool({ scope: 'mainland', province: 'cn-p-51' }).every(place => place.province.id === 'cn-p-51'));
   assert.equal(page.birthplacePool({ scope: 'macau', province: 'hk-southern' }).length, 0);
 });
+
+test('legacy records hide era explanations and baby bills and display RMB without model prefixes', () => {
+  const gameSandbox = { module: { exports: {} }, console };
+  vm.runInNewContext(source('lib/game.js'), gameSandbox);
+  const game = gameSandbox.module.exports;
+  const sandbox = { module: { exports: {} }, console, require: path => path === '../lib/game' ? game : {} };
+  vm.runInNewContext(source('runtime/controller.js'), sandbox);
+  const page = sandbox.module.exports;
+  page.store={settings:{language:'zh-CN'},current:{year:1980,location:{region:'macau'}}};
+  for(const text of ['你生活的时代：地区发展与生活条件（情景模型）。','时代进入新的阶段：当地的就业条件会随年代变化。','本年的生活开支中，原生家庭承担约 ¥26,892。']){
+    assert.equal(page.visibleRecord({age:0,text:{zhCN:text}}),false);
+  }
+  assert.equal(page.visibleRecord({age:0,text:{zhCN:'家人把小小的你抱在怀里。'}}),true);
+  assert.equal(page.visibleRecord({age:6,text:{zhCN:'本年的求学与生活开支中，家人承担约 ¥3,000。'}}),true);
+  assert.equal(page.L({zhCN:'模型折合人民币 ¥26,892'}),' ¥26,892');
+  assert.equal(page.L({zhCN:'原生家庭承担约 ¥200。'}),'家人承担约 ¥200。');
+  assert.equal(page.amount(0),game.money(0,'zh-CN'));
+  assert.equal(page.compactAmount(100000),'¥10.0万');
+  const life=game.startLife(game.createLife({location:game.locations.find(place=>place.region==='macau'),seed:'baby-clean-records',birthYear:2026}));
+  assert.equal(life.log.some(event=>/你生活的时代|本年的生活开支/.test(event.text.zhCN)),false);
+});

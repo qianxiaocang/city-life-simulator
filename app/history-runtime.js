@@ -174,14 +174,8 @@ export function processHistory(life, throughFraction = 1, env = {}) {
   const era = getHistoricalEra(life.year, life.location.region);
   const eraKey = `${life.location.region}:${era.id}`;
   if (!h.eraSeen.includes(eraKey)) {
-    const first = h.eraSeen.length === 0;
+    // Era state informs opportunities internally; it is not a personal memory.
     h.eraSeen.push(eraKey); h.eraId = era.id;
-    const label = era.title;
-    emit(life, T(
-      `${first ? '你生活的时代' : '时代进入新的阶段'}：${label.zhCN}。当地的就业、求学与医疗条件会随年代变化。`,
-      `${first ? '你生活的時代' : '時代進入新的階段'}：${label.zhTW}。當地的就業、求學與醫療條件會隨年代變化。`,
-      `${first ? 'Your historical setting' : 'A new historical phase'}: ${label.en}. Local opportunities, education and healthcare change over time.`,
-    ), 'history', null, { historicalEraId: era.id, sourceIds: [...era.sourceIds], sourceUrls: sourceUrls(era.sourceIds), modelNote: era.modelNote, datePrecision: 'period' }, env);
     changed = true;
   }
   const due = HISTORY_EVENTS.filter(event => event.year === life.year && event.date <= HISTORY_META.cutoff && eventFraction(event) <= h.throughFraction)
