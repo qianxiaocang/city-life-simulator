@@ -25,6 +25,9 @@ test('selecting a stage arrangement changes future focus without an immediate st
 });
 test('each stage is offered once through save restore and returning to the same life state',()=>{
   const life=make(13,{school:{stage:'junior',endsAt:15}});offerFocusStage(life);choose(life,'balance');
+  // A newly available childhood request can follow the stage choice. Finish
+  // it before simulating a later age so it cannot block the next stage.
+  while(life.pending)choose(life,life.pending.options.find(option=>option.id==='wait')?.id||life.pending.options[0].id);
   const restored=JSON.parse(JSON.stringify(life));
   assert.equal(offerFocusStage(restored),false);
   restored.age=14;restored.year++;assert.equal(offerFocusStage(restored),false);

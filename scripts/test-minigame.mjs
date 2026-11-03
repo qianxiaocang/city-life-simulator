@@ -340,7 +340,10 @@ test('legacy records hide era explanations and baby bills and display RMB withou
     assert.equal(page.visibleRecord({age:0,text:{zhCN:text}}),false);
   }
   assert.equal(page.visibleRecord({age:0,text:{zhCN:'家人把小小的你抱在怀里。'}}),true);
-  assert.equal(page.visibleRecord({age:6,text:{zhCN:'本年的求学与生活开支中，家人承担约 ¥3,000。'}}),true);
+  assert.equal(page.visibleRecord({age:16,text:{zhCN:'本年的求学与生活开支中，家人承担约 ¥3,000。'}}),false);
+  page.store.current.flags={firstWorkedAge:20};
+  assert.equal(page.visibleRecord({age:19,text:{zhCN:'本年的生活开支中，家人承担约 ¥3,000。'}}),false);
+  assert.equal(page.visibleRecord({age:20,text:{zhCN:'本年的生活开支中，家人承担约 ¥3,000。'}}),true);
   assert.equal(page.L({zhCN:'模型折合人民币 ¥26,892'}),' ¥26,892');
   assert.equal(page.L({zhCN:'原生家庭承担约 ¥200。'}),'家人承担约 ¥200。');
   assert.equal(page.amount(0),game.money(0,'zh-CN'));

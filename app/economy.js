@@ -40,7 +40,11 @@ export function ensureEconomyState(life){
   life.loans.student.balance=Object.hasOwn(storedStudent,'balance')?positive(storedStudent.balance):positive(oldStudent.balance);
   const legacyMortgage=!life.loans.mortgage&&positive(life.debt)>0&&positive(life.assets.house)>0?positive(life.debt)-life.loans.student.balance:0;
   life.loans.mortgage={balance:Math.max(0,legacyMortgage),annualPayment:positive(life.flags.mortgagePayment),rate:.035,remainingYears:25,...(life.loans.mortgage||{})};
-  if(life.job||life.lastJob||positive(life.totals.earned)>0)life.everWorked=true;
+  if(life.job||life.lastJob||(life.years||[]).some(row=>row.job))life.everWorked=true;
+  if(life.everWorked&&!Number.isFinite(life.flags.firstWorkedAge)){
+    const worked=(life.years||[]).filter(row=>row.job).map(row=>row.age);
+    life.flags.firstWorkedAge=worked.length?Math.min(...worked):life.age;
+  }
   syncDebt(life);
   ensureAccounts(life);
   return life;
@@ -56,6 +60,7 @@ function reserveFamilyAid(life,amount){
 function familyShareOfExpense(life,amount,purpose){
   const remaining=familyAidRemaining(life);
   if(!remaining||!amount)return 0;
+  if(purpose==='family-request'&&!life.everWorked&&!life.job&&(life.age<18||life.school))return Math.min(amount,remaining);
   if(life.age<18)return Math.min(amount,remaining);
   if(purpose==='celebration'&&!life.everWorked&&(life.school||life.age<24))return Math.min(amount,remaining);
   if(life.school&&!life.everWorked&&['health','moving'].includes(purpose))return Math.min(amount,remaining);
@@ -70,6 +75,14 @@ export function expenseFunding(life,amount,purpose='optional'){
   const familyPaid=total<0?0:Math.round(familyShareOfExpense(life,total,purpose)*100)/100;
   const personalPaid=total-familyPaid;
   return {total,familyPaid,personalPaid,affordable:total>=0&&personalPaid<=life.money+1e-7};
+}
+/** A requested gift is paid entirely by living parents, never by a child's savings or debt. */
+export function requestFamilyPurchase(life,amount){
+  ensureEconomyState(life);
+  if(!Number.isFinite(amount)||amount<=0||life.everWorked||life.job||!(life.age<18||life.school))return false;
+  const quote=expenseFunding(life,amount,'family-request');
+  if(!quote.affordable||quote.familyPaid<amount)return false;
+  return spend(life,amount,'family-request');
 }
 export function canSpend(life,amount,purpose='optional'){return expenseFunding(life,amount,purpose).affordable;}
 /** Optional spending never creates a loan or a negative cash balance. */
@@ -88,7 +101,7 @@ export function spend(life,amount,purpose='optional'){
   }
   recordFlow(life,purpose.startsWith('purchase-house')?'capital-outlay':'spending:'+purpose,-amount);
   noteCashChange(life,before,life.money);
-  if(familyPaid&&Array.isArray(life.log)){
+  if(familyPaid&&purpose!=='family-request'&&Array.isArray(life.log)){
     const total=Math.round(amount).toLocaleString('zh-CN'),aid=Math.round(familyPaid).toLocaleString('zh-CN'),own=Math.round(personalPaid).toLocaleString('zh-CN');
     const expense=EXPENSE_NAMES[purpose];
     const label=expense?T(`这次${expense.zhCN}支出`,`這次${expense.zhTW}支出`,`${expense.en} expense`):T('这笔支出','這筆支出','expense');
@@ -288,7 +301,7 @@ export function economyYear(life,env={}){
     envLog(env,life,T('本学年的教育费用仍有缺口，需要申请奖助、调整学校或与家人商量；没有生成普通消费贷款。','本學年的教育費用仍有缺口，需要申請獎助、調整學校或與家人商量；沒有產生一般消費貸款。','An education funding gap remains. Seek aid, discuss family support or consider another school; no consumer loan was created.'),'education');
   }else delete life.flags.educationFundingGap;
   const livingPaid=Math.min(life.money,living);life.money-=livingPaid;recordFlow(life,'household-consumption',-livingPaid);
-  if(familySupport>0&&life.age>=6){
+  if(familySupport>0&&life.everWorked){
     const amount=Math.round(familySupport).toLocaleString('zh-CN');
     const subject=school?T('本年的求学与生活开支','本年的求學與生活開支','This year’s study and living costs'):T('本年的生活开支','本年的生活開支','This year’s living costs');
     envLog(env,life,T(`${subject.zhCN}中，家人承担约 ¥${amount}。`,`${subject.zhTW}中，家人承擔約 ¥${amount}。`,`${subject.en} included about ¥${amount} from your family.`),'money');
@@ -315,7 +328,7 @@ export function economyYear(life,env={}){
   syncDebt(life);
   reconcile(life);
   life.lastCashflow={currencyBasis:'CNY-2025-model',grossEmploymentIncome:grossEmployment,taxAndSocial:deductions,takeHomeRatio:grossEmployment?earned/grossEmployment:null,housing:housing*livingFactor,retirementCare,medicalShock,income:Math.round(earned+partnerIncome),employmentIncome:Math.round(earned),partnerContribution:Math.round(partnerIncome),familySupport:Math.round(familySupport),scholarship:Math.round(scholarship),basicRelief:Math.round(basicRelief),living:Math.round(livingPaid),carRunningCost:Math.round(carRunningCost*livingFactor*(life.flags.frugal===true?.85:1)),unmetLiving:Math.round(unmetLiving),education:Math.round(educationPaid),unfundedEducation:Math.round(educationGap),borrowing:Math.round(borrowed),studentRepayment:Math.round(debts.studentRepayment),mortgageRepayment:Math.round(debts.mortgageRepayment),interestPaid:Math.round(debts.interestPaid),returns,change:Math.round(life.money-starting)};
-  noteCashChange(life,starting,life.money);
+  if(life.everWorked)noteCashChange(life,starting,life.money);
   return life;
 }
 function stableIncome(life){return positive(life.job?.salary)||positive(life.income);}

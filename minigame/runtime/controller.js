@@ -272,7 +272,10 @@ const pageDefinition = {
   visibleRecord(event) {
     const text = game.valueText(event.text, 'zh-CN');
     if (event.historicalEraId || /^(?:你生活的时代|你生活的時代|时代进入新的阶段|時代進入新的階段|Your historical setting|A new historical phase)[：:]/.test(text)) return false;
-    return !(event.age < 6 && /本年的(?:求学与生活|求學與生活|生活)开支|本年的(?:求學與生活|生活)開支|This year’s (?:study and )?living costs/.test(text));
+    const life=this.currentLife();
+    const workedAges=(life?.years||[]).filter(row=>row.job).map(row=>row.age);
+    const firstWorkedAge=life?.flags?.firstWorkedAge??(workedAges.length?Math.min(...workedAges):life?.everWorked?life.age:Infinity);
+    return !(event.age < firstWorkedAge && /本年的(?:求学与生活|求學與生活|生活)开支|本年的(?:求學與生活|生活)開支|This year’s (?:study and )?living costs/.test(text));
   },
   eventText(event) { const text = this.L(event.text); return event.date && text.startsWith(`${event.date} · `) ? text.slice(event.date.length + 3) : text; },
   birthplaceOptions(settings = this.store.settings) {

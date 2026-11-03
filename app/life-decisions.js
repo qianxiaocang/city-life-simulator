@@ -1,4 +1,4 @@
-import {getEconomyShopItems, purchaseEconomyItem, homeTerms, spend, canSpend} from './economy.js';
+import {getEconomyShopItems, purchaseEconomyItem, homeTerms, spend, canSpend, requestFamilyPurchase} from './economy.js';
 
 // Costs, opportunities and cooldowns below are game parameters. Customs are
 // optional experiences, never requirements for marriage, study or family life.
@@ -8,7 +8,7 @@ const scale=life=>Math.max(1000,Number(life.profile?.typicalIncome)||0);
 const livingParents=life=>[life.family?.mother,life.family?.father].filter(p=>p?.alive);
 const childKey=child=>`${child.birthYear}:${child.name?.zhCN||child.name?.en||'child'}`;
 const schoolKey=school=>`${school.year??school.startedAt}:${school.label?.zhCN||school.stage}`;
-export const LIFE_DECISION_TOPICS=['home','car','pet','wedding','baby-banquet','admission-banquet','new-year','gift','child-learning','parent-care','driving','rental','skills','trip','home-goods','retirement-hobby'];
+export const LIFE_DECISION_TOPICS=['child-wish','school-pocket','school-animal','home','car','pet','wedding','baby-banquet','admission-banquet','new-year','gift','child-learning','parent-care','driving','rental','skills','trip','home-goods','retirement-hobby'];
 
 function state(life){
   life.flags??={};
@@ -71,8 +71,33 @@ function ceremony(life,occasion){
     free('thanks',T('向老师和家人写信道谢','向老師和家人寫信道謝','Write thanks to teachers and family'),T('不办宴席，把谢意认真说出来。','不辦宴席，把謝意認真說出來。','Thank people personally without a banquet.'),{relationships:3,happiness:2}),
     free('study',T('不办酒席，准备新的求学生活','不辦宴席，準備新的求學生活','Skip the banquet and prepare for study'),T('不增加开支，为入学整理行李与计划。','不增加開支，為入學整理行李與計劃。','Spend nothing extra and prepare for the new term.'),{knowledge:1,happiness:2})]};
 }
+function familyRequest(life,id,label,ratio,item,effects={},extra={}){
+  const requestCost=Math.max(5,Math.round(scale(life)*ratio));
+  return choice(id,label,T(`约 ¥${amount(requestCost)}，和父母商量后再买；也可以等一等。`,`約 ¥${amount(requestCost)}，與父母商量後再買；也可以等等。`,`About CNY ${amount(requestCost)}. Ask your parents first; waiting is also fine.`),0,effects,{requestCost,requestItem:item,...extra});
+}
+function childhoodScenarios(life){
+  if(life.everWorked||life.job||!livingParents(life).length)return [];
+  const wait=free('wait',T('先不买，和家人一起玩','先不買，和家人一起玩','Enjoy time with family instead'),T('珍惜已有的东西，把心愿留到以后。','珍惜已有的東西，把心願留到以後。','Enjoy what you have and save the wish for later.'),{relationships:2,happiness:1});
+  if(life.age<=5){
+    const baby=life.age<2,preschool=life.age>=4;
+    const toy=baby?T('一个摇铃','一個搖鈴','a rattle'):T('一盒积木','一盒積木','a set of blocks');
+    const book=baby?T('一本布书','一本布書','a cloth book'):preschool?T('一盒彩笔和画纸','一盒彩筆及畫紙','crayons and drawing paper'):T('一本图画书','一本圖畫書','a picture book');
+    return [{topic:'child-wish',cooldown:2,title:T('小小的心愿','小小的心願','A little wish'),description:baby?T('你盯着新玩具伸出小手，家人笑着猜你的心意。想把哪一样带回家？','你望著新玩具伸出小手，家人笑著猜你心意。想把哪一樣帶回家？','You reach toward the toys while your parents try to guess which you like.'):T('路过商店，你看中了喜欢的东西。可以向父母说出心愿，也可以留到下次。','路過商店，你看中喜歡的東西。可以向父母說出心願，也可以留待下次。','Something catches your eye at a shop. Tell your parents what you want, or wait until another day.'),options:[
+      familyRequest(life,'toy',baby?T('伸手指向摇铃','伸手指向搖鈴','Reach for the rattle'):T('请父母买一盒积木','請父母買一盒積木','Ask for a set of blocks'),.001,toy,{happiness:3}),
+      familyRequest(life,'drawing',preschool?T('想要彩笔，画出自己的小世界','想要彩筆，畫出自己的小世界','Ask for crayons to draw your world'):T('想和家人一起翻看新书','想和家人一起翻看新書','Choose a book to enjoy together'),.0007,book,{knowledge:1,happiness:2}),wait]}];
+  }
+  if(!life.school)return [];
+  const rows=[{topic:'school-pocket',cooldown:2,title:T('想和父母商量一点零花钱','想與父母商量一點零用錢','Ask your parents for a small spending budget'),description:T('放学路上，你惦记着一件想买的东西。先说清用途和价格，再听听父母的意见。','放學路上，你惦記一件想買的東西。先說清用途與價格，再聽聽父母意見。','You have something in mind after school. Explain what you want and its price before deciding together.'),options:[
+    familyRequest(life,'stationery',T('买笔记本和喜欢的文具','買筆記本及喜歡的文具','Buy notebooks and stationery'),.0008,T('笔记本和文具','筆記本及文具','notebooks and stationery'),{knowledge:1,happiness:1}),
+    familyRequest(life,'hobby',T('买一本课外书','買一本課外書','Choose a book outside class'),.001,T('一本课外书','一本課外書','a book to read outside class'),{knowledge:2,happiness:1}),
+    familyRequest(life,'ball',T('和父母商量买一个球','與父母商量買一個球','Ask for a ball to play with'),.0015,T('一个运动用球','一個運動用球','a ball for sports'),{health:1,happiness:2}),wait]}];
+  if(!state(life).petAdopted&&life.age>=6&&life.age<18)rows.push({topic:'school-animal',cooldown:4,title:T('想养一条小鱼，可以吗？','想養一條小魚，可以嗎？','Could we keep a little fish?'),description:T('你想有一个小伙伴。父母先和你商量鱼缸、食物与照料：养动物需要长期负责。','你想有一個小夥伴。父母先與你商量魚缸、食物與照料：養動物需要長期負責。','You ask for a small companion. Discuss a tank, food and daily care with your parents before making a commitment.'),options:[
+    familyRequest(life,'fish',T('请父母帮忙准备，一起照料','請父母幫忙準備，一起照料','Ask your parents to help and share the care'),.003,T('小鱼、鱼缸和饲料','小魚、魚缸及飼料','a fish, tank and food'),{relationships:2,happiness:3},{requestPet:true}),
+    free('observe',T('先到公园看鱼，学习怎么照顾','先到公園看魚，學習如何照顧','Observe fish at a park and learn about care'),T('先了解习性和照料方法，暂不把动物带回家。','先了解習性與照料方法，暫不把動物帶回家。','Learn about their needs before bringing an animal home.'),{knowledge:1,relationships:1}),wait]});
+  return rows;
+}
 function ordinaryScenarios(life){
-  const s=state(life),rows=[],income=scale(life),adult=life.age>=18,working=!!life.job&&!life.retired;
+  const s=state(life),rows=childhoodScenarios(life),income=scale(life),adult=life.age>=18,working=!!life.job&&!life.retired;
   const add=(topic,title,description,options,cooldown=5)=>{
     const available=options.filter(o=>!o.cost||canSpend(life,o.cost,o.purchase?'purchase-'+o.purchase:o.purpose||'family'));
     if(available.length>=2)rows.push({topic,title,description,options:available,cooldown});
@@ -159,6 +184,21 @@ export function resolveLifeDecision(life,pending,optionId,env){
   const s=state(life),data=pending.data||{},selected=data.options?.find(o=>o.id===optionId);
   if(!selected)return true;
   if(data.scenario==='pet'&&['cat','dog'].includes(optionId)&&s.petAdopted)return true;
+  if(selected.requestCost){
+    if(!childhoodScenarios(life).some(row=>row.topic===data.scenario)||selected.requestPet&&s.petAdopted)return true;
+    if(!requestFamilyPurchase(life,selected.requestCost)){
+      env.log(life,T('家人听完了你的心愿，商量后决定先缓一缓。你们约好珍惜已有的东西，等合适的时候再考虑。','家人聽完你的心願，商量後決定先等等。你們約好珍惜已有的東西，待合適時再考慮。','Your family listened and decided to wait. You agreed to enjoy what you have and revisit the wish later.'),'family',{relationships:1});
+      return true;
+    }
+    const item=selected.requestItem;
+    env.log(life,T(`父母答应了你的心愿，花了 ¥${amount(selected.requestCost)}，为你准备了${item.zhCN}。`,`父母答應你的心願，花了 ¥${amount(selected.requestCost)}，為你準備了${item.zhTW}。`,`Your parents agreed and spent CNY ${amount(selected.requestCost)} on ${item.en} for you.`),'family',selected.effects);
+    if(selected.requestPet){
+      s.petAdopted=true;s.pet={kind:'fish',adoptedAt:life.age,years:0,lifespan:env.integer(life,3,5),alive:true,inHome:true,familySupported:true,annualCostRatio:.0015};
+      env.log(life,T('小鱼住进了家里。你和父母约好一起喂食、换水，不因一时新鲜忽略照料。','小魚住進家裡。你與父母約好一起餵食、換水，不因一時新鮮忽略照料。','The fish came home. You and your parents agreed to share feeding, water changes and continuing care.'),'family');
+    }
+    return true;
+  }
+
   // Recheck actual payment/purchase eligibility at selection time, including saves.
   if(selected.purchase){
     if(!purchaseEconomyItem(life,selected.purchase,env))env.log(life,T('当前资金或生活条件已变化，这次购买暂缓，你保留了积蓄。','目前資金或生活條件已變，這次購買暫緩，你保留積蓄。','Your funds or circumstances changed. The purchase was postponed and you kept your savings.'),'money');
@@ -197,9 +237,10 @@ export function lifeDecisionYear(life,env){
     env.log(life,T('陪伴多年的宠物走到了生命尽头。你认真安放了这段共同生活的记忆。','陪伴多年的寵物走到生命盡頭。你認真安放這段共同生活的記憶。','Your pet reached the end of its life after years together. You kept the memory of that companionship.'),'family',{happiness:-3});
     return;
   }
-  const cost=Math.round(scale(life)*.018);
-  if(spend(life,cost,'pet-care')){
-    env.log(life,T(`你为宠物的食物、清洁与日常照护支出 ¥${amount(cost)}。`,`你為寵物食物、清潔與日常照護支出 ¥${amount(cost)}。`,`You spent CNY ${amount(cost)} on pet food, cleaning and routine care.`),'spending',{happiness:1});
+  const cost=Math.round(scale(life)*(pet.annualCostRatio||.018));
+  const familyCare=pet.familySupported&&!life.everWorked&&!life.job;
+  if(familyCare?requestFamilyPurchase(life,cost):spend(life,cost,'pet-care')){
+    env.log(life,familyCare?T('你和父母一起照料小鱼，家里为它备好了食物和清洁用品。','你與父母一起照料小魚，家裡為牠備好食物與清潔用品。','You and your parents cared for the fish and prepared its food and cleaning supplies.'):T(`你为宠物的食物、清洁与日常照护支出 ¥${amount(cost)}。`,`你為寵物食物、清潔與日常照護支出 ¥${amount(cost)}。`,`You spent CNY ${amount(cost)} on pet food, cleaning and routine care.`),'spending',{happiness:1});
   }else{
     pet.inHome=false;
     env.log(life,T('生活预算难以继续承担养宠开支，你联系可信赖的家人或领养人，为宠物安排了稳定的新照护。','生活預算難以繼續承擔養寵開支，你聯絡可信賴家人或領養人，為寵物安排穩定新照護。','When your budget could no longer cover pet care, you arranged a stable new home with trusted family or an adopter.'),'family',{happiness:-2});

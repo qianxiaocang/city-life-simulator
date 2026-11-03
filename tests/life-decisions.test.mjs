@@ -127,9 +127,9 @@ test('era gates exclude mortgages before market access and motor cars before the
   assert.notEqual(early.pending.data.scenario,'car');
   const young=fixture({age:10,year:1970,everWorked:false,job:null});assert.equal(offerLifeDecision(young,env()),false);
 });
-test('all sixteen topics have translated, distinct and affordable ways to choose',()=>{
+test('all life topics have translated, distinct choices with a free alternative',()=>{
   for(const topic of LIFE_DECISION_TOPICS){
-    const life=fixture();life.family.partner={alive:true,married:true,marriedYear:2020,name:T('伴侣')};
+    const life=topic==='child-wish'?student(4):topic==='school-pocket'||topic==='school-animal'?student(10):fixture();life.family.partner={alive:true,married:true,marriedYear:2020,name:T('伴侣')};
     life.family.children=[{alive:true,age:8,name:T('小安'),birthYear:2018}];
     if(topic==='retirement-hobby')life.retired=true;
     if(topic==='wedding')notifyLifeMilestone(life,'marriage');
@@ -140,4 +140,61 @@ test('all sixteen topics have translated, distinct and affordable ways to choose
     for(const text of [p.title,p.description,...p.options.flatMap(o=>[o.label,o.description])])for(const lang of ['zhCN','zhTW','en'])assert.ok(text[lang]?.length>0,`${topic} ${lang}`);
     assert.ok(p.data.options.some(o=>o.cost===0),`${topic} free alternative`);
   }
+});
+
+const student=(age=10,extra={})=>fixture({age,year:2026,birthYear:2026-age,money:0,income:0,everWorked:false,job:null,school:age>=6?{stage:'primary'}:null,classRank:3,...extra});
+test('preschool requests match development and parents pay without a child cash balance',()=>{
+  for(const age of [0,1,3,5]){
+    const life=student(age),pending=offer(life,'child-wish');
+    assert.equal(pending.options.length,3);
+    assert.equal(pending.data.options.some(option=>/彩笔/.test(option.label.zhCN)),age>=4);
+    resolve(life,'toy');
+    assert.equal(life.money,0);assert.equal(life.debt,0);
+    assert.ok(life.flags.familyAidUsed>0);
+    assert.ok(life.log.some(event=>event.text.zhCN.includes('父母答应')));
+    assert.equal(life.log.some(event=>event.text.zhCN.includes('你支付')),false);
+    assert.ok(Math.abs(reconcile(life))<.01);
+  }
+});
+test('pocket requests remain available for school and university but cannot spend a child savings when family budget is exhausted',()=>{
+  for(const age of [6,12,20]){
+    const life=student(age,{school:{stage:age===20?'university':'primary'}});
+    offer(life,'school-pocket');resolve(life,'stationery');
+    assert.equal(life.money,0);assert.ok(life.flags.familyAidUsed>0);assert.equal(life.debt,0);
+  }
+  const life=student(12,{money:500});
+  offer(life,'school-pocket');life.flags.familyAidYear=life.year;life.flags.familyAidUsed=1e9;
+  const knowledge=life.stats.knowledge;
+  resolve(life,'hobby');
+  assert.equal(life.money,500);assert.equal(life.stats.knowledge,knowledge);
+  assert.ok(life.log.some(event=>event.text.zhCN.includes('先缓一缓')));
+  assert.equal(life.debt,0);
+});
+test('family requests cannot be accepted after starting work or losing the parents who could pay',()=>{
+  for(const change of [life=>{life.job={salary:50000};life.everWorked=true;},life=>{life.family.mother.alive=false;life.family.father.alive=false;}]){
+    const life=student(10);offer(life,'school-pocket');change(life);
+    resolve(life,'stationery');
+    assert.equal(life.flags.familyAidUsed||0,0);
+    assert.equal(life.log.some(event=>event.text.zhCN.includes('父母答应')),false);
+  }
+});
+test('a school animal request starts a real pet with recurring family care and prevents duplicate adoption',()=>{
+  const life=student(10);offer(life,'school-animal');resolve(life,'fish');
+  assert.equal(life.lifeDecisions.pet.kind,'fish');
+  assert.equal(life.lifeDecisions.pet.inHome,true);
+  assert.equal(life.lifeDecisions.petAdopted,true);
+  life.age++;life.year++;
+  const aid=life.flags.familyAidUsed;
+  lifeDecisionYear(life,env());
+  assert.equal(life.lifeDecisions.pet.years,1);
+  assert.ok(life.flags.familyAidUsed>0);assert.notEqual(life.flags.familyAidUsed,aid);
+  assert.equal(life.debt,0);assert.ok(Math.abs(reconcile(life))<.01);
+  life.pending=null;focus(life,'school-animal');offerLifeDecision(life,env());
+  assert.notEqual(life.pending?.data.scenario,'school-animal');
+});
+test('waiting on a childhood wish costs nothing and the same topic observes its cooldown',()=>{
+  const life=student(3);offer(life,'child-wish');resolve(life,'wait');
+  assert.equal(life.totals.spent,0);assert.equal(life.flags.familyAidUsed||0,0);
+  focus(life,'child-wish');offerLifeDecision(life,env());
+  assert.notEqual(life.pending?.data.scenario,'child-wish');
 });

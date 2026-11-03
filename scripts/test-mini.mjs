@@ -610,3 +610,22 @@ test('cached mine page survives restart and makes zero cloud requests',async()=>
  const sandbox={module:{exports:{}},wx,console,setTimeout,clearTimeout};vm.runInNewContext(readFileSync(resolve(miniRoot,'lib/memorial-cloud.js'),'utf8'),sandbox);
  const result=await sandbox.module.exports.loadPage(0,'mine');assert.equal(result.items[0].id,'cached-life');assert.equal(calls,0);
 });
+
+test('childhood requests run through normal decision scheduling without pre-work bills or extra age slots',()=>{
+  let requests=0;
+  for(const seed of ['family-wishes-1','family-wishes-2','family-wishes-3']){
+    const life=mini.startLife(mini.createLife({location:mini.locations[0],locations:mini.locations,seed,birthYear:2026}));
+    for(let step=0;step<240&&life.age<24&&life.phase!=='dead';step++){
+      if(life.pending){
+        const request=life.pending.data?.options?.find(option=>option.requestCost);
+        if(request)requests++;
+        mini.choose(life,request?.id||life.pending.options[0].id);
+      }else mini.advanceYear(life);
+      assert.ok(Object.values(life.decisionState.presentedByAge).every(count=>count<=2));
+      assert.ok(life.money>=0);
+      const first=life.flags.firstWorkedAge??Infinity;
+      assert.equal(life.log.some(event=>event.age<first&&/本年的.*开支/.test(event.text.zhCN)),false);
+    }
+  }
+  assert.ok(requests>=6,`expected childhood and school requests, got ${requests}`);
+});

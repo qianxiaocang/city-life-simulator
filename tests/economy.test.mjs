@@ -90,7 +90,7 @@ test('unaffordable secondary tuition is not disguised as a child living subsidy 
   assert.equal(life.lastCashflow.unfundedEducation,46400);
   assert.equal(life.lastCashflow.unmetLiving,0);
   assert.equal(life.debt,0);
-  assert.ok(life.events.some(entry=>entry.text.zhCN.includes('家人承担')));
+  assert.equal(life.events.some(entry=>entry.text.zhCN.includes('家人承担')),false);
 });
 test('working adults pay most of a supported expense themselves and lose support when parents are gone',()=>{
   const worker=make({age:27,classRank:4,money:10000,job:{salary:100000,years:1},log:[],logSequence:0});
@@ -259,4 +259,14 @@ test('young children receive family support without a household spending bill in
     assert.equal(child.debt,0);
     assert.equal(child.accounts.reconciliationError,0);
   }
+});
+
+test('annual household bills begin with the first job and do not appear for nonworking students',()=>{
+  const student=make({age:20,school:{stage:'university',endsAt:23,annualTuition:500,livingCost:1000},log:[]});
+  economyYear(student,env);
+  assert.equal((student.events||[]).some(event=>/本年的.*开支/.test(event.text.zhCN)),false);
+  student.age++;student.year++;student.school.familyContribution=1000;student.job={salary:1000};
+  economyYear(student,env);
+  assert.equal(student.flags.firstWorkedAge,21);
+  assert.ok(student.events.some(event=>/本年的求学与生活开支/.test(event.text.zhCN)));
 });

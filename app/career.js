@@ -22,7 +22,7 @@ const ENTRY_NAMES={
 export function ensureCareerState(life){
   life.qualifications||={};
   life.contributionYears=Number.isFinite(life.contributionYears)?life.contributionYears:0;
-  life.everWorked=life.everWorked??!!(life.job||life.lastJob||life.totals?.earned);
+  life.everWorked=life.everWorked??!!(life.job||life.lastJob||life.years?.some(row=>row.job));
   life.birthMonth=Number.isInteger(life.birthMonth)?life.birthMonth:1;
   life.culturalSeen||={};
   if(life.job){
@@ -125,7 +125,7 @@ export function acceptCareer(life,job,env,registration=null){
   life.workHistory||=[];if(life.job)life.lastJob={...life.job};
   life.workHistory.push({id:job.id,sector:job.sector,year:life.year,age:life.age});
   life.job={...canonical,...job,years:0,marketIncomeReference:life.profile.typicalIncome};
-  life.everWorked=true;life.retired=false;life.income=job.salary;life.focus='balance';
+  life.everWorked=true;life.flags.firstWorkedAge??=life.age;life.retired=false;life.income=job.salary;life.focus='balance';
   // A new eligible job after an earlier retirement has its own category and
   // retirement date. The old one-shot offer flag must not suppress it forever.
   life.flags.retirementOffered=false;
