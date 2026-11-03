@@ -283,3 +283,16 @@ test('parallel lives retain six statistics and place my-lives entry below them',
  for(const fact of page.data.archiveFacts)assert.ok(texts.some(row=>row.value===fact.label));
  assert.ok(texts.find(row=>row.value==='到过地点').y>texts.find(row=>row.value==='馆藏人生').y);
 });
+
+test('light controls use light surfaces while dark controls retain their original colors',()=>{
+ const {ui,page}=uiHarness();page.data.modal='';
+ Object.assign(page.data,{person:{year:2002,career:'尚未工作',income:'¥0'},speeds:[1,2,4,8,12,16],speed:16,progress:20});
+ Object.assign(page.data.ui,{thisYear:'这一年',yearUnit:'年',pause:'暂停',next:'下个抉择',advance:'推进一年',autopilot:'托管人生'});
+ for(const theme of ['light','dark']){
+  page.data.theme=theme;ui.p=ui.palette();const boxes=[],original=ui.box.bind(ui);ui.box=(...args)=>{boxes.push(args);original(...args);};ui.footer();ui.box=original;
+  const footer=boxes.find(box=>box[0]===0&&box[2]===ui.width&&box[3]===ui.footerHeight);
+  assert.equal(footer[4],theme==='light'?'#edf4ee':'#1d2221');
+  const active=ui.hits.filter(hit=>hit.action==='speed'&&hit.value===16).at(-1);const fill=boxes.find(box=>box[0]===active.x&&box[1]===active.y&&box[2]===active.w&&box[3]===active.h);
+  assert.equal(fill[4],theme==='light'?'#21745b':'#f1eee5');
+ }
+});
