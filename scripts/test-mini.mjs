@@ -629,3 +629,15 @@ test('childhood requests run through normal decision scheduling without pre-work
   }
   assert.ok(requests>=6,`expected childhood and school requests, got ${requests}`);
 });
+
+test('birth works on mobile JavaScript runtimes without Object.hasOwn',()=>{
+  const sandbox={module:{exports:{}},console};
+  vm.createContext(sandbox);
+  vm.runInContext('Object.hasOwn = undefined;',sandbox);
+  vm.runInContext(bundle,sandbox);
+  const game=sandbox.module.exports;
+  const life=game.startLife(game.createLife({location:game.locations[0],locations:game.locations,seed:'mobile-birth',birthYear:2026}));
+  assert.equal(life.phase,'life');
+  assert.ok(life.name);
+  assert.equal(life.loans.student.balance,0);
+});

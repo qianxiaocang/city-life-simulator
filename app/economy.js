@@ -37,7 +37,7 @@ export function ensureEconomyState(life){
   life.loans.student.borrowedByYear={...(oldStudent.borrowedByYear||{}),...(storedStudent.borrowedByYear||{})};
   // The split-loan ledger is canonical once present. A stale compatibility
   // alias from an imported save must never resurrect already repaid principal.
-  life.loans.student.balance=Object.hasOwn(storedStudent,'balance')?positive(storedStudent.balance):positive(oldStudent.balance);
+  life.loans.student.balance=Object.prototype.hasOwnProperty.call(storedStudent,'balance')?positive(storedStudent.balance):positive(oldStudent.balance);
   const legacyMortgage=!life.loans.mortgage&&positive(life.debt)>0&&positive(life.assets.house)>0?positive(life.debt)-life.loans.student.balance:0;
   life.loans.mortgage={balance:Math.max(0,legacyMortgage),annualPayment:positive(life.flags.mortgagePayment),rate:.035,remainingYears:25,...(life.loans.mortgage||{})};
   if(life.job||life.lastJob||(life.years||[]).some(row=>row.job))life.everWorked=true;
